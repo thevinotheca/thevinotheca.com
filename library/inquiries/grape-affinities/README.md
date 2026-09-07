@@ -4,7 +4,7 @@ A map of how grape varieties relate to one another. An interactive force-directe
 
 ## Live Site
 
-**[→ Open Grape Affinities](https://jskarabot18.github.io/tasterank-explorer/)**
+**[→ Open Grape Affinities](/library/inquiries/grape-affinities/)**
 
 ## What's Inside
 
@@ -35,7 +35,7 @@ A map of how grape varieties relate to one another. An interactive force-directe
 
 ## How to Use
 
-Open the [live site](https://jskarabot18.github.io/tasterank-explorer/) in any modern browser. Click any node to see its sensory profile and connected varieties. Click a community in the left panel to isolate it. Use the search bar to find a specific grape. Drag nodes to rearrange the layout. Press `Esc` to reset.
+Open the [live site](/library/inquiries/grape-affinities/) in any modern browser. Click any node to see its sensory profile and connected varieties. Click a community in the left panel to isolate it. Use the search bar to find a specific grape. Drag nodes to rearrange the layout. Press `Esc` to reset.
 
 To run locally, open `index.html` in a browser — no build tools or server required.
 

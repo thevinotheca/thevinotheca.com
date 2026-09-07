@@ -4,7 +4,7 @@ An interactive map of the world's greatest vineyard sites, organized by grape va
 
 ## Live Site
 
-**[→ Open the Vineyard Atlas](https://jskarabot18.github.io/grand-cru-atlas/)**
+**[→ Open the Vineyard Atlas](/library/maps/vineyard-atlas/)**
 
 ## What's Inside
 
@@ -25,7 +25,7 @@ An interactive map of the world's greatest vineyard sites, organized by grape va
 
 ## How to Use
 
-Open the [live site](https://jskarabot18.github.io/grand-cru-atlas/) in any modern browser. Click a grape category in the left panel to filter the map, click any pin for vineyard details, or use the search bar to find a specific vineyard, region, or producer. Press `Esc` to reset the view.
+Open the [live site](/library/maps/vineyard-atlas/) in any modern browser. Click a grape category in the left panel to filter the map, click any pin for vineyard details, or use the search bar to find a specific vineyard, region, or producer. Press `Esc` to reset the view.
 
 To run locally, simply open `index.html` in a browser — no build tools or server required.
 

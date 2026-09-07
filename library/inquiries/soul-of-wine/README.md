@@ -4,7 +4,7 @@
 
 An anthropological and sociological study of wine region identity, asking whether the cultural character of a wine region can be predicted from its physical terroir. The answer, measured across 59 regions and 16 countries, is no.
 
-🔗 **[Explore the project →](https://jskarabot18.github.io/soul-of-wine)**
+🔗 **[Explore the project →](/library/inquiries/soul-of-wine/)**
 
 ---
 
@@ -48,22 +48,18 @@ The study employs a dual-layer architecture:
 
 | Tool | Description |
 | --- | --- |
-| [**Cluster Explorer**](https://jskarabot18.github.io/soul-of-wine/visualizations/cluster-explorer.html) | Radar charts showing the D-score identity profile of each region. Filter by cluster, click any region for its soul metaphor and character summary. |
-| [**Cluster Map**](https://jskarabot18.github.io/soul-of-wine/visualizations/cluster-map.html) | Regions projected onto principal components — identity PCA (left) and terroir PCA (right). If terroir determined identity, the two plots would show the same structure. They do not. |
-| [**Movement Map**](https://jskarabot18.github.io/soul-of-wine/visualizations/movement-map.html) | Alluvial diagram showing how regions flow from terroir clusters to identity clusters. The criss-crossing bands are the visual proof of independence. |
-| [**D-Score Dashboard**](https://jskarabot18.github.io/soul-of-wine/visualizations/d-score-dashboard.html) | The full 59 × 6 score matrix. Colour-coded, sortable, filterable by cluster, country, or world. |
 
 ## Research Documents
 
 | Document | Description |
 | --- | --- |
-| [**The Map and the Soul**](https://jskarabot18.github.io/soul-of-wine/docs/SoulOfWine_Narrative.pdf) | The full narrative paper — hypothesis, related literature across four academic fields, methodology, results, implications, and a plain-language guide for the wine-focused reader. |
-| [**Summary**](https://jskarabot18.github.io/soul-of-wine/docs/SoulOfWine_Summary.pdf) | Plain-language overview of the study: the question, the data, the methodology, the findings, and the principal cluster contents. |
-| [**Technical Appendix**](https://jskarabot18.github.io/soul-of-wine/docs/SoulOfWine_Technical_Appendix.pdf) | Mathematical framework, algorithms, and implementation. Encoding maps for the two layers, dimensionality reduction and clustering pipelines, similarity construction, and the formal statistical tests of independence. |
-| [**Methods Primer**](https://jskarabot18.github.io/soul-of-wine/docs/SoulOfWine_Methods_Primer.pdf) | A non-technical guide to the statistical and network methods used in the study: TF-IDF, PCA, K-means, silhouette, ARI, and the chi-squared test. |
-| [**Data Appendix**](https://jskarabot18.github.io/soul-of-wine/docs/SoulOfWine_Data_Appendix.pdf) | The complete D-score matrix, cluster membership tables, pipeline parameters, SME review change log, and source materials. |
-| [**Region Reference — Identity**](https://jskarabot18.github.io/soul-of-wine/docs/layer1-descriptions.pdf) | The 59 anthropological identity narratives (shared with Region Affinities and Region Resonances). |
-| [**Region Reference — Terroir**](https://jskarabot18.github.io/soul-of-wine/docs/layer2-descriptions.pdf) | The 59 factual terroir profiles (shared with Region Affinities). |
+| [**The Map and the Soul**](/library/inquiries/soul-of-wine/docs/SoulOfWine_Narrative.pdf) | The full narrative paper — hypothesis, related literature across four academic fields, methodology, results, implications, and a plain-language guide for the wine-focused reader. |
+| [**Summary**](/library/inquiries/soul-of-wine/docs/SoulOfWine_Summary.pdf) | Plain-language overview of the study: the question, the data, the methodology, the findings, and the principal cluster contents. |
+| [**Technical Appendix**](/library/inquiries/soul-of-wine/docs/SoulOfWine_Technical_Appendix.pdf) | Mathematical framework, algorithms, and implementation. Encoding maps for the two layers, dimensionality reduction and clustering pipelines, similarity construction, and the formal statistical tests of independence. |
+| [**Methods Primer**](/library/inquiries/soul-of-wine/docs/SoulOfWine_Methods_Primer.pdf) | A non-technical guide to the statistical and network methods used in the study: TF-IDF, PCA, K-means, silhouette, ARI, and the chi-squared test. |
+| [**Data Appendix**](/library/inquiries/soul-of-wine/docs/SoulOfWine_Data_Appendix.pdf) | The complete D-score matrix, cluster membership tables, pipeline parameters, SME review change log, and source materials. |
+| [**Region Reference — Identity**](/library/inquiries/soul-of-wine/docs/layer1-descriptions.pdf) | The 59 anthropological identity narratives (shared with Region Affinities and Region Resonances). |
+| [**Region Reference — Terroir**](/library/inquiries/soul-of-wine/docs/layer2-descriptions.pdf) | The 59 factual terroir profiles (shared with Region Affinities). |
 
 ## Repository Structure
 
@@ -92,13 +88,8 @@ soul-of-wine/
 │   ├── SoulOfWine_Methods_Primer.tex   LaTeX source — Methods Primer
 │   ├── SoulOfWine_Data_Appendix.tex    LaTeX source — Data Appendix
 │   └── vinotheca.sty                   Shared Vinotheca LaTeX package
-├── analysis/
-│   └── pipeline.py                     Reproducible analysis pipeline
-└── visualizations/
-    ├── cluster-explorer.html           Radar chart explorer
-    ├── cluster-map.html                PCA scatter plots (identity + terroir)
-    ├── movement-map.html               Terroir → Identity alluvial diagram
-    └── d-score-dashboard.html          Full score matrix
+└── analysis/
+    └── pipeline.py                     Reproducible analysis pipeline
 ```
 
 The four canonical PDFs (Summary, Technical Appendix, Methods Primer, Data Appendix) are byte-identical to the same documents shipped at `region-affinities/public/docs/` — they are the shared documentation of The Soul of Wine + Region Affinities Work, per the Vinotheca §2 architecture (two faces, shared PDFs).

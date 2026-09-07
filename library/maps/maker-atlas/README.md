@@ -1,6 +1,6 @@
 # The Maker Atlas
 
-A curated global reference of wine makers — estates, domaines, and houses across the world's principal wine regions — presented as a clickable world map with a downloadable PDF companion volume. Sibling instrument to [The Vineyard Atlas](https://github.com/jskarabot18/grand-cru-atlas) within [Vinotheca](https://jskarabot18.github.io/vinotheca/).
+A curated global reference of wine makers — estates, domaines, and houses across the world's principal wine regions — presented as a clickable world map with a downloadable PDF companion volume. Sibling instrument to [The Vineyard Atlas](https://github.com/jskarabot18/grand-cru-atlas) within [Vinotheca](/).
 
 The atlas answers a specific question: where, on the map of the world, are the wine makers of established reputation, and what do they make? It is a curated reference, not a ranking — makers appear because they illustrate their region or grape clearly, not because they are ranked above others.
 
@@ -33,7 +33,7 @@ Published under the **Creative Commons Attribution-NonCommercial 4.0 Internation
 
 ## Part of Vinotheca
 
-- [Vinotheca](https://jskarabot18.github.io/vinotheca/) — the umbrella library
+- [Vinotheca](/) — the umbrella library
 - [The Vineyard Atlas](https://github.com/jskarabot18/grand-cru-atlas) — sibling volume, organized by grape rather than by place
 - [Codex Vini](https://github.com/jskarabot18/codex-vini) — the personal-track instrument
 

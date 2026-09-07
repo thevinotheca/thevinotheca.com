@@ -4,7 +4,7 @@
 
 A graph-theoretic study of how 101 grape varieties relate to one another in thirteen-dimensional sensory space. The most central grapes are not the most celebrated; the red–white boundary is permeable; the network's structure is not what the trade vocabulary would predict.
 
-🔗 **[Read the study →](https://jskarabot18.github.io/body-of-wine)**
+🔗 **[Read the study →](/library/inquiries/body-of-wine/)**
 
 ---
 
@@ -53,7 +53,7 @@ The study uses graph-theoretic methods on a thirteen-dimensional sensory encodin
 
 | Tool | Description |
 | --- | --- |
-| [**Grape Affinities**](https://jskarabot18.github.io/tasterank-explorer/) | Interactive force-directed visualisation of the 101-variety network. Click any grape to see its sensory profile and its five closest kin. Browse the six natural families. The navigable form of this study. |
+| [**Grape Affinities**](/library/inquiries/grape-affinities/) | Interactive force-directed visualisation of the 101-variety network. Click any grape to see its sensory profile and its five closest kin. Browse the six natural families. The navigable form of this study. |
 
 ## Research Documents
 
@@ -61,11 +61,11 @@ The five documents are hosted in the `tasterank-explorer` repository, alongside 
 
 | Document | Description |
 | --- | --- |
-| [**Summary**](https://jskarabot18.github.io/tasterank-explorer/docs/summary.pdf) | The full plain-language overview — the question, the encoding, the network construction, the centrality finding, the community structure, and the principal results. |
-| [**Technical Appendix**](https://jskarabot18.github.io/tasterank-explorer/docs/technical-appendix.pdf) | The full mathematical framework — cosine similarity, the kNN graph, eigenvector centrality with Perron–Frobenius reasoning, PageRank, modularity, and the implementation pipeline. |
-| [**Methods Primer**](https://jskarabot18.github.io/tasterank-explorer/docs/methods-primer.pdf) | A non-technical guide to the procedure for readers who want to follow the reasoning without the equations. Companion to the Technical Appendix. |
-| [**Data Appendix**](https://jskarabot18.github.io/tasterank-explorer/docs/data-appendix.pdf) | The complete 101-variety table with sensory profile scores, community assignments, TasteRank scores, and pipeline parameters. |
-| [**Grape Reference**](https://jskarabot18.github.io/tasterank-explorer/docs/grape-reference.pdf) | Per-variety descriptive notes covering the character, regional expression, and stylistic range of each of the 101 grapes in the network. |
+| [**Summary**](/library/inquiries/grape-affinities/docs/summary.pdf) | The full plain-language overview — the question, the encoding, the network construction, the centrality finding, the community structure, and the principal results. |
+| [**Technical Appendix**](/library/inquiries/grape-affinities/docs/technical-appendix.pdf) | The full mathematical framework — cosine similarity, the kNN graph, eigenvector centrality with Perron–Frobenius reasoning, PageRank, modularity, and the implementation pipeline. |
+| [**Methods Primer**](/library/inquiries/grape-affinities/docs/methods-primer.pdf) | A non-technical guide to the procedure for readers who want to follow the reasoning without the equations. Companion to the Technical Appendix. |
+| [**Data Appendix**](/library/inquiries/grape-affinities/docs/data-appendix.pdf) | The complete 101-variety table with sensory profile scores, community assignments, TasteRank scores, and pipeline parameters. |
+| [**Grape Reference**](/library/inquiries/grape-affinities/docs/grape-reference.pdf) | Per-variety descriptive notes covering the character, regional expression, and stylistic range of each of the 101 grapes in the network. |
 
 ## Repository Structure
 

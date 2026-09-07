@@ -2,11 +2,11 @@
 
 *In vino, cognitio.*
 
-A personal record of winemakers I have met — every encounter, plotted on a map, filterable by country, region, event, and affinity signals. A sibling to [Codex Vini](https://jskarabot18.github.io/codex-vini/) and part of [Vinotheca](https://jskarabot18.github.io/vinotheca/).
+A personal record of winemakers I have met — every encounter, plotted on a map, filterable by country, region, event, and affinity signals. A sibling to [Codex Vini](/chronicle/codex-vini/) and part of [Vinotheca](/).
 
 ## Live site
 
-**[→ Open Codex Vinitorum](https://jskarabot18.github.io/codex-vinitorum/)**
+**[→ Open Codex Vinitorum](/chronicle/codex-vinitorum/)**
 
 ## What's inside
 
@@ -60,7 +60,7 @@ The architectural decision is locked in [PROJECT.md §6.5](https://github.com/js
 
 ## How to use
 
-Open the [live site](https://jskarabot18.github.io/codex-vinitorum/) in any modern browser. Use the filters in The Book panel to narrow by country, region, event, or signal. Click any row to fly the map to that winemaker and open their popup. Click any of the **Reset** buttons or press `Esc` to clear all filters.
+Open the [live site](/chronicle/codex-vinitorum/) in any modern browser. Use the filters in The Book panel to narrow by country, region, event, or signal. Click any row to fly the map to that winemaker and open their popup. Click any of the **Reset** buttons or press `Esc` to clear all filters.
 
 To run locally, use a local server (`python3 -m http.server` from the repo root) and open `http://localhost:8000/`. The page loads `winemakers.json` and `regions.json` via `fetch()`, which most browsers block under the `file://` protocol — opening `index.html` by double-click will render the layout but show no entries.
 
@@ -139,7 +139,7 @@ See the parent [Vinotheca PROJECT.md](https://github.com/jskarabot18/vinotheca/b
 
 This codex grew out of two decades of attending winemaker tastings, dinners, and estate visits. It is a personal reference tool — a record of encounters with the people who make the wine, organised for my own lookup and reflection.
 
-The companion record of wines tasted lives at [Codex Vini](https://jskarabot18.github.io/codex-vini/). The two codices share the same Personal Codex register but do not cross-reference: a wine in Codex Vini may or may not have been made by a winemaker in Codex Vinitorum, and the two records are kept separate by design.
+The companion record of wines tasted lives at [Codex Vini](/chronicle/codex-vini/). The two codices share the same Personal Codex register but do not cross-reference: a wine in Codex Vini may or may not have been made by a winemaker in Codex Vinitorum, and the two records are kept separate by design.
 
 
 ## License

@@ -2,11 +2,11 @@
 
 *In vino veritas.*
 
-An interactive personal wine atlas — every wine I have tasted, plotted on a map, filterable by country, region, grape, colour, and rating. A sibling to [The Vineyard Atlas](https://jskarabot18.github.io/grand-cru-atlas/).
+An interactive personal wine atlas — every wine I have tasted, plotted on a map, filterable by country, region, grape, colour, and rating. A sibling to [The Vineyard Atlas](/library/maps/vineyard-atlas/).
 
 ## Live site
 
-**[→ Open Codex Vini](https://jskarabot18.github.io/codex-vini/)**
+**[→ Open Codex Vini](/chronicle/codex-vini/)**
 
 ## What's inside
 
@@ -45,7 +45,7 @@ Each wine is tagged with:
 
 ## How to use
 
-Open the [live site](https://jskarabot18.github.io/codex-vini/) in any modern browser. Use the filters in the left panel to narrow by country, grape, colour, or rating. Click any pin on the map for a full wine card. Click any row in The Book to fly the map to that wine. Click any of the **Reset** buttons or press `Esc` to clear all filters and return the map to its default Europe view.
+Open the [live site](/chronicle/codex-vini/) in any modern browser. Use the filters in the left panel to narrow by country, grape, colour, or rating. Click any pin on the map for a full wine card. Click any row in The Book to fly the map to that wine. Click any of the **Reset** buttons or press `Esc` to clear all filters and return the map to its default Europe view.
 
 To run locally, use a local server (`python3 -m http.server` from the repo root) and open `http://localhost:8000/`. The page loads `wines.json`, `grapes.json`, and `regions.json` via `fetch()`, which most browsers block under the `file://` protocol — opening `index.html` by double-click will render the layout but show zero wines. As an alternative, open `codex-vini-preview.html` directly; it has the data embedded and works without a server.
 
@@ -114,7 +114,7 @@ Borderline cases are handled individually.
 
 This project grew out of 20+ years of wine collecting and tasting. It is a personal reference tool — a codex of every wine I have notable memory of having tasted, organized for my own lookup and reflection.
 
-The grape reference draws on my [TasteRank Grape Variety Reference](https://jskarabot18.github.io/tasterank-explorer/), which provides one-paragraph profiles of 101 varieties. The regional terroir profiles draw on my [Soul of Wine](https://jskarabot18.github.io/soul-of-wine/) project.
+The grape reference draws on my [TasteRank Grape Variety Reference](/library/inquiries/grape-affinities/), which provides one-paragraph profiles of 101 varieties. The regional terroir profiles draw on my [Soul of Wine](/library/inquiries/soul-of-wine/) project.
 
 ## License
 
