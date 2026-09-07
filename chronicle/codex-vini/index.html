@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codex Vini — A Personal Wine Atlas</title>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/leaflet.markercluster.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.markercluster/1.5.3/MarkerCluster.css"/>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --bordeaux:#5B1A2D;--bordeaux-dark:#3A1019;--bordeaux-tint:#F5E8EB;
+  --ink:#1C1A18;--ink-soft:#55504A;--ink-faint:#8A837C;
+  --paper:#FAF6F1;--paper-raised:#FFFDF8;
+  --rule:#E6DED1;--rule-soft:#F0E8DB;--gold:#A37B3D;
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{font-family:var(--sans);background:var(--paper);color:var(--ink);font-size:14px;line-height:1.5;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:1;background-image:radial-gradient(circle at 20% 30%,rgba(163,123,61,0.015) 0%,transparent 40%),radial-gradient(circle at 80% 70%,rgba(91,26,45,0.012) 0%,transparent 40%);opacity:0.6}
+#app{position:relative;z-index:2;max-width:1440px;margin:0 auto;padding:0 32px 60px}
+
+header{padding:40px 0 28px;border-bottom:1px solid var(--rule)}
+.title-row{display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.brand{display:flex;flex-direction:column;gap:8px}
+h1.title{font-family:var(--serif);font-size:54px;font-weight:500;color:var(--bordeaux);letter-spacing:-0.02em;line-height:1}
+h1.title em{font-style:italic;font-weight:400}
+.subtitle{font-size:13px;color:var(--ink-faint);letter-spacing:0.1em;text-transform:uppercase;font-weight:500}
+.header-motto{font-family:var(--serif);font-style:italic;font-size:16px;font-weight:400;color:var(--bordeaux);letter-spacing:0.01em;margin-top:4px}
+.header-motto em{font-style:italic}
+.meta{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.author{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-soft)}
+
+.add-wine-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  font-family:var(--sans);font-size:12.5px;font-weight:600;
+  letter-spacing:0.04em;text-transform:uppercase;
+  padding:9px 16px;
+  background:var(--bordeaux);color:#fff;
+  border:1px solid var(--bordeaux);
+  text-decoration:none;
+  transition:background .15s, transform .15s, box-shadow .15s;
+  box-shadow:0 1px 2px rgba(91,26,45,0.15);
+}
+.add-wine-btn:hover{
+  background:var(--bordeaux-dark);
+  border-color:var(--bordeaux-dark);
+  transform:translateY(-1px);
+  box-shadow:0 2px 6px rgba(91,26,45,0.25);
+}
+.add-wine-btn:focus{
+  outline:1px dotted var(--bordeaux);outline-offset:3px;
+}
+.add-wine-btn svg{
+  width:11px;height:11px;stroke:#fff;stroke-width:2.2;fill:none;
+}
+@media(max-width:700px){
+  .add-wine-btn{padding:8px 14px;font-size:12px}
+}
+
+.docs-row{
+  margin-top:24px;
+  padding-top:18px;
+  border-top:1px solid var(--rule-soft);
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+}
+.docs-label{
+  font-family:var(--sans);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;
+  font-weight:600;color:var(--ink-faint);margin-right:4px;
+}
+.docs-pill{
+  display:inline-block;font-family:var(--sans);font-size:11.5px;font-weight:500;
+  padding:6px 14px;border:1px solid var(--bordeaux);color:var(--bordeaux);
+  text-decoration:none;transition:all .12s;background:transparent;
+  letter-spacing:0.02em;
+}
+.docs-pill:hover{background:var(--bordeaux);color:#fff}
+.docs-pill:focus{outline:1px dotted var(--bordeaux);outline-offset:3px}
+@media(max-width:700px){
+  .docs-row{gap:6px}
+  .docs-pill{padding:5px 10px;font-size:11px}
+  .docs-label{width:100%;margin-bottom:4px}
+}
+
+.eco-row{
+  margin-top:14px;
+  display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+  font-size:10px;letter-spacing:0.18em;text-transform:uppercase;font-weight:500;
+}
+.eco-label{
+  color:var(--ink-faint);font-weight:600;
+}
+.eco-row a{
+  color:var(--ink-soft);text-decoration:none;transition:color .15s;
+}
+.eco-row a:hover{color:var(--bordeaux)}
+@media(max-width:700px){
+  .eco-row{gap:14px;font-size:9.5px}
+  .eco-label{width:100%;margin-bottom:2px}
+}
+
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--rule);margin:36px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.stat{background:var(--paper);padding:22px 24px;display:flex;flex-direction:column;gap:4px}
+.stat-value{font-family:var(--serif);font-size:38px;font-weight:500;color:var(--bordeaux);line-height:1;letter-spacing:-0.02em}
+.stat-label{font-size:10.5px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.12em;font-weight:500;margin-top:6px}
+
+.section{margin-top:48px}
+.section-head{display:flex;align-items:baseline;gap:16px;padding-bottom:14px;margin-bottom:20px;border-bottom:1px solid var(--rule);flex-wrap:wrap}
+.section-head h2{font-family:var(--serif);font-size:28px;font-weight:500;color:var(--ink);letter-spacing:-0.01em}
+.section-head h2 em{font-style:italic;color:var(--bordeaux)}
+.section-head .section-sub{font-size:12px;color:var(--ink-faint);font-style:italic}
+
+.explore{display:grid;grid-template-columns:280px 1fr;gap:24px;height:680px}
+.filter-panel{background:var(--paper-raised);border:1px solid var(--rule);overflow-y:auto}
+.filter-panel::-webkit-scrollbar{width:6px}
+.filter-panel::-webkit-scrollbar-thumb{background:var(--rule);border-radius:3px}
+.filter-section{padding:18px 22px;border-bottom:1px solid var(--rule-soft)}
+.filter-section:last-child{border-bottom:none}
+.filter-label{font-size:10px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.12em;font-weight:600;margin-bottom:12px}
+
+#search{width:100%;padding:10px 12px;border:1px solid var(--rule);background:var(--paper);font-family:var(--sans);font-size:13px;color:var(--ink);outline:none;transition:border-color .15s}
+#search:focus{border-color:var(--bordeaux)}
+#search::placeholder{color:var(--ink-faint)}
+
+.chip-grid{display:flex;flex-wrap:wrap;gap:5px}
+.chip{padding:4px 10px;border:1px solid var(--rule);background:var(--paper);font-family:var(--sans);font-size:11.5px;color:var(--ink-soft);cursor:pointer;transition:all .12s;display:inline-flex;align-items:center;gap:5px;user-select:none;line-height:1.4}
+.chip:hover{border-color:var(--bordeaux);color:var(--bordeaux)}
+.chip.active{background:var(--bordeaux);border-color:var(--bordeaux);color:#fff}
+.chip-count{font-size:10px;opacity:0.7;font-variant-numeric:tabular-nums}
+.chip .dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.rating-chip{font-family:var(--mono);font-variant-numeric:tabular-nums;font-weight:500;min-width:42px;justify-content:center}
+
+.reset-bar{padding:12px 22px;background:var(--bordeaux-tint);border-bottom:1px solid var(--rule-soft);display:flex;align-items:center;justify-content:space-between;font-size:11.5px;color:var(--bordeaux)}
+.btn-reset{font-family:var(--sans);background:none;border:1px solid var(--bordeaux);color:var(--bordeaux);padding:3px 10px;cursor:pointer;font-size:10.5px;letter-spacing:0.06em;text-transform:uppercase;font-weight:600;transition:all .12s}
+.btn-reset:hover{background:var(--bordeaux);color:#fff}
+
+#map-container{background:var(--paper-raised);border:1px solid var(--rule);overflow:hidden;position:relative}
+#map{width:100%;height:100%}
+
+.wine-pin{border-radius:50%;border:1.5px solid rgba(255,253,248,0.95);box-shadow:0 1px 4px rgba(0,0,0,0.25),0 0 0 0.5px rgba(28,26,24,0.3);transition:transform .15s,box-shadow .15s;cursor:pointer}
+.wine-pin:hover{transform:scale(1.35);box-shadow:0 3px 10px rgba(0,0,0,0.35),0 0 0 2px var(--bordeaux);z-index:9999!important}
+
+.leaflet-popup-content-wrapper{border-radius:2px;font-family:var(--sans);background:var(--paper-raised);box-shadow:0 4px 20px rgba(0,0,0,0.15);border:1px solid var(--rule);padding:0}
+.leaflet-popup-tip{background:var(--paper-raised);border:1px solid var(--rule)}
+.leaflet-popup-content{margin:0;min-width:240px;line-height:1.45}
+.popup{padding:14px 18px}
+.popup-producer{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--bordeaux);line-height:1.1;margin-bottom:4px}
+.popup-wine{font-family:var(--serif);font-size:15px;font-style:italic;color:var(--ink);line-height:1.2;margin-bottom:8px}
+.popup-meta{font-size:11px;color:var(--ink-faint);display:flex;gap:8px;align-items:center;margin-bottom:4px}
+.popup-meta .sep{opacity:0.4}
+.popup-rating{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding-top:8px;border-top:1px solid var(--rule);font-size:12px;color:var(--ink-soft)}
+.popup-rating strong{font-family:var(--serif);font-size:18px;color:var(--bordeaux);font-weight:600}
+
+.marker-cluster-small,.marker-cluster-medium,.marker-cluster-large{background:rgba(91,26,45,0.15)}
+.marker-cluster-small div,.marker-cluster-medium div,.marker-cluster-large div{background:var(--bordeaux);color:#fff;font-family:var(--sans);font-weight:600;font-size:11px;line-height:28px}
+
+.table-head-bar{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:14px;border-bottom:1px solid var(--rule);margin-bottom:20px;gap:16px;flex-wrap:wrap}
+
+/* Compact filter bar above the book table */
+.book-filters{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:14px 16px;padding:18px 0 22px;margin-bottom:8px;border-bottom:1px solid var(--rule-soft)}
+.book-filter{display:flex;flex-direction:column;gap:6px;min-width:0}
+.book-filter-label{font-size:9.5px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.12em;font-weight:600;line-height:1}
+.book-filter input[type="text"], .book-filter select{
+  width:100%;padding:7px 10px;border:1px solid var(--rule);background:var(--paper);
+  font-family:var(--sans);font-size:12.5px;color:var(--ink);outline:none;
+  transition:border-color .15s;line-height:1.3;
+  -webkit-appearance:none;-moz-appearance:none;appearance:none;
+  border-radius:0;
+}
+.book-filter input[type="text"]:focus, .book-filter select:focus{border-color:var(--bordeaux)}
+.book-filter input[type="text"]::placeholder{color:var(--ink-faint)}
+.book-filter select{
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'><path d='M0 0L4 5L8 0Z' fill='%238A837C'/></svg>");
+  background-repeat:no-repeat;background-position:right 10px center;padding-right:24px;cursor:pointer;
+}
+
+/* Range sliders (rating + vintage) — show two thumbs side by side via two inputs */
+.range-filter{display:flex;align-items:center;gap:6px;padding:4px 0}
+.range-filter input[type="number"]{
+  width:50px;padding:4px 6px;border:1px solid var(--rule);background:var(--paper);
+  font-family:var(--mono);font-size:11.5px;color:var(--ink);outline:none;
+  text-align:center;font-variant-numeric:tabular-nums;
+  -moz-appearance:textfield;border-radius:0;
+}
+.range-filter input[type="number"]::-webkit-outer-spin-button,
+.range-filter input[type="number"]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.range-filter input[type="number"]:focus{border-color:var(--bordeaux)}
+.range-filter .range-sep{font-size:11px;color:var(--ink-faint);user-select:none}
+
+@media (max-width:1100px){
+  .book-filters{grid-template-columns:repeat(3,1fr)}
+}
+@media (max-width:680px){
+  .book-filters{grid-template-columns:repeat(2,1fr)}
+}
+.results-count{font-size:11.5px;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+.results-count strong{font-family:var(--serif);font-size:14px;color:var(--bordeaux);font-weight:600}
+
+.table-wrap{background:var(--paper-raised);border:1px solid var(--rule);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+thead{background:var(--paper);border-bottom:1.5px solid var(--rule)}
+th{text-align:left;padding:14px 18px;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;font-weight:600;color:var(--ink-faint);cursor:pointer;user-select:none;white-space:nowrap;transition:color .12s;position:relative}
+th:hover{color:var(--bordeaux)}
+th.sorted{color:var(--bordeaux)}
+th.sorted::after{content:attr(data-arrow);margin-left:5px;font-size:9px}
+th.rating-col,td.rating-col{text-align:right}
+tbody tr{border-bottom:1px solid var(--rule-soft);transition:background .1s;cursor:pointer}
+tbody tr:hover{background:var(--bordeaux-tint)}
+tbody tr:last-child{border-bottom:none}
+td{padding:12px 18px;vertical-align:middle}
+td.producer-cell{font-family:var(--serif);font-size:15px;font-weight:500;color:var(--ink);white-space:nowrap;max-width:220px;overflow:hidden;text-overflow:ellipsis}
+td.wine-cell{font-family:var(--serif);font-style:italic;color:var(--ink-soft);max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+td.vintage-cell{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);font-variant-numeric:tabular-nums}
+td.region-cell{color:var(--ink-soft);white-space:nowrap;font-size:12.5px}
+td.country-cell{color:var(--ink-faint);font-size:11.5px;font-style:italic}
+td.grape-cell{font-size:12px}
+td.grape-cell .grape-wrap{display:flex;align-items:center;gap:7px;white-space:nowrap}
+td.grape-cell .dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+td.rating-cell{font-family:var(--serif);font-size:17px;font-weight:600;color:var(--bordeaux);font-variant-numeric:tabular-nums}
+td.date-cell{font-family:var(--mono);font-size:11px;color:var(--ink-faint);font-variant-numeric:tabular-nums;white-space:nowrap}
+.empty-state{padding:60px 30px;text-align:center;color:var(--ink-faint);font-style:italic}
+.empty-state em{font-family:var(--serif);font-size:15px;color:var(--ink-soft)}
+
+.chart-hero{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px;margin-bottom:24px}
+.chart-card{background:var(--paper-raised);border:1px solid var(--rule);padding:22px 24px;position:relative}
+.chart-card h3{font-family:var(--serif);font-size:18px;font-weight:500;color:var(--ink);margin-bottom:2px}
+.chart-card .chart-sub{font-size:11.5px;color:var(--ink-faint);font-style:italic;margin-bottom:16px}
+.chart-wrap{position:relative;height:220px}
+.chart-card-tall{background:var(--paper-raised);border:1px solid var(--rule);padding:22px 24px;margin-bottom:24px}
+.chart-card-tall .chart-wrap{height:auto;min-height:240px}
+
+footer{
+  margin-top:80px;padding:44px 24px 36px;
+  text-align:center;
+  border-top:1px solid var(--rule-soft);
+}
+.footer-motto{
+  font-family:var(--serif);font-style:italic;font-size:22px;font-weight:400;
+  color:var(--bordeaux);letter-spacing:0.01em;margin-bottom:26px;
+}
+.footer-motto em{font-style:italic}
+.footer-copyright{
+  font-size:10.5px;letter-spacing:0.22em;text-transform:uppercase;font-weight:500;
+  color:var(--ink-faint);
+}
+@media(max-width:700px){
+  footer{margin-top:50px;padding:32px 16px 28px}
+  .footer-motto{font-size:18px;margin-bottom:20px}
+}
+
+@media(max-width:1100px){
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .chart-hero{grid-template-columns:1fr}
+  .explore{grid-template-columns:1fr;height:auto}
+  .filter-panel{max-height:500px}
+  #map-container{height:500px}
+}
+@media(max-width:700px){
+  #app{padding:0 18px 40px}
+  h1.title{font-size:38px}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .stat-value{font-size:30px}
+  th,td{padding:10px 12px}
+  td.producer-cell{font-size:13.5px;max-width:140px}
+  td.wine-cell{max-width:160px}
+  .modal{margin:0}
+  .modal-head{padding:18px 22px 14px}
+  .modal-body{padding:18px 22px 24px}
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+<header>
+  <div class="title-row">
+    <div class="brand">
+      <h1 class="title">Codex <em>Vini</em></h1>
+      <div class="subtitle">A Codex of Vinotheca</div>
+      <div class="header-motto">❧ <em>in vino, cognitio</em> ❧</div>
+    </div>
+    <div class="meta">
+      <div class="author">Jure Skarabot · New York</div>
+      <a class="add-wine-btn" href="add_wine.html">
+        <svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <line x1="6" y1="1.5" x2="6" y2="10.5"/>
+          <line x1="1.5" y1="6" x2="10.5" y2="6"/>
+        </svg>
+        Add Wine
+      </a>
+    </div>
+  </div>
+  <div class="docs-row">
+    <span class="docs-label">Documents</span>
+    <a class="docs-pill" href="docs/about.pdf#page=1" target="_blank" rel="noopener">About</a>
+    <a class="docs-pill" href="docs/howto.pdf#page=1" target="_blank" rel="noopener">How to update</a>
+    <a class="docs-pill" href="https://jskarabot18.github.io/tasterank-explorer/docs/grape-reference.pdf#page=1" target="_blank" rel="noopener">Grapes</a>
+    <a class="docs-pill" href="https://jskarabot18.github.io/soul-of-wine/docs/layer2-descriptions.pdf#page=1" target="_blank" rel="noopener">Regions</a>
+    <a class="docs-pill" href="docs/shrinkage.pdf#page=1" target="_blank" rel="noopener">Shrinkage</a>
+  </div>
+  <div class="eco-row">
+    <span class="eco-label">Ecosystem</span>
+    <a href="https://jskarabot18.github.io/vinotheca/">Vinotheca</a>
+    <a href="https://jskarabot18.github.io/region-affinities/">Region Affinities</a>
+    <a href="https://jskarabot18.github.io/grand-cru-atlas/">Vineyard Atlas</a>
+    <a href="https://github.com/jskarabot18/codex-vini" target="_blank" rel="noopener">GitHub</a>
+    <a href="https://github.com/jskarabot18/codex-vini/blob/main/LICENSE" target="_blank" rel="noopener">License · CC BY-NC 4.0</a>
+    <a href="mailto:hello@codexvini.com">Correspondence</a>
+  </div>
+</header>
+
+<div class="stats" id="stats"></div>
+
+<section class="section">
+  <div class="section-head">
+    <h2>The <em>book</em></h2>
+    <div class="section-sub">— every wine, every tasting</div>
+  </div>
+
+  <!-- Compact filter bar (shares state with The Atlas filter panel) -->
+  <div class="book-filters">
+    <div class="book-filter">
+      <label class="book-filter-label" for="book-search">Search</label>
+      <input type="text" id="book-search" placeholder="Producer, wine, region…" autocomplete="off"/>
+    </div>
+    <div class="book-filter">
+      <label class="book-filter-label" for="book-country">Country</label>
+      <select id="book-country"><option value="">All</option></select>
+    </div>
+    <div class="book-filter">
+      <label class="book-filter-label" for="book-grape">Grape / Category</label>
+      <select id="book-grape"><option value="">All</option></select>
+    </div>
+    <div class="book-filter">
+      <label class="book-filter-label" for="book-region">Region</label>
+      <select id="book-region"><option value="">All</option></select>
+    </div>
+    <div class="book-filter">
+      <label class="book-filter-label">Rating</label>
+      <div class="range-filter">
+        <input type="number" id="book-rating-min" min="0" max="10" step="0.1" placeholder="0.0"/>
+        <span class="range-sep">to</span>
+        <input type="number" id="book-rating-max" min="0" max="10" step="0.1" placeholder="10.0"/>
+      </div>
+    </div>
+    <div class="book-filter">
+      <label class="book-filter-label">Vintage</label>
+      <div class="range-filter">
+        <input type="number" id="book-vintage-min" min="1900" max="2100" step="1" placeholder="—"/>
+        <span class="range-sep">to</span>
+        <input type="number" id="book-vintage-max" min="1900" max="2100" step="1" placeholder="—"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="table-head-bar">
+    <div class="results-count" id="results-count"></div>
+    <button class="btn-reset" id="btn-reset-book" style="display:none">Reset filters</button>
+  </div>
+  <div class="table-wrap">
+    <table id="wine-table">
+      <thead>
+        <tr>
+          <th data-sort="producer">Producer</th>
+          <th data-sort="wine">Wine</th>
+          <th data-sort="vintage">Vintage</th>
+          <th data-sort="region">Region</th>
+          <th data-sort="country">Country</th>
+          <th data-sort="grape">Grape / Category</th>
+          <th class="rating-col" data-sort="rating">Rating</th>
+          <th data-sort="date_tasted">Tasted</th>
+        </tr>
+      </thead>
+      <tbody id="wine-tbody"></tbody>
+    </table>
+  </div>
+</section>
+
+<section class="section" id="atlas-section">
+  <div class="section-head">
+    <h2>The <em>atlas</em></h2>
+    <div class="section-sub">— filter by country, grape, colour, or rating</div>
+  </div>
+  <div class="explore">
+    <aside class="filter-panel">
+      <div class="reset-bar" id="reset-bar" style="display:none">
+        <span id="filter-summary"></span>
+        <button class="btn-reset" id="btn-reset-atlas">Reset</button>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Search</div>
+        <input type="text" id="search" placeholder="Producer, wine, region…"/>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Country</div>
+        <div class="chip-grid" id="country-chips"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Grape / Category</div>
+        <div class="chip-grid" id="grape-chips"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Colour</div>
+        <div class="chip-grid" id="color-chips"></div>
+      </div>
+      <div class="filter-section">
+        <div class="filter-label">Rating</div>
+        <div class="chip-grid" id="rating-chips"></div>
+      </div>
+    </aside>
+    <div id="map-container"><div id="map"></div></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <h2>The <em>collection</em></h2>
+    <div class="section-sub">— ratings, origins, and patterns</div>
+  </div>
+
+  <div class="chart-hero">
+    <div class="chart-card">
+      <h3>Rating distribution</h3>
+      <div class="chart-sub">highest on the left, descending</div>
+      <div class="chart-wrap"><canvas id="chart-ratings"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>By colour</h3>
+      <div class="chart-sub">share of wines by style</div>
+      <div class="chart-wrap"><canvas id="chart-color"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>Vintage distribution</h3>
+      <div class="chart-sub">tasted wines by harvest year</div>
+      <div class="chart-wrap"><canvas id="chart-vintage"></canvas></div>
+    </div>
+  </div>
+
+  <div class="chart-card-tall">
+    <h3>All countries</h3>
+    <div class="chart-sub">every country in the codex, ordered by count</div>
+    <div class="chart-wrap"><canvas id="chart-countries-all"></canvas></div>
+  </div>
+
+  <div class="chart-card-tall">
+    <h3>All regions</h3>
+    <div class="chart-sub"><span style="color:#5B1A2D;font-weight:600">Old World</span> in deep bordeaux · <span style="color:#8B3A4D;font-weight:600">New World</span> in lighter bordeaux</div>
+    <div class="chart-wrap"><canvas id="chart-regions-all"></canvas></div>
+  </div>
+
+  <div class="chart-card-tall">
+    <h3>All grape categories</h3>
+    <div class="chart-sub"><span style="color:#5B1A2D;font-weight:600">red grapes</span> in deep bordeaux · <span style="color:#8B3A4D;font-weight:600">white grapes</span> in lighter bordeaux · <span style="color:#C9A35B;font-weight:600">sparkling</span> · <span style="color:#C17A8A;font-weight:600">rosé</span></div>
+    <div class="chart-wrap"><canvas id="chart-grapes-all"></canvas></div>
+  </div>
+
+  <div class="chart-card-tall">
+    <h3>Average rating by country <span style="font-size:12px;font-weight:400;color:var(--ink-faint);font-style:italic">— shrinkage-adjusted</span></h3>
+    <div class="chart-sub">Bayesian-shrunk mean (m=5) to reduce small-sample bias — hover a bar for the raw score</div>
+    <div class="chart-wrap"><canvas id="chart-rating-country"></canvas></div>
+  </div>
+
+  <div class="chart-card-tall">
+    <h3>Average rating by grape / category <span style="font-size:12px;font-weight:400;color:var(--ink-faint);font-style:italic">— shrinkage-adjusted</span></h3>
+    <div class="chart-sub">Bayesian-shrunk mean (m=5) — small-n categories get pulled toward the global mean</div>
+    <div class="chart-wrap"><canvas id="chart-rating-grape"></canvas></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-motto">❧ <em>in vino, cognitio</em> ❧</div>
+  <div class="footer-copyright">© Jure Skarabot · MMXXVI</div>
+</footer>
+
+</div>
+
+<script>
+const GRAPE_COLORS = {
+  "Cabernet Sauvignon":"#3D1A2E","Cabernet Franc":"#6B2737","Merlot":"#7B1E2D",
+  "Bordeaux Blend":"#3D1A2E","Nebbiolo":"#8B3A2D","Barolo":"#8B3A2D",
+  "Sangiovese":"#A0432D","Chianti Classico Gran Selezione":"#A0432D",
+  "Brunello di Montalcino":"#A0432D","Tuscan Blend (Super Tuscan)":"#A0432D",
+  "Syrah":"#2D2D4A","Châteauneuf-du-Pape Blend":"#8B4513","Rhône GSM Blend":"#8B4513",
+  "Grenache":"#C44C30","Pinot Noir":"#A8243B","Gamay":"#A8243B",
+  "Tempranillo":"#6B2020","Mencía":"#8B2020","Nero d'Avola":"#5B1A2D",
+  "Nerello Mascalese":"#A8243B","Corvina":"#6B2E3F","Plavac Mali":"#7D2D20",
+  "Carignan":"#6B2A2A","Limniona":"#7D3050","Proprietary Red Blend":"#4A1520",
+  "Riesling":"#3A7CA5","Chardonnay":"#B8860B","Aligoté":"#C9A227",
+  "Grüner Veltliner":"#5B8C3A","Welschriesling":"#7DA03F","Sauvignon Blanc":"#4A8C3A",
+  "Gewürztraminer":"#C27B8C","Pinot Gris":"#9E7B5B","Vermentino":"#6B9E7B",
+  "Fiano":"#C9A35B","Albariño":"#7BA8B2","Xarel·lo":"#D4C47A",
+  "Sémillon":"#D4A74A","Chenin Blanc":"#2E7D5B",
+  "Champagne / Sparkling":"#E5C04D","Rosé":"#E89A9E"
+};
+const COLOR_FAMILIES = {"red":"#7B1E2D","white":"#C9A227","sparkling":"#E5C04D","rosé":"#E89A9E"};
+const COLOR_LABELS = {"red":"Red","white":"White","sparkling":"Sparkling","rosé":"Rosé"};
+const EUROPE_VIEW = { center: [48, 9], zoom: 4 };
+
+const RATING_BUCKETS = [
+  { key:"10.0", label:"10.0" },{ key:"9.9",  label:"9.9" },
+  { key:"9.8",  label:"9.8" },{ key:"9.7",  label:"9.7" },
+  { key:"9.6",  label:"9.6" },{ key:"9.5",  label:"9.5" },
+  { key:"9.4",  label:"9.4" },{ key:"9.3",  label:"9.3" },
+  { key:"9.2",  label:"9.2" },{ key:"under",label:"≤ 9.1" },
+];
+function ratingBucketOf(rating){
+  const r = Math.round(rating * 10) / 10;
+  if (r >= 9.2) return r.toFixed(1);
+  return "under";
+}
+
+let WINES = [], GRAPE_PROFILES = [], REGION_PROFILES = [];
+let state = {
+  search: "",
+  countries: new Set(), grapes: new Set(), regions: new Set(), colors: new Set(), ratings: new Set(),
+  ratingMin: null, ratingMax: null,
+  vintageMin: null, vintageMax: null,
+  sort: { field: "date_tasted", dir: "desc" },
+};
+
+let REGION_CLASS = {};    // region name -> {world, country}
+let GRAPE_TYPE = {};      // grape category -> 'red' | 'white' | 'sparkling' | 'rosé'
+
+async function loadData(){
+  try {
+    const [w, gp, rp, rc, gt] = await Promise.all([
+      fetch('wines.json').then(r=>r.json()),
+      fetch('grape_profiles.json').then(r=>r.json()).catch(()=>[]),
+      fetch('region_profiles.json').then(r=>r.json()).catch(()=>[]),
+      fetch('region_classifications.json').then(r=>r.json()).catch(()=>({})),
+      fetch('grape_type_map.json').then(r=>r.json()).catch(()=>({})),
+    ]);
+    WINES = w; GRAPE_PROFILES = gp; REGION_PROFILES = rp;
+    REGION_CLASS = rc; GRAPE_TYPE = gt;
+  } catch(e) { console.error('Data load failed:', e); WINES = []; }
+  init();
+}
+
+function init(){
+  renderStats();
+  renderCharts();
+  renderFilters();
+  renderBookFilters();
+  renderMap();
+  applyFilters();
+}
+
+function renderStats(){
+  const countries = new Set(WINES.map(w=>w.country)).size;
+  const regions = new Set(WINES.map(w=>w.region)).size;
+  const grapes = new Set(WINES.map(w=>w.grape)).size;
+  const avg = WINES.length ? WINES.reduce((s,w)=>s+w.rating,0) / WINES.length : 0;
+  const stats = [
+    {value: WINES.length, label: "wines tasted"},
+    {value: countries, label: "countries"},
+    {value: regions, label: "regions"},
+    {value: grapes, label: "grape categories"},
+    {value: avg.toFixed(2), label: "average rating"},
+  ];
+  document.getElementById('stats').innerHTML =
+    stats.map(s=>`<div class="stat"><div class="stat-value">${s.value}</div><div class="stat-label">${s.label}</div></div>`).join('');
+}
+
+const CHART_FONT = { family: 'DM Sans', size: 11 };
+const TICK_MONO = { family: 'JetBrains Mono', size: 10 };
+
+// Per-chart palette — deep Bordeaux is the house color.
+// Split charts pair deep Bordeaux with a lighter matching tone in the same family.
+const CHART_COLORS = {
+  bordeauxDeep:  '#5B1A2D',   // house color — count-based bar charts
+  bordeauxLight: '#8B3A4D',   // lighter matching tone for secondary group in split charts
+  // For the grape chart (up to 4 splits) we extend with two more tones from the same family
+  rose:          '#C17A8A',   // pale rose — for rosé grapes
+  champagneGold: '#C9A35B',   // warm gold — for sparkling grapes
+  // Average-rating charts — distinct colors to visually separate them from count charts
+  ratingCountry: '#3D5A5F',   // teal-slate
+  ratingGrape:   '#6B4A2D',   // chocolate-brown
+};
+
+// Bayesian shrinkage: pulls averages toward the global mean using weight m=5
+const SHRINKAGE_M = 5;
+function shrinkageAdjust(ratings, globalMean){
+  const n = ratings.length;
+  if (!n) return { raw: 0, adj: 0, n: 0 };
+  const raw = ratings.reduce((s,r)=>s+r,0) / n;
+  const adj = (n * raw + SHRINKAGE_M * globalMean) / (n + SHRINKAGE_M);
+  return { raw, adj, n };
+}
+
+function renderCharts(){
+  // Rating distribution — DESCENDING (10.0 leftmost)
+  const ratings = {};
+  WINES.forEach(w => { ratings[w.rating.toFixed(1)] = (ratings[w.rating.toFixed(1)]||0) + 1; });
+  const rLabels = Object.keys(ratings).sort((a,b)=>parseFloat(b)-parseFloat(a));
+  const rData = rLabels.map(l => ratings[l]);
+  new Chart(document.getElementById('chart-ratings'), {
+    type: 'bar',
+    data: { labels: rLabels, datasets: [{ data: rData, backgroundColor: CHART_COLORS.bordeauxDeep, borderRadius: 1 }]},
+    options: {
+      maintainAspectRatio: false, responsive: true,
+      plugins: { legend:{display:false}, tooltip:{ backgroundColor:'#1C1A18', titleFont:CHART_FONT, bodyFont:CHART_FONT, padding:10, callbacks:{ label: ctx => `${ctx.parsed.y} wine${ctx.parsed.y===1?'':'s'}` }}},
+      scales: {
+        x: { grid:{display:false}, ticks:{color:'#8A837C', font:TICK_MONO}},
+        y: { grid:{color:'#F0E8DB'}, ticks:{color:'#8A837C', font:TICK_MONO, stepSize:5, precision:0}, beginAtZero:true },
+      }
+    }
+  });
+
+  // Color share donut — keep existing multi-color palette
+  const cc = {};
+  WINES.forEach(w => { cc[w.color] = (cc[w.color]||0) + 1; });
+  const colorKeys = Object.keys(cc);
+  new Chart(document.getElementById('chart-color'), {
+    type: 'doughnut',
+    data: {
+      labels: colorKeys.map(c => COLOR_LABELS[c] || c),
+      datasets: [{
+        data: Object.values(cc),
+        backgroundColor: colorKeys.map(c => COLOR_FAMILIES[c] || '#888'),
+        borderColor: '#FFFDF8', borderWidth: 2,
+      }]
+    },
+    options: {
+      maintainAspectRatio: false, responsive: true, cutout: '62%',
+      plugins: {
+        legend:{ position:'bottom', labels:{color:'#55504A', font:CHART_FONT, padding:10, boxWidth:10, boxHeight:10}},
+        tooltip:{ backgroundColor:'#1C1A18', titleFont:CHART_FONT, bodyFont:CHART_FONT, padding:10, callbacks:{ label: ctx => `${ctx.parsed} wine${ctx.parsed===1?'':'s'}` }}
+      }
+    }
+  });
+
+  // Vintage distribution — deep Bordeaux
+  const vc = {};
+  WINES.forEach(w => { vc[w.vintage] = (vc[w.vintage]||0) + 1; });
+  const vLabels = Object.keys(vc).sort((a,b) => {
+    if (a === 'NV') return 1; if (b === 'NV') return -1;
+    return parseInt(a) - parseInt(b);
+  });
+  new Chart(document.getElementById('chart-vintage'), {
+    type: 'bar',
+    data: { labels: vLabels, datasets: [{ data: vLabels.map(l=>vc[l]), backgroundColor: CHART_COLORS.bordeauxDeep, borderRadius:1 }]},
+    options: {
+      maintainAspectRatio: false, responsive: true,
+      plugins: { legend:{display:false}, tooltip:{ backgroundColor:'#1C1A18', titleFont:CHART_FONT, bodyFont:CHART_FONT, padding:10, callbacks:{ label: ctx => `${ctx.parsed.y} wine${ctx.parsed.y===1?'':'s'}` }}},
+      scales: {
+        x: { grid:{display:false}, ticks:{color:'#8A837C', font:TICK_MONO, autoSkip:true, maxRotation:0}},
+        y: { grid:{color:'#F0E8DB'}, ticks:{color:'#8A837C', font:TICK_MONO, stepSize:2, precision:0}, beginAtZero:true },
+      }
+    }
+  });
+
+  // Global mean for shrinkage
+  const globalMean = WINES.reduce((s,w)=>s+w.rating, 0) / WINES.length;
+
+  // All countries — single uniform deep Bordeaux
+  renderCountBar('chart-countries-all', 'country', CHART_COLORS.bordeauxDeep);
+
+  // All regions — Old World in deep Bordeaux, New World in lighter Bordeaux
+  renderCountBar('chart-regions-all', 'region', null, (regionName) => {
+    const cls = REGION_CLASS[regionName];
+    return (cls && cls.world === 'New World') ? CHART_COLORS.bordeauxLight : CHART_COLORS.bordeauxDeep;
+  });
+
+  // All grape categories — reds in deep Bordeaux; whites in lighter Bordeaux; sparkling in warm gold; rosé in pale rose
+  renderCountBar('chart-grapes-all', 'grape', null, (grapeName) => {
+    const t = GRAPE_TYPE[grapeName];
+    if (t === 'white')     return CHART_COLORS.bordeauxLight;
+    if (t === 'sparkling') return CHART_COLORS.champagneGold;
+    if (t === 'rosé')      return CHART_COLORS.rose;
+    return CHART_COLORS.bordeauxDeep;  // red (default)
+  });
+
+  // Avg rating by country — shrinkage-adjusted; teal-slate
+  renderShrinkageBar('chart-rating-country', 'country', globalMean, CHART_COLORS.ratingCountry);
+
+  // Avg rating by grape — shrinkage-adjusted; chocolate-brown
+  renderShrinkageBar('chart-rating-grape', 'grape', globalMean, CHART_COLORS.ratingGrape);
+}
+
+// Count-based horizontal bar chart (no shrinkage; just sort by count)
+// colorFn: optional function that returns a color for a given label (for split coloring)
+function renderCountBar(canvasId, field, fixedColor, colorFn){
+  const counts = {};
+  WINES.forEach(w => { counts[w[field]] = (counts[w[field]]||0) + 1; });
+  const entries = Object.entries(counts).sort((a,b) => b[1] - a[1]);
+  const labels = entries.map(e => e[0]);
+  const data   = entries.map(e => e[1]);
+  const bg     = colorFn ? labels.map(l => colorFn(l)) : fixedColor;
+
+  const rowHeight = 22, minHeight = 240;
+  const chartHeight = Math.max(minHeight, labels.length * rowHeight + 40);
+  const canvas = document.getElementById(canvasId);
+  canvas.parentElement.style.height = chartHeight + 'px';
+
+  new Chart(canvas, {
+    type: 'bar',
+    data: { labels, datasets: [{ data, backgroundColor: bg, borderRadius: 1, barThickness: 14 }]},
+    options: {
+      indexAxis: 'y', maintainAspectRatio: false, responsive: true,
+      plugins: { legend:{display:false}, tooltip:{
+        backgroundColor:'#1C1A18', titleFont:CHART_FONT, bodyFont:CHART_FONT, padding:10,
+        callbacks: { label: ctx => `${ctx.parsed.x} wine${ctx.parsed.x===1?'':'s'}` }
+      }},
+      scales: {
+        x: { grid:{color:'#F0E8DB'}, beginAtZero:true, ticks:{color:'#8A837C', font:TICK_MONO}},
+        y: { grid:{display:false}, ticks:{color:'#55504A', font:{family:'DM Sans', size:11, weight:'500'}}},
+      }
+    }
+  });
+}
+
+// Shrinkage-adjusted average-rating horizontal bar chart
+// Sorted by adjusted average descending. Tooltip shows both adjusted + raw + n.
+function renderShrinkageBar(canvasId, field, globalMean, color){
+  const buckets = {};
+  WINES.forEach(w => {
+    if (!buckets[w[field]]) buckets[w[field]] = [];
+    buckets[w[field]].push(w.rating);
+  });
+  const rows = Object.entries(buckets).map(([k, arr]) => {
+    const { raw, adj, n } = shrinkageAdjust(arr, globalMean);
+    return { label: k, raw, adj, n };
+  }).sort((a,b) => b.adj - a.adj);
+
+  const labels = rows.map(r => r.label);
+  const data   = rows.map(r => r.adj);
+
+  const rowHeight = 22, minHeight = 240;
+  const chartHeight = Math.max(minHeight, labels.length * rowHeight + 40);
+  const canvas = document.getElementById(canvasId);
+  canvas.parentElement.style.height = chartHeight + 'px';
+
+  new Chart(canvas, {
+    type: 'bar',
+    data: { labels, datasets: [{ data, backgroundColor: color, borderRadius: 1, barThickness: 14 }]},
+    options: {
+      indexAxis: 'y', maintainAspectRatio: false, responsive: true,
+      plugins: { legend:{display:false}, tooltip:{
+        backgroundColor:'#1C1A18', titleFont:CHART_FONT, bodyFont:CHART_FONT, padding:10,
+        callbacks: {
+          label: ctx => {
+            const r = rows[ctx.dataIndex];
+            return [
+              `adjusted: ${r.adj.toFixed(2)}`,
+              `raw avg:  ${r.raw.toFixed(2)}  (n=${r.n})`,
+            ];
+          }
+        }
+      }},
+      scales: {
+        x: {
+          grid:{color:'#F0E8DB'}, beginAtZero:false,
+          suggestedMin: 9.0, suggestedMax: 10,
+          ticks:{color:'#8A837C', font:TICK_MONO, callback: v => v.toFixed(1)}
+        },
+        y: { grid:{display:false}, ticks:{color:'#55504A', font:{family:'DM Sans', size:11, weight:'500'}}},
+      }
+    }
+  });
+}
+
+function renderFilters(){
+  const ratingCounts = {};
+  WINES.forEach(w => { const b = ratingBucketOf(w.rating); ratingCounts[b] = (ratingCounts[b]||0) + 1; });
+  document.getElementById('rating-chips').innerHTML =
+    RATING_BUCKETS.map(b =>
+      `<div class="chip rating-chip" data-rating="${b.key}">${b.label}<span class="chip-count">${ratingCounts[b.key]||0}</span></div>`
+    ).join('');
+
+  const colors = ["red","white","sparkling","rosé"];
+  const colorCounts = {};
+  WINES.forEach(w => { colorCounts[w.color] = (colorCounts[w.color]||0) + 1; });
+  document.getElementById('color-chips').innerHTML =
+    colors.filter(c => colorCounts[c]).map(c =>
+      `<div class="chip" data-color="${c}"><span class="dot" style="background:${COLOR_FAMILIES[c]}"></span>${COLOR_LABELS[c]}<span class="chip-count">${colorCounts[c]}</span></div>`
+    ).join('');
+
+  const ctryCounts = {};
+  WINES.forEach(w => { ctryCounts[w.country] = (ctryCounts[w.country]||0) + 1; });
+  document.getElementById('country-chips').innerHTML =
+    Object.keys(ctryCounts).sort((a,b)=>ctryCounts[b]-ctryCounts[a])
+      .map(c => `<div class="chip" data-country="${c}">${c}<span class="chip-count">${ctryCounts[c]}</span></div>`).join('');
+
+  const grapeCounts = {};
+  WINES.forEach(w => { grapeCounts[w.grape] = (grapeCounts[w.grape]||0) + 1; });
+  document.getElementById('grape-chips').innerHTML =
+    Object.keys(grapeCounts).sort((a,b)=>grapeCounts[b]-grapeCounts[a] || a.localeCompare(b))
+      .map(g => `<div class="chip" data-grape="${g}"><span class="dot" style="background:${GRAPE_COLORS[g]||'#888'}"></span>${g}<span class="chip-count">${grapeCounts[g]}</span></div>`).join('');
+
+  document.querySelectorAll('#rating-chips .chip').forEach(el => el.addEventListener('click', () => {
+    const r = el.dataset.rating; if (state.ratings.has(r)) state.ratings.delete(r); else state.ratings.add(r);
+    applyFilters();
+  }));
+  document.querySelectorAll('#color-chips .chip').forEach(el => el.addEventListener('click', () => {
+    const c = el.dataset.color; if (state.colors.has(c)) state.colors.delete(c); else state.colors.add(c);
+    applyFilters();
+  }));
+  document.querySelectorAll('#country-chips .chip').forEach(el => el.addEventListener('click', () => {
+    const c = el.dataset.country; if (state.countries.has(c)) state.countries.delete(c); else state.countries.add(c);
+    applyFilters();
+  }));
+  document.querySelectorAll('#grape-chips .chip').forEach(el => el.addEventListener('click', () => {
+    const g = el.dataset.grape; if (state.grapes.has(g)) state.grapes.delete(g); else state.grapes.add(g);
+    applyFilters();
+  }));
+
+  document.getElementById('search').addEventListener('input', e => {
+    state.search = e.target.value.toLowerCase().trim(); applyFilters();
+  });
+
+  document.getElementById('btn-reset-atlas').addEventListener('click', resetAll);
+  document.getElementById('btn-reset-book').addEventListener('click', resetAll);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') resetAll();
+  });
+
+  document.querySelectorAll('th[data-sort]').forEach(th => th.addEventListener('click', () => {
+    const f = th.dataset.sort;
+    if (state.sort.field === f) state.sort.dir = state.sort.dir === 'asc' ? 'desc' : 'asc';
+    else { state.sort.field = f; state.sort.dir = (f==='rating'||f==='date_tasted'||f==='vintage') ? 'desc' : 'asc'; }
+    renderTable();
+  }));
+}
+
+// ─── Book filters (compact bar above the table; shares state with Atlas) ───
+function renderBookFilters(){
+  // Populate Country dropdown — alphabetised, with counts
+  const ctryCounts = {};
+  WINES.forEach(w => { ctryCounts[w.country] = (ctryCounts[w.country]||0) + 1; });
+  const ctrySel = document.getElementById('book-country');
+  ctrySel.innerHTML = '<option value="">All countries</option>' +
+    Object.keys(ctryCounts).sort().map(c => `<option value="${c}">${c} (${ctryCounts[c]})</option>`).join('');
+
+  // Populate Grape dropdown — by frequency, then alphabetical
+  const grapeCounts = {};
+  WINES.forEach(w => { grapeCounts[w.grape] = (grapeCounts[w.grape]||0) + 1; });
+  const grapeSel = document.getElementById('book-grape');
+  grapeSel.innerHTML = '<option value="">All grapes</option>' +
+    Object.keys(grapeCounts).sort((a,b) => grapeCounts[b]-grapeCounts[a] || a.localeCompare(b))
+      .map(g => `<option value="${g}">${g} (${grapeCounts[g]})</option>`).join('');
+
+  // Populate Region dropdown — alphabetised
+  const regCounts = {};
+  WINES.forEach(w => { regCounts[w.region] = (regCounts[w.region]||0) + 1; });
+  const regSel = document.getElementById('book-region');
+  regSel.innerHTML = '<option value="">All regions</option>' +
+    Object.keys(regCounts).sort().map(r => `<option value="${r}">${r} (${regCounts[r]})</option>`).join('');
+
+  // Set vintage range placeholders to actual min/max in the data
+  const vintages = WINES.map(w => w.vintage === 'NV' ? null : +w.vintage).filter(v => v != null);
+  if (vintages.length){
+    const vMin = Math.min(...vintages), vMax = Math.max(...vintages);
+    document.getElementById('book-vintage-min').placeholder = vMin;
+    document.getElementById('book-vintage-max').placeholder = vMax;
+  }
+
+  // Set rating placeholders to actual min/max
+  const ratings = WINES.map(w => w.rating).filter(r => r != null);
+  if (ratings.length){
+    const rMin = Math.min(...ratings).toFixed(1), rMax = Math.max(...ratings).toFixed(1);
+    document.getElementById('book-rating-min').placeholder = rMin;
+    document.getElementById('book-rating-max').placeholder = rMax;
+  }
+
+  // Wire up the events
+  document.getElementById('book-search').addEventListener('input', e => {
+    state.search = e.target.value.toLowerCase().trim();
+    // Sync the Atlas search box too
+    const atlasSearch = document.getElementById('search');
+    if (atlasSearch) atlasSearch.value = e.target.value;
+    applyFilters();
+  });
+
+  document.getElementById('book-country').addEventListener('change', e => {
+    state.countries.clear();
+    if (e.target.value) state.countries.add(e.target.value);
+    applyFilters();
+  });
+
+  document.getElementById('book-grape').addEventListener('change', e => {
+    state.grapes.clear();
+    if (e.target.value) state.grapes.add(e.target.value);
+    applyFilters();
+  });
+
+  document.getElementById('book-region').addEventListener('change', e => {
+    state.regions.clear();
+    if (e.target.value) state.regions.add(e.target.value);
+    applyFilters();
+  });
+
+  // Rating range — both inputs trigger on input + blur
+  const onRatingChange = () => {
+    const minVal = document.getElementById('book-rating-min').value;
+    const maxVal = document.getElementById('book-rating-max').value;
+    state.ratingMin = minVal === '' ? null : parseFloat(minVal);
+    state.ratingMax = maxVal === '' ? null : parseFloat(maxVal);
+    applyFilters();
+  };
+  document.getElementById('book-rating-min').addEventListener('change', onRatingChange);
+  document.getElementById('book-rating-max').addEventListener('change', onRatingChange);
+
+  // Vintage range
+  const onVintageChange = () => {
+    const minVal = document.getElementById('book-vintage-min').value;
+    const maxVal = document.getElementById('book-vintage-max').value;
+    state.vintageMin = minVal === '' ? null : parseInt(minVal, 10);
+    state.vintageMax = maxVal === '' ? null : parseInt(maxVal, 10);
+    applyFilters();
+  };
+  document.getElementById('book-vintage-min').addEventListener('change', onVintageChange);
+  document.getElementById('book-vintage-max').addEventListener('change', onVintageChange);
+}
+
+// Sync the compact book filter bar to current state (called from applyFilters)
+function syncBookFilters(){
+  const searchEl = document.getElementById('book-search');
+  if (searchEl && searchEl.value !== state.search) searchEl.value = state.search;
+
+  // Dropdowns — show first selected value if any (since the dropdown is single-select
+  // but state allows multi-select via Atlas chips)
+  const ctry = document.getElementById('book-country');
+  if (ctry) ctry.value = state.countries.size === 1 ? [...state.countries][0] : '';
+
+  const grape = document.getElementById('book-grape');
+  if (grape) grape.value = state.grapes.size === 1 ? [...state.grapes][0] : '';
+
+  const reg = document.getElementById('book-region');
+  if (reg) reg.value = state.regions.size === 1 ? [...state.regions][0] : '';
+
+  const rMin = document.getElementById('book-rating-min');
+  const rMax = document.getElementById('book-rating-max');
+  if (rMin) rMin.value = state.ratingMin == null ? '' : state.ratingMin;
+  if (rMax) rMax.value = state.ratingMax == null ? '' : state.ratingMax;
+
+  const vMin = document.getElementById('book-vintage-min');
+  const vMax = document.getElementById('book-vintage-max');
+  if (vMin) vMin.value = state.vintageMin == null ? '' : state.vintageMin;
+  if (vMax) vMax.value = state.vintageMax == null ? '' : state.vintageMax;
+}
+
+function resetAll(){
+  state.search = "";
+  state.countries.clear(); state.grapes.clear(); state.regions.clear();
+  state.colors.clear(); state.ratings.clear();
+  state.ratingMin = null; state.ratingMax = null;
+  state.vintageMin = null; state.vintageMax = null;
+  document.getElementById('search').value = "";
+  applyFilters();
+  if (map) map.flyTo(EUROPE_VIEW.center, EUROPE_VIEW.zoom, { duration: 0.8 });
+}
+
+function getFiltered(){
+  return WINES.filter(w => {
+    if (state.ratings.size){ if (!state.ratings.has(ratingBucketOf(w.rating))) return false; }
+    if (state.colors.size && !state.colors.has(w.color)) return false;
+    if (state.countries.size && !state.countries.has(w.country)) return false;
+    if (state.grapes.size && !state.grapes.has(w.grape)) return false;
+    if (state.regions.size && !state.regions.has(w.region)) return false;
+    if (state.ratingMin != null && w.rating < state.ratingMin) return false;
+    if (state.ratingMax != null && w.rating > state.ratingMax) return false;
+    if (state.vintageMin != null || state.vintageMax != null){
+      // Vintage is sometimes "NV" — exclude when a numeric range is set
+      const v = w.vintage === 'NV' ? null : +w.vintage;
+      if (v == null) return false;
+      if (state.vintageMin != null && v < state.vintageMin) return false;
+      if (state.vintageMax != null && v > state.vintageMax) return false;
+    }
+    if (state.search){
+      const hay = `${w.producer} ${w.wine} ${w.region} ${w.country} ${w.grape}`.toLowerCase();
+      if (!hay.includes(state.search)) return false;
+    }
+    return true;
+  });
+}
+
+function applyFilters(){
+  const filtered = getFiltered();
+  document.querySelectorAll('#rating-chips .chip').forEach(el => el.classList.toggle('active', state.ratings.has(el.dataset.rating)));
+  document.querySelectorAll('#color-chips .chip').forEach(el => el.classList.toggle('active', state.colors.has(el.dataset.color)));
+  document.querySelectorAll('#country-chips .chip').forEach(el => el.classList.toggle('active', state.countries.has(el.dataset.country)));
+  document.querySelectorAll('#grape-chips .chip').forEach(el => el.classList.toggle('active', state.grapes.has(el.dataset.grape)));
+
+  // Keep the compact book filter bar in sync
+  syncBookFilters();
+
+  const anyFilter = state.search || state.countries.size || state.grapes.size || state.regions.size
+    || state.colors.size || state.ratings.size
+    || state.ratingMin != null || state.ratingMax != null
+    || state.vintageMin != null || state.vintageMax != null;
+  const bar = document.getElementById('reset-bar');
+  const bookBtn = document.getElementById('btn-reset-book');
+  if (anyFilter){
+    bar.style.display = 'flex';
+    bookBtn.style.display = '';
+    const parts = [];
+    if (state.search) parts.push(`"${state.search}"`);
+    if (state.ratings.size) parts.push(`${state.ratings.size} rating${state.ratings.size>1?'s':''}`);
+    if (state.colors.size) parts.push(`${state.colors.size} colour${state.colors.size>1?'s':''}`);
+    if (state.countries.size) parts.push(`${state.countries.size} countr${state.countries.size>1?'ies':'y'}`);
+    if (state.grapes.size) parts.push(`${state.grapes.size} grape${state.grapes.size>1?'s':''}`);
+    if (state.regions.size) parts.push(`${state.regions.size} region${state.regions.size>1?'s':''}`);
+    if (state.ratingMin != null || state.ratingMax != null){
+      parts.push(`rating ${state.ratingMin ?? '…'}–${state.ratingMax ?? '…'}`);
+    }
+    if (state.vintageMin != null || state.vintageMax != null){
+      parts.push(`vintage ${state.vintageMin ?? '…'}–${state.vintageMax ?? '…'}`);
+    }
+    document.getElementById('filter-summary').textContent = `${filtered.length} of ${WINES.length} · ${parts.join(' · ')}`;
+  } else {
+    bar.style.display = 'none'; bookBtn.style.display = 'none';
+  }
+  updateMap(filtered);
+  renderTable();
+}
+
+let map, clusterGroup, markers = {};
+function renderMap(){
+  map = L.map('map', { zoomControl: true, worldCopyJump: true }).setView(EUROPE_VIEW.center, EUROPE_VIEW.zoom);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution:'&copy; <a href="https://carto.com/">CARTO</a>', maxZoom:18,
+  }).addTo(map);
+  clusterGroup = L.markerClusterGroup({
+    maxClusterRadius: 45, spiderfyOnMaxZoom: true, showCoverageOnHover: false,
+    iconCreateFunction: cluster => {
+      const n = cluster.getChildCount();
+      const size = n < 10 ? 30 : n < 30 ? 36 : 42;
+      return L.divIcon({
+        html: `<div style="background:#5B1A2D;color:#fff;border-radius:50%;width:${size}px;height:${size}px;line-height:${size}px;text-align:center;font-family:'DM Sans';font-weight:600;font-size:12px;border:2px solid #FFFDF8;box-shadow:0 2px 8px rgba(0,0,0,0.25)">${n}</div>`,
+        className: 'wine-cluster', iconSize: [size, size],
+      });
+    },
+  });
+  map.addLayer(clusterGroup);
+
+  WINES.forEach(w => {
+    const size = 10 + (w.rating - 8.9) * 5;
+    const color = GRAPE_COLORS[w.grape] || '#888';
+    const icon = L.divIcon({
+      className: '',
+      html: `<div class="wine-pin" style="width:${size}px;height:${size}px;background:${color}"></div>`,
+      iconSize: [size, size], iconAnchor: [size/2, size/2],
+    });
+    const jitter = () => (Math.random() - 0.5) * 0.15;
+    const m = L.marker([w.lat + jitter(), w.lng + jitter()], { icon });
+    m.bindPopup(`<div class="popup">
+      <div class="popup-producer">${w.producer}</div>
+      <div class="popup-wine">${w.wine} · ${w.vintage}</div>
+      <div class="popup-meta">${w.region}<span class="sep">·</span>${w.country}</div>
+      <div class="popup-meta"><span class="dot" style="display:inline-block;width:8px;height:8px;border-radius:50%;background:${color};margin-right:4px"></span>${w.grape}</div>
+      <div class="popup-rating"><strong>${w.rating.toFixed(1)}</strong> · tasted ${w.date_tasted || '—'}</div>
+    </div>`, { className: 'wine-popup' });
+    markers[w.id] = m;
+  });
+}
+
+function updateMap(filtered){
+  clusterGroup.clearLayers();
+  filtered.forEach(w => { clusterGroup.addLayer(markers[w.id]); });
+}
+
+function renderTable(){
+  const filtered = getFiltered();
+  const { field, dir } = state.sort;
+  filtered.sort((a,b) => {
+    let av = a[field], bv = b[field];
+    if (field==='rating'){av=+av;bv=+bv;}
+    else if (field==='vintage'){av=av==='NV'?0:+av;bv=bv==='NV'?0:+bv;}
+    else {av=String(av||'');bv=String(bv||'');}
+    if (av < bv) return dir==='asc' ? -1 : 1;
+    if (av > bv) return dir==='asc' ? 1 : -1;
+    return 0;
+  });
+
+  document.querySelectorAll('th[data-sort]').forEach(th => {
+    th.classList.toggle('sorted', th.dataset.sort === field);
+    th.setAttribute('data-arrow', th.dataset.sort === field ? (dir==='asc'?'↑':'↓') : '');
+  });
+
+  document.getElementById('results-count').innerHTML = `<strong>${filtered.length}</strong> of ${WINES.length} wine${WINES.length===1?'':'s'}`;
+  const tbody = document.getElementById('wine-tbody');
+  if (filtered.length === 0){
+    tbody.innerHTML = `<tr><td colspan="8" class="empty-state"><em>No wines match the current filters.</em><br>Try broadening your search, or press <kbd>Esc</kbd> to reset.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = filtered.map(w => `
+    <tr data-id="${w.id}">
+      <td class="producer-cell">${w.producer}</td>
+      <td class="wine-cell">${w.wine}</td>
+      <td class="vintage-cell">${w.vintage}</td>
+      <td class="region-cell">${w.region}</td>
+      <td class="country-cell">${w.country}</td>
+      <td class="grape-cell"><div class="grape-wrap"><span class="dot" style="background:${GRAPE_COLORS[w.grape]||'#888'}"></span>${w.grape}</div></td>
+      <td class="rating-cell rating-col">${w.rating.toFixed(1)}</td>
+      <td class="date-cell">${w.date_tasted || '—'}</td>
+    </tr>
+  `).join('');
+
+  tbody.querySelectorAll('tr[data-id]').forEach(tr => tr.addEventListener('click', () => {
+    const wine = WINES.find(w => w.id === tr.dataset.id);
+    if (wine){
+      map.flyTo([wine.lat, wine.lng], 7, { duration: 0.8 });
+      setTimeout(() => {
+        if (markers[wine.id]) clusterGroup.zoomToShowLayer(markers[wine.id], () => markers[wine.id].openPopup());
+      }, 900);
+      document.getElementById('atlas-section').scrollIntoView({ behavior:'smooth', block:'start' });
+    }
+  }));
+}
+
+
+loadData();
+</script>
+
+</body>
+</html>

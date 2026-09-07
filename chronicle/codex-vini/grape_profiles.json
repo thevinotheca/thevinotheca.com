@@ -1,0 +1,608 @@
+[
+  {
+    "name": "Aglianico",
+    "color": "red",
+    "origin": "Southern Italy (Campania, Basilicata)",
+    "profile": "One of southern Italy’s greatest noble varieties, Aglianico is thought to have ancient Greek origins, brought to the Italian peninsula over two millennia ago. It produces deeply colored, full-bodied wines with pronounced tannins, high acidity, and complex aromas of dark fruit, leather, tobacco, and volcanic minerality. The two benchmark appellations are Taurasi in Campania and Aglianico del Vulture in Basilicata, where volcanic soils and high-altitude vineyards produce wines of remarkable structure and longevity."
+  },
+  {
+    "name": "Baga",
+    "color": "red",
+    "origin": "Portugal (Bairrada, Dão)",
+    "profile": "Baga is the principal red grape of Portugal’s Bairrada region, where heavy clay soils and Atlantic influence produce wines of formidable tannic structure and bracing acidity. Historically associated with rustic, astringent styles, modern winemaking has revealed Baga’s capacity for elegant, complex wines with flavors of dark cherry, plum, and herbal notes. It requires careful vineyard management and extended aging to show its best, drawing comparisons to Nebbiolo for its combination of high acid, high tannin, and pale-to-medium color."
+  },
+  {
+    "name": "Barbera",
+    "color": "red",
+    "origin": "Italy (Piedmont); also Argentina, California",
+    "profile": "Barbera is Piedmont’s most widely planted red grape, prized for its naturally high acidity and deep color combined with relatively soft tannins. Originating in the Monferrato hills, it produces versatile wines ranging from fresh, everyday styles to concentrated, oak-aged bottlings from top sites in Asti and Alba. Classic flavors include sour cherry, plum, and dried herbs, with the best examples showing a vibrant interplay of fruit richness and refreshing acidity that makes it exceptionally food-friendly."
+  },
+  {
+    "name": "Blaufränkisch",
+    "color": "red",
+    "origin": "Austria (Burgenland, Mittelburgenland); also Hungary (as Kékfrankos)",
+    "profile": "Blaufränkisch is Central Europe’s answer to cool-climate Syrah—a deeply colored, spicy, medium-to-full-bodied red with firm tannins and lively acidity. It thrives on the warm shores of Neusiedlersee and the iron-rich soils of Mittelburgenland in Austria, where it produces wines with dark cherry, blackberry, pepper, and mineral character. Known as Kékfrankos in Hungary and Lemberger in Germany, it has experienced a renaissance as top producers demonstrate its capacity for age-worthy, terroir-expressive wines."
+  },
+  {
+    "name": "Bobal",
+    "color": "red",
+    "origin": "Spain (Utiel-Requena, Manchuela)",
+    "profile": "Bobal is Spain’s second most planted red variety after Tempranillo, concentrated primarily in the high-altitude vineyards of Valencia’s Utiel-Requena DO. Long dismissed as a bulk-wine workhorse, old-vine Bobal is now recognized for producing deeply colored, structured wines with flavors of dark berry, earth, and Mediterranean herbs. Its naturally high acidity and thick skins make it well-suited to the continental climate of Spain’s interior meseta, and a new generation of producers is championing its identity as a serious varietal."
+  },
+  {
+    "name": "Cabernet Franc",
+    "color": "red",
+    "origin": "France (Loire Valley, Bordeaux); worldwide",
+    "profile": "Cabernet Franc is one of the great noble varieties of Bordeaux and the Loire Valley, where it produces wines of elegance, aromatic complexity, and medium body. In the Loire’s Chinon and Bourgueil, it yields fragrant reds with violet, raspberry, and distinctive graphite-pencil notes, while in Saint-Émilion and Pomerol it adds perfume and finesse to Merlot-dominated blends. A parent of Cabernet Sauvignon (crossed with Sauvignon Blanc), it ripens earlier and thrives in cooler sites, producing wines with herbaceous freshness and silky tannins."
+  },
+  {
+    "name": "Cabernet Sauvignon",
+    "color": "red",
+    "origin": "Worldwide; France (Bordeaux), Napa Valley, Chile, Australia",
+    "profile": "The world’s most widely planted red variety, Cabernet Sauvignon is the backbone of Bordeaux’s Left Bank blends and produces iconic varietal wines across the New World. A natural cross of Cabernet Franc and Sauvignon Blanc first documented in 17th-century Bordeaux, it is prized for its deep color, firm tannic structure, and flavors of blackcurrant, cedar, and tobacco. Small, thick-skinned berries and late ripening give it extraordinary aging potential, while its adaptability to diverse climates has made it the benchmark for full-bodied red wine worldwide."
+  },
+  {
+    "name": "Carignan",
+    "color": "red",
+    "origin": "France (Languedoc, Roussillon); Spain (as Cariñena), Algeria",
+    "profile": "Carignan originated in Aragon, Spain, and became the most planted grape in France’s Languedoc during the 20th century. Once maligned for producing high-yield, undistinguished wines, old-vine Carignan—particularly from bush vines in schist and garrigue-covered hillsides—produces wines of deep color, firm tannins, and complex flavors of dark fruit, dried herbs, and earthy spice. It responds beautifully to carbonic maceration and is increasingly bottled as a single variety, revealing a rustic, mineral character prized by natural wine producers."
+  },
+  {
+    "name": "Carménère",
+    "color": "red",
+    "origin": "Chile; originally France (Bordeaux)",
+    "profile": "Carménère was one of the original six Bordeaux varieties before phylloxera nearly drove it to extinction in France. Rediscovered in Chile in 1994—where it had been misidentified as Merlot—it has become Chile’s signature grape. It produces medium-to-full-bodied wines with distinctive green pepper, red fruit, and smoky-spice aromas, reflecting its herbaceous character when underripe and lush, chocolatey richness when fully mature. It requires a long growing season and warm sites to fully ripen its pyrazine-prone berries."
+  },
+  {
+    "name": "Cinsault",
+    "color": "red",
+    "origin": "France (Southern Rhône, Languedoc); South Africa, Lebanon",
+    "profile": "Cinsault is one of the Mediterranean’s oldest varieties, valued for its drought resistance, generous yields, and ability to produce light, fragrant, low-tannin wines. It plays a supporting role in Southern Rhône and Languedoc blends, contributing perfume and softness. In South Africa it was crossed with Pinot Noir to create Pinotage, and old-vine Cinsault in the Swartland is experiencing a revival. Classic flavors include red cherry, strawberry, and gentle spice, producing wines best enjoyed young."
+  },
+  {
+    "name": "Corvina",
+    "color": "red",
+    "origin": "Italy (Veneto)",
+    "profile": "Corvina is the principal grape of Valpolicella, Amarone, and Ripasso in northeastern Italy’s Veneto region. It produces pale-to-medium-colored wines with tart cherry, almond, and herbal notes in its fresh Valpolicella form, and concentrated, raisinated wines of remarkable power in Amarone, where partially dried grapes undergo extended fermentation. The variety’s thin skins and moderate tannins make the appassimento (grape-drying) technique essential to its most prestigious expressions, yielding complex wines with extraordinary depth."
+  },
+  {
+    "name": "Counoise",
+    "color": "red",
+    "origin": "France (Southern Rhône)",
+    "profile": "Counoise is one of the thirteen permitted varieties in Châteauneuf-du-Pape, valued for its contribution of spice, freshness, and aromatic complexity to blends. A relatively minor variety, it produces medium-bodied wines with peppery, herbal character and moderate tannins. It adds vibrancy and lift to Grenache-dominated blends and is appreciated by producers seeking to preserve acidity and aromatic interest in warm-climate wines. Its thin skins yield lighter color but contribute distinctive floral and spice notes."
+  },
+  {
+    "name": "Dolcetto",
+    "color": "red",
+    "origin": "Italy (Piedmont)",
+    "profile": "Dolcetto is Piedmont’s everyday red, producing deeply colored, soft, fruity wines meant for early consumption. The name means “little sweet one,” referring not to residual sugar but to the grape’s naturally low acidity, which gives the wines an approachable, plush quality. Key appellations include Dogliani and Alba, where it ripens before Barbera and Nebbiolo on cooler, lower-altitude sites. Typical flavors are black cherry, licorice, and almond, with soft tannins and a characteristic bitter-cherry finish."
+  },
+  {
+    "name": "Frappato",
+    "color": "red",
+    "origin": "Italy (Sicily)",
+    "profile": "Frappato is a delicate, aromatic Sicilian variety best known as the junior partner to Nero d’Avola in Cerasuolo di Vittoria, Sicily’s only DOCG. It produces light-bodied, pale-colored wines with exuberant aromas of strawberry, rose petal, and dried herbs—sometimes compared to a Mediterranean Gamay. On its own, it yields fragrant, low-tannin reds perfect for chilled serving, reflecting the warm coastal terroir of southeastern Sicily with a surprising freshness and aromatic lift."
+  },
+  {
+    "name": "Gamay",
+    "color": "red",
+    "origin": "France (Beaujolais, Loire Valley)",
+    "profile": "Gamay is the sole red grape of Beaujolais, where it produces wines ranging from light, gulpable Nouveau to structured, age-worthy cru bottlings from granite hillsides. Banished from Burgundy by ducal decree in 1395, it found its spiritual home in the granitic soils south of Mâcon. Carbonic maceration amplifies its bright cherry, banana, and floral character, while traditional vinification in the ten crus (Morgon, Fleurie, Moulin-à-Vent, etc.) reveals a more serious, mineral-driven personality capable of aging a decade or more."
+  },
+  {
+    "name": "Garnacha Tintorera",
+    "color": "red",
+    "origin": "Spain (Almansa, Jumilla); also France (as Alicante Bouschet)",
+    "profile": "Garnacha Tintorera, known internationally as Alicante Bouschet, is one of very few teinturier grapes—varieties with red flesh as well as red skin. Created in 1866 by Henri Bouschet, it was widely planted for its intense color, used to bolster pale blends. In Spain’s Almansa and Jumilla, and in Portugal’s Alentejo, old-vine plantings are now producing concentrated, serious wines with deep purple-black color, flavors of blackberry and violets, and substantial tannic structure."
+  },
+  {
+    "name": "Graciano",
+    "color": "red",
+    "origin": "Spain (Rioja, Navarra)",
+    "profile": "Graciano is a minor but prized blending component in Rioja, where it contributes color, acidity, and aromatic complexity to Tempranillo-based blends. Low-yielding and difficult to grow, it was nearly abandoned before a revival in the late 20th century. Its intensely colored wines show flavors of dark cherry, plum, licorice, and dried herbs, with firm tannins and excellent aging potential. Some producers now bottle it as a varietal, revealing its distinctive personality of dark fruit intensity balanced by fresh acidity."
+  },
+  {
+    "name": "Grenache",
+    "color": "red",
+    "origin": "France (Southern Rhône, Roussillon); Spain (as Garnacha), Australia",
+    "profile": "Grenache is one of the world’s most widely planted red grapes, originating in Aragon, Spain, and achieving its finest expression in France’s Châteauneuf-du-Pape and Australia’s Barossa Valley old vines. Its thin skin, late ripening, and preference for hot, dry conditions yield wines of high alcohol, soft tannins, and generous fruit—strawberry, raspberry, and kirsch—with white pepper and garrigue notes. It forms the backbone of GSM (Grenache-Syrah-Mourvèdre) blends and produces some of the Mediterranean’s most hedonistic wines."
+  },
+  {
+    "name": "Kadarka",
+    "color": "red",
+    "origin": "Hungary; also Bulgaria, Serbia",
+    "profile": "Kadarka is a historic Hungarian variety once central to the famed “Bull’s Blood” of Eger. Light-to-medium in body with relatively high acidity and modest tannins, it produces aromatic wines with sour cherry, spice, and earthy character. Nearly abandoned in favor of more commercially reliable varieties, Kadarka has been revived by artisan producers in Szekszárd and Villány who value its elegance and historic significance. It requires careful viticulture due to its sensitivity to rot and uneven ripening."
+  },
+  {
+    "name": "Lagrein",
+    "color": "red",
+    "origin": "Italy (Alto Adige/Südtirol)",
+    "profile": "Lagrein is an indigenous variety of Alto Adige in northern Italy, producing deeply colored, full-bodied wines with flavors of dark berry, chocolate, and violet. Genetic research has revealed it is related to Teroldego and Syrah, explaining its richness and color intensity. Thriving in the warm valley floor around Bolzano, particularly in the Gries subzone, it produces both rosé (Kretzer) and concentrated red (Dunkel) styles. The best examples combine New World-like opulence with alpine freshness and fine-grained tannins."
+  },
+  {
+    "name": "Limniona",
+    "color": "red",
+    "origin": "Greece (Thessaly)",
+    "profile": "Limniona is an ancient Greek variety revived from near-extinction by pioneering producers in Thessaly’s Tyrnavos region. Thought to have been cultivated since antiquity, it was rediscovered in the early 2000s and has quickly attracted international attention. It produces medium-to-full-bodied wines with striking aromatic complexity—dark fruit, violets, herbs, and a distinctive earthy minerality. Its combination of color, structure, and aromatic intrigue has drawn comparisons to Syrah and Blaufränkisch, positioning it as one of Greece’s most exciting rediscoveries."
+  },
+  {
+    "name": "Malbec",
+    "color": "red",
+    "origin": "Argentina (Mendoza); France (Cahors)",
+    "profile": "Malbec originated in southwestern France, where it remains the principal grape of Cahors’ “black wines.” Transplanted to Argentina in 1853, it found its modern spiritual home in the high-altitude vineyards of Mendoza, where intense UV light, dry conditions, and dramatic diurnal temperature shifts produce wines of deep purple color, plush texture, and flavors of blackberry, plum, and violet. Argentine Malbec tends to be rounder and more fruit-forward than its French counterpart, which shows more tannic grip and rustic, earthy character."
+  },
+  {
+    "name": "Mavrud",
+    "color": "red",
+    "origin": "Bulgaria",
+    "profile": "Mavrud is Bulgaria’s most esteemed indigenous red grape, concentrated around the city of Plovdiv in the Thracian Valley. The name derives from the Greek “mavro” (black), reflecting its intensely dark color. It produces full-bodied, tannic wines with flavors of blackberry, damson plum, leather, and earthy spice that recall Southern Rhône reds. Resistant to drought and well-adapted to Bulgaria’s continental climate, it requires warm sites and patient aging to soften its formidable structure."
+  },
+  {
+    "name": "Mencía",
+    "color": "red",
+    "origin": "Spain (Bierzo, Ribeira Sacra, Valdeorras)",
+    "profile": "Mencía is the signature red grape of northwestern Spain, producing aromatic, medium-bodied wines often compared to Loire Cabernet Franc. In Bierzo, old vines on slate soils yield wines of remarkable finesse with flavors of red cherry, violet, graphite, and mineral undertones. In Ribeira Sacra, heroic viticulture on steep, terraced hillsides above the Sil and Miño rivers adds a wild, herbal complexity. Once thought identical to Cabernet Franc, DNA analysis confirmed it as a genetically distinct Iberian variety."
+  },
+  {
+    "name": "Merlot",
+    "color": "red",
+    "origin": "Worldwide; France (Bordeaux), Italy, Chile, USA",
+    "profile": "Merlot is the most planted grape in Bordeaux and one of the world’s most popular red varieties, valued for its approachable, plummy softness and early-drinking charm. On Bordeaux’s Right Bank, particularly in Saint-Émilion and Pomerol, it reaches its zenith—producing wines of extraordinary richness on clay-limestone soils. A natural cross of Cabernet Franc and Magdeleine Noire des Charentes, it ripens earlier than Cabernet Sauvignon, offering rounder tannins and flavors of plum, black cherry, chocolate, and herbs."
+  },
+  {
+    "name": "Monastrell",
+    "color": "red",
+    "origin": "Spain (Jumilla, Yecla, Alicante); France (as Mourvèdre)",
+    "profile": "Monastrell is the Spanish name for Mourvèdre, dominant in the warm, arid vineyards of southeastern Spain’s Jumilla, Yecla, and Alicante. Here, ungrafted old bush vines in phylloxera-free sandy soils produce intensely concentrated wines with dark fruit, meat, leather, and garrigue aromas. High in alcohol and tannin, with moderate acidity, Monastrell thrives in extreme heat and drought, yielding wines of rustic power that have gained international recognition as quality-conscious producers adopt modern techniques."
+  },
+  {
+    "name": "Montepulciano",
+    "color": "red",
+    "origin": "Italy (Abruzzo, Marche)",
+    "profile": "Montepulciano is central Italy’s workhorse red, producing deeply colored, full-bodied wines in Abruzzo (as Montepulciano d’Abruzzo) and the Marche. Not to be confused with the Tuscan town of Montepulciano (where Sangiovese reigns), this variety yields generous, richly fruited wines with soft tannins, moderate acidity, and flavors of dark cherry, plum, and spice. At its best in the Colline Teramane DOCG, it produces structured wines capable of aging, though most is enjoyed as an affordable, everyday red."
+  },
+  {
+    "name": "Mourvèdre",
+    "color": "red",
+    "origin": "France (Bandol, Southern Rhône); Spain, Australia",
+    "profile": "Mourvèdre is the noble grape of Bandol in Provence, where it must comprise at least 50% of the blend, and a key component of Southern Rhône and Languedoc wines. It demands extreme heat to ripen fully, rewarding patience with wines of deep color, firm tannins, and complex aromas of blackberry, game, leather, and garrigue. Slow to reveal its charms, it is the “late bloomer” of Mediterranean viticulture—austere in youth but developing extraordinary complexity with a decade or more of bottle age."
+  },
+  {
+    "name": "Nebbiolo",
+    "color": "red",
+    "origin": "Italy (Piedmont: Barolo, Barbaresco); also Lombardy, Valle d’Aosta",
+    "profile": "Nebbiolo is one of Italy’s most revered grapes, producing the legendary Barolo and Barbaresco of Piedmont’s Langhe hills. Despite its pale garnet color, it delivers extraordinary aromatic complexity—tar, roses, cherry, leather, truffle—with formidable tannins and high acidity that demand extended aging. Named for the autumn fog (“nebbia”) that blankets the Langhe during harvest, it is exquisitely site-sensitive, reflecting differences between individual crus with a precision rivaling Burgundy’s Pinot Noir."
+  },
+  {
+    "name": "Negroamaro",
+    "color": "red",
+    "origin": "Italy (Puglia/Salento)",
+    "profile": "Negroamaro—whose name literally means “black bitter”—is the signature grape of Puglia’s Salento peninsula, where it produces both red wines and the acclaimed Salice Salentino rosé. In warm, dry vineyards close to both the Adriatic and Ionian seas, it yields full-bodied wines with dark fruit, fig, tobacco, and earthy character, often with a distinctive bitter-chocolate finish. Old bush vines (alberello) produce the most concentrated examples, increasingly recognized as serious wines of terroir and identity."
+  },
+  {
+    "name": "Nerello Mascalese",
+    "color": "red",
+    "origin": "Italy (Sicily/Mount Etna)",
+    "profile": "Nerello Mascalese is the red grape of Mount Etna, where it grows on ancient volcanic terraces at elevations up to 1,000 meters. Often called the “Pinot Noir of the Mediterranean,” it produces pale, elegant wines of high acidity and fine tannins, with aromas of red cherry, blood orange, dried herbs, and a distinctive smoky, volcanic minerality. Etna’s contrade system (named vineyard districts) reveals remarkable terroir variation across the volcano’s slopes, driving a quality revolution that has placed Nerello Mascalese among Italy’s most exciting varieties."
+  },
+  {
+    "name": "Nero d'Avola",
+    "color": "red",
+    "origin": "Italy (Sicily)",
+    "profile": "Nero d’Avola is Sicily’s most important red grape, named for the southeastern town of Avola. It produces deeply colored, full-bodied wines with ripe flavors of black cherry, plum, chocolate, and Mediterranean herbs. Versatile across styles—from fresh, fruity everyday wines to concentrated, oak-aged bottlings—it thrives in Sicily’s hot, dry climate and has become the island’s flagship variety on the international stage. The best examples balance southern warmth with surprising structure and complexity."
+  },
+  {
+    "name": "Petit Verdot",
+    "color": "red",
+    "origin": "France (Bordeaux); also Spain, Australia, USA",
+    "profile": "Petit Verdot is the darkest, most tannic, and latest-ripening of the classic Bordeaux varieties. Used sparingly in Left Bank blends (typically 1–5%), it contributes intense color, violet aromatics, and firm structure. In warmer New World climates—Australia, California, Spain—where it ripens more reliably, it is increasingly bottled as a varietal, producing inky, powerful wines with flavors of blackberry, violet, graphite, and dark chocolate. Its small, thick-skinned berries concentrate exceptional amounts of anthocyanins and phenolics."
+  },
+  {
+    "name": "Petite Sirah",
+    "color": "red",
+    "origin": "USA (California); also Australia, Israel",
+    "profile": "Petite Sirah (properly Durif) was created in 1880 by French botanist François Durif as a cross of Syrah and Peloursin. While it faded in France, it became a California staple, prized for its inky color, massive tannins, and dense flavors of blueberry, dark plum, pepper, and chocolate. Old-vine plantings in Lodi and Paso Robles produce particularly concentrated examples. Despite its name, it is genetically distinct from Syrah (Petite Syrah), though it shares some of Syrah’s dark-fruited, peppery character."
+  },
+  {
+    "name": "Pinot Noir",
+    "color": "red",
+    "origin": "France (Burgundy); worldwide",
+    "profile": "Pinot Noir is the grape of red Burgundy and one of wine’s most revered—and difficult—varieties. Thin-skinned, early-ripening, and genetically unstable, it demands meticulous viticulture and cool climates to produce its ethereal best: pale, translucent wines of haunting aromatics (cherry, rose, earth, mushroom) and silky texture. Beyond Burgundy, benchmark expressions emerge from Oregon’s Willamette Valley, New Zealand’s Central Otago and Martinborough, and Germany’s Ahr and Baden (as Spätburgunder). It is also essential to Champagne production."
+  },
+  {
+    "name": "Pinotage",
+    "color": "red",
+    "origin": "South Africa",
+    "profile": "Pinotage was created in 1925 at Stellenbosch University by Abraham Perold, who crossed Pinot Noir with Cinsault (then called Hermitage in South Africa). Uniquely South African, it produces deeply colored, full-bodied wines with a distinctive flavor profile of dark plum, smoke, coffee, banana, and tar. Divisive among critics—some praise its bold individuality while others find its pungent aromas challenging—it has evolved considerably as producers refine viticultural and winemaking techniques to emphasize fruit purity and elegance."
+  },
+  {
+    "name": "Plavac Mali",
+    "color": "red",
+    "origin": "Croatia (Dalmatia)",
+    "profile": "Plavac Mali is Croatia’s most celebrated red grape, thriving on the sun-drenched, wind-swept slopes of the Dalmatian coast and islands. A natural cross of Zinfandel’s ancestor (Crljenak Kaštelanski) and Dobričić, it produces full-bodied, deeply colored wines with high alcohol, robust tannins, and flavors of dried dark fruit, fig, and Mediterranean herbs. The top appellations—Dingač and Postup on the Pelješac peninsula—produce structured, age-worthy wines from steep, south-facing terraces above the Adriatic."
+  },
+  {
+    "name": "Poulsard",
+    "color": "red",
+    "origin": "France (Jura)",
+    "profile": "Poulsard (or Ploussard) is the Jura’s most distinctive red grape, producing some of France’s palest, most ethereal red wines. Thin-skinned to the point of translucency, it yields wines with barely more color than a dark rosé, with delicate aromas of red currant, rose hip, and dried flowers. Often vinified under a voile of yeast (like Vin Jaune), it develops nutty, oxidative notes that are uniquely Jurassien. Underappreciated but increasingly sought by sommeliers, it embodies the Jura’s eccentric, terroir-driven winemaking tradition."
+  },
+  {
+    "name": "Primitivo",
+    "color": "red",
+    "origin": "Italy (Puglia); also as Zinfandel in California",
+    "profile": "Primitivo is the Puglian name for the grape known as Zinfandel in California, both descended from the Croatian variety Crljenak Kaštelanski. In the warm, flat vineyards of Puglia’s Manduria and Gioia del Colle, it produces rich, high-alcohol wines with jammy dark fruit, dried fig, chocolate, and warm spice. The name refers to its early (“primitive”) ripening, though uneven cluster maturity can produce raisined berries alongside green ones. Old bush vines yield the most concentrated and complex examples."
+  },
+  {
+    "name": "Sagrantino",
+    "color": "red",
+    "origin": "Italy (Umbria/Montefalco)",
+    "profile": "Sagrantino is one of the most tannic grapes in the world, indigenous to the tiny Montefalco DOCG in Umbria. Historically used for sweet passito wines, the modern dry Sagrantino di Montefalco is an intensely dark, powerful wine with massive tannins, full body, and flavors of blackberry, plum, leather, and dark chocolate. Its phenolic concentration exceeds even Tannat and Nebbiolo, requiring extended aging to become approachable. The variety’s name may derive from its traditional use in sacramental wines."
+  },
+  {
+    "name": "Sangiovese",
+    "color": "red",
+    "origin": "Italy (Tuscany: Chianti, Brunello di Montalcino); also Romagna",
+    "profile": "Sangiovese is Italy’s most planted and most important red grape, the soul of Chianti, Brunello di Montalcino, and Vino Nobile di Montepulciano. Its name means “blood of Jupiter,” and it produces medium-to-full-bodied wines of high acidity, firm tannins, and aromas of sour cherry, dried herbs, leather, and earth. Extremely sensitive to site and clone, it ranges from simple Chianti to the sublime complexity of great Brunello. The Grosso clone in Montalcino produces Tuscany’s most age-worthy expression."
+  },
+  {
+    "name": "Schiava",
+    "color": "red",
+    "origin": "Italy (Alto Adige/Südtirol); Germany (as Trollinger)",
+    "profile": "Schiava (Vernatsch in German) is the light, everyday red of Alto Adige, once dominant in the region’s viticulture. It produces pale, low-tannin wines with fresh flavors of strawberry, almond, and cotton candy—designed for casual, food-friendly drinking. Largely replaced by more fashionable varieties, it persists in the Santa Maddalena and Kalterersee appellations, where it remains a charming expression of alpine winemaking. In Germany’s Württemberg, as Trollinger, it is the most consumed local red."
+  },
+  {
+    "name": "St. Laurent",
+    "color": "red",
+    "origin": "Austria (Thermenregion, Burgenland); Czech Republic",
+    "profile": "St. Laurent is a Central European variety—likely a spontaneous crossing of Pinot Noir—that produces medium-bodied, aromatic reds with dark cherry, plum, and earthy-spicy character. Often compared to a darker, more robust Pinot Noir, it combines that grape’s aromatic finesse with deeper color and firmer tannins. It thrives in Austria’s Thermenregion and Burgenland, where the best producers craft wines of surprising depth and silky elegance, though its low yields and disease susceptibility keep plantings relatively small."
+  },
+  {
+    "name": "Syrah",
+    "color": "red",
+    "origin": "France (Northern Rhône); Australia (as Shiraz), worldwide",
+    "profile": "Syrah is the sole red grape of the Northern Rhône’s great appellations—Hermitage, Côte-Rôtie, Cornas—and one of the world’s most versatile and expressive varieties. In cool climates it shows dark fruit, black pepper, olive, and smoked meat; in warm climates (as Shiraz in Australia) it becomes richer, with chocolate, licorice, and vanilla. DNA analysis revealed it as a cross of Dureza and Mondeuse Blanche, both obscure varieties from southeastern France. Its thick skins yield deep color and substantial tannins, with exceptional aging potential in top cuvées."
+  },
+  {
+    "name": "Tannat",
+    "color": "red",
+    "origin": "Uruguay; France (Madiran, Irouléguy)",
+    "profile": "Tannat is the defining grape of Madiran in southwest France and the national variety of Uruguay, where it was introduced in the 19th century. One of the most tannic grapes grown, it produces deeply colored, powerful wines with flavors of dark plum, blackberry, leather, and dried herbs. In Madiran, micro-oxygenation was invented specifically to tame its fierce tannins. Uruguayan Tannat, softened by Atlantic maritime influence and modern techniques, tends to be more approachable, with rounder fruit and smoother texture."
+  },
+  {
+    "name": "Tempranillo",
+    "color": "red",
+    "origin": "Spain (Rioja, Ribera del Duero); also Portugal (as Tinta Roriz)",
+    "profile": "Tempranillo is Spain’s noble red grape, the backbone of Rioja and Ribera del Duero. Its name derives from “temprano” (early), reflecting its relatively early ripening. In Rioja, traditional oak aging (American or French) produces wines with strawberry, vanilla, leather, and tobacco notes, while Ribera del Duero’s continental extremes yield darker, more concentrated expressions. Remarkably adaptable, it is known as Tinta Roriz in Portugal’s Douro, Cencibel in La Mancha, and Tinto Fino in Ribera del Duero."
+  },
+  {
+    "name": "Tinta Roriz",
+    "color": "red",
+    "origin": "Portugal (Douro, Dão)",
+    "profile": "Tinta Roriz is the Portuguese name for Tempranillo, one of the five principal grapes recommended for Port production in the Douro Valley. In the Douro’s extreme continental climate—scorching summers and frigid winters among terraced schist slopes—it contributes color, fruit, and structure to both Port and dry Douro reds. It adapts well to the region’s hot conditions, producing wines with ripe berry fruit, moderate tannins, and a smooth, generous texture that complements the other Douro varieties in blends."
+  },
+  {
+    "name": "Touriga Franca",
+    "color": "red",
+    "origin": "Portugal (Douro)",
+    "profile": "Touriga Franca is the most widely planted grape in the Douro Valley, valued for its reliability, generous yields, and aromatic contribution to Port and dry red blends. It produces wines with floral, red-fruit aromatics—rose, wild strawberry, violet—that add perfume and elegance alongside more structured blending partners like Touriga Nacional and Tinta Roriz. Drought-resistant and well-adapted to the Douro’s hot, arid climate, it is considered the workhorse counterpart to Touriga Nacional’s more concentrated, tannic character."
+  },
+  {
+    "name": "Touriga Nacional",
+    "color": "red",
+    "origin": "Portugal (Douro, Dão); worldwide",
+    "profile": "Touriga Nacional is widely regarded as Portugal’s finest red grape, the crown jewel of both Port and dry Douro wines. Despite naturally low yields and small berries, it produces deeply concentrated wines of extraordinary aromatic complexity—violets, wild roses, dark berries, and resinous herbs—with firm tannins and excellent aging potential. Originally most prized in the Dão, it has spread throughout Portugal and increasingly to Australia and California, though the Douro’s schist terraces remain its most celebrated home."
+  },
+  {
+    "name": "Trousseau",
+    "color": "red",
+    "origin": "France (Jura); also Portugal (as Bastardo)",
+    "profile": "Trousseau is the Jura’s more full-bodied red alongside Poulsard, producing wines of medium color, moderate tannin, and distinctive flavors of red fruit, spice, and earth. Thin-skinned and low-yielding, it requires the warmest sites in the Jura to ripen fully, often planted on south-facing marl and limestone slopes. In Portugal, as Bastardo, it appears in Port blends and dry Dão wines. The Jura’s natural wine movement has brought renewed attention to Trousseau as a vehicle for expressing the region’s unique terroir and oxidative traditions."
+  },
+  {
+    "name": "Xinomavro",
+    "color": "red",
+    "origin": "Greece (Naoussa, Amyntaio, Goumenissa)",
+    "profile": "Xinomavro—“acid-black” in Greek—is Greece’s most noble red variety, often compared to Nebbiolo for its combination of high acidity, firm tannins, and pale color that belies extraordinary complexity. In the Naoussa appellation of northern Greece, it produces age-worthy wines with aromas of tomato, olive, dried fruit, and spice that evolve into tar, leather, and truffle with cellaring. Amyntaio, at higher altitude, yields a more delicate, Pinot-like expression. It is among the few Greek varieties capable of world-class longevity."
+  },
+  {
+    "name": "Zinfandel",
+    "color": "red",
+    "origin": "USA (California: Lodi, Paso Robles, Sonoma); also as Primitivo in Italy",
+    "profile": "Zinfandel is California’s heritage red grape, arrived in the 1850s and identified via DNA as the Croatian variety Crljenak Kaštelanski. It produces bold, high-alcohol wines with exuberant flavors of blackberry, raspberry jam, black pepper, and baking spice. Old-vine plantings in Lodi, Dry Creek Valley, and Paso Robles yield the most concentrated, complex examples. Zinfandel’s propensity for uneven ripening creates a characteristic mix of fresh and raisined berries, contributing to wines that can range from brambly elegance to jammy richness."
+  },
+  {
+    "name": "Zweigelt",
+    "color": "red",
+    "origin": "Austria (Burgenland, Weinviertel)",
+    "profile": "Zweigelt is Austria’s most widely planted red grape, created in 1922 by Fritz Zweigelt at the Klosterneuburg research station by crossing Blaufränkisch and St. Laurent. It produces medium-bodied, fruit-forward wines with soft tannins and flavors of cherry, raspberry, and a hint of pepper. Easy to grow and reliably productive, it is the everyday red of Austria, though top producers in Burgenland craft more structured, oak-aged versions. Its accessibility and bright fruit character make it an ideal introduction to Austrian red wine. White Grape Varieties"
+  },
+  {
+    "name": "Albariño",
+    "color": "white",
+    "origin": "Spain (Rías Baixas); Portugal (as Alvarinho, Vinho Verde)",
+    "profile": "Albariño is the flagship white grape of Galicia’s Rías Baixas, where Atlantic influence and granite soils produce aromatic, high-acid wines with peach, apricot, saline, and floral character. Its thick skin provides natural resistance to the region’s damp conditions and contributes a distinctive textural richness. In Portugal’s Vinho Verde, as Alvarinho, it produces the region’s most premium expressions. Traditionally trained on pergolas (parrales), it has become one of Iberia’s most internationally recognized white varieties."
+  },
+  {
+    "name": "Aligoté",
+    "color": "white",
+    "origin": "France (Burgundy); also Eastern Europe",
+    "profile": "Aligoté is Burgundy’s “other” white grape, overshadowed by Chardonnay but prized for its bracing acidity and citrus-driven freshness. Traditionally the base for Kir (mixed with crème de cassis), it produces lean, light wines from younger or less prestigious vineyards. However, old-vine Aligoté from Bouzeron—Burgundy’s only village appellation for the variety—demonstrates that it can achieve surprising complexity and mineral depth when taken seriously. It remains an important variety in Moldova and other Eastern European countries."
+  },
+  {
+    "name": "Arinto",
+    "color": "white",
+    "origin": "Portugal (Bucelas, Vinho Verde, Alentejo)",
+    "profile": "Arinto is one of Portugal’s most versatile and widely planted white grapes, prized for its ability to retain high natural acidity even in warm climates. In Bucelas near Lisbon, it produces crisp, mineral whites; in the Vinho Verde region, it contributes freshness to blends; and in the hot Alentejo, it provides essential acidity. Flavors typically include green apple, lemon, and white flowers, with a saline, mineral finish. Its adaptability across Portugal’s diverse climates makes it a cornerstone of the country’s white wine identity."
+  },
+  {
+    "name": "Arneis",
+    "color": "white",
+    "origin": "Italy (Piedmont/Roero)",
+    "profile": "Arneis is the white grape of Piedmont’s Roero district, rescued from near-extinction in the 1980s by producers like Bruno Giacosa and Vietti. Its name means “little rascal” in Piedmontese dialect, reflecting its difficulty in the vineyard. It produces medium-bodied, aromatic whites with pear, white peach, almond, and floral notes, typically unoaked and best enjoyed young. Roero Arneis DOCG has established the variety as Piedmont’s preeminent white alongside Cortese di Gavi, offering a richer, more textural alternative."
+  },
+  {
+    "name": "Assyrtiko",
+    "color": "white",
+    "origin": "Greece (Santorini; mainland Greece)",
+    "profile": "Assyrtiko is Greece’s most distinguished white grape, achieving its most iconic expression on the volcanic island of Santorini, where ungrafted bush vines (kouloura-trained) are among the oldest in the world. The volcanic pumice soils, fierce winds, and Mediterranean sun produce wines of extraordinary minerality, razor-sharp acidity, and flavors of citrus, white stone fruit, saline, and a distinctive smokiness. It retains acidity even in hot conditions, making it a benchmark for warm-climate white winemaking. It is increasingly planted across mainland Greece."
+  },
+  {
+    "name": "Chardonnay",
+    "color": "white",
+    "origin": "Worldwide; France (Burgundy, Champagne), California, Australia",
+    "profile": "Chardonnay is the world’s most popular white grape and the vehicle for white Burgundy—from the steely minerality of Chablis to the rich opulence of Meursault and Puligny-Montrachet. A natural cross of Pinot Noir and Gouais Blanc, its relatively neutral character makes it supremely adaptable to both climate and winemaking technique: unoaked Chablis, barrel-fermented California, sparkling Champagne, and everything between. Its global ubiquity has sometimes worked against its reputation, but great Chardonnay remains among wine’s most complex and age-worthy expressions."
+  },
+  {
+    "name": "Chasselas",
+    "color": "white",
+    "origin": "Switzerland; also France (Savoie), Germany (as Gutedel)",
+    "profile": "Chasselas is Switzerland’s most planted grape, particularly in the Vaud and Valais cantons, where it produces delicate, light-bodied whites with subtle flavors of white flowers, green apple, and a distinctive flinty minerality. Often considered a “neutral” variety, it is precisely this transparency that makes it a mirror for terroir—Swiss producers argue that great Chasselas expresses place more than grape. Outside Switzerland, it grows in Alsace, Savoie, and Germany (as Gutedel), but it is rarely as compelling."
+  },
+  {
+    "name": "Chenin Blanc",
+    "color": "white",
+    "origin": "France (Loire Valley); South Africa (as Steen)",
+    "profile": "Chenin Blanc is one of the world’s most versatile white grapes, producing everything from bone-dry to lusciously sweet wines, as well as sparkling Crémant de Loire and Vouvray mousseux. In the Loire, its naturally high acidity preserves freshness across all styles, with flavors of green apple, quince, honey, and wet wool. South Africa’s old bush vines (some over 40 years) in Stellenbosch, Swartland, and Franschhoek produce rich, textural dry whites that rival the Loire’s best. Its aging potential—decades for great sweet Loire Chenin—is among white wine’s greatest."
+  },
+  {
+    "name": "Clairette",
+    "color": "white",
+    "origin": "France (Southern Rhône, Languedoc); South Africa",
+    "profile": "Clairette is an ancient Provençal variety used in Southern Rhône white blends (Châteauneuf-du-Pape Blanc) and the sparkling Clairette de Die. It produces soft, low-acid wines with white flower, anise, and stone fruit aromas that contribute roundness and body to blends. On its own, it can be somewhat neutral and prone to oxidation, but when carefully handled—particularly in cooler sites—it shows an appealing Mediterranean warmth and gentle floral character."
+  },
+  {
+    "name": "Colombard",
+    "color": "white",
+    "origin": "France (Gascony); South Africa, California",
+    "profile": "Colombard was historically grown for Armagnac and Cognac distillation, valued for its high acidity and generous yields. In Gascony’s Côtes de Gascogne, it produces crisp, inexpensive white wines with flavors of grapefruit, green apple, and tropical fruit. It is one of South Africa’s most widely planted white grapes, where it produces fresh, everyday wines. A naturally cross of Gouais Blanc and Chenin Blanc, it retains its parent’s acidity while being less aromatically complex. In California, it contributes to jug wine blends."
+  },
+  {
+    "name": "Cortese",
+    "color": "white",
+    "origin": "Italy (Piedmont/Gavi)",
+    "profile": "Cortese is the white grape of Gavi in southeastern Piedmont, where it produces crisp, delicate wines with citrus, green apple, almond, and mineral notes. The Gavi DOCG, centered on chalky-clay soils near the Ligurian border, produces wines that range from simple and refreshing to structured and age-worthy. At its best, Cortese delivers a lean, steely elegance that complements Piedmont’s rich cuisine. The variety is also grown in Lombardy’s Oltrepò Pavese and parts of Veneto, though Gavi remains its definitive appellation."
+  },
+  {
+    "name": "Encruzado",
+    "color": "white",
+    "origin": "Portugal (Dão)",
+    "profile": "Encruzado is the Dão region’s finest white grape, producing structured, age-worthy wines that rank among Portugal’s most compelling whites. It combines citrus freshness with a rich, textural mid-palate and flavors of lemon, white peach, hazelnut, and subtle mineral notes. Responsive to oak aging, it develops complexity and a creamy richness reminiscent of fine white Burgundy while maintaining its granitic minerality. Increasingly recognized internationally, it is the variety that most convincingly demonstrates the Dão’s potential for world-class white wine."
+  },
+  {
+    "name": "Falanghina",
+    "color": "white",
+    "origin": "Italy (Campania)",
+    "profile": "Falanghina is one of Campania’s most important white grapes, possibly descended from the ancient Falernian wines revered by Rome. It produces fresh, aromatic wines with white flower, citrus, tropical fruit, and a hint of almond. Two distinct biotypes exist: Falanghina Flegrea (from the volcanic Campi Flegrei near Naples) and Falanghina Beneventana (from inland Benevento). The variety’s bright acidity and aromatic appeal have made it a commercial success, offering an accessible introduction to Campania’s extraordinary white wine heritage."
+  },
+  {
+    "name": "Fiano",
+    "color": "white",
+    "origin": "Italy (Campania/Irpinia)",
+    "profile": "Fiano di Avellino is one of southern Italy’s most compelling white wines, grown in the Irpinian hills of inland Campania at elevations that moderate the southern heat. It produces complex, textural wines with aromas of hazelnut, pear, white flowers, honey, and a distinctive smoky-mineral character. Its name may derive from “apiano” (of the bees), as its ripe berries attract them. Considered alongside Greco di Tufo as Campania’s greatest white grape, it develops beautifully with 5–10 years of bottle age, gaining richness and nutty depth."
+  },
+  {
+    "name": "Friulano",
+    "color": "white",
+    "origin": "Italy (Friuli Venezia Giulia); also Slovenia (as Sauvignonasse)",
+    "profile": "Friulano (formerly Tocai Friulano, renamed after EU negotiations with Hungary) is the signature white grape of northeast Italy’s Friuli region. It produces medium-bodied wines with a distinctive combination of almond, white peach, subtle herbs, and a pleasantly bitter finish. In the Collio and Colli Orientali appellations, where it grows on flysch (sandstone and marl), it achieves its most complex and mineral expressions. The variety is a cross of Sauvignon Blanc and an unidentified parent, explaining its occasional herbaceous hints."
+  },
+  {
+    "name": "Furmint",
+    "color": "white",
+    "origin": "Hungary (Tokaj); also Austria, Slovenia",
+    "profile": "Furmint is the principal grape of Tokaj, responsible for some of the world’s greatest sweet wines as well as increasingly acclaimed dry styles. Its thin skin and loose clusters make it ideal for botrytis development, producing the legendary Tokaji Aszú of extraordinary concentration and acidity. Dry Furmint from volcanic soils shows flavors of green apple, pear, lime, smoke, and mineral—often compared to dry Riesling for its electric acidity and aging potential. Hungary’s dry Furmint revolution has been one of Central Europe’s most exciting wine developments."
+  },
+  {
+    "name": "Garganega",
+    "color": "white",
+    "origin": "Italy (Veneto)",
+    "profile": "Garganega is the principal grape of Soave in the Veneto, where it produces light, delicate whites with almond, citrus, and white flower aromas. Much of Soave is mass-produced from high-yielding plains, but the Classico zone’s volcanic hillside vineyards produce wines of genuine character and mineral depth. The best Soave Classico from top producers rivals fine white Burgundy for complexity and longevity. Garganega’s tendency toward subtle, understated flavors has sometimes worked against its commercial appeal, but quality-focused producers demonstrate its true potential."
+  },
+  {
+    "name": "Gewürztraminer",
+    "color": "white",
+    "origin": "France (Alsace); Germany, Alto Adige, New Zealand",
+    "profile": "Gewürztraminer is one of wine’s most distinctive and polarizing varieties, producing intensely aromatic wines with lychee, rose petal, ginger, and Turkish delight aromas. Its name means “spicy Traminer,” referencing both its aromatic intensity and its origin in the village of Tramin in Alto Adige. In Alsace—its most celebrated home—it produces rich, low-acid wines from Grands Crus sites, ranging from dry to sweet (Vendange Tardive, Sélection de Grains Nobles). Its bold personality makes it a natural match for Asian cuisines and aromatic dishes."
+  },
+  {
+    "name": "Godello",
+    "color": "white",
+    "origin": "Spain (Valdeorras, Bierzo, Monterrei)",
+    "profile": "Godello is northwestern Spain’s most exciting white grape, rescued from near-extinction in the 1970s when fewer than 100 hectares remained. In Valdeorras, slate soils produce mineral, structured whites with flavors of stone fruit, citrus, herbs, and a distinctive smoky complexity. It combines the body and texture of Chardonnay with Albariño-like freshness, responding well to both stainless steel and oak aging. Godello’s rapid rise from obscurity to prestige represents one of Spain’s most dramatic varietal revival stories."
+  },
+  {
+    "name": "Greco",
+    "color": "white",
+    "origin": "Italy (Campania)",
+    "profile": "Greco di Tufo is one of southern Italy’s most age-worthy white wines, grown in the volcanic, tuff-rich soils of Campania’s Irpinia hills. It produces medium-bodied wines with citrus, almond, pear, and a mineral, faintly smoky character. The variety’s name suggests Greek origins, consistent with Campania’s history as Magna Graecia. Alongside Fiano, it forms the pinnacle of southern Italian white winemaking, with top examples developing honey, lanolin, and stone-fruit complexity over 5–10 years of aging."
+  },
+  {
+    "name": "Grüner Veltliner",
+    "color": "white",
+    "origin": "Austria (Wachau, Kamptal, Kremstal, Weinviertel)",
+    "profile": "Grüner Veltliner is Austria’s signature white grape, producing wines that range from light, peppery everyday styles to powerful, age-worthy Grand Crus from the Wachau, Kamptal, and Kremstal. Its hallmark is a distinctive white pepper spiciness combined with green apple, citrus, and lentil notes. On the primary rock and loess terraces of the Wachau, it produces concentrated Smaragd-level wines that can age for decades. A natural cross of Traminer and St. Georgen, it covers roughly a third of Austria’s vineyard area."
+  },
+  {
+    "name": "Loureiro",
+    "color": "white",
+    "origin": "Portugal (Vinho Verde); also Spain (as Loureira)",
+    "profile": "Loureiro is one of the most aromatic grapes of northern Portugal’s Vinho Verde region, producing delicate, floral wines with orange blossom, acacia, and citrus aromas. Its name means “laurel” in Portuguese, referencing its bay laurel-like aromatics. Typically light-bodied with bracing acidity, it captures the green, rain-drenched landscape of the Minho. In the sub-region of Lima, it is often the dominant variety, either blended with Alvarinho or bottled alone. It is also grown across the border in Galicia as Loureira."
+  },
+  {
+    "name": "Malagousia",
+    "color": "white",
+    "origin": "Greece (Macedonia, Attica)",
+    "profile": "Malagousia is one of Greece’s most exciting rediscovered white varieties, saved from extinction by the pioneering Evangelos Gerovassiliou in the 1970s from a near-abandoned vineyard in Nafpaktia. It produces intensely aromatic wines with jasmine, gardenia, ripe peach, lemon blossom, and a hint of ginger. Fuller-bodied than most Greek whites, it has drawn comparisons to Viognier for its floral opulence. Mostly grown in northern Greece, it represents a compelling case for the rediscovery of indigenous Mediterranean varieties."
+  },
+  {
+    "name": "Malvasia",
+    "color": "white",
+    "origin": "Italy, Spain, Portugal; widespread Mediterranean",
+    "profile": "Malvasia is not a single variety but a family of related grapes spread across the Mediterranean, sharing a name that likely derives from the Greek port of Monemvasia. Expressions range from Malvasia di Candia in Emilia-Romagna (light, frizzante) to Malvasia delle Lipari (rich, sweet wines from volcanic islands off Sicily) to Malvasia Istriana in Friuli (mineral and dry). Common threads include floral aromatics, stone fruit flavors, and moderate acidity. The family’s diversity makes generalizations difficult, but Malvasia in all its forms reflects centuries of Mediterranean viticultural history."
+  },
+  {
+    "name": "Marsanne",
+    "color": "white",
+    "origin": "France (Northern Rhône, Languedoc); Australia (Victoria)",
+    "profile": "Marsanne is the dominant white grape of the Northern Rhône’s Hermitage and Saint-Joseph, where it is typically blended with Roussanne. It produces full-bodied, low-acid wines with rich flavors of almond, marzipan, white peach, and beeswax. Young Marsanne can seem simple, but with aging it develops a honeyed, waxy complexity. In Australia’s Goulburn Valley, old-vine Marsanne (some planted in the 1860s by Tahbilk) produces some of the variety’s most extraordinary expressions. Its tendency toward oxidation makes careful winemaking essential."
+  },
+  {
+    "name": "Mauzac",
+    "color": "white",
+    "origin": "France (Gaillac, Limoux)",
+    "profile": "Mauzac is an ancient southwestern French variety, the traditional grape of Gaillac and the sparkling Blanquette de Limoux—one of the world’s oldest documented sparkling wines. It produces light, appley wines with moderate acidity and a slightly rustic character. In Gaillac, it makes both still and sparkling wines in various sweetness levels, sometimes using the ancestral method (méthode gaillacoise). While eclipsed by Chardonnay in modern Limoux, Mauzac retains historical significance as the grape that may have produced bubbles before Champagne."
+  },
+  {
+    "name": "Melon de Bourgogne",
+    "color": "white",
+    "origin": "France (Loire Valley/Muscadet)",
+    "profile": "Melon de Bourgogne is the sole grape of Muscadet in the western Loire, where it produces lean, mineral whites that are among France’s finest seafood wines. Expelled from Burgundy centuries ago (where it was deemed inferior to Chardonnay), it found its niche on the granitic and gneiss soils near Nantes. Extended lees aging (sur lie) gives the best examples a creamy texture and yeasty complexity that balances their high acidity and saline minerality. The cru system introduced in 2011 has revealed striking terroir diversity among Muscadet’s subzones."
+  },
+  {
+    "name": "Muscat Blanc",
+    "color": "white",
+    "origin": "Worldwide; France (Alsace, Beaumes-de-Venise), Italy (as Moscato)",
+    "profile": "Muscat Blanc à Petits Grains is the oldest and noblest member of the extensive Muscat family, and one of the few varieties whose wines actually smell like grapes. It produces intensely aromatic wines with orange blossom, rose, grape, and spice notes in styles ranging from dry Alsatian Muscat to sweet Beaumes-de-Venise to Italy’s frothy Moscato d’Asti. Its ancient origins—possibly the oldest cultivated grape variety—are reflected in its worldwide distribution and remarkable stylistic versatility."
+  },
+  {
+    "name": "Müller-Thurgau",
+    "color": "white",
+    "origin": "Germany; also Austria, Switzerland, Italy (Alto Adige)",
+    "profile": "Müller-Thurgau was created in 1882 by Hermann Müller of Thurgau, Switzerland, originally thought to be a Riesling-Silvaner cross (DNA analysis later identified the parents as Riesling and Madeleine Royale). Germany’s most widely planted variety until Riesling reclaimed the top spot, it produces soft, floral, off-dry wines with modest acidity and gentle muscat-like aromatics. Often dismissed as a bulk variety, it can produce charming, aromatic wines in cool sites, particularly in Franken and Italy’s Alto Adige. It is the foundation of Liebfraumilch."
+  },
+  {
+    "name": "Petit Manseng",
+    "color": "white",
+    "origin": "France (Jurançon, Pacherenc); also Uruguay",
+    "profile": "Petit Manseng is the prized grape of Jurançon in southwest France, producing intensely concentrated sweet and dry wines from naturally small, thick-skinned berries that resist rot and dehydrate on the vine (passerillage). The resulting wines show exceptional concentration with exotic fruit, apricot, pineapple, ginger, and honey flavors balanced by bracingly high acidity. Even dry Jurançon Sec has remarkable intensity and aromatic complexity. The variety is increasingly planted in other warm regions, including Virginia and Uruguay, where it retains its characteristically vivid flavor profile."
+  },
+  {
+    "name": "Pinot Blanc",
+    "color": "white",
+    "origin": "France (Alsace); also Germany, Austria, Italy (as Pinot Bianco)",
+    "profile": "Pinot Blanc is a white mutation of Pinot Noir that produces medium-bodied, round, apple-and-almond-scented wines of moderate acidity and gentle character. In Alsace, it provides an everyday alternative to the region’s more aromatic varieties, while in Alto Adige it is one of the most successful whites. The best examples from old vines show a creamy richness and subtle complexity that rewards attention. In Austria, as Weissburgunder, it contributes to some notable dry whites, particularly in the Wagram and Burgenland regions."
+  },
+  {
+    "name": "Pinot Gris",
+    "color": "white",
+    "origin": "France (Alsace); Italy (as Pinot Grigio), Oregon, New Zealand",
+    "profile": "Pinot Gris is a pink-skinned mutation of Pinot Noir that yields two dramatically different wine styles depending on origin: rich, full-bodied, honeyed wines in Alsace (where it is one of four Grand Cru varieties) and crisp, light, neutral Pinot Grigio from northeastern Italy’s high-yield plains. Oregon produces a middle path—fuller than Italian but crisper than Alsatian. Its grayish-pink berries can produce wines ranging from very pale to deep copper, with flavors spanning citrus, stone fruit, smoke, and spice."
+  },
+  {
+    "name": "Ribolla Gialla",
+    "color": "white",
+    "origin": "Italy (Friuli Venezia Giulia); also Slovenia",
+    "profile": "Ribolla Gialla is an ancient variety of the Friuli-Slovenia borderlands, enjoying a renaissance thanks to the orange wine movement. Traditional extended skin-contact maceration produces amber-hued, tannic whites with dried fruit, honey, and tea-like flavors—a style championed by Gravner and Radikon. Conventional vinification yields lighter, crisper wines with citrus and green apple notes. The variety is firmly associated with the Collio and the broader natural wine movement, embodying the region’s history of cross-border winemaking traditions."
+  },
+  {
+    "name": "Riesling",
+    "color": "white",
+    "origin": "Germany; also France (Alsace), Austria, Australia, New York",
+    "profile": "Riesling is widely considered the world’s greatest white grape, combining electrifying acidity, extraordinary aromatic complexity, and exceptional aging potential across a vast range of styles from bone-dry to intensely sweet. German Riesling from the Mosel, Rheingau, and Pfalz is defined by its interplay of sweetness and acidity, while Alsatian Riesling tends to dryness and power. Its transparency to terroir is unmatched—slate, limestone, volcanic, and loess soils all stamp distinctive personalities on the wine. Riesling develops a petrol (kerosene) note with age that is a hallmark of mature examples."
+  },
+  {
+    "name": "Roussanne",
+    "color": "white",
+    "origin": "France (Northern Rhône, Southern Rhône, Languedoc)",
+    "profile": "Roussanne is the aromatic, high-quality partner to Marsanne in Northern Rhône white blends, contributing herbal, floral complexity and higher acidity. Its name comes from the russet (roux) color of its ripe berries. More difficult to grow than Marsanne—prone to powdery mildew and wind damage—it rewards careful viticulture with complex wines showing herbal tea, pear, honey, and lime blossom. In the Southern Rhône, it is an important component of white Châteauneuf-du-Pape. Its higher acidity relative to Marsanne gives blends structure and aging potential."
+  },
+  {
+    "name": "Sauvignon Blanc",
+    "color": "white",
+    "origin": "France (Loire Valley, Bordeaux); New Zealand, South Africa, Chile",
+    "profile": "Sauvignon Blanc is one of the world’s most recognizable white grapes, defined by its pungent aromatics of gooseberry, passionfruit, cut grass, and sometimes a flinty, smoky minerality. Loire Valley expressions from Sancerre and Pouilly-Fumé show cool-climate restraint and chalky minerality, while Marlborough, New Zealand, pioneered a more explosive, tropical style that transformed global perceptions. A parent of Cabernet Sauvignon (crossed with Cabernet Franc), it also produces great sweet wines in Bordeaux’s Sauternes when affected by botrytis alongside Sémillon."
+  },
+  {
+    "name": "Silvaner",
+    "color": "white",
+    "origin": "Germany (Franken); also Alsace",
+    "profile": "Silvaner (Sylvaner in France) is an historic German variety that finds its finest expression in Franken, where chalky soils and a continental climate produce dry, earthy, mineral wines of understated elegance. Often overshadowed by Riesling, it produces medium-bodied whites with herbal, vegetal notes and moderate acidity—a perfect match for Franken’s hearty cuisine. DNA analysis identified it as a natural cross of Traminer and a wild vine called Österreichisch Weiss. In Alsace, it occupies a minor role but can produce compelling wines from old vines."
+  },
+  {
+    "name": "Sémillon",
+    "color": "white",
+    "origin": "France (Bordeaux, Sauternes); Australia (Hunter Valley)",
+    "profile": "Sémillon is the unsung hero of Bordeaux whites and one of the world’s most underappreciated varieties. In Sauternes, its thin skin makes it supremely susceptible to botrytis, producing some of the world’s greatest sweet wines. In the Graves, blended with Sauvignon Blanc, it contributes body, waxy texture, and aging potential. Australia’s Hunter Valley produces an iconic unoaked style: searingly acidic when young, developing extraordinary toast and honey complexity after a decade. Its capacity for transformation with age is one of wine’s most remarkable phenomena."
+  },
+  {
+    "name": "Torrontés",
+    "color": "white",
+    "origin": "Argentina (Salta, La Rioja)",
+    "profile": "Torrontés is Argentina’s signature white grape, producing intensely aromatic wines with Muscat-like perfume—rose petal, lychee, orange blossom, and geranium. It is a natural cross of Muscat of Alexandria and Criolla Chica (the Argentine form of the Spanish Mission grape). The finest examples come from high-altitude vineyards in Salta’s Cafayate Valley, where elevations above 1,700 meters produce wines that balance floral opulence with vibrant acidity. It has no connection to the Spanish Torrontés varieties of Galicia."
+  },
+  {
+    "name": "Trebbiano",
+    "color": "white",
+    "origin": "Italy (widespread); France (as Ugni Blanc for Cognac/Armagnac)",
+    "profile": "Trebbiano is Italy’s most planted white grape and one of the world’s most prolific varieties, though it is more often associated with quantity than quality. Under various names —Trebbiano Toscano, Trebbiano d’Abruzzo, and Ugni Blanc in France—it produces light, neutral wines of high acidity and modest flavor. In France, as Ugni Blanc, it is the primary distillation grape for Cognac and Armagnac. Exceptional examples exist—particularly Valentini’s legendary Trebbiano d’Abruzzo—but they are rare exceptions to the high-volume rule."
+  },
+  {
+    "name": "Ugni Blanc",
+    "color": "white",
+    "origin": "France (Cognac, Armagnac, Provence); also Italy (as Trebbiano)",
+    "profile": "Ugni Blanc is the French name for Trebbiano Toscano and is France’s most widely planted white grape, almost entirely dedicated to distillation for Cognac and Armagnac. Its naturally high acidity and neutral flavor profile make it ideal for producing the lean, tart base wines that concentrate beautifully during distillation. As a table wine, it is generally unremarkable —thin, acidic, and bland. In Provence, it appears as a minor component in white and rosé blends, contributing freshness without distinctive character."
+  },
+  {
+    "name": "Verdejo",
+    "color": "white",
+    "origin": "Spain (Rueda)",
+    "profile": "Verdejo is the signature grape of Rueda in Castilla y León, producing aromatic, medium-bodied whites with fennel, citrus, bitter almond, and herbal notes. Nearly lost during the 20th century when the region focused on oxidized, fortified-style wines, it was revived in the 1970s through modern cold-fermentation techniques. Now Spain’s most popular white wine, Rueda Verdejo combines herbaceous freshness with a rich, textural mid-palate and a distinctively bitter finish. Old-vine examples from pre-phylloxera plantings show remarkable concentration and mineral complexity."
+  },
+  {
+    "name": "Verdelho",
+    "color": "white",
+    "origin": "Portugal (Madeira, Douro, Azores); also Australia",
+    "profile": "Verdelho is best known as one of the four noble grapes of Madeira, where it produces medium-dry styles of extraordinary longevity and complexity. On the Portuguese mainland and in the Azores, it makes fresh, aromatic dry whites. Transported to Australia in the 19th century, it has become a successful varietal in the Hunter Valley, Margaret River, and McLaren Vale, producing tropical, medium-bodied wines with citrus and stone fruit character. Not to be confused with Verdêlo, the similar-sounding Portuguese variety."
+  },
+  {
+    "name": "Verdicchio",
+    "color": "white",
+    "origin": "Italy (Marche)",
+    "profile": "Verdicchio is the Marche’s most important white grape, particularly in the Verdicchio dei Castelli di Jesi and Verdicchio di Matelica appellations. It produces medium-bodied wines with citrus, green apple, almond, and a saline, mineral finish. Long sold in amphora-shaped bottles that signaled mass-market mediocrity, quality-focused producers have rehabilitated its reputation with age-worthy wines of genuine complexity. The best Riserva examples develop honey, lanolin, and nutty notes, rivaling fine Chablis for mineral-driven white wine excellence."
+  },
+  {
+    "name": "Vermentino",
+    "color": "white",
+    "origin": "Italy (Sardinia, Liguria, Tuscany); France (Corsica, Provence)",
+    "profile": "Vermentino thrives across the western Mediterranean, from Sardinia (where it reaches its fullest expression in Gallura) to Liguria, Corsica (as Rolle), and Provence. It produces crisp, saline whites with citrus, green apple, almond, and herbal character, often with a pleasantly bitter finish. Maritime terroirs suit it best, and the saline minerality of coastal Vermentino makes it a natural pairing for seafood. In Provence and Languedoc, as Rolle, it has become the dominant white variety, valued for its aromatic freshness and textural generosity."
+  },
+  {
+    "name": "Vidiano",
+    "color": "white",
+    "origin": "Greece (Crete)",
+    "profile": "Vidiano is a rare Cretan variety that has emerged as one of Greece’s most promising whites, rescued from obscurity by a handful of quality-minded producers on the island. It produces medium-bodied, textural wines with stone fruit, tropical fruit, and honey notes, combining richness with moderate acidity. Some producers age it in oak, revealing a Chardonnay-like complexity. Still extremely rare—grown almost exclusively on Crete—Vidiano represents the ongoing rediscovery of Greece’s vast and largely untapped indigenous grape heritage."
+  },
+  {
+    "name": "Viognier",
+    "color": "white",
+    "origin": "France (Northern Rhône/Cond’rieu); worldwide",
+    "profile": "Viognier is the sole grape of Condrieu in the Northern Rhône, producing opulent, low-acid wines with intoxicating aromas of apricot, peach, orange blossom, and musk. Nearly extinct by the 1960s—only 14 hectares remained in Condrieu—it has since spread worldwide, from California and Australia to South Africa and southern France. Its rich, oily texture and exotic aromatics are seductive but fleeting; most Viognier is best enjoyed within a few years. In Côte-Rôtie, a small percentage is co-fermented with Syrah, contributing aromatic lift and color stability."
+  },
+  {
+    "name": "Welschriesling",
+    "color": "white",
+    "origin": "Austria, Hungary, Croatia, Slovenia",
+    "profile": "Welschriesling (no relation to Riesling) is Central Europe’s most widely planted white grape, producing light, fresh wines with apple, citrus, and floral aromas. In Austria’s Burgenland, it is important for sweet wines—particularly botrytized selections from Neusiedlersee. Elsewhere, it produces pleasant but generally simple dry whites. Known as Olaszrizling in Hungary, Laški Rizling in Slovenia, and Graševina in Croatia (where it is the most planted white), it is a reliable everyday variety across the region, though rarely exciting in its dry form."
+  }
+]

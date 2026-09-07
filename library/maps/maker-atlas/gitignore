@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Editor and IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Build artifacts (none yet, but reserved)
+node_modules/
+dist/
+build/
+
+# Logs
+*.log

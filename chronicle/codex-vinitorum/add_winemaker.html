@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Winemaker — Codex Vinitorum</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FAF6F1;
+    --paper-raised: #FFFDF8;
+    --paper-deep: #F4EEE3;
+    --wine: #7B2D26;
+    --wine-light: #A04038;
+    --ink: #2A2520;
+    --ink-soft: #4A4338;
+    --ink-muted: #8C8275;
+    --border: #DDD4C5;
+    --border-soft: #EAE3D4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--paper); color: var(--ink); font-family: 'EB Garamond', Georgia, serif; font-size: 17px; line-height: 1.55; }
+  .container { max-width: 760px; margin: 0 auto; padding: 48px 32px 96px; }
+  @media (max-width: 640px) { .container { padding: 32px 18px 64px; } }
+
+  /* Header */
+  header { text-align: center; margin-bottom: 36px; }
+  .eyebrow { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 14px; }
+  .wordmark { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 42px; font-weight: 500; line-height: 1.05; color: var(--ink); margin-bottom: 12px; }
+  .wordmark em { font-style: italic; }
+  .subtitle { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--wine-light); font-size: 17px; }
+  .back-link { display: inline-block; margin-top: 16px; color: var(--ink-soft); font-size: 14px; text-decoration: none; border-bottom: 1px solid var(--border); }
+  .back-link:hover { border-bottom-color: var(--wine); color: var(--wine); }
+
+  /* Intro */
+  .intro { background: var(--paper-raised); border: 1px solid var(--border-soft); border-radius: 3px; padding: 20px 24px; margin-bottom: 32px; color: var(--ink-soft); font-size: 15px; line-height: 1.6; }
+  .intro p + p { margin-top: 10px; }
+
+  /* Form */
+  form { background: var(--paper-raised); border: 1px solid var(--border-soft); border-radius: 3px; padding: 24px 28px; }
+  .form-row { display: grid; grid-template-columns: 200px 1fr; gap: 16px 20px; align-items: start; padding: 12px 0; border-bottom: 1px dotted var(--border-soft); }
+  .form-row:last-of-type { border-bottom: none; }
+  @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; gap: 6px; } }
+  .form-row label { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--ink-soft); font-size: 15px; padding-top: 6px; }
+  .form-row label .help { display: block; font-style: normal; color: var(--ink-muted); font-size: 12px; margin-top: 2px; font-family: 'EB Garamond', Georgia, serif; }
+  .form-row input, .form-row select, .form-row textarea { font-family: 'EB Garamond', Georgia, serif; font-size: 15px; padding: 8px 10px; background: var(--paper); border: 1px solid var(--border); border-radius: 3px; color: var(--ink); width: 100%; }
+  .form-row textarea { min-height: 100px; resize: vertical; line-height: 1.5; }
+  .form-row input:focus, .form-row select:focus, .form-row textarea:focus { outline: none; border-color: var(--wine-light); }
+
+  .signals-block { display: flex; flex-direction: column; gap: 8px; padding-top: 6px; }
+  .signal-check { display: flex; align-items: baseline; gap: 10px; font-size: 15px; color: var(--ink-soft); cursor: pointer; }
+  .signal-check input { width: auto; }
+  .signal-check em { font-style: italic; color: var(--wine); }
+  .signal-help { color: var(--ink-muted); font-size: 13px; }
+
+  /* Actions */
+  .actions { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border-soft); display: flex; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+  .btn { background: var(--paper-raised); border: 1px solid var(--border); color: var(--ink-soft); padding: 10px 22px; cursor: pointer; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 15px; letter-spacing: 0.05em; border-radius: 3px; transition: all 0.15s ease; }
+  .btn:hover { border-color: var(--wine-light); color: var(--wine); }
+  .btn.primary { background: var(--wine); color: var(--paper-raised); border-color: var(--wine); }
+  .btn.primary:hover { background: var(--wine-light); border-color: var(--wine-light); color: var(--paper-raised); }
+
+  /* Output */
+  .output { margin-top: 28px; }
+  .output h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px; font-weight: 500; margin-bottom: 4px; color: var(--ink); }
+  .output .help { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--ink-muted); font-size: 14px; margin-bottom: 12px; }
+  .output textarea { width: 100%; min-height: 240px; font-family: 'Courier New', monospace; font-size: 12px; background: var(--paper); border: 1px solid var(--border); padding: 14px; border-radius: 3px; resize: vertical; color: var(--ink); line-height: 1.5; }
+
+  /* Footer */
+  footer { margin-top: 64px; padding-top: 28px; text-align: center; border-top: 1px solid var(--border-soft); }
+  footer .motto { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--wine-light); font-size: 15px; letter-spacing: 0.05em; }
+  footer .copy { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--ink-muted); font-size: 13px; margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="eyebrow">A Codex of Vinotheca</div>
+    <h1 class="wordmark">Codex <em>Vinitorum</em></h1>
+    <div class="subtitle">— add winemaker</div>
+    <a class="back-link" href="index.html">← back to the codex</a>
+  </header>
+
+  <div class="intro">
+    <p>Fill in the fields below to generate a new entry for <code>winemakers.json</code>. The country, region, and event fields autocomplete from existing values but accept anything new. Coordinates default to the region's centroid; you can override them.</p>
+    <p>New regions must be added to <code>regions.json</code> before the form generates lat/lng. If the region you enter is not in the lookup, the form will give you a <code>regions.json</code> snippet alongside the winemaker entry.</p>
+  </div>
+
+  <form id="add-form">
+    <div class="form-row">
+      <label>Name <span class="help">first + last</span></label>
+      <input type="text" id="f-name" required placeholder="e.g. Jane Smith" />
+    </div>
+    <div class="form-row">
+      <label>Estate <span class="help">winery or domain name</span></label>
+      <input type="text" id="f-estate" required placeholder="e.g. Domaine Smith" />
+    </div>
+    <div class="form-row">
+      <label>Country</label>
+      <input type="text" id="f-country" list="countries" required placeholder="e.g. France" />
+      <datalist id="countries"></datalist>
+    </div>
+    <div class="form-row">
+      <label>Region</label>
+      <input type="text" id="f-region" list="regions" required placeholder="e.g. Burgundy" />
+      <datalist id="regions"></datalist>
+    </div>
+    <div class="form-row">
+      <label>Event <span class="help">where you met</span></label>
+      <input type="text" id="f-event" list="events" required placeholder="e.g. Flatiron Wines" />
+      <datalist id="events"></datalist>
+    </div>
+    <div class="form-row">
+      <label>Date met <span class="help">YYYY-MM-DD</span></label>
+      <input type="date" id="f-date" required />
+    </div>
+    <div class="form-row">
+      <label>Latitude <span class="help">auto from region · override if needed</span></label>
+      <input type="number" id="f-lat" step="0.001" placeholder="auto" />
+    </div>
+    <div class="form-row">
+      <label>Longitude <span class="help">auto from region · override if needed</span></label>
+      <input type="number" id="f-lng" step="0.001" placeholder="auto" />
+    </div>
+    <div class="form-row">
+      <label>Bio <span class="help">factual paragraph, ~80–110 words</span></label>
+      <textarea id="f-bio" required placeholder="A short factual bio of the winemaker — lineage, training, substantive decisions, estate facts. No quality-claims, no personal impressions."></textarea>
+    </div>
+    <div class="form-row">
+      <label>Affinity signals <span class="help">optional — leave blank to start</span></label>
+      <div class="signals-block">
+        <label class="signal-check"><input type="checkbox" id="f-felt"> <em>Felt close to</em> <span class="signal-help">— felt personal closeness</span></label>
+        <label class="signal-check"><input type="checkbox" id="f-memorable"> <em>Memorable encounter</em> <span class="signal-help">— the meeting itself stood out</span></label>
+        <label class="signal-check"><input type="checkbox" id="f-stayed"> <em>Stayed with me</em> <span class="signal-help">— persisted in your thinking after</span></label>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="button" class="btn" id="auto-coords">Fill coords from region</button>
+      <button type="button" class="btn primary" id="generate">Generate JSON</button>
+    </div>
+  </form>
+
+  <div class="output" id="output" style="display:none;">
+    <h3>Entry for <code>winemakers.json</code></h3>
+    <div class="help">Paste this at the start of the array in <code>winemakers.json</code>, immediately after the opening <code>[</code>.</div>
+    <textarea id="output-json" readonly></textarea>
+    <div class="actions">
+      <button type="button" class="btn" id="copy-json">Copy to clipboard</button>
+    </div>
+    <div id="region-snippet" style="display:none; margin-top: 20px;">
+      <h3>Snippet for <code>regions.json</code></h3>
+      <div class="help">This region is new. Paste this into <code>regions.json</code>, then add the winemaker entry above.</div>
+      <textarea id="region-output" readonly></textarea>
+    </div>
+  </div>
+
+  <footer>
+    <div class="motto">❧ <em>in vino, cognitio</em> ❧</div>
+    <div class="copy">© Jure Skarabot · MMXXVI</div>
+  </footer>
+</div>
+
+<script>
+let existingWinemakers = [];
+let existingRegions = {};
+
+async function loadData() {
+  try {
+    const [wmRes, rgRes] = await Promise.all([
+      fetch("winemakers.json"),
+      fetch("regions.json")
+    ]);
+    existingWinemakers = await wmRes.json();
+    existingRegions = await rgRes.json();
+    populateDatalists();
+  } catch (e) {
+    console.error("Could not load reference data:", e);
+  }
+}
+
+function populateDatalists() {
+  const countries = [...new Set(existingWinemakers.map(w => w.country))].sort();
+  const regions = [...new Set(existingWinemakers.map(w => w.region))].sort();
+  const events = [...new Set(existingWinemakers.map(w => w.event))].sort();
+  document.getElementById("countries").innerHTML = countries.map(c => `<option value="${c}">`).join("");
+  document.getElementById("regions").innerHTML = regions.map(r => `<option value="${r}">`).join("");
+  document.getElementById("events").innerHTML = events.map(e => `<option value="${e}">`).join("");
+}
+
+function slugify(s) {
+  return s.toLowerCase()
+    .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+function fillCoordsFromRegion() {
+  const region = document.getElementById("f-region").value.trim();
+  if (existingRegions[region]) {
+    document.getElementById("f-lat").value = existingRegions[region].lat;
+    document.getElementById("f-lng").value = existingRegions[region].lng;
+  } else {
+    alert(`Region "${region}" is not in regions.json. Add it manually below or override coords directly.`);
+  }
+}
+
+function generateJSON() {
+  const name = document.getElementById("f-name").value.trim();
+  const estate = document.getElementById("f-estate").value.trim();
+  const country = document.getElementById("f-country").value.trim();
+  const region = document.getElementById("f-region").value.trim();
+  const event = document.getElementById("f-event").value.trim();
+  const date = document.getElementById("f-date").value.trim();
+  let lat = parseFloat(document.getElementById("f-lat").value);
+  let lng = parseFloat(document.getElementById("f-lng").value);
+  const bio = document.getElementById("f-bio").value.trim();
+  const felt = document.getElementById("f-felt").checked;
+  const memorable = document.getElementById("f-memorable").checked;
+  const stayed = document.getElementById("f-stayed").checked;
+
+  if (!name || !estate || !country || !region || !event || !date || !bio) {
+    alert("Please fill in all required fields.");
+    return;
+  }
+
+  // Auto-fill coords from region if not specified
+  let isNewRegion = false;
+  if ((isNaN(lat) || isNaN(lng)) && existingRegions[region]) {
+    lat = existingRegions[region].lat;
+    lng = existingRegions[region].lng;
+  } else if ((isNaN(lat) || isNaN(lng))) {
+    isNewRegion = true;
+  }
+
+  const entry = {
+    id: slugify(name),
+    name,
+    estate,
+    country,
+    region,
+    event,
+    date_met: date,
+    bio,
+    lat: isNaN(lat) ? 0 : lat,
+    lng: isNaN(lng) ? 0 : lng,
+    felt_close_to: felt,
+    memorable_encounter: memorable,
+    stayed_with_me: stayed
+  };
+
+  // Format with comma so user can paste directly
+  const json = JSON.stringify(entry, null, 2) + ",";
+  document.getElementById("output-json").value = json;
+  document.getElementById("output").style.display = "block";
+
+  if (isNewRegion) {
+    document.getElementById("region-snippet").style.display = "block";
+    const snippet = `"${region}": { "lat": ${isNaN(lat) ? "0" : lat}, "lng": ${isNaN(lng) ? "0" : lng} },`;
+    document.getElementById("region-output").value = snippet;
+  } else {
+    document.getElementById("region-snippet").style.display = "none";
+  }
+
+  document.getElementById("output").scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function copyJSON() {
+  const ta = document.getElementById("output-json");
+  ta.select();
+  document.execCommand("copy");
+  const btn = document.getElementById("copy-json");
+  const original = btn.textContent;
+  btn.textContent = "Copied ✓";
+  setTimeout(() => { btn.textContent = original; }, 1600);
+}
+
+document.getElementById("auto-coords").addEventListener("click", fillCoordsFromRegion);
+document.getElementById("generate").addEventListener("click", generateJSON);
+document.getElementById("copy-json").addEventListener("click", copyJSON);
+
+// Set today as default date
+document.getElementById("f-date").valueAsDate = new Date();
+
+loadData();
+</script>
+</body>
+</html>

@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Codex Vinitorum — A Personal Record of Winemakers</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FAF6F1;
+    --paper-raised: #FFFDF8;
+    --paper-deep: #F4EEE3;
+    --wine: #7B2D26;
+    --wine-light: #A04038;
+    --wine-dark: #5B1A2D;
+    --ink: #2A2520;
+    --ink-soft: #4A4338;
+    --ink-muted: #8C8275;
+    --border: #DDD4C5;
+    --border-soft: #EAE3D4;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: var(--paper); color: var(--ink); font-family: 'EB Garamond', Georgia, serif; font-size: 17px; line-height: 1.55; -webkit-font-smoothing: antialiased; }
+  body { padding: 0; min-height: 100vh; }
+  .container { max-width: 1240px; margin: 0 auto; padding: 48px 32px 96px; }
+  @media (max-width: 720px) { .container { padding: 32px 18px 64px; } }
+
+  /* Header — masthead matching Codex Vini */
+  header { text-align: left; margin-bottom: 8px; }
+  .masthead { display: flex; justify-content: space-between; align-items: flex-start; gap: 28px 40px; flex-wrap: wrap; }
+  .masthead-left { min-width: 0; }
+  .masthead-right { display: flex; flex-direction: column; align-items: flex-end; gap: 16px; padding-top: 14px; }
+  @media (max-width: 720px) { .masthead-right { align-items: flex-start; padding-top: 4px; } }
+  .wordmark { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 58px; font-weight: 500; line-height: 1.0; color: var(--wine); margin-bottom: 12px; }
+  .wordmark em { font-style: italic; }
+  @media (max-width: 720px) { .wordmark { font-size: 42px; } }
+  .eyebrow { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); margin-bottom: 12px; }
+  .motto-header { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--wine-light); font-size: 18px; letter-spacing: 0.04em; }
+  .author { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--ink-soft); font-size: 16px; }
+  .add-btn { display: inline-block; background: var(--wine); color: var(--paper-raised); padding: 10px 20px; text-decoration: none; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; border-radius: 3px; transition: background 0.15s; white-space: nowrap; }
+  .add-btn:hover { background: var(--wine-light); }
+
+  /* Header rules + document and ecosystem rows */
+  .header-rule { border: none; border-top: 1px solid var(--border-soft); margin: 28px 0; }
+  .doc-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+  .doc-row .row-label { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); margin-right: 8px; }
+  .doc-pill { display: inline-block; border: 1px solid var(--wine-light); color: var(--wine); text-decoration: none; padding: 7px 16px; border-radius: 3px; font-family: 'EB Garamond', Georgia, serif; font-size: 15px; transition: background 0.15s, color 0.15s, border-color 0.15s; }
+  .doc-pill:hover { background: var(--wine); color: var(--paper-raised); border-color: var(--wine); }
+  .eco-row { display: flex; align-items: baseline; gap: 10px 24px; flex-wrap: wrap; }
+  .eco-row .row-label { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-muted); margin-right: 4px; }
+  .eco-row a { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 13px; letter-spacing: 0.11em; text-transform: uppercase; color: var(--ink-soft); text-decoration: none; border-bottom: 1px solid transparent; transition: color 0.15s, border-color 0.15s; }
+  .eco-row a:hover { color: var(--wine); border-bottom-color: var(--wine-light); }
+
+  /* Hero stats strip */
+  .hero-stats { display: grid; grid-template-columns: repeat(5, 1fr); border-left: 1px solid var(--border-soft); }
+  .hero-stats .stat { padding: 6px 30px; border-right: 1px solid var(--border-soft); }
+  .hero-stats .stat .num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 46px; font-weight: 500; color: var(--wine); line-height: 1; }
+  .hero-stats .stat .lbl { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted); margin-top: 8px; }
+  @media (max-width: 900px) { .hero-stats { grid-template-columns: repeat(2, 1fr); border-left: none; } .hero-stats .stat { border-right: none; border-bottom: 1px dotted var(--border-soft); padding: 14px 0; } }
+  @media (max-width: 560px) { .hero-stats { grid-template-columns: 1fr; } }
+
+  /* Section headers */
+  section { margin-top: 80px; }
+  section:first-of-type { margin-top: 56px; }
+  .section-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 36px; font-weight: 500; color: var(--wine); margin-bottom: 4px; }
+  .section-title em { font-style: italic; }
+  .section-subtitle { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--ink-soft); font-size: 18px; margin-bottom: 28px; }
+
+  /* Filters */
+  .filters { background: var(--paper-raised); border: 1px solid var(--border-soft); border-radius: 3px; padding: 18px 22px; margin-bottom: 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px 18px; align-items: end; }
+  .filter-group { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+  .filter-group label { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--ink-muted); font-size: 13px; letter-spacing: 0.03em; }
+  .filter-group input, .filter-group select { font-family: 'EB Garamond', Georgia, serif; font-size: 15px; padding: 7px 10px; background: var(--paper); border: 1px solid var(--border); border-radius: 3px; color: var(--ink); width: 100%; }
+  .filter-group input:focus, .filter-group select:focus { outline: none; border-color: var(--wine-light); }
+  .reset-btn { background: var(--paper); border: 1px solid var(--border); padding: 7px 16px; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--ink-soft); cursor: pointer; border-radius: 3px; transition: all 0.15s; font-size: 14px; height: 36px; }
+  .reset-btn:hover { color: var(--wine); border-color: var(--wine-light); }
+
+  /* Counts strip */
+  .counts { display: flex; gap: 24px; padding: 12px 0; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 14px; color: var(--ink-muted); letter-spacing: 0.05em; flex-wrap: wrap; }
+  .counts .count em { font-style: italic; color: var(--wine); font-weight: 500; }
+
+  /* Book table */
+  .book-wrap { overflow-x: auto; border: 1px solid var(--border-soft); border-radius: 3px; background: var(--paper-raised); }
+  .book-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .book-table th { text-align: left; padding: 12px 14px; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 500; font-style: italic; color: var(--ink-soft); border-bottom: 1px solid var(--border); background: var(--paper-deep); font-size: 14px; letter-spacing: 0.03em; white-space: nowrap; cursor: pointer; user-select: none; }
+  .book-table th:hover { color: var(--wine); }
+  .book-table th .sort-indicator { display: inline-block; width: 10px; color: var(--ink-muted); margin-left: 4px; font-size: 10px; }
+  .book-table td { padding: 14px; border-bottom: 1px dotted var(--border-soft); vertical-align: top; }
+  .book-table tr { cursor: pointer; transition: background 0.1s; }
+  .book-table tr:hover td { background: var(--paper-deep); }
+  .book-table .col-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; font-weight: 500; color: var(--ink); white-space: nowrap; }
+  .book-table .col-estate { font-style: italic; color: var(--ink-soft); }
+  .book-table .col-region { color: var(--ink-soft); white-space: nowrap; }
+  .book-table .col-country { color: var(--ink-muted); white-space: nowrap; }
+  .book-table .col-met { color: var(--ink-muted); font-family: 'Cormorant Garamond', Georgia, serif; white-space: nowrap; }
+  .book-table .col-signals { white-space: nowrap; }
+  .book-table .col-signal { text-align: center; white-space: nowrap; padding-left: 8px; padding-right: 8px; }
+  .book-table th.col-signal-header { text-align: center; font-size: 13px; letter-spacing: 0.03em; padding-left: 8px; padding-right: 8px; }
+  .book-table .col-signal .fleuron { font-size: 18px; }
+  .fleurons { display: inline-flex; gap: 3px; align-items: baseline; }
+  .fleuron { color: var(--wine-light); font-size: 16px; cursor: help; position: relative; }
+  .fleuron[data-tooltip]:hover::after { content: attr(data-tooltip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); background: var(--ink); color: var(--paper-raised); font-family: 'EB Garamond', Georgia, serif; font-style: italic; font-size: 12px; padding: 4px 9px; border-radius: 3px; white-space: nowrap; margin-bottom: 6px; letter-spacing: 0.02em; pointer-events: none; z-index: 50; }
+  .empty-row td { padding: 30px; text-align: center; font-style: italic; color: var(--ink-muted); }
+
+  /* Atlas */
+  .atlas-wrap { display: grid; grid-template-columns: 280px 1fr; gap: 18px; }
+  @media (max-width: 900px) { .atlas-wrap { grid-template-columns: 1fr; } }
+  .atlas-controls { background: var(--paper-raised); border: 1px solid var(--border-soft); border-radius: 3px; padding: 18px 20px; display: flex; flex-direction: column; gap: 14px; }
+  .atlas-controls h4 { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--ink-soft); font-size: 14px; font-weight: 500; letter-spacing: 0.03em; }
+  .atlas-controls .reset-btn { width: 100%; padding: 8px 0; }
+  #atlas-map { height: 560px; border-radius: 3px; border: 1px solid var(--border-soft); background: var(--paper-deep); }
+  @media (max-width: 900px) { #atlas-map { height: 440px; } }
+  .leaflet-popup-content-wrapper { background: var(--paper-raised); border-radius: 3px; padding: 0; }
+  .leaflet-popup-content { font-family: 'EB Garamond', Georgia, serif; font-size: 14px; line-height: 1.5; color: var(--ink); margin: 16px 18px !important; max-width: 320px; }
+  .leaflet-popup-tip { background: var(--paper-raised); }
+  .popup-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+  .popup-estate { font-style: italic; color: var(--ink-soft); margin-bottom: 4px; font-size: 15px; }
+  .popup-region { color: var(--ink-muted); font-size: 13px; margin-bottom: 12px; letter-spacing: 0.03em; }
+  .popup-bio { color: var(--ink-soft); margin-bottom: 12px; font-size: 14px; }
+  .popup-signals { padding-top: 10px; border-top: 1px solid var(--border-soft); display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .popup-signals .signals-text { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--ink-muted); font-size: 13px; }
+  .popup-signals .met-text { color: var(--ink-muted); font-size: 13px; font-family: 'Cormorant Garamond', Georgia, serif; }
+
+  /* Collection charts */
+  .collection-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+  @media (max-width: 900px) { .collection-grid { grid-template-columns: 1fr; } }
+  .chart-card { background: var(--paper-raised); border: 1px solid var(--border-soft); border-radius: 3px; padding: 24px 28px; }
+  .chart-card h3 { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+  .chart-card .chart-sub { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--ink-muted); font-size: 14px; margin-bottom: 18px; }
+  .bar-chart { display: flex; flex-direction: column; gap: 6px; }
+  .bar-row { display: grid; grid-template-columns: 140px 1fr 32px; gap: 12px; align-items: center; font-size: 14px; }
+  @media (max-width: 720px) { .bar-row { grid-template-columns: 110px 1fr 28px; } }
+  .bar-label { color: var(--ink-soft); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 14px; }
+  .bar-track { background: var(--paper-deep); height: 16px; border-radius: 2px; overflow: hidden; }
+  .bar-fill { height: 100%; background: var(--wine); transition: width 0.3s; }
+  .bar-fill.light { background: var(--wine-light); }
+  .bar-count { font-family: 'Cormorant Garamond', Georgia, serif; color: var(--ink-muted); text-align: right; font-size: 14px; }
+  .combo-row { display: grid; grid-template-columns: 1fr 32px; gap: 12px; align-items: center; padding: 6px 0; border-bottom: 1px dotted var(--border-soft); font-size: 14px; }
+  .combo-row:last-child { border-bottom: none; }
+  .combo-row .combo-label { color: var(--ink-soft); display: flex; align-items: baseline; gap: 8px; }
+  .combo-row .combo-fleurons { color: var(--wine-light); letter-spacing: 2px; }
+  .combo-row .combo-count { font-family: 'Cormorant Garamond', Georgia, serif; color: var(--ink-muted); text-align: right; }
+
+  /* Footer */
+  footer { margin-top: 96px; padding-top: 32px; text-align: center; border-top: 1px solid var(--border-soft); }
+  footer .motto { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--wine-light); font-size: 16px; letter-spacing: 0.05em; margin-bottom: 16px; }
+  footer .copy { font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--ink-muted); font-size: 13px; letter-spacing: 0.03em; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="masthead">
+      <div class="masthead-left">
+        <h1 class="wordmark">Codex <em>Vinitorum</em></h1>
+        <div class="eyebrow">A Codex of Vinotheca</div>
+        <div class="motto-header">❧ <em>in vino, cognitio</em> ❧</div>
+      </div>
+      <div class="masthead-right">
+        <div class="author">Jure Skarabot · New York</div>
+        <a class="add-btn" href="add_winemaker.html">+ Add Winemaker</a>
+      </div>
+    </div>
+
+    <hr class="header-rule" />
+
+    <div class="doc-row">
+      <span class="row-label">Documents</span>
+      <a class="doc-pill" href="docs/about.pdf#page=1" target="_blank" rel="noopener">About</a>
+      <a class="doc-pill" href="docs/howto.pdf#page=1" target="_blank" rel="noopener">How to update</a>
+      <a class="doc-pill" href="https://jskarabot18.github.io/estate-atlas/The_Maker_Atlas.pdf#page=1" target="_blank" rel="noopener">Estates</a>
+      <a class="doc-pill" href="https://jskarabot18.github.io/soul-of-wine/docs/layer1-descriptions.pdf#page=1" target="_blank" rel="noopener">Regions — Identity</a>
+      <a class="doc-pill" href="https://jskarabot18.github.io/soul-of-wine/docs/layer2-descriptions.pdf#page=1" target="_blank" rel="noopener">Regions — Terroir</a>
+      <a class="doc-pill" href="docs/signals.pdf#page=1" target="_blank" rel="noopener">Signals</a>
+    </div>
+
+    <nav class="eco-row">
+      <span class="row-label">Ecosystem</span>
+      <a href="https://jskarabot18.github.io/vinotheca/">Vinotheca</a>
+      <a href="https://jskarabot18.github.io/codex-vini/">Codex Vini</a>
+      <a href="https://jskarabot18.github.io/grand-cru-atlas/">Vineyard Atlas</a>
+      <a href="https://github.com/jskarabot18/codex-vinitorum">GitHub</a>
+      <a href="https://github.com/jskarabot18/codex-vinitorum/blob/main/LICENSE">License · CC BY-NC 4.0</a>
+      <a href="mailto:hello@codexvini.com">Correspondence</a>
+    </nav>
+
+    <hr class="header-rule" />
+
+    <div class="hero-stats" id="hero-stats"></div>
+  </header>
+
+  <section>
+    <h2 class="section-title">The <em>book</em></h2>
+    <div class="section-subtitle">— every winemaker met, sortable and filterable</div>
+
+    <div class="filters">
+      <div class="filter-group">
+        <label for="filter-search">Search</label>
+        <input type="search" id="filter-search" placeholder="Name or estate" />
+      </div>
+      <div class="filter-group">
+        <label for="filter-country">Country</label>
+        <select id="filter-country"><option value="">All</option></select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-region">Region</label>
+        <select id="filter-region"><option value="">All</option></select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-event">Event</label>
+        <select id="filter-event"><option value="">All</option></select>
+      </div>
+      <div class="filter-group">
+        <label for="filter-signals">Signals</label>
+        <select id="filter-signals">
+          <option value="">All</option>
+          <option value="any">Any signal marked</option>
+          <option value="none">No signals</option>
+          <option value="felt_close_to">Felt close to</option>
+          <option value="memorable_encounter">Memorable encounter</option>
+          <option value="stayed_with_me">Stayed with me</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <label>&nbsp;</label>
+        <button class="reset-btn" id="reset-filters">Reset filters</button>
+      </div>
+    </div>
+
+    <div class="counts" id="book-counts"></div>
+
+    <div class="book-wrap">
+      <table class="book-table" id="book-table">
+        <thead>
+          <tr>
+            <th data-sort="name">Name <span class="sort-indicator"></span></th>
+            <th data-sort="estate">Estate <span class="sort-indicator"></span></th>
+            <th data-sort="region">Region <span class="sort-indicator"></span></th>
+            <th data-sort="country">Country <span class="sort-indicator"></span></th>
+            <th data-sort="met">Met <span class="sort-indicator"></span></th>
+            <th class="col-signal-header" data-sort="felt_close_to" title="Felt close to">Close <span class="sort-indicator"></span></th>
+            <th class="col-signal-header" data-sort="memorable_encounter" title="Memorable encounter">Memorable <span class="sort-indicator"></span></th>
+            <th class="col-signal-header" data-sort="stayed_with_me" title="Stayed with me">Stayed <span class="sort-indicator"></span></th>
+          </tr>
+        </thead>
+        <tbody id="book-tbody"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">The <em>atlas</em></h2>
+    <div class="section-subtitle">— each encounter, plotted on the map</div>
+
+    <div class="atlas-wrap">
+      <div class="atlas-controls">
+        <h4>Filter</h4>
+        <div class="filter-group">
+          <label for="atlas-country">Country</label>
+          <select id="atlas-country"><option value="">All</option></select>
+        </div>
+        <div class="filter-group">
+          <label for="atlas-region">Region</label>
+          <select id="atlas-region"><option value="">All</option></select>
+        </div>
+        <div class="filter-group">
+          <label for="atlas-signals">Signals</label>
+          <select id="atlas-signals">
+            <option value="">All</option>
+            <option value="any">Any signal marked</option>
+            <option value="none">No signals</option>
+            <option value="felt_close_to">Felt close to</option>
+            <option value="memorable_encounter">Memorable encounter</option>
+            <option value="stayed_with_me">Stayed with me</option>
+          </select>
+        </div>
+        <button class="reset-btn" id="atlas-reset">Reset</button>
+        <div style="font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; color: var(--ink-muted); font-size: 13px; padding-top: 10px; border-top: 1px solid var(--border-soft);">Click any pin for the entry. All pins are uniform — the codex marks encounter, not rank.</div>
+      </div>
+      <div id="atlas-map"></div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="section-title">The <em>collection</em></h2>
+    <div class="section-subtitle">— patterns across the codex</div>
+
+    <div class="collection-grid">
+      <div class="chart-card">
+        <h3>By country</h3>
+        <div class="chart-sub">winemakers met, by country</div>
+        <div class="bar-chart" id="chart-country"></div>
+      </div>
+      <div class="chart-card">
+        <h3>By region</h3>
+        <div class="chart-sub">Old World in deep bordeaux · New World in lighter bordeaux</div>
+        <div class="bar-chart" id="chart-region"></div>
+      </div>
+      <div class="chart-card">
+        <h3>By event</h3>
+        <div class="chart-sub">where the encounters took place</div>
+        <div class="bar-chart" id="chart-event"></div>
+      </div>
+      <div class="chart-card">
+        <h3>By year</h3>
+        <div class="chart-sub">encounters across time</div>
+        <div class="bar-chart" id="chart-year"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Signal distribution</h3>
+        <div class="chart-sub">count per affinity signal</div>
+        <div class="bar-chart" id="chart-signals"></div>
+      </div>
+      <div class="chart-card">
+        <h3>Signal combinations</h3>
+        <div class="chart-sub">how many entries carry which signals</div>
+        <div id="chart-combos"></div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="motto">❧ <em>in vino, cognitio</em> ❧</div>
+    <div class="copy">© Jure Skarabot · MMXXVI</div>
+  </footer>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const OLD_WORLD = new Set(["Austria","France","Germany","Italy","Spain","Slovenia","Greece","Portugal","Hungary","Switzerland","Czech Republic"]);
+const SIGNAL_DEFS = [
+  { key: "felt_close_to", label: "Felt close to" },
+  { key: "memorable_encounter", label: "Memorable encounter" },
+  { key: "stayed_with_me", label: "Stayed with me" }
+];
+
+let winemakers = [];
+let filteredWinemakers = [];
+let sortField = "name";
+let sortDir = 1;
+let map = null;
+let markerLayer = null;
+
+// --- Data loading -----------------------------------------------------------
+async function loadData() {
+  try {
+    const res = await fetch("winemakers.json");
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    winemakers = await res.json();
+    init();
+  } catch (e) {
+    document.getElementById("book-tbody").innerHTML = `<tr class="empty-row"><td colspan="8">Unable to load winemakers.json. Run from a local server or GitHub Pages, or open codex-vinitorum-preview.html for an embedded version.</td></tr>`;
+  }
+}
+
+// --- Helpers ----------------------------------------------------------------
+function formatYear(iso) {
+  if (!iso) return "";
+  return iso.split("-")[0];
+}
+function signalsArrayFor(w) {
+  return SIGNAL_DEFS.filter(s => w[s.key]).map(s => s.label);
+}
+function fleuronsHTML(w) {
+  return SIGNAL_DEFS
+    .filter(s => w[s.key])
+    .map(s => `<span class="fleuron" data-tooltip="${s.label}">❧</span>`)
+    .join("");
+}
+function hasAnySignal(w) {
+  return SIGNAL_DEFS.some(s => w[s.key]);
+}
+
+// --- Filter populating ------------------------------------------------------
+function populateSelect(el, values) {
+  const sorted = [...new Set(values)].sort();
+  for (const v of sorted) {
+    const opt = document.createElement("option");
+    opt.value = v;
+    opt.textContent = v;
+    el.appendChild(opt);
+  }
+}
+
+// --- Filter logic -----------------------------------------------------------
+function matchSignals(w, val) {
+  if (!val) return true;
+  if (val === "any") return hasAnySignal(w);
+  if (val === "none") return !hasAnySignal(w);
+  return !!w[val];
+}
+
+function applyBookFilters() {
+  const search = document.getElementById("filter-search").value.trim().toLowerCase();
+  const country = document.getElementById("filter-country").value;
+  const region = document.getElementById("filter-region").value;
+  const event = document.getElementById("filter-event").value;
+  const sig = document.getElementById("filter-signals").value;
+
+  filteredWinemakers = winemakers.filter(w => {
+    if (search) {
+      const hay = `${w.name} ${w.estate}`.toLowerCase();
+      if (!hay.includes(search)) return false;
+    }
+    if (country && w.country !== country) return false;
+    if (region && w.region !== region) return false;
+    if (event && w.event !== event) return false;
+    if (!matchSignals(w, sig)) return false;
+    return true;
+  });
+  sortAndRender();
+}
+
+function sortAndRender() {
+  filteredWinemakers.sort((a, b) => {
+    let av, bv;
+    switch (sortField) {
+      case "name": av = a.name; bv = b.name; break;
+      case "estate": av = a.estate; bv = b.estate; break;
+      case "region": av = a.region; bv = b.region; break;
+      case "country": av = a.country; bv = b.country; break;
+      case "met": av = a.date_met || ""; bv = b.date_met || ""; break;
+      case "felt_close_to":
+      case "memorable_encounter":
+      case "stayed_with_me":
+        // Sort entries with the signal first (true = 1 > false = 0), tiebreak by name
+        av = a[sortField] ? 1 : 0;
+        bv = b[sortField] ? 1 : 0;
+        if (av !== bv) return (bv - av) * sortDir;
+        return a.name < b.name ? -1 : a.name > b.name ? 1 : 0;
+      default: av = a.name; bv = b.name;
+    }
+    if (av < bv) return -1 * sortDir;
+    if (av > bv) return 1 * sortDir;
+    return 0;
+  });
+  renderBook();
+  updateCounts();
+}
+
+function renderBook() {
+  const tbody = document.getElementById("book-tbody");
+  if (filteredWinemakers.length === 0) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="8">No winemakers match the current filters.</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = filteredWinemakers.map(w => `
+    <tr data-id="${w.id}">
+      <td class="col-name">${w.name}</td>
+      <td class="col-estate">${w.estate}</td>
+      <td class="col-region">${w.region}</td>
+      <td class="col-country">${w.country}</td>
+      <td class="col-met">${formatYear(w.date_met)}</td>
+      <td class="col-signal">${w.felt_close_to ? '<span class="fleuron" data-tooltip="Felt close to">❧</span>' : ''}</td>
+      <td class="col-signal">${w.memorable_encounter ? '<span class="fleuron" data-tooltip="Memorable encounter">❧</span>' : ''}</td>
+      <td class="col-signal">${w.stayed_with_me ? '<span class="fleuron" data-tooltip="Stayed with me">❧</span>' : ''}</td>
+    </tr>
+  `).join("");
+  // Hook up row click → fly map
+  tbody.querySelectorAll("tr").forEach(tr => {
+    tr.addEventListener("click", () => {
+      const w = winemakers.find(x => x.id === tr.dataset.id);
+      if (w && map) {
+        map.flyTo([w.lat, w.lng], 7, { duration: 1.2 });
+        // Open the popup for that marker
+        markerLayer.eachLayer(l => {
+          if (l._wmId === w.id) l.openPopup();
+        });
+        document.getElementById("atlas-map").scrollIntoView({ behavior: "smooth", block: "center" });
+      }
+    });
+  });
+  // Update sort indicators
+  document.querySelectorAll("th[data-sort]").forEach(th => {
+    const ind = th.querySelector(".sort-indicator");
+    if (th.dataset.sort === sortField) {
+      ind.textContent = sortDir === 1 ? "▲" : "▼";
+    } else {
+      ind.textContent = "";
+    }
+  });
+}
+
+function updateCounts() {
+  const el = document.getElementById("book-counts");
+  const total = filteredWinemakers.length;
+  const sigCounts = SIGNAL_DEFS.reduce((acc, s) => {
+    acc[s.key] = filteredWinemakers.filter(w => w[s.key]).length;
+    return acc;
+  }, {});
+  el.innerHTML = `
+    <span class="count"><em>${total}</em> winemakers</span>
+    <span class="count">— <em>${sigCounts.felt_close_to}</em> felt close to</span>
+    <span class="count">— <em>${sigCounts.memorable_encounter}</em> memorable</span>
+    <span class="count">— <em>${sigCounts.stayed_with_me}</em> stayed with me</span>
+  `;
+}
+
+// --- Atlas ------------------------------------------------------------------
+function initMap() {
+  map = L.map("atlas-map", { scrollWheelZoom: true, zoomControl: true }).setView([42, 12], 4);
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
+    attribution: "&copy; <a href='https://carto.com'>CARTO</a> &copy; OpenStreetMap contributors",
+    subdomains: "abcd",
+    maxZoom: 19
+  }).addTo(map);
+  markerLayer = L.layerGroup().addTo(map);
+}
+
+function pinIcon() {
+  return L.divIcon({
+    className: "wm-pin",
+    html: `<svg width="22" height="28" viewBox="0 0 22 28" xmlns="http://www.w3.org/2000/svg"><path d="M11 0 C5 0 0 5 0 11 C0 18 11 28 11 28 C11 28 22 18 22 11 C22 5 17 0 11 0 Z" fill="#7B2D26" stroke="#FAF6F1" stroke-width="1.5"/><circle cx="11" cy="11" r="3.5" fill="#FAF6F1"/></svg>`,
+    iconSize: [22, 28],
+    iconAnchor: [11, 28],
+    popupAnchor: [0, -28]
+  });
+}
+
+function popupContent(w) {
+  const signals = signalsArrayFor(w);
+  const signalsText = signals.length === 0
+    ? "<em>no signals</em>"
+    : signals.join(" · ");
+  return `
+    <div>
+      <div class="popup-name">${w.name}</div>
+      <div class="popup-estate">${w.estate}</div>
+      <div class="popup-region">${w.region.toUpperCase()} · ${w.country.toUpperCase()}</div>
+      <div class="popup-bio">${w.bio}</div>
+      <div class="popup-signals">
+        <span class="signals-text">${signalsText}</span>
+        <span class="met-text">Met ${formatYear(w.date_met)}</span>
+      </div>
+    </div>
+  `;
+}
+
+function renderAtlas() {
+  if (!map) return;
+  markerLayer.clearLayers();
+  const country = document.getElementById("atlas-country").value;
+  const region = document.getElementById("atlas-region").value;
+  const sig = document.getElementById("atlas-signals").value;
+  const filtered = winemakers.filter(w => {
+    if (country && w.country !== country) return false;
+    if (region && w.region !== region) return false;
+    if (!matchSignals(w, sig)) return false;
+    return true;
+  });
+  // Jitter overlapping pins slightly so all are clickable
+  const positions = {};
+  filtered.forEach(w => {
+    const key = `${w.lat},${w.lng}`;
+    positions[key] = (positions[key] || 0) + 1;
+    const offset = positions[key] - 1;
+    const angle = offset * 60 * Math.PI / 180;
+    const r = offset > 0 ? 0.18 : 0;
+    const lat = w.lat + Math.sin(angle) * r;
+    const lng = w.lng + Math.cos(angle) * r;
+    const m = L.marker([lat, lng], { icon: pinIcon() })
+      .bindPopup(popupContent(w), {
+        maxWidth: 340,
+        maxHeight: 380,
+        autoPan: true,
+        autoPanPadding: [40, 60],
+        keepInView: true
+      });
+    m._wmId = w.id;
+    markerLayer.addLayer(m);
+  });
+}
+
+// --- Collection charts ------------------------------------------------------
+function renderBarChart(elId, dataMap, options = {}) {
+  const el = document.getElementById(elId);
+  const entries = Object.entries(dataMap).sort((a, b) => b[1] - a[1]);
+  const max = Math.max(...entries.map(e => e[1]), 1);
+  el.innerHTML = entries.map(([label, count]) => {
+    const isLight = options.lightFn ? options.lightFn(label) : false;
+    return `
+      <div class="bar-row" title="${label}">
+        <span class="bar-label">${label}</span>
+        <div class="bar-track"><div class="bar-fill ${isLight ? "light" : ""}" style="width: ${(count / max) * 100}%"></div></div>
+        <span class="bar-count">${count}</span>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderCharts() {
+  // By country
+  const byCountry = {};
+  winemakers.forEach(w => {
+    const c = w.country;
+    byCountry[c] = (byCountry[c] || 0) + 1;
+  });
+  renderBarChart("chart-country", byCountry);
+
+  // By region (with Old/New World colouring)
+  const byRegion = {};
+  const regionWorld = {};
+  winemakers.forEach(w => {
+    byRegion[w.region] = (byRegion[w.region] || 0) + 1;
+    regionWorld[w.region] = OLD_WORLD.has(w.country);
+  });
+  renderBarChart("chart-region", byRegion, { lightFn: label => !regionWorld[label] });
+
+  // By event
+  const byEvent = {};
+  winemakers.forEach(w => {
+    byEvent[w.event] = (byEvent[w.event] || 0) + 1;
+  });
+  renderBarChart("chart-event", byEvent);
+
+  // By year
+  const byYear = {};
+  winemakers.forEach(w => {
+    const y = formatYear(w.date_met);
+    if (y) byYear[y] = (byYear[y] || 0) + 1;
+  });
+  // sort ascending by year
+  const yearEntries = Object.entries(byYear).sort((a, b) => a[0].localeCompare(b[0]));
+  const yearMap = Object.fromEntries(yearEntries);
+  const yearEl = document.getElementById("chart-year");
+  const maxY = Math.max(...yearEntries.map(e => e[1]), 1);
+  yearEl.innerHTML = yearEntries.map(([y, c]) => `
+    <div class="bar-row">
+      <span class="bar-label">${y}</span>
+      <div class="bar-track"><div class="bar-fill" style="width: ${(c / maxY) * 100}%"></div></div>
+      <span class="bar-count">${c}</span>
+    </div>
+  `).join("");
+
+  // Signal distribution
+  const sigDist = {};
+  SIGNAL_DEFS.forEach(s => {
+    sigDist[s.label] = winemakers.filter(w => w[s.key]).length;
+  });
+  renderBarChart("chart-signals", sigDist);
+
+  // Signal combinations
+  const comboCount = { "none": 0, "FCT only": 0, "ME only": 0, "SWM only": 0, "FCT + ME": 0, "FCT + SWM": 0, "ME + SWM": 0, "all three": 0 };
+  const comboLabels = {
+    "none": { name: "No signals", fleurons: "" },
+    "FCT only": { name: "Felt close to", fleurons: "❧" },
+    "ME only": { name: "Memorable", fleurons: "❧" },
+    "SWM only": { name: "Stayed with me", fleurons: "❧" },
+    "FCT + ME": { name: "Felt close to + Memorable", fleurons: "❧ ❧" },
+    "FCT + SWM": { name: "Felt close to + Stayed with me", fleurons: "❧ ❧" },
+    "ME + SWM": { name: "Memorable + Stayed with me", fleurons: "❧ ❧" },
+    "all three": { name: "All three", fleurons: "❧ ❧ ❧" }
+  };
+  winemakers.forEach(w => {
+    const f = w.felt_close_to, m = w.memorable_encounter, s = w.stayed_with_me;
+    if (!f && !m && !s) comboCount["none"]++;
+    else if (f && m && s) comboCount["all three"]++;
+    else if (f && m) comboCount["FCT + ME"]++;
+    else if (f && s) comboCount["FCT + SWM"]++;
+    else if (m && s) comboCount["ME + SWM"]++;
+    else if (f) comboCount["FCT only"]++;
+    else if (m) comboCount["ME only"]++;
+    else if (s) comboCount["SWM only"]++;
+  });
+  const order = ["none", "FCT only", "ME only", "SWM only", "FCT + ME", "FCT + SWM", "ME + SWM", "all three"];
+  const comboEl = document.getElementById("chart-combos");
+  comboEl.innerHTML = order.map(k => `
+    <div class="combo-row">
+      <span class="combo-label">
+        <span class="combo-fleurons">${comboLabels[k].fleurons || "—"}</span>
+        <span>${comboLabels[k].name}</span>
+      </span>
+      <span class="combo-count">${comboCount[k]}</span>
+    </div>
+  `).join("");
+}
+
+// --- Init -------------------------------------------------------------------
+function init() {
+  // Populate selects
+  populateSelect(document.getElementById("filter-country"), winemakers.map(w => w.country));
+  populateSelect(document.getElementById("filter-region"), winemakers.map(w => w.region));
+  populateSelect(document.getElementById("filter-event"), winemakers.map(w => w.event));
+  populateSelect(document.getElementById("atlas-country"), winemakers.map(w => w.country));
+  populateSelect(document.getElementById("atlas-region"), winemakers.map(w => w.region));
+
+  // Filter handlers
+  ["filter-search", "filter-country", "filter-region", "filter-event", "filter-signals"].forEach(id => {
+    document.getElementById(id).addEventListener("input", applyBookFilters);
+    document.getElementById(id).addEventListener("change", applyBookFilters);
+  });
+  document.getElementById("reset-filters").addEventListener("click", () => {
+    document.getElementById("filter-search").value = "";
+    document.getElementById("filter-country").value = "";
+    document.getElementById("filter-region").value = "";
+    document.getElementById("filter-event").value = "";
+    document.getElementById("filter-signals").value = "";
+    applyBookFilters();
+  });
+
+  // Sort handlers
+  document.querySelectorAll("th[data-sort]").forEach(th => {
+    th.addEventListener("click", () => {
+      const f = th.dataset.sort;
+      if (sortField === f) sortDir *= -1;
+      else { sortField = f; sortDir = 1; }
+      sortAndRender();
+    });
+  });
+
+  // Atlas handlers
+  ["atlas-country", "atlas-region", "atlas-signals"].forEach(id => {
+    document.getElementById(id).addEventListener("change", renderAtlas);
+  });
+  document.getElementById("atlas-reset").addEventListener("click", () => {
+    document.getElementById("atlas-country").value = "";
+    document.getElementById("atlas-region").value = "";
+    document.getElementById("atlas-signals").value = "";
+    renderAtlas();
+    map.setView([42, 12], 4);
+  });
+
+  // Initial render
+  filteredWinemakers = [...winemakers];
+  renderHeroStats();
+  initMap();
+  sortAndRender();
+  renderAtlas();
+  renderCharts();
+}
+
+function renderHeroStats() {
+  const el = document.getElementById("hero-stats");
+  if (!el) return;
+  const uniq = (key) => new Set(winemakers.map(w => w[key]).filter(Boolean)).size;
+  const signalsNoted = winemakers.reduce(
+    (n, w) => n + SIGNAL_DEFS.filter(s => w[s.key]).length, 0
+  );
+  const stats = [
+    { num: winemakers.length, lbl: "Winemakers Met" },
+    { num: uniq("country"),   lbl: "Countries" },
+    { num: uniq("region"),    lbl: "Regions" },
+    { num: uniq("event"),     lbl: "Events" },
+    { num: signalsNoted,      lbl: "Signals Noted" }
+  ];
+  el.innerHTML = stats.map(s =>
+    `<div class="stat"><div class="num">${s.num}</div><div class="lbl">${s.lbl}</div></div>`
+  ).join("");
+}
+
+// Esc key resets filters
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    document.getElementById("reset-filters").click();
+    document.getElementById("atlas-reset").click();
+  }
+});
+
+loadData();
+</script>
+</body>
+</html>

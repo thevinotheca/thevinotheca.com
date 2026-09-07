@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grape Affinities — Wine Grape Similarity Network</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --wine:         #7B2D26;
+    --wine-dark:    #5A1F1A;
+    --wine-light:   #A04038;
+    --paper:        #FAF6F1;
+    --paper-raised: #FFFDF8;
+    --paper-deep:   #ece4d6;
+    --ink:          #1a1a1a;
+    --ink-soft:     #5a5048;
+    --ink-muted:    #8a7a6e;
+    --border:       #e8e2db;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'DM Sans', system-ui, sans-serif; background: var(--paper); }
+
+  /* Layout: masthead spans full width on top; rail and graph below.
+     Mirrors the atlases' grid (auto/1fr rows × panel/1fr columns). */
+  #app { display: grid; grid-template-columns: 310px 1fr; grid-template-rows: auto 1fr; width: 100%; height: 100%; }
+
+  /* Masthead — top bar, full-width */
+  #masthead { grid-column: 1 / -1; display: flex; align-items: flex-end; justify-content: space-between; padding: 18px 28px; background: var(--paper); border-bottom: 1px solid var(--border); z-index: 1100; position: relative; }
+  .masthead-titleblock { display: flex; flex-direction: column; gap: 4px; }
+  .masthead-eyebrow { font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-muted); font-weight: 500; margin: 0; }
+  #masthead h1 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--wine); letter-spacing: -0.5px; line-height: 1; margin: 0; }
+  #masthead h1 em { font-style: italic; font-weight: 400; }
+  #masthead-meta { display: flex; align-items: center; gap: 14px; font-size: 11px; letter-spacing: 0.05em; text-transform: uppercase; }
+  #masthead-meta a, #masthead-meta button { color: #888; text-decoration: none; border: none; background: transparent; padding: 0; font: inherit; cursor: pointer; letter-spacing: inherit; text-transform: inherit; border-bottom: 1px solid transparent; padding-bottom: 1px; transition: color .15s, border-color .15s; }
+  #masthead-meta a:hover, #masthead-meta button:hover { color: var(--wine); border-bottom-color: var(--wine); }
+  #masthead-meta .divider { color: #ccc; }
+
+  /* Documentation dropdown — opens below the meta link */
+  .docs-dropdown { position: relative; }
+  .docs-menu { display: none; position: absolute; right: 0; top: calc(100% + 6px); min-width: 200px; background: var(--paper-raised); border: 1px solid var(--border); border-radius: 8px; box-shadow: 0 6px 22px rgba(40,20,10,0.08); z-index: 1200; padding: 6px 0; }
+  .docs-menu.is-open { display: block; }
+  #masthead-meta .docs-menu a { display: block; padding: 9px 14px; font-size: 12px; font-weight: 500; color: #333; text-decoration: none; border: none; text-transform: none; letter-spacing: normal; transition: background .12s; }
+  #masthead-meta .docs-menu a:hover { background: var(--paper); color: var(--wine); }
+  #masthead-meta .docs-menu a + a { border-top: 1px solid #f3eee8; }
+
+  /* LEFT PANEL */
+  #panel { background: var(--paper-raised); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+  /* Italic intro line at top of rail (replaces old #panel-header block) */
+  #panel-sub { padding: 14px 18px 12px; border-bottom: 1px solid var(--border); font-size: 11.5px; color: #888; line-height: 1.5; font-style: italic; }
+  #panel-sub strong { color: #5a5a5a; font-weight: 600; font-style: normal; }
+
+
+
+  #search-box { padding: 10px 18px; }
+  #search-input {
+    width: 100%; padding: 9px 12px; border: 1px solid #ddd; border-radius: 7px;
+    font-size: 13px; font-family: 'DM Sans', sans-serif; outline: none; background: var(--paper);
+    transition: border-color 0.15s;
+  }
+  #search-input:focus { border-color: var(--wine); }
+  #search-results { margin-top: 4px; border: 1px solid #eee; border-radius: 7px; background: var(--paper-raised); max-height: 200px; overflow: auto; display: none; }
+  .search-item { padding: 7px 12px; cursor: pointer; font-size: 12px; border-bottom: 1px solid #f5f5f5; display: flex; align-items: center; gap: 8px; }
+  .search-item:hover { background: var(--paper); }
+  .search-item:last-child { border-bottom: none; }
+
+  /* Reset bar */
+  #reset-bar {
+    display: none; padding: 8px 18px; background: #fdf6f0; border-bottom: 1px solid #f0e0d0;
+    align-items: center; gap: 8px;
+  }
+  #reset-bar.active { display: flex; }
+  #reset-bar .filter-label { flex: 1; font-size: 11.5px; color: var(--wine); font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #reset-btn {
+    padding: 4px 12px; border: 1px solid #d4a89a; border-radius: 5px; background: var(--paper-raised);
+    font-size: 11px; font-family: 'DM Sans', sans-serif; color: var(--wine); cursor: pointer;
+    font-weight: 600; transition: all 0.15s;
+  }
+  #reset-btn:hover { background: var(--wine); color: #fff; }
+
+  /* Clusters */
+  #clusters { padding: 4px 18px 10px; }
+  .section-label { font-size: 10px; font-weight: 600; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .cluster-item {
+    padding: 7px 10px; margin-bottom: 3px; border-radius: 6px; cursor: pointer;
+    border: 1.5px solid transparent; transition: all 0.15s; display: flex; align-items: center; gap: 8px;
+  }
+  .cluster-item:hover { background: var(--paper); }
+  .cluster-item.active { border-color: var(--cc); background: var(--cbg); }
+  .cluster-dot { width: 10px; height: 10px; border-radius: 3px; flex-shrink: 0; }
+  .cluster-label { font-size: 11.5px; color: #333; flex: 1; line-height: 1.3; }
+  .cluster-count { font-size: 10px; color: #aaa; }
+
+  /* Detail / list area */
+  #detail { flex: 1; overflow-y: auto; overflow-x: hidden; border-top: 1px solid var(--border); padding: 14px 18px; }
+  #detail h2 { font-family: 'Cormorant Garamond', serif; font-size: 18px; color: var(--ink); }
+  .detail-meta { display: flex; gap: 12px; font-size: 11px; color: #666; margin: 4px 0 12px; }
+  .detail-meta strong { color: var(--wine); }
+
+  .profile-row { display: flex; align-items: center; gap: 6px; margin-bottom: 3px; }
+  .profile-label { width: 76px; font-size: 9.5px; color: #777; text-align: right; flex-shrink: 0; }
+  .profile-bar-bg { flex: 1; height: 9px; background: #f0ece6; border-radius: 4px; overflow: hidden; }
+  .profile-bar { height: 100%; border-radius: 4px; transition: width 0.3s ease; }
+  .profile-val { width: 14px; font-size: 9px; color: #999; text-align: right; }
+
+  .list-item {
+    padding: 5px 8px; margin-bottom: 2px; border-radius: 5px; cursor: pointer;
+    display: flex; align-items: center; gap: 6px; font-size: 11.5px;
+  }
+  .list-item:hover { background: var(--paper); }
+  .list-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+  .list-name { flex: 1; color: #333; }
+  .list-meta { font-size: 9px; color: #aaa; }
+  .list-rank { font-size: 9px; color: #bbb; }
+
+  .rank-num { width: 30px; padding-right: 4px; font-size: 10px; color: var(--wine); font-weight: 700; text-align: right; flex-shrink: 0; }
+
+  .hint-box {
+    margin-top: 16px; padding: 12px; background: var(--paper); border-radius: 8px;
+    font-size: 10.5px; color: #888; line-height: 1.6;
+  }
+  .hint-box strong { color: #666; }
+
+  /* Canvas */
+  #canvas { flex: 1; position: relative; overflow: hidden; }
+  #canvas svg { width: 100%; height: 100%; background: var(--paper); }
+
+  /* Tooltip */
+  #tooltip {
+    position: absolute; top: 12px; left: 12px; display: none;
+    background: rgba(255,255,255,0.95); backdrop-filter: blur(8px);
+    border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.06); pointer-events: none; max-width: 230px;
+  }
+  #tooltip.visible { display: block; }
+  #tooltip .tt-name { font-weight: 700; font-size: 13px; color: var(--ink); }
+  #tooltip .tt-info { font-size: 11px; color: #666; line-height: 1.5; margin-top: 2px; }
+
+  /* Keyboard hint */
+  #kbd-hint {
+    position: absolute; bottom: 12px; right: 12px;
+    font-size: 10px; color: #bbb; background: rgba(255,255,255,0.8);
+    padding: 6px 10px; border-radius: 6px;
+  }
+  kbd { background: #eee; padding: 1px 5px; border-radius: 3px; font-family: 'DM Sans', sans-serif; font-size: 9px; }
+
+  /* =========================================================================
+     NARRATIVE BLOCK — variety description rendered inline in the detail panel
+  ========================================================================= */
+  .variety-head {
+    display: flex; align-items: center; gap: 8px; margin-bottom: 4px;
+  }
+  .variety-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; }
+  #detail h2 { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #1a1410; letter-spacing: -0.3px; line-height: 1.15; }
+
+  .variety-region {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    color: #6b5d53;
+    font-style: italic;
+    line-height: 1.45;
+    margin-bottom: 10px;
+  }
+
+  .variety-meta {
+    display: flex; gap: 14px; flex-wrap: wrap;
+    font-size: 10px; color: #8a7d73;
+    text-transform: uppercase; letter-spacing: 0.8px;
+    margin-bottom: 14px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #ece5dd;
+  }
+  .variety-meta strong {
+    color: #1a1410; font-weight: 600;
+    letter-spacing: 0; text-transform: none; font-size: 11.5px;
+  }
+  .variety-meta .vm-community {
+    color: var(--wine);
+    font-weight: 600;
+    letter-spacing: 0.8px;
+  }
+
+  .variety-prose {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12.5px;
+    line-height: 1.65;
+    color: #2a2420;
+    margin-bottom: 16px;
+    text-align: justify;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+  .variety-prose::first-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2em;
+    line-height: 1;
+    float: left;
+    margin: 0.08em 0.1em -0.05em 0;
+    color: var(--wine);
+  }
+
+  /* Decorative rule between narrative and data */
+  .soft-rule {
+    display: flex; align-items: center; gap: 10px;
+    margin: 8px 0 16px; color: #c5b7ab;
+  }
+  .soft-rule::before, .soft-rule::after {
+    content: ''; flex: 1; height: 1px;
+    background: linear-gradient(to right, transparent, #d8ccbf, transparent);
+  }
+  .soft-rule .glyph {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 10px; letter-spacing: 2px;
+    color: #a89786; font-style: italic;
+  }
+
+  /* Neighbor chips — more breathable than the default list-item rows */
+  .nbs-wrap { display: flex; flex-wrap: wrap; gap: 5px; }
+  .nb-chip {
+    display: inline-flex; align-items: center; gap: 5px;
+    padding: 4px 8px 4px 7px;
+    background: var(--paper-raised);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    font-size: 11px;
+    color: #2a2420;
+    cursor: pointer;
+    transition: all 0.14s ease;
+  }
+  .nb-chip:hover {
+    border-color: var(--wine);
+    background: #fffdfb;
+  }
+  .nb-chip .nb-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .nb-chip .nb-sim { color: #a89786; font-size: 9.5px; margin-left: 2px; }
+
+  /* Hide the Communities section when a variety is selected, to free space */
+  #app.variety-selected #clusters { display: none; }
+
+  /* About block — short editorial orientation on the landing view */
+  .about-block {
+    margin: 0 0 18px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #ece5dd;
+  }
+  .about-block .about-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 1.6px;
+    color: var(--wine); margin-bottom: 8px;
+  }
+  .about-block h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; line-height: 1.2;
+    color: #1a1410; margin-bottom: 8px;
+    letter-spacing: -0.2px; font-weight: 400;
+  }
+  .about-block p {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11.5px; line-height: 1.6;
+    color: #4a4038; margin-bottom: 8px;
+    text-align: justify; hyphens: auto; -webkit-hyphens: auto;
+  }
+  .about-block p:last-child { margin-bottom: 0; }
+  .about-block em { font-style: italic; color: #6b5d53; }
+
+  /* Footer — attribution and license, always visible */
+  /* Standardized atlas footer (matches Vineyard Atlas / Maker Atlas) */
+  #atlas-footer { flex-shrink: 0; border-top: 1px solid var(--border); padding: 14px 18px 14px; background: var(--paper-raised); font-family: 'DM Sans', system-ui, sans-serif; font-size: 11px; line-height: 1.55; color: #888; }
+  .atlas-footer-motto { text-align: center; font-family: 'Cormorant Garamond', serif; font-size: 13px; color: var(--wine); letter-spacing: 0.02em; margin: 0 0 10px; font-style: italic; }
+  .atlas-footer-motto .fleuron { color: #a86259; font-style: normal; margin: 0 6px; font-size: 12px; }
+  .atlas-footer-links { display: flex; flex-wrap: wrap; gap: 3px 12px; justify-content: center; margin: 0 0 10px; }
+  .atlas-footer-links a { color: #888; text-decoration: none; border-bottom: 1px solid transparent; transition: color .15s, border-color .15s; font-size: 11px; }
+  .atlas-footer-links a:hover { color: var(--wine); border-bottom-color: var(--wine); }
+  .atlas-footer-copyright { text-align: center; font-style: italic; font-size: 10.5px; color: #aaa; letter-spacing: 0.04em; margin: 0; }
+</style>
+</head>
+<body>
+<div id="app">
+
+<header id="masthead">
+  <div class="masthead-titleblock">
+    <p class="masthead-eyebrow">A Tool of Vinotheca</p>
+    <h1>Grape <em>Affinities</em></h1>
+  </div>
+  <div id="masthead-meta">
+    <a href="https://jskarabot18.github.io/vinotheca/">Vinotheca</a>
+    <span class="divider">·</span>
+    <span class="docs-dropdown">
+      <button type="button" id="docs-toggle" aria-haspopup="true" aria-expanded="false">Documentation ▾</button>
+      <div class="docs-menu" id="docs-menu" role="menu">
+        <a href="docs/summary.pdf#page=1&view=Fit&toolbar=1&navpanes=0" target="_blank" rel="noopener">Summary</a>
+        <a href="docs/technical-appendix.pdf#page=1&view=Fit&toolbar=1&navpanes=0" target="_blank" rel="noopener">Technical Appendix</a>
+        <a href="docs/methods-primer.pdf#page=1&view=Fit&toolbar=1&navpanes=0" target="_blank" rel="noopener">Methods Primer</a>
+        <a href="docs/data-appendix.pdf#page=1&view=Fit&toolbar=1&navpanes=0" target="_blank" rel="noopener">Data Appendix</a>
+        <a href="docs/grape-reference.pdf#page=1&view=Fit&toolbar=1&navpanes=0" target="_blank" rel="noopener">Grape Reference</a>
+      </div>
+    </span>
+  </div>
+</header>
+
+<!-- LEFT PANEL -->
+<div id="panel">
+  <div id="panel-sub"><strong>Built on the TasteRank algorithm.</strong> Eigenvector centrality on sensory profiles. 101 varieties · 341 edges · 6 communities.</div>
+
+  <div id="search-box">
+      <input type="text" id="search-input" placeholder="Search variety..." autocomplete="off" />
+      <div id="search-results"></div>
+    </div>
+
+    <div id="reset-bar">
+      <span class="filter-label" id="filter-label"></span>
+      <button id="reset-btn">✕ Reset</button>
+    </div>
+
+    <div id="clusters">
+      <div class="section-label">Communities</div>
+      <div id="cluster-list"></div>
+    </div>
+
+    <div id="detail"></div>
+
+    <footer id="atlas-footer">
+      <p class="atlas-footer-motto">
+        <span class="fleuron">❧</span><em>in vino, cognitio</em><span class="fleuron">❧</span>
+      </p>
+      <p class="atlas-footer-links">
+        <a href="https://github.com/jskarabot18/tasterank-explorer">GitHub</a>
+        <a href="https://github.com/jskarabot18/tasterank-explorer/blob/main/LICENSE">License · CC BY-NC 4.0</a>
+        <a href="https://jskarabot18.github.io/vinotheca/">Vinotheca</a>
+        <a href="mailto:hello@codexvini.com">Correspondence</a>
+      </p>
+      <p class="atlas-footer-copyright">© Jure Skarabot · MMXXVI</p>
+    </footer>
+  </div>
+
+  <!-- GRAPH -->
+  <div id="canvas">
+    <svg id="graph-svg"></svg>
+    <div id="tooltip"></div>
+    <div id="kbd-hint"><kbd>Esc</kbd> reset · scroll zoom · drag pan · click node or community</div>
+  </div>
+
+</div>
+
+<script>
+// Documentation dropdown — open/close on toggle, close on outside click or Escape.
+// Defined in a separate script so it works even if the main visualisation script crashes.
+(function () {
+  function init() {
+    const toggle = document.getElementById('docs-toggle');
+    const menu   = document.getElementById('docs-menu');
+    if (!toggle || !menu) return;
+
+    const close = () => {
+      menu.classList.remove('is-open');
+      toggle.setAttribute('aria-expanded', 'false');
+    };
+    const open = () => {
+      menu.classList.add('is-open');
+      toggle.setAttribute('aria-expanded', 'true');
+    };
+
+    toggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (menu.classList.contains('is-open')) close();
+      else open();
+    });
+
+    // Close on click outside the dropdown
+    document.addEventListener('click', (e) => {
+      if (!e.target.closest('.docs-dropdown')) close();
+    });
+
+    // Close on Escape — capture phase so the dropdown handles Esc before the
+    // main app's existing Esc=reset handler. Only consume Esc when menu is open.
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && menu.classList.contains('is-open')) {
+        close();
+        e.stopPropagation();
+      }
+    }, true);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
+
+<script>
+// ============================================================================
+// DATA
+// ============================================================================
+const GRAPE_TYPE={"Cabernet Sauvignon":"red","Merlot":"red","Cabernet Franc":"red","Petit Verdot":"red","Malbec":"red","Carménère":"red","Pinot Noir":"red","Gamay":"red","St. Laurent":"red","Schiava":"red","Trousseau":"red","Poulsard":"red","Frappato":"red","Cinsault":"red","Zweigelt":"red","Kadarka":"red","Nebbiolo":"red","Barbera":"red","Dolcetto":"red","Sangiovese":"red","Montepulciano":"red","Corvina":"red","Lagrein":"red","Aglianico":"red","Nero d'Avola":"red","Negroamaro":"red","Nerello Mascalese":"red","Sagrantino":"red","Primitivo":"red","Syrah":"red","Grenache":"red","Mourvèdre":"red","Carignan":"red","Counoise":"red","Tempranillo":"red","Mencía":"red","Monastrell":"red","Graciano":"red","Bobal":"red","Garnacha Tintorera":"red","Touriga Nacional":"red","Touriga Franca":"red","Tinta Roriz":"red","Baga":"red","Zinfandel":"red","Petite Sirah":"red","Pinotage":"red","Tannat":"red","Xinomavro":"red","Limniona":"red","Mavrud":"red","Plavac Mali":"red","Blaufränkisch":"red","Chardonnay":"white","Pinot Blanc":"white","Pinot Gris":"white","Aligoté":"white","Melon de Bourgogne":"white","Riesling":"white","Gewürztraminer":"white","Muscat Blanc":"white","Torrontés":"white","Malagousia":"white","Chenin Blanc":"white","Sauvignon Blanc":"white","Viognier":"white","Marsanne":"white","Roussanne":"white","Clairette":"white","Sémillon":"white","Grüner Veltliner":"white","Silvaner":"white","Müller-Thurgau":"white","Welschriesling":"white","Furmint":"white","Albariño":"white","Verdejo":"white","Godello":"white","Encruzado":"white","Arinto":"white","Loureiro":"white","Verdelho":"white","Vermentino":"white","Fiano":"white","Falanghina":"white","Greco":"white","Garganega":"white","Trebbiano":"white","Verdicchio":"white","Cortese":"white","Arneis":"white","Friulano":"white","Ribolla Gialla":"white","Malvasia":"white","Assyrtiko":"white","Vidiano":"white","Chasselas":"white","Petit Manseng":"white","Colombard":"white","Ugni Blanc":"white","Mauzac":"white"};
+
+const PROFILES={"Cabernet Sauvignon":[5,4,1,3,3,4,3,5,5,4,4,5,5],"Merlot":[4,3,1,4,2,3,3,3,4,4,3,4,4],"Cabernet Franc":[3,4,2,2,4,2,4,4,3,3,4,4,4],"Petit Verdot":[5,3,2,3,2,3,3,5,5,4,4,4,4],"Malbec":[5,3,2,4,1,3,3,4,5,4,4,4,3],"Carménère":[4,4,1,3,4,2,3,3,4,3,4,3,3],"Pinot Noir":[2,4,2,2,2,2,4,2,2,3,4,4,5],"Gamay":[2,4,2,2,1,1,4,1,2,2,3,2,3],"St. Laurent":[3,3,1,3,2,2,4,3,3,3,3,3,3],"Schiava":[1,3,2,2,1,0,4,1,1,2,2,2,2],"Trousseau":[2,3,1,2,2,1,4,2,2,2,3,3,3],"Poulsard":[1,3,2,2,1,0,4,1,1,2,2,2,2],"Frappato":[2,4,3,2,1,0,4,1,2,2,3,2,3],"Cinsault":[2,3,2,3,1,1,3,2,2,3,3,2,2],"Zweigelt":[3,3,1,3,1,1,3,2,3,3,3,3,2],"Kadarka":[2,3,2,2,2,1,4,2,2,2,3,2,3],"Nebbiolo":[3,5,3,3,3,3,5,5,3,4,5,5,5],"Barbera":[4,3,1,3,1,2,5,2,3,3,3,3,3],"Dolcetto":[4,3,1,3,1,1,3,3,3,3,3,2,2],"Sangiovese":[3,4,1,2,3,2,5,4,3,3,4,4,4],"Montepulciano":[5,3,1,4,2,2,3,4,4,3,3,3,3],"Corvina":[3,3,2,3,1,1,4,2,3,3,3,3,3],"Lagrein":[5,3,1,3,2,2,3,4,4,3,3,3,3],"Aglianico":[4,4,1,3,3,3,5,5,4,4,4,5,5],"Nero d'Avola":[5,3,1,4,2,2,3,4,4,4,4,3,3],"Negroamaro":[4,3,1,4,2,2,3,3,4,4,3,3,3],"Nerello Mascalese":[2,4,2,2,3,2,5,3,2,3,4,4,5],"Sagrantino":[5,3,1,4,2,3,3,5,5,4,4,4,4],"Primitivo":[5,4,1,5,1,3,2,3,5,5,4,3,3],"Syrah":[5,4,2,3,2,4,3,4,5,4,4,5,5],"Grenache":[3,3,1,4,2,2,2,2,4,5,3,3,3],"Mourvèdre":[5,4,1,3,3,3,3,4,5,4,4,4,4],"Carignan":[4,3,1,3,3,1,4,4,4,3,3,3,3],"Counoise":[3,3,2,3,2,1,4,3,3,3,3,3,3],"Tempranillo":[4,3,1,3,3,3,3,4,4,3,3,4,4],"Mencía":[3,4,2,2,3,2,4,3,3,3,4,3,4],"Monastrell":[5,4,1,4,2,3,2,4,5,5,4,4,3],"Graciano":[5,4,2,3,3,3,4,5,4,3,4,4,4],"Bobal":[5,3,1,3,2,1,4,4,4,3,3,3,3],"Garnacha Tintorera":[5,3,1,4,2,2,3,4,5,4,3,3,2],"Touriga Nacional":[5,5,3,3,2,3,3,5,5,4,5,5,5],"Touriga Franca":[4,4,3,3,1,2,3,3,4,3,4,4,4],"Tinta Roriz":[4,3,1,3,3,3,3,4,4,3,3,4,4],"Baga":[4,3,1,2,3,2,5,5,3,3,3,4,4],"Zinfandel":[5,4,1,5,1,3,2,3,5,5,4,3,3],"Petite Sirah":[5,3,1,4,1,3,3,5,5,4,4,4,3],"Pinotage":[5,4,0,4,1,3,3,4,4,4,4,3,3],"Tannat":[5,3,1,3,2,3,4,5,5,4,4,4,4],"Xinomavro":[3,4,1,2,3,2,5,5,3,3,4,5,5],"Limniona":[4,4,2,3,3,2,4,4,4,3,4,4,4],"Mavrud":[5,3,1,3,3,2,4,5,4,4,4,4,4],"Plavac Mali":[5,3,1,4,2,2,3,4,5,5,4,3,3],"Blaufränkisch":[4,4,1,3,2,2,4,4,3,3,4,4,4],"Chardonnay":[3,3,1,3,1,3,3,0,4,4,3,4,4],"Pinot Blanc":[2,2,1,2,0,1,3,0,3,3,2,3,2],"Pinot Gris":[3,3,1,3,0,1,3,0,3,3,3,3,3],"Aligoté":[1,2,0,2,0,0,4,0,2,2,2,2,2],"Melon de Bourgogne":[1,2,0,1,0,0,4,0,2,2,2,2,2],"Riesling":[1,4,3,2,0,0,5,0,2,2,4,4,5],"Gewürztraminer":[3,5,4,4,1,2,2,0,4,4,5,3,4],"Muscat Blanc":[2,5,5,3,0,0,3,0,2,2,4,2,3],"Torrontés":[2,5,4,3,0,0,3,0,3,3,4,2,3],"Malagousia":[2,4,4,3,1,0,3,0,3,3,4,3,4],"Chenin Blanc":[2,3,2,3,1,1,5,0,3,3,3,4,4],"Sauvignon Blanc":[1,4,1,2,4,0,5,0,2,2,4,3,3],"Viognier":[3,5,4,4,0,2,2,0,4,4,4,3,4],"Marsanne":[3,3,1,3,1,2,2,0,4,4,3,3,3],"Roussanne":[3,4,2,3,2,2,3,0,4,3,4,4,4],"Clairette":[2,2,1,2,1,0,3,0,3,3,2,2,2],"Sémillon":[3,3,1,3,0,2,2,0,4,4,3,4,4],"Grüner Veltliner":[2,3,1,2,2,0,4,0,3,3,3,3,4],"Silvaner":[2,2,1,2,1,0,3,0,3,3,2,3,3],"Müller-Thurgau":[1,3,2,2,0,0,3,0,2,2,2,2,2],"Welschriesling":[1,3,2,2,0,0,4,0,2,2,2,2,2],"Furmint":[2,3,1,2,1,1,5,0,3,3,3,4,5],"Albariño":[1,4,2,2,1,0,5,0,2,3,3,3,4],"Verdejo":[2,3,1,2,2,0,4,0,3,3,3,3,3],"Godello":[2,3,1,3,1,1,4,0,3,3,3,3,4],"Encruzado":[2,3,1,3,1,2,4,0,3,3,3,4,4],"Arinto":[1,3,1,2,0,0,5,0,2,2,3,3,3],"Loureiro":[1,4,3,2,0,0,4,0,2,2,3,2,3],"Verdelho":[2,3,1,3,0,1,3,0,3,3,3,3,3],"Vermentino":[2,3,1,2,2,0,4,0,3,3,3,3,3],"Fiano":[2,4,2,3,1,1,4,0,3,3,4,4,4],"Falanghina":[2,3,2,2,0,0,4,0,3,3,3,3,3],"Greco":[2,3,1,2,1,0,4,0,3,3,3,3,4],"Garganega":[2,2,1,2,1,0,3,0,3,3,2,3,3],"Trebbiano":[1,2,0,2,0,0,3,0,2,2,2,2,2],"Verdicchio":[2,3,1,2,1,0,4,0,3,3,3,3,3],"Cortese":[1,2,1,2,0,0,4,0,2,2,2,2,2],"Arneis":[2,3,2,3,0,0,3,0,3,3,3,3,3],"Friulano":[2,3,1,2,1,0,3,0,3,3,3,3,3],"Ribolla Gialla":[1,3,1,2,1,0,4,0,2,2,3,2,3],"Malvasia":[2,4,3,3,1,0,3,0,3,3,3,3,3],"Assyrtiko":[2,4,1,2,1,0,5,0,3,3,4,4,5],"Vidiano":[2,3,2,3,1,1,3,0,3,3,3,3,3],"Chasselas":[1,2,0,2,0,0,3,0,2,2,2,2,2],"Petit Manseng":[2,4,2,4,1,1,5,0,3,3,4,4,4],"Colombard":[1,2,0,2,1,0,4,0,2,2,2,2,2],"Ugni Blanc":[1,1,0,1,0,0,5,0,1,2,1,1,1],"Mauzac":[1,2,1,2,0,0,4,0,2,2,2,2,2]};
+
+const COMMUNITIES={"Cabernet Sauvignon":0,"Merlot":0,"Petit Verdot":0,"Malbec":0,"Montepulciano":0,"Lagrein":0,"Nero d'Avola":0,"Negroamaro":0,"Sagrantino":0,"Primitivo":0,"Syrah":0,"Grenache":0,"Mourvèdre":0,"Monastrell":0,"Garnacha Tintorera":0,"Plavac Mali":0,"Zinfandel":0,"Petite Sirah":0,"Pinotage":0,"Dolcetto":0,"Carignan":0,"Bobal":0,"Tempranillo":0,"Tinta Roriz":0,"Tannat":0,"Mavrud":0,"Graciano":0,"Touriga Nacional":0,"Aglianico":0,"Baga":0,"Cabernet Franc":0,"Schiava":1,"Poulsard":1,"Frappato":1,"Kadarka":1,"Müller-Thurgau":1,"Welschriesling":1,"Albariño":1,"Arinto":1,"Loureiro":1,"Falanghina":1,"Cortese":1,"Ribolla Gialla":1,"Mauzac":1,"Aligoté":1,"Melon de Bourgogne":1,"Colombard":1,"Assyrtiko":1,"Riesling":1,"Sauvignon Blanc":1,"Furmint":1,"St. Laurent":2,"Zweigelt":2,"Counoise":2,"Blaufränkisch":2,"Limniona":2,"Sangiovese":2,"Mencía":2,"Nerello Mascalese":2,"Corvina":2,"Trousseau":2,"Cinsault":2,"Barbera":2,"Xinomavro":2,"Nebbiolo":2,"Carménère":2,"Touriga Franca":2,"Gamay":2,"Pinot Noir":2,"Marsanne":3,"Fiano":3,"Godello":3,"Pinot Gris":3,"Chardonnay":3,"Sémillon":3,"Encruzado":3,"Roussanne":3,"Verdelho":3,"Pinot Blanc":3,"Arneis":3,"Vidiano":3,"Viognier":3,"Greco":4,"Friulano":4,"Verdicchio":4,"Verdejo":4,"Vermentino":4,"Grüner Veltliner":4,"Garganega":4,"Silvaner":4,"Clairette":4,"Chenin Blanc":4,"Chasselas":5,"Trebbiano":5,"Ugni Blanc":5,"Gewürztraminer":5,"Muscat Blanc":5,"Torrontés":5,"Malagousia":5,"Malvasia":5,"Petit Manseng":5};
+
+const TASTERANK={"Sagrantino":0.3020,"Nero d'Avola":0.2849,"Lagrein":0.2748,"Negroamaro":0.2380,"Plavac Mali":0.2251,"Montepulciano":0.2108,"Petit Verdot":0.2093,"Monastrell":0.2060,"Petite Sirah":0.1768,"Pinotage":0.1710,"Malbec":0.1697,"Tannat":0.1676,"Garnacha Tintorera":0.1670,"Dolcetto":0.1659,"Mourvèdre":0.1565,"Zinfandel":0.1498,"Primitivo":0.1498,"Merlot":0.1333,"Carignan":0.1283,"Limniona":0.1223,"St. Laurent":0.1218,"Bobal":0.1212,"Grenache":0.1206,"Syrah":0.1177,"Tempranillo":0.1163,"Mavrud":0.1149,"Zweigelt":0.1134,"Counoise":0.1121,"Graciano":0.1027,"Cabernet Sauvignon":0.0940,"Tinta Roriz":0.0925,"Blaufränkisch":0.0909,"Touriga Nacional":0.0849,"Carménère":0.0839,"Aglianico":0.0787,"Baga":0.0787,"Cabernet Franc":0.0671,"Barbera":0.0650,"Corvina":0.0641,"Sangiovese":0.0632,"Mencía":0.0601,"Nebbiolo":0.0567,"Cinsault":0.0540,"Touriga Franca":0.0524,"Nerello Mascalese":0.0499,"Xinomavro":0.0481,"Pinot Noir":0.0399,"Trousseau":0.0352,"Kadarka":0.0335,"Gamay":0.0310,"Schiava":0.0219,"Poulsard":0.0219,"Frappato":0.0195,"Marsanne":0.0978,"Fiano":0.0855,"Godello":0.0826,"Pinot Gris":0.0803,"Chardonnay":0.0764,"Sémillon":0.0753,"Encruzado":0.0747,"Roussanne":0.0710,"Verdelho":0.0683,"Pinot Blanc":0.0574,"Arneis":0.0560,"Vidiano":0.0550,"Viognier":0.0400,"Greco":0.0742,"Friulano":0.0688,"Verdicchio":0.0674,"Verdejo":0.0662,"Vermentino":0.0650,"Grüner Veltliner":0.0594,"Garganega":0.0497,"Silvaner":0.0487,"Clairette":0.0437,"Chenin Blanc":0.0391,"Falanghina":0.0515,"Assyrtiko":0.0409,"Albariño":0.0387,"Loureiro":0.0324,"Ribolla Gialla":0.0318,"Cortese":0.0256,"Arinto":0.0255,"Welschriesling":0.0234,"Müller-Thurgau":0.0226,"Colombard":0.0214,"Aligoté":0.0188,"Melon de Bourgogne":0.0174,"Mauzac":0.0167,"Riesling":0.0353,"Sauvignon Blanc":0.0290,"Furmint":0.0361,"Chasselas":0.0209,"Trebbiano":0.0196,"Ugni Blanc":0.0101,"Gewürztraminer":0.0361,"Muscat Blanc":0.0302,"Torrontés":0.0296,"Malagousia":0.0297,"Malvasia":0.0315,"Petit Manseng":0.0356};
+
+const GRAPE_DESC={"Aglianico": {"r": "Red grape · Southern Italy (Campania, Basilicata)", "d": "One of southern Italy’s greatest noble varieties, Aglianico is thought to have ancient Greek origins, brought to the Italian peninsula over two millennia ago. It produces deeply colored, full-bodied wines with pronounced tannins, high acidity, and complex aromas of dark fruit, leather, tobacco, and volcanic minerality. The two benchmark appellations are Taurasi in Campania and Aglianico del Vulture in Basilicata, where volcanic soils and high-altitude vineyards produce wines of remarkable structure and longevity."}, "Baga": {"r": "Red grape · Portugal (Bairrada, Dão)", "d": "Baga is the principal red grape of Portugal’s Bairrada region, where heavy clay soils and Atlantic influence produce wines of formidable tannic structure and bracing acidity. Historically associated with rustic, astringent styles, modern winemaking has revealed Baga’s capacity for elegant, complex wines with flavors of dark cherry, plum, and herbal notes. It requires careful vineyard management and extended aging to show its best, drawing comparisons to Nebbiolo for its combination of high acid, high tannin, and pale-to-medium color."}, "Barbera": {"r": "Red grape · Italy (Piedmont); also Argentina, California", "d": "Barbera is Piedmont’s most widely planted red grape, prized for its naturally high acidity and deep color combined with relatively soft tannins. Originating in the Monferrato hills, it produces versatile wines ranging from fresh, everyday styles to concentrated, oak-aged bottlings from top sites in Asti and Alba. Classic flavors include sour cherry, plum, and dried herbs, with the best examples showing a vibrant interplay of fruit richness and refreshing acidity that makes it exceptionally food-friendly."}, "Blaufränkisch": {"r": "Red grape · Austria (Burgenland, Mittelburgenland); also Hungary (as Kékfrankos)", "d": "Blaufränkisch is Central Europe’s answer to cool-climate Syrah—a deeply colored, spicy, medium-to-full-bodied red with firm tannins and lively acidity. It thrives on the warm shores of Neusiedlersee and the iron-rich soils of Mittelburgenland in Austria, where it produces wines with dark cherry, blackberry, pepper, and mineral character. Known as Kékfrankos in Hungary and Lemberger in Germany, it has experienced a renaissance as top producers demonstrate its capacity for age-worthy, terroir-expressive wines."}, "Bobal": {"r": "Red grape · Spain (Utiel-Requena, Manchuela)", "d": "Bobal is Spain’s second most planted red variety after Tempranillo, concentrated primarily in the high-altitude vineyards of Valencia’s Utiel-Requena DO. Long dismissed as a bulk-wine workhorse, old-vine Bobal is now recognized for producing deeply colored, structured wines with flavors of dark berry, earth, and Mediterranean herbs. Its naturally high acidity and thick skins make it well-suited to the continental climate of Spain’s interior meseta, and a new generation of producers is championing its identity as a serious varietal."}, "Cabernet Franc": {"r": "Red grape · France (Loire Valley, Bordeaux); worldwide", "d": "Cabernet Franc is one of the great noble varieties of Bordeaux and the Loire Valley, where it produces wines of elegance, aromatic complexity, and medium body. In the Loire’s Chinon and Bourgueil, it yields fragrant reds with violet, raspberry, and distinctive graphite-pencil notes, while in Saint-Émilion and Pomerol it adds perfume and finesse to Merlot-dominated blends. A parent of Cabernet Sauvignon (crossed with Sauvignon Blanc), it ripens earlier and thrives in cooler sites, producing wines with herbaceous freshness and silky tannins."}, "Cabernet Sauvignon": {"r": "Red grape · Worldwide; France (Bordeaux), Napa Valley, Chile, Australia", "d": "The world’s most widely planted red variety, Cabernet Sauvignon is the backbone of Bordeaux’s Left Bank blends and produces iconic varietal wines across the New World. A natural cross of Cabernet Franc and Sauvignon Blanc first documented in 17th-century Bordeaux, it is prized for its deep color, firm tannic structure, and flavors of blackcurrant, cedar, and tobacco. Small, thick-skinned berries and late ripening give it extraordinary aging potential, while its adaptability to diverse climates has made it the benchmark for full-bodied red wine worldwide."}, "Carignan": {"r": "Red grape · France (Languedoc, Roussillon); Spain (as Cariñena), Algeria", "d": "Carignan originated in Aragon, Spain, and became the most planted grape in France’s Languedoc during the 20th century. Once maligned for producing high-yield, undistinguished wines, old-vine Carignan—particularly from bush vines in schist and garrigue-covered hillsides—produces wines of deep color, firm tannins, and complex flavors of dark fruit, dried herbs, and earthy spice. It responds beautifully to carbonic maceration and is increasingly bottled as a single variety, revealing a rustic, mineral character prized by natural wine producers."}, "Carménère": {"r": "Red grape · Chile; originally France (Bordeaux)", "d": "Carménère was one of the original six Bordeaux varieties before phylloxera nearly drove it to extinction in France. Rediscovered in Chile in 1994—where it had been misidentified as Merlot—it has become Chile’s signature grape. It produces medium-to-full-bodied wines with distinctive green pepper, red fruit, and smoky-spice aromas, reflecting its herbaceous character when underripe and lush, chocolatey richness when fully mature. It requires a long growing season and warm sites to fully ripen its pyrazine-prone berries."}, "Cinsault": {"r": "Red grape · France (Southern Rhône, Languedoc); South Africa, Lebanon", "d": "Cinsault is one of the Mediterranean’s oldest varieties, valued for its drought resistance, generous yields, and ability to produce light, fragrant, low-tannin wines. It plays a supporting role in Southern Rhône and Languedoc blends, contributing perfume and softness. In South Africa it was crossed with Pinot Noir to create Pinotage, and old-vine Cinsault in the Swartland is experiencing a revival. Classic flavors include red cherry, strawberry, and gentle spice, producing wines best enjoyed young."}, "Corvina": {"r": "Red grape · Italy (Veneto)", "d": "Corvina is the principal grape of Valpolicella, Amarone, and Ripasso in northeastern Italy’s Veneto region. It produces pale-to-medium-colored wines with tart cherry, almond, and herbal notes in its fresh Valpolicella form, and concentrated, raisinated wines of remarkable power in Amarone, where partially dried grapes undergo extended fermentation. The variety’s thin skins and moderate tannins make the appassimento (grape-drying) technique essential to its most prestigious expressions, yielding complex wines with extraordinary depth."}, "Counoise": {"r": "Red grape · France (Southern Rhône)", "d": "Counoise is one of the thirteen permitted varieties in Châteauneuf-du-Pape, valued for its contribution of spice, freshness, and aromatic complexity to blends. A relatively minor variety, it produces medium-bodied wines with peppery, herbal character and moderate tannins. It adds vibrancy and lift to Grenache-dominated blends and is appreciated by producers seeking to preserve acidity and aromatic interest in warm-climate wines. Its thin skins yield lighter color but contribute distinctive floral and spice notes."}, "Dolcetto": {"r": "Red grape · Italy (Piedmont)", "d": "Dolcetto is Piedmont’s everyday red, producing deeply colored, soft, fruity wines meant for early consumption. The name means “little sweet one,” referring not to residual sugar but to the grape’s naturally low acidity, which gives the wines an approachable, plush quality. Key appellations include Dogliani and Alba, where it ripens before Barbera and Nebbiolo on cooler, lower-altitude sites. Typical flavors are black cherry, licorice, and almond, with soft tannins and a characteristic bitter-cherry finish."}, "Frappato": {"r": "Red grape · Italy (Sicily)", "d": "Frappato is a delicate, aromatic Sicilian variety best known as the junior partner to Nero d’Avola in Cerasuolo di Vittoria, Sicily’s only DOCG. It produces light-bodied, pale-colored wines with exuberant aromas of strawberry, rose petal, and dried herbs—sometimes compared to a Mediterranean Gamay. On its own, it yields fragrant, low-tannin reds perfect for chilled serving, reflecting the warm coastal terroir of southeastern Sicily with a surprising freshness and aromatic lift."}, "Gamay": {"r": "Red grape · France (Beaujolais, Loire Valley)", "d": "Gamay is the sole red grape of Beaujolais, where it produces wines ranging from light, gulpable Nouveau to structured, age-worthy cru bottlings from granite hillsides. Banished from Burgundy by ducal decree in 1395, it found its spiritual home in the granitic soils south of Mâcon. Carbonic maceration amplifies its bright cherry, banana, and floral character, while traditional vinification in the ten crus (Morgon, Fleurie, Moulin-à-Vent, etc.) reveals a more serious, mineral-driven personality capable of aging a decade or more."}, "Garnacha Tintorera": {"r": "Red grape · Spain (Almansa, Jumilla); also France (as Alicante Bouschet)", "d": "Garnacha Tintorera, known internationally as Alicante Bouschet, is one of very few teinturier grapes—varieties with red flesh as well as red skin. Created in 1866 by Henri Bouschet, it was widely planted for its intense color, used to bolster pale blends. In Spain’s Almansa and Jumilla, and in Portugal’s Alentejo, old-vine plantings are now producing concentrated, serious wines with deep purple-black color, flavors of blackberry and violets, and substantial tannic structure."}, "Graciano": {"r": "Red grape · Spain (Rioja, Navarra)", "d": "Graciano is a minor but prized blending component in Rioja, where it contributes color, acidity, and aromatic complexity to Tempranillo-based blends. Low-yielding and difficult to grow, it was nearly abandoned before a revival in the late 20th century. Its intensely colored wines show flavors of dark cherry, plum, licorice, and dried herbs, with firm tannins and excellent aging potential. Some producers now bottle it as a varietal, revealing its distinctive personality of dark fruit intensity balanced by fresh acidity."}, "Grenache": {"r": "Red grape · France (Southern Rhône, Roussillon); Spain (as Garnacha), Australia", "d": "Grenache is one of the world’s most widely planted red grapes, originating in Aragon, Spain, and achieving its finest expression in France’s Châteauneuf-du-Pape and Australia’s Barossa Valley old vines. Its thin skin, late ripening, and preference for hot, dry conditions yield wines of high alcohol, soft tannins, and generous fruit—strawberry, raspberry, and kirsch—with white pepper and garrigue notes. It forms the backbone of GSM (Grenache-Syrah-Mourvèdre) blends and produces some of the Mediterranean’s most hedonistic wines."}, "Kadarka": {"r": "Red grape · Hungary; also Bulgaria, Serbia", "d": "Kadarka is a historic Hungarian variety once central to the famed “Bull’s Blood” of Eger. Light-to-medium in body with relatively high acidity and modest tannins, it produces aromatic wines with sour cherry, spice, and earthy character. Nearly abandoned in favor of more commercially reliable varieties, Kadarka has been revived by artisan producers in Szekszárd and Villány who value its elegance and historic significance. It requires careful viticulture due to its sensitivity to rot and uneven ripening."}, "Lagrein": {"r": "Red grape · Italy (Alto Adige/Südtirol)", "d": "Lagrein is an indigenous variety of Alto Adige in northern Italy, producing deeply colored, full-bodied wines with flavors of dark berry, chocolate, and violet. Genetic research has revealed it is related to Teroldego and Syrah, explaining its richness and color intensity. Thriving in the warm valley floor around Bolzano, particularly in the Gries subzone, it produces both rosé (Kretzer) and concentrated red (Dunkel) styles. The best examples combine New World-like opulence with alpine freshness and fine-grained tannins."}, "Limniona": {"r": "Red grape · Greece (Thessaly)", "d": "Limniona is an ancient Greek variety revived from near-extinction by pioneering producers in Thessaly’s Tyrnavos region. Thought to have been cultivated since antiquity, it was rediscovered in the early 2000s and has quickly attracted international attention. It produces medium-to-full-bodied wines with striking aromatic complexity—dark fruit, violets, herbs, and a distinctive earthy minerality. Its combination of color, structure, and aromatic intrigue has drawn comparisons to Syrah and Blaufränkisch, positioning it as one of Greece’s most exciting rediscoveries."}, "Malbec": {"r": "Red grape · Argentina (Mendoza); France (Cahors)", "d": "Malbec originated in southwestern France, where it remains the principal grape of Cahors’ “black wines.” Transplanted to Argentina in 1853, it found its modern spiritual home in the high-altitude vineyards of Mendoza, where intense UV light, dry conditions, and dramatic diurnal temperature shifts produce wines of deep purple color, plush texture, and flavors of blackberry, plum, and violet. Argentine Malbec tends to be rounder and more fruit-forward than its French counterpart, which shows more tannic grip and rustic, earthy character."}, "Mavrud": {"r": "Red grape · Bulgaria", "d": "Mavrud is Bulgaria’s most esteemed indigenous red grape, concentrated around the city of Plovdiv in the Thracian Valley. The name derives from the Greek “mavro” (black), reflecting its intensely dark color. It produces full-bodied, tannic wines with flavors of blackberry, damson plum, leather, and earthy spice that recall Southern Rhône reds. Resistant to drought and well-adapted to Bulgaria’s continental climate, it requires warm sites and patient aging to soften its formidable structure."}, "Mencía": {"r": "Red grape · Spain (Bierzo, Ribeira Sacra, Valdeorras)", "d": "Mencía is the signature red grape of northwestern Spain, producing aromatic, medium-bodied wines often compared to Loire Cabernet Franc. In Bierzo, old vines on slate soils yield wines of remarkable finesse with flavors of red cherry, violet, graphite, and mineral undertones. In Ribeira Sacra, heroic viticulture on steep, terraced hillsides above the Sil and Miño rivers adds a wild, herbal complexity. Once thought identical to Cabernet Franc, DNA analysis confirmed it as a genetically distinct Iberian variety."}, "Merlot": {"r": "Red grape · Worldwide; France (Bordeaux), Italy, Chile, USA", "d": "Merlot is the most planted grape in Bordeaux and one of the world’s most popular red varieties, valued for its approachable, plummy softness and early-drinking charm. On Bordeaux’s Right Bank, particularly in Saint-Émilion and Pomerol, it reaches its zenith—producing wines of extraordinary richness on clay-limestone soils. A natural cross of Cabernet Franc and Magdeleine Noire des Charentes, it ripens earlier than Cabernet Sauvignon, offering rounder tannins and flavors of plum, black cherry, chocolate, and herbs."}, "Monastrell": {"r": "Red grape · Spain (Jumilla, Yecla, Alicante); France (as Mourvèdre)", "d": "Monastrell is the Spanish name for Mourvèdre, dominant in the warm, arid vineyards of southeastern Spain’s Jumilla, Yecla, and Alicante. Here, ungrafted old bush vines in phylloxera-free sandy soils produce intensely concentrated wines with dark fruit, meat, leather, and garrigue aromas. High in alcohol and tannin, with moderate acidity, Monastrell thrives in extreme heat and drought, yielding wines of rustic power that have gained international recognition as quality-conscious producers adopt modern techniques."}, "Montepulciano": {"r": "Red grape · Italy (Abruzzo, Marche)", "d": "Montepulciano is central Italy’s workhorse red, producing deeply colored, full-bodied wines in Abruzzo (as Montepulciano d’Abruzzo) and the Marche. Not to be confused with the Tuscan town of Montepulciano (where Sangiovese reigns), this variety yields generous, richly fruited wines with soft tannins, moderate acidity, and flavors of dark cherry, plum, and spice. At its best in the Colline Teramane DOCG, it produces structured wines capable of aging, though most is enjoyed as an affordable, everyday red."}, "Mourvèdre": {"r": "Red grape · France (Bandol, Southern Rhône); Spain, Australia", "d": "Mourvèdre is the noble grape of Bandol in Provence, where it must comprise at least 50% of the blend, and a key component of Southern Rhône and Languedoc wines. It demands extreme heat to ripen fully, rewarding patience with wines of deep color, firm tannins, and complex aromas of blackberry, game, leather, and garrigue. Slow to reveal its charms, it is the “late bloomer” of Mediterranean viticulture—austere in youth but developing extraordinary complexity with a decade or more of bottle age."}, "Nebbiolo": {"r": "Red grape · Italy (Piedmont: Barolo, Barbaresco); also Lombardy, Valle d’Aosta", "d": "Nebbiolo is one of Italy’s most revered grapes, producing the legendary Barolo and Barbaresco of Piedmont’s Langhe hills. Despite its pale garnet color, it delivers extraordinary aromatic complexity—tar, roses, cherry, leather, truffle—with formidable tannins and high acidity that demand extended aging. Named for the autumn fog (“nebbia”) that blankets the Langhe during harvest, it is exquisitely site-sensitive, reflecting differences between individual crus with a precision rivaling Burgundy’s Pinot Noir."}, "Negroamaro": {"r": "Red grape · Italy (Puglia/Salento)", "d": "Negroamaro—whose name literally means “black bitter”—is the signature grape of Puglia’s Salento peninsula, where it produces both red wines and the acclaimed Salice Salentino rosé. In warm, dry vineyards close to both the Adriatic and Ionian seas, it yields full-bodied wines with dark fruit, fig, tobacco, and earthy character, often with a distinctive bitter-chocolate finish. Old bush vines (alberello) produce the most concentrated examples, increasingly recognized as serious wines of terroir and identity."}, "Nerello Mascalese": {"r": "Red grape · Italy (Sicily/Mount Etna)", "d": "Nerello Mascalese is the red grape of Mount Etna, where it grows on ancient volcanic terraces at elevations up to 1,000 meters. Often called the “Pinot Noir of the Mediterranean,” it produces pale, elegant wines of high acidity and fine tannins, with aromas of red cherry, blood orange, dried herbs, and a distinctive smoky, volcanic minerality. Etna’s contrade system (named vineyard districts) reveals remarkable terroir variation across the volcano’s slopes, driving a quality revolution that has placed Nerello Mascalese among Italy’s most exciting varieties."}, "Nero d'Avola": {"r": "Red grape · Italy (Sicily)", "d": "Nero d’Avola is Sicily’s most important red grape, named for the southeastern town of Avola. It produces deeply colored, full-bodied wines with ripe flavors of black cherry, plum, chocolate, and Mediterranean herbs. Versatile across styles—from fresh, fruity everyday wines to concentrated, oak-aged bottlings—it thrives in Sicily’s hot, dry climate and has become the island’s flagship variety on the international stage. The best examples balance southern warmth with surprising structure and complexity."}, "Petit Verdot": {"r": "Red grape · France (Bordeaux); also Spain, Australia, USA", "d": "Petit Verdot is the darkest, most tannic, and latest-ripening of the classic Bordeaux varieties. Used sparingly in Left Bank blends (typically 1–5%), it contributes intense color, violet aromatics, and firm structure. In warmer New World climates—Australia, California, Spain—where it ripens more reliably, it is increasingly bottled as a varietal, producing inky, powerful wines with flavors of blackberry, violet, graphite, and dark chocolate. Its small, thick-skinned berries concentrate exceptional amounts of anthocyanins and phenolics."}, "Petite Sirah": {"r": "Red grape · USA (California); also Australia, Israel", "d": "Petite Sirah (properly Durif) was created in 1880 by French botanist François Durif as a cross of Syrah and Peloursin. While it faded in France, it became a California staple, prized for its inky color, massive tannins, and dense flavors of blueberry, dark plum, pepper, and chocolate. Old-vine plantings in Lodi and Paso Robles produce particularly concentrated examples. Despite its name, it is genetically distinct from Syrah (Petite Syrah), though it shares some of Syrah’s dark-fruited, peppery character."}, "Pinot Noir": {"r": "Red grape · France (Burgundy); worldwide", "d": "Pinot Noir is the grape of red Burgundy and one of wine’s most revered—and difficult—varieties. Thin-skinned, early-ripening, and genetically unstable, it demands meticulous viticulture and cool climates to produce its ethereal best: pale, translucent wines of haunting aromatics (cherry, rose, earth, mushroom) and silky texture. Beyond Burgundy, benchmark expressions emerge from Oregon’s Willamette Valley, New Zealand’s Central Otago and Martinborough, and Germany’s Ahr and Baden (as Spätburgunder). It is also essential to Champagne production."}, "Pinotage": {"r": "Red grape · South Africa", "d": "Pinotage was created in 1925 at Stellenbosch University by Abraham Perold, who crossed Pinot Noir with Cinsault (then called Hermitage in South Africa). Uniquely South African, it produces deeply colored, full-bodied wines with a distinctive flavor profile of dark plum, smoke, coffee, banana, and tar. Divisive among critics—some praise its bold individuality while others find its pungent aromas challenging—it has evolved considerably as producers refine viticultural and winemaking techniques to emphasize fruit purity and elegance."}, "Plavac Mali": {"r": "Red grape · Croatia (Dalmatia)", "d": "Plavac Mali is Croatia’s most celebrated red grape, thriving on the sun-drenched, wind-swept slopes of the Dalmatian coast and islands. A natural cross of Zinfandel’s ancestor (Crljenak Kaštelanski) and Dobričić, it produces full-bodied, deeply colored wines with high alcohol, robust tannins, and flavors of dried dark fruit, fig, and Mediterranean herbs. The top appellations—Dingač and Postup on the Pelješac peninsula—produce structured, age-worthy wines from steep, south-facing terraces above the Adriatic."}, "Poulsard": {"r": "Red grape · France (Jura)", "d": "Poulsard (or Ploussard) is the Jura’s most distinctive red grape, producing some of France’s palest, most ethereal red wines. Thin-skinned to the point of translucency, it yields wines with barely more color than a dark rosé, with delicate aromas of red currant, rose hip, and dried flowers. Often vinified under a voile of yeast (like Vin Jaune), it develops nutty, oxidative notes that are uniquely Jurassien. Underappreciated but increasingly sought by sommeliers, it embodies the Jura’s eccentric, terroir-driven winemaking tradition."}, "Primitivo": {"r": "Red grape · Italy (Puglia); also as Zinfandel in California", "d": "Primitivo is the Puglian name for the grape known as Zinfandel in California, both descended from the Croatian variety Crljenak Kaštelanski. In the warm, flat vineyards of Puglia’s Manduria and Gioia del Colle, it produces rich, high-alcohol wines with jammy dark fruit, dried fig, chocolate, and warm spice. The name refers to its early (“primitive”) ripening, though uneven cluster maturity can produce raisined berries alongside green ones. Old bush vines yield the most concentrated and complex examples."}, "Sagrantino": {"r": "Red grape · Italy (Umbria/Montefalco)", "d": "Sagrantino is one of the most tannic grapes in the world, indigenous to the tiny Montefalco DOCG in Umbria. Historically used for sweet passito wines, the modern dry Sagrantino di Montefalco is an intensely dark, powerful wine with massive tannins, full body, and flavors of blackberry, plum, leather, and dark chocolate. Its phenolic concentration exceeds even Tannat and Nebbiolo, requiring extended aging to become approachable. The variety’s name may derive from its traditional use in sacramental wines."}, "Sangiovese": {"r": "Red grape · Italy (Tuscany: Chianti, Brunello di Montalcino); also Romagna", "d": "Sangiovese is Italy’s most planted and most important red grape, the soul of Chianti, Brunello di Montalcino, and Vino Nobile di Montepulciano. Its name means “blood of Jupiter,” and it produces medium-to-full-bodied wines of high acidity, firm tannins, and aromas of sour cherry, dried herbs, leather, and earth. Extremely sensitive to site and clone, it ranges from simple Chianti to the sublime complexity of great Brunello. The Grosso clone in Montalcino produces Tuscany’s most age-worthy expression."}, "Schiava": {"r": "Red grape · Italy (Alto Adige/Südtirol); Germany (as Trollinger)", "d": "Schiava (Vernatsch in German) is the light, everyday red of Alto Adige, once dominant in the region’s viticulture. It produces pale, low-tannin wines with fresh flavors of strawberry, almond, and cotton candy—designed for casual, food-friendly drinking. Largely replaced by more fashionable varieties, it persists in the Santa Maddalena and Kalterersee appellations, where it remains a charming expression of alpine winemaking. In Germany’s Württemberg, as Trollinger, it is the most consumed local red."}, "St. Laurent": {"r": "Red grape · Austria (Thermenregion, Burgenland); Czech Republic", "d": "St. Laurent is a Central European variety—likely a spontaneous crossing of Pinot Noir—that produces medium-bodied, aromatic reds with dark cherry, plum, and earthy-spicy character. Often compared to a darker, more robust Pinot Noir, it combines that grape’s aromatic finesse with deeper color and firmer tannins. It thrives in Austria’s Thermenregion and Burgenland, where the best producers craft wines of surprising depth and silky elegance, though its low yields and disease susceptibility keep plantings relatively small."}, "Syrah": {"r": "Red grape · France (Northern Rhône); Australia (as Shiraz), worldwide", "d": "Syrah is the sole red grape of the Northern Rhône’s great appellations—Hermitage, Côte-Rôtie, Cornas—and one of the world’s most versatile and expressive varieties. In cool climates it shows dark fruit, black pepper, olive, and smoked meat; in warm climates (as Shiraz in Australia) it becomes richer, with chocolate, licorice, and vanilla. DNA analysis revealed it as a cross of Dureza and Mondeuse Blanche, both obscure varieties from southeastern France. Its thick skins yield deep color and substantial tannins, with exceptional aging potential in top cuvées."}, "Tannat": {"r": "Red grape · Uruguay; France (Madiran, Irouléguy)", "d": "Tannat is the defining grape of Madiran in southwest France and the national variety of Uruguay, where it was introduced in the 19th century. One of the most tannic grapes grown, it produces deeply colored, powerful wines with flavors of dark plum, blackberry, leather, and dried herbs. In Madiran, micro-oxygenation was invented specifically to tame its fierce tannins. Uruguayan Tannat, softened by Atlantic maritime influence and modern techniques, tends to be more approachable, with rounder fruit and smoother texture."}, "Tempranillo": {"r": "Red grape · Spain (Rioja, Ribera del Duero); also Portugal (as Tinta Roriz)", "d": "Tempranillo is Spain’s noble red grape, the backbone of Rioja and Ribera del Duero. Its name derives from “temprano” (early), reflecting its relatively early ripening. In Rioja, traditional oak aging (American or French) produces wines with strawberry, vanilla, leather, and tobacco notes, while Ribera del Duero’s continental extremes yield darker, more concentrated expressions. Remarkably adaptable, it is known as Tinta Roriz in Portugal’s Douro, Cencibel in La Mancha, and Tinto Fino in Ribera del Duero."}, "Tinta Roriz": {"r": "Red grape · Portugal (Douro, Dão)", "d": "Tinta Roriz is the Portuguese name for Tempranillo, one of the five principal grapes recommended for Port production in the Douro Valley. In the Douro’s extreme continental climate—scorching summers and frigid winters among terraced schist slopes—it contributes color, fruit, and structure to both Port and dry Douro reds. It adapts well to the region’s hot conditions, producing wines with ripe berry fruit, moderate tannins, and a smooth, generous texture that complements the other Douro varieties in blends."}, "Touriga Franca": {"r": "Red grape · Portugal (Douro)", "d": "Touriga Franca is the most widely planted grape in the Douro Valley, valued for its reliability, generous yields, and aromatic contribution to Port and dry red blends. It produces wines with floral, red-fruit aromatics—rose, wild strawberry, violet—that add perfume and elegance alongside more structured blending partners like Touriga Nacional and Tinta Roriz. Drought-resistant and well-adapted to the Douro’s hot, arid climate, it is considered the workhorse counterpart to Touriga Nacional’s more concentrated, tannic character."}, "Touriga Nacional": {"r": "Red grape · Portugal (Douro, Dão); worldwide", "d": "Touriga Nacional is widely regarded as Portugal’s finest red grape, the crown jewel of both Port and dry Douro wines. Despite naturally low yields and small berries, it produces deeply concentrated wines of extraordinary aromatic complexity—violets, wild roses, dark berries, and resinous herbs—with firm tannins and excellent aging potential. Originally most prized in the Dão, it has spread throughout Portugal and increasingly to Australia and California, though the Douro’s schist terraces remain its most celebrated home."}, "Trousseau": {"r": "Red grape · France (Jura); also Portugal (as Bastardo)", "d": "Trousseau is the Jura’s more full-bodied red alongside Poulsard, producing wines of medium color, moderate tannin, and distinctive flavors of red fruit, spice, and earth. Thin-skinned and low-yielding, it requires the warmest sites in the Jura to ripen fully, often planted on south-facing marl and limestone slopes. In Portugal, as Bastardo, it appears in Port blends and dry Dão wines. The Jura’s natural wine movement has brought renewed attention to Trousseau as a vehicle for expressing the region’s unique terroir and oxidative traditions."}, "Xinomavro": {"r": "Red grape · Greece (Naoussa, Amyntaio, Goumenissa)", "d": "Xinomavro—“acid-black” in Greek—is Greece’s most noble red variety, often compared to Nebbiolo for its combination of high acidity, firm tannins, and pale color that belies extraordinary complexity. In the Naoussa appellation of northern Greece, it produces age-worthy wines with aromas of tomato, olive, dried fruit, and spice that evolve into tar, leather, and truffle with cellaring. Amyntaio, at higher altitude, yields a more delicate, Pinot-like expression. It is among the few Greek varieties capable of world-class longevity."}, "Zinfandel": {"r": "Red grape · USA (California: Lodi, Paso Robles, Sonoma); also as Primitivo in Italy", "d": "Zinfandel is California’s heritage red grape, arrived in the 1850s and identified via DNA as the Croatian variety Crljenak Kaštelanski. It produces bold, high-alcohol wines with exuberant flavors of blackberry, raspberry jam, black pepper, and baking spice. Old-vine plantings in Lodi, Dry Creek Valley, and Paso Robles yield the most concentrated, complex examples. Zinfandel’s propensity for uneven ripening creates a characteristic mix of fresh and raisined berries, contributing to wines that can range from brambly elegance to jammy richness."}, "Zweigelt": {"r": "Red grape · Austria (Burgenland, Weinviertel)", "d": "Zweigelt is Austria’s most widely planted red grape, created in 1922 by Fritz Zweigelt at the Klosterneuburg research station by crossing Blaufränkisch and St. Laurent. It produces medium-bodied, fruit-forward wines with soft tannins and flavors of cherry, raspberry, and a hint of pepper. Easy to grow and reliably productive, it is the everyday red of Austria, though top producers in Burgenland craft more structured, oak-aged versions. Its accessibility and bright fruit character make it an ideal introduction to Austrian red wine. White Grape Varieties"}, "Albariño": {"r": "White grape · Spain (Rías Baixas); Portugal (as Alvarinho, Vinho Verde)", "d": "Albariño is the flagship white grape of Galicia’s Rías Baixas, where Atlantic influence and granite soils produce aromatic, high-acid wines with peach, apricot, saline, and floral character. Its thick skin provides natural resistance to the region’s damp conditions and contributes a distinctive textural richness. In Portugal’s Vinho Verde, as Alvarinho, it produces the region’s most premium expressions. Traditionally trained on pergolas (parrales), it has become one of Iberia’s most internationally recognized white varieties."}, "Aligoté": {"r": "White grape · France (Burgundy); also Eastern Europe", "d": "Aligoté is Burgundy’s “other” white grape, overshadowed by Chardonnay but prized for its bracing acidity and citrus-driven freshness. Traditionally the base for Kir (mixed with crème de cassis), it produces lean, light wines from younger or less prestigious vineyards. However, old-vine Aligoté from Bouzeron—Burgundy’s only village appellation for the variety—demonstrates that it can achieve surprising complexity and mineral depth when taken seriously. It remains an important variety in Moldova and other Eastern European countries."}, "Arinto": {"r": "White grape · Portugal (Bucelas, Vinho Verde, Alentejo)", "d": "Arinto is one of Portugal’s most versatile and widely planted white grapes, prized for its ability to retain high natural acidity even in warm climates. In Bucelas near Lisbon, it produces crisp, mineral whites; in the Vinho Verde region, it contributes freshness to blends; and in the hot Alentejo, it provides essential acidity. Flavors typically include green apple, lemon, and white flowers, with a saline, mineral finish. Its adaptability across Portugal’s diverse climates makes it a cornerstone of the country’s white wine identity."}, "Arneis": {"r": "White grape · Italy (Piedmont/Roero)", "d": "Arneis is the white grape of Piedmont’s Roero district, rescued from near-extinction in the 1980s by producers like Bruno Giacosa and Vietti. Its name means “little rascal” in Piedmontese dialect, reflecting its difficulty in the vineyard. It produces medium-bodied, aromatic whites with pear, white peach, almond, and floral notes, typically unoaked and best enjoyed young. Roero Arneis DOCG has established the variety as Piedmont’s preeminent white alongside Cortese di Gavi, offering a richer, more textural alternative."}, "Assyrtiko": {"r": "White grape · Greece (Santorini; mainland Greece)", "d": "Assyrtiko is Greece’s most distinguished white grape, achieving its most iconic expression on the volcanic island of Santorini, where ungrafted bush vines (kouloura-trained) are among the oldest in the world. The volcanic pumice soils, fierce winds, and Mediterranean sun produce wines of extraordinary minerality, razor-sharp acidity, and flavors of citrus, white stone fruit, saline, and a distinctive smokiness. It retains acidity even in hot conditions, making it a benchmark for warm-climate white winemaking. It is increasingly planted across mainland Greece."}, "Chardonnay": {"r": "White grape · Worldwide; France (Burgundy, Champagne), California, Australia", "d": "Chardonnay is the world’s most popular white grape and the vehicle for white Burgundy—from the steely minerality of Chablis to the rich opulence of Meursault and Puligny-Montrachet. A natural cross of Pinot Noir and Gouais Blanc, its relatively neutral character makes it supremely adaptable to both climate and winemaking technique: unoaked Chablis, barrel-fermented California, sparkling Champagne, and everything between. Its global ubiquity has sometimes worked against its reputation, but great Chardonnay remains among wine’s most complex and age-worthy expressions."}, "Chasselas": {"r": "White grape · Switzerland; also France (Savoie), Germany (as Gutedel)", "d": "Chasselas is Switzerland’s most planted grape, particularly in the Vaud and Valais cantons, where it produces delicate, light-bodied whites with subtle flavors of white flowers, green apple, and a distinctive flinty minerality. Often considered a “neutral” variety, it is precisely this transparency that makes it a mirror for terroir—Swiss producers argue that great Chasselas expresses place more than grape. Outside Switzerland, it grows in Alsace, Savoie, and Germany (as Gutedel), but it is rarely as compelling."}, "Chenin Blanc": {"r": "White grape · France (Loire Valley); South Africa (as Steen)", "d": "Chenin Blanc is one of the world’s most versatile white grapes, producing everything from bone-dry to lusciously sweet wines, as well as sparkling Crémant de Loire and Vouvray mousseux. In the Loire, its naturally high acidity preserves freshness across all styles, with flavors of green apple, quince, honey, and wet wool. South Africa’s old bush vines (some over 40 years) in Stellenbosch, Swartland, and Franschhoek produce rich, textural dry whites that rival the Loire’s best. Its aging potential—decades for great sweet Loire Chenin—is among white wine’s greatest."}, "Clairette": {"r": "White grape · France (Southern Rhône, Languedoc); South Africa", "d": "Clairette is an ancient Provençal variety used in Southern Rhône white blends (Châteauneuf-du-Pape Blanc) and the sparkling Clairette de Die. It produces soft, low-acid wines with white flower, anise, and stone fruit aromas that contribute roundness and body to blends. On its own, it can be somewhat neutral and prone to oxidation, but when carefully handled—particularly in cooler sites—it shows an appealing Mediterranean warmth and gentle floral character."}, "Colombard": {"r": "White grape · France (Gascony); South Africa, California", "d": "Colombard was historically grown for Armagnac and Cognac distillation, valued for its high acidity and generous yields. In Gascony’s Côtes de Gascogne, it produces crisp, inexpensive white wines with flavors of grapefruit, green apple, and tropical fruit. It is one of South Africa’s most widely planted white grapes, where it produces fresh, everyday wines. A naturally cross of Gouais Blanc and Chenin Blanc, it retains its parent’s acidity while being less aromatically complex. In California, it contributes to jug wine blends."}, "Cortese": {"r": "White grape · Italy (Piedmont/Gavi)", "d": "Cortese is the white grape of Gavi in southeastern Piedmont, where it produces crisp, delicate wines with citrus, green apple, almond, and mineral notes. The Gavi DOCG, centered on chalky-clay soils near the Ligurian border, produces wines that range from simple and refreshing to structured and age-worthy. At its best, Cortese delivers a lean, steely elegance that complements Piedmont’s rich cuisine. The variety is also grown in Lombardy’s Oltrepò Pavese and parts of Veneto, though Gavi remains its definitive appellation."}, "Encruzado": {"r": "White grape · Portugal (Dão)", "d": "Encruzado is the Dão region’s finest white grape, producing structured, age-worthy wines that rank among Portugal’s most compelling whites. It combines citrus freshness with a rich, textural mid-palate and flavors of lemon, white peach, hazelnut, and subtle mineral notes. Responsive to oak aging, it develops complexity and a creamy richness reminiscent of fine white Burgundy while maintaining its granitic minerality. Increasingly recognized internationally, it is the variety that most convincingly demonstrates the Dão’s potential for world-class white wine."}, "Falanghina": {"r": "White grape · Italy (Campania)", "d": "Falanghina is one of Campania’s most important white grapes, possibly descended from the ancient Falernian wines revered by Rome. It produces fresh, aromatic wines with white flower, citrus, tropical fruit, and a hint of almond. Two distinct biotypes exist: Falanghina Flegrea (from the volcanic Campi Flegrei near Naples) and Falanghina Beneventana (from inland Benevento). The variety’s bright acidity and aromatic appeal have made it a commercial success, offering an accessible introduction to Campania’s extraordinary white wine heritage."}, "Fiano": {"r": "White grape · Italy (Campania/Irpinia)", "d": "Fiano di Avellino is one of southern Italy’s most compelling white wines, grown in the Irpinian hills of inland Campania at elevations that moderate the southern heat. It produces complex, textural wines with aromas of hazelnut, pear, white flowers, honey, and a distinctive smoky-mineral character. Its name may derive from “apiano” (of the bees), as its ripe berries attract them. Considered alongside Greco di Tufo as Campania’s greatest white grape, it develops beautifully with 5–10 years of bottle age, gaining richness and nutty depth."}, "Friulano": {"r": "White grape · Italy (Friuli Venezia Giulia); also Slovenia (as Sauvignonasse)", "d": "Friulano (formerly Tocai Friulano, renamed after EU negotiations with Hungary) is the signature white grape of northeast Italy’s Friuli region. It produces medium-bodied wines with a distinctive combination of almond, white peach, subtle herbs, and a pleasantly bitter finish. In the Collio and Colli Orientali appellations, where it grows on flysch (sandstone and marl), it achieves its most complex and mineral expressions. The variety is a cross of Sauvignon Blanc and an unidentified parent, explaining its occasional herbaceous hints."}, "Furmint": {"r": "White grape · Hungary (Tokaj); also Austria, Slovenia", "d": "Furmint is the principal grape of Tokaj, responsible for some of the world’s greatest sweet wines as well as increasingly acclaimed dry styles. Its thin skin and loose clusters make it ideal for botrytis development, producing the legendary Tokaji Aszú of extraordinary concentration and acidity. Dry Furmint from volcanic soils shows flavors of green apple, pear, lime, smoke, and mineral—often compared to dry Riesling for its electric acidity and aging potential. Hungary’s dry Furmint revolution has been one of Central Europe’s most exciting wine developments."}, "Garganega": {"r": "White grape · Italy (Veneto)", "d": "Garganega is the principal grape of Soave in the Veneto, where it produces light, delicate whites with almond, citrus, and white flower aromas. Much of Soave is mass-produced from high-yielding plains, but the Classico zone’s volcanic hillside vineyards produce wines of genuine character and mineral depth. The best Soave Classico from top producers rivals fine white Burgundy for complexity and longevity. Garganega’s tendency toward subtle, understated flavors has sometimes worked against its commercial appeal, but quality-focused producers demonstrate its true potential."}, "Gewürztraminer": {"r": "White grape · France (Alsace); Germany, Alto Adige, New Zealand", "d": "Gewürztraminer is one of wine’s most distinctive and polarizing varieties, producing intensely aromatic wines with lychee, rose petal, ginger, and Turkish delight aromas. Its name means “spicy Traminer,” referencing both its aromatic intensity and its origin in the village of Tramin in Alto Adige. In Alsace—its most celebrated home—it produces rich, low-acid wines from Grands Crus sites, ranging from dry to sweet (Vendange Tardive, Sélection de Grains Nobles). Its bold personality makes it a natural match for Asian cuisines and aromatic dishes."}, "Godello": {"r": "White grape · Spain (Valdeorras, Bierzo, Monterrei)", "d": "Godello is northwestern Spain’s most exciting white grape, rescued from near-extinction in the 1970s when fewer than 100 hectares remained. In Valdeorras, slate soils produce mineral, structured whites with flavors of stone fruit, citrus, herbs, and a distinctive smoky complexity. It combines the body and texture of Chardonnay with Albariño-like freshness, responding well to both stainless steel and oak aging. Godello’s rapid rise from obscurity to prestige represents one of Spain’s most dramatic varietal revival stories."}, "Greco": {"r": "White grape · Italy (Campania)", "d": "Greco di Tufo is one of southern Italy’s most age-worthy white wines, grown in the volcanic, tuff-rich soils of Campania’s Irpinia hills. It produces medium-bodied wines with citrus, almond, pear, and a mineral, faintly smoky character. The variety’s name suggests Greek origins, consistent with Campania’s history as Magna Graecia. Alongside Fiano, it forms the pinnacle of southern Italian white winemaking, with top examples developing honey, lanolin, and stone-fruit complexity over 5–10 years of aging."}, "Grüner Veltliner": {"r": "White grape · Austria (Wachau, Kamptal, Kremstal, Weinviertel)", "d": "Grüner Veltliner is Austria’s signature white grape, producing wines that range from light, peppery everyday styles to powerful, age-worthy Grand Crus from the Wachau, Kamptal, and Kremstal. Its hallmark is a distinctive white pepper spiciness combined with green apple, citrus, and lentil notes. On the primary rock and loess terraces of the Wachau, it produces concentrated Smaragd-level wines that can age for decades. A natural cross of Traminer and St. Georgen, it covers roughly a third of Austria’s vineyard area."}, "Loureiro": {"r": "White grape · Portugal (Vinho Verde); also Spain (as Loureira)", "d": "Loureiro is one of the most aromatic grapes of northern Portugal’s Vinho Verde region, producing delicate, floral wines with orange blossom, acacia, and citrus aromas. Its name means “laurel” in Portuguese, referencing its bay laurel-like aromatics. Typically light-bodied with bracing acidity, it captures the green, rain-drenched landscape of the Minho. In the sub-region of Lima, it is often the dominant variety, either blended with Alvarinho or bottled alone. It is also grown across the border in Galicia as Loureira."}, "Malagousia": {"r": "White grape · Greece (Macedonia, Attica)", "d": "Malagousia is one of Greece’s most exciting rediscovered white varieties, saved from extinction by the pioneering Evangelos Gerovassiliou in the 1970s from a near-abandoned vineyard in Nafpaktia. It produces intensely aromatic wines with jasmine, gardenia, ripe peach, lemon blossom, and a hint of ginger. Fuller-bodied than most Greek whites, it has drawn comparisons to Viognier for its floral opulence. Mostly grown in northern Greece, it represents a compelling case for the rediscovery of indigenous Mediterranean varieties."}, "Malvasia": {"r": "White grape · Italy, Spain, Portugal; widespread Mediterranean", "d": "Malvasia is not a single variety but a family of related grapes spread across the Mediterranean, sharing a name that likely derives from the Greek port of Monemvasia. Expressions range from Malvasia di Candia in Emilia-Romagna (light, frizzante) to Malvasia delle Lipari (rich, sweet wines from volcanic islands off Sicily) to Malvasia Istriana in Friuli (mineral and dry). Common threads include floral aromatics, stone fruit flavors, and moderate acidity. The family’s diversity makes generalizations difficult, but Malvasia in all its forms reflects centuries of Mediterranean viticultural history."}, "Marsanne": {"r": "White grape · France (Northern Rhône, Languedoc); Australia (Victoria)", "d": "Marsanne is the dominant white grape of the Northern Rhône’s Hermitage and Saint-Joseph, where it is typically blended with Roussanne. It produces full-bodied, low-acid wines with rich flavors of almond, marzipan, white peach, and beeswax. Young Marsanne can seem simple, but with aging it develops a honeyed, waxy complexity. In Australia’s Goulburn Valley, old-vine Marsanne (some planted in the 1860s by Tahbilk) produces some of the variety’s most extraordinary expressions. Its tendency toward oxidation makes careful winemaking essential."}, "Mauzac": {"r": "White grape · France (Gaillac, Limoux)", "d": "Mauzac is an ancient southwestern French variety, the traditional grape of Gaillac and the sparkling Blanquette de Limoux—one of the world’s oldest documented sparkling wines. It produces light, appley wines with moderate acidity and a slightly rustic character. In Gaillac, it makes both still and sparkling wines in various sweetness levels, sometimes using the ancestral method (méthode gaillacoise). While eclipsed by Chardonnay in modern Limoux, Mauzac retains historical significance as the grape that may have produced bubbles before Champagne."}, "Melon de Bourgogne": {"r": "White grape · France (Loire Valley/Muscadet)", "d": "Melon de Bourgogne is the sole grape of Muscadet in the western Loire, where it produces lean, mineral whites that are among France’s finest seafood wines. Expelled from Burgundy centuries ago (where it was deemed inferior to Chardonnay), it found its niche on the granitic and gneiss soils near Nantes. Extended lees aging (sur lie) gives the best examples a creamy texture and yeasty complexity that balances their high acidity and saline minerality. The cru system introduced in 2011 has revealed striking terroir diversity among Muscadet’s subzones."}, "Muscat Blanc": {"r": "White grape · Worldwide; France (Alsace, Beaumes-de-Venise), Italy (as Moscato)", "d": "Muscat Blanc à Petits Grains is the oldest and noblest member of the extensive Muscat family, and one of the few varieties whose wines actually smell like grapes. It produces intensely aromatic wines with orange blossom, rose, grape, and spice notes in styles ranging from dry Alsatian Muscat to sweet Beaumes-de-Venise to Italy’s frothy Moscato d’Asti. Its ancient origins—possibly the oldest cultivated grape variety—are reflected in its worldwide distribution and remarkable stylistic versatility."}, "Müller-Thurgau": {"r": "White grape · Germany; also Austria, Switzerland, Italy (Alto Adige)", "d": "Müller-Thurgau was created in 1882 by Hermann Müller of Thurgau, Switzerland, originally thought to be a Riesling-Silvaner cross (DNA analysis later identified the parents as Riesling and Madeleine Royale). Germany’s most widely planted variety until Riesling reclaimed the top spot, it produces soft, floral, off-dry wines with modest acidity and gentle muscat-like aromatics. Often dismissed as a bulk variety, it can produce charming, aromatic wines in cool sites, particularly in Franken and Italy’s Alto Adige. It is the foundation of Liebfraumilch."}, "Petit Manseng": {"r": "White grape · France (Jurançon, Pacherenc); also Uruguay", "d": "Petit Manseng is the prized grape of Jurançon in southwest France, producing intensely concentrated sweet and dry wines from naturally small, thick-skinned berries that resist rot and dehydrate on the vine (passerillage). The resulting wines show exceptional concentration with exotic fruit, apricot, pineapple, ginger, and honey flavors balanced by bracingly high acidity. Even dry Jurançon Sec has remarkable intensity and aromatic complexity. The variety is increasingly planted in other warm regions, including Virginia and Uruguay, where it retains its characteristically vivid flavor profile."}, "Pinot Blanc": {"r": "White grape · France (Alsace); also Germany, Austria, Italy (as Pinot Bianco)", "d": "Pinot Blanc is a white mutation of Pinot Noir that produces medium-bodied, round, apple-and-almond-scented wines of moderate acidity and gentle character. In Alsace, it provides an everyday alternative to the region’s more aromatic varieties, while in Alto Adige it is one of the most successful whites. The best examples from old vines show a creamy richness and subtle complexity that rewards attention. In Austria, as Weissburgunder, it contributes to some notable dry whites, particularly in the Wagram and Burgenland regions."}, "Pinot Gris": {"r": "White grape · France (Alsace); Italy (as Pinot Grigio), Oregon, New Zealand", "d": "Pinot Gris is a pink-skinned mutation of Pinot Noir that yields two dramatically different wine styles depending on origin: rich, full-bodied, honeyed wines in Alsace (where it is one of four Grand Cru varieties) and crisp, light, neutral Pinot Grigio from northeastern Italy’s high-yield plains. Oregon produces a middle path—fuller than Italian but crisper than Alsatian. Its grayish-pink berries can produce wines ranging from very pale to deep copper, with flavors spanning citrus, stone fruit, smoke, and spice."}, "Ribolla Gialla": {"r": "White grape · Italy (Friuli Venezia Giulia); also Slovenia", "d": "Ribolla Gialla is an ancient variety of the Friuli-Slovenia borderlands, enjoying a renaissance thanks to the orange wine movement. Traditional extended skin-contact maceration produces amber-hued, tannic whites with dried fruit, honey, and tea-like flavors—a style championed by Gravner and Radikon. Conventional vinification yields lighter, crisper wines with citrus and green apple notes. The variety is firmly associated with the Collio and the broader natural wine movement, embodying the region’s history of cross-border winemaking traditions."}, "Riesling": {"r": "White grape · Germany; also France (Alsace), Austria, Australia, New York", "d": "Riesling is widely considered the world’s greatest white grape, combining electrifying acidity, extraordinary aromatic complexity, and exceptional aging potential across a vast range of styles from bone-dry to intensely sweet. German Riesling from the Mosel, Rheingau, and Pfalz is defined by its interplay of sweetness and acidity, while Alsatian Riesling tends to dryness and power. Its transparency to terroir is unmatched—slate, limestone, volcanic, and loess soils all stamp distinctive personalities on the wine. Riesling develops a petrol (kerosene) note with age that is a hallmark of mature examples."}, "Roussanne": {"r": "White grape · France (Northern Rhône, Southern Rhône, Languedoc)", "d": "Roussanne is the aromatic, high-quality partner to Marsanne in Northern Rhône white blends, contributing herbal, floral complexity and higher acidity. Its name comes from the russet (roux) color of its ripe berries. More difficult to grow than Marsanne—prone to powdery mildew and wind damage—it rewards careful viticulture with complex wines showing herbal tea, pear, honey, and lime blossom. In the Southern Rhône, it is an important component of white Châteauneuf-du-Pape. Its higher acidity relative to Marsanne gives blends structure and aging potential."}, "Sauvignon Blanc": {"r": "White grape · France (Loire Valley, Bordeaux); New Zealand, South Africa, Chile", "d": "Sauvignon Blanc is one of the world’s most recognizable white grapes, defined by its pungent aromatics of gooseberry, passionfruit, cut grass, and sometimes a flinty, smoky minerality. Loire Valley expressions from Sancerre and Pouilly-Fumé show cool-climate restraint and chalky minerality, while Marlborough, New Zealand, pioneered a more explosive, tropical style that transformed global perceptions. A parent of Cabernet Sauvignon (crossed with Cabernet Franc), it also produces great sweet wines in Bordeaux’s Sauternes when affected by botrytis alongside Sémillon."}, "Silvaner": {"r": "White grape · Germany (Franken); also Alsace", "d": "Silvaner (Sylvaner in France) is an historic German variety that finds its finest expression in Franken, where chalky soils and a continental climate produce dry, earthy, mineral wines of understated elegance. Often overshadowed by Riesling, it produces medium-bodied whites with herbal, vegetal notes and moderate acidity—a perfect match for Franken’s hearty cuisine. DNA analysis identified it as a natural cross of Traminer and a wild vine called Österreichisch Weiss. In Alsace, it occupies a minor role but can produce compelling wines from old vines."}, "Sémillon": {"r": "White grape · France (Bordeaux, Sauternes); Australia (Hunter Valley)", "d": "Sémillon is the unsung hero of Bordeaux whites and one of the world’s most underappreciated varieties. In Sauternes, its thin skin makes it supremely susceptible to botrytis, producing some of the world’s greatest sweet wines. In the Graves, blended with Sauvignon Blanc, it contributes body, waxy texture, and aging potential. Australia’s Hunter Valley produces an iconic unoaked style: searingly acidic when young, developing extraordinary toast and honey complexity after a decade. Its capacity for transformation with age is one of wine’s most remarkable phenomena."}, "Torrontés": {"r": "White grape · Argentina (Salta, La Rioja)", "d": "Torrontés is Argentina’s signature white grape, producing intensely aromatic wines with Muscat-like perfume—rose petal, lychee, orange blossom, and geranium. It is a natural cross of Muscat of Alexandria and Criolla Chica (the Argentine form of the Spanish Mission grape). The finest examples come from high-altitude vineyards in Salta’s Cafayate Valley, where elevations above 1,700 meters produce wines that balance floral opulence with vibrant acidity. It has no connection to the Spanish Torrontés varieties of Galicia."}, "Trebbiano": {"r": "White grape · Italy (widespread); France (as Ugni Blanc for Cognac/Armagnac)", "d": "Trebbiano is Italy’s most planted white grape and one of the world’s most prolific varieties, though it is more often associated with quantity than quality. Under various names —Trebbiano Toscano, Trebbiano d’Abruzzo, and Ugni Blanc in France—it produces light, neutral wines of high acidity and modest flavor. In France, as Ugni Blanc, it is the primary distillation grape for Cognac and Armagnac. Exceptional examples exist—particularly Valentini’s legendary Trebbiano d’Abruzzo—but they are rare exceptions to the high-volume rule."}, "Ugni Blanc": {"r": "White grape · France (Cognac, Armagnac, Provence); also Italy (as Trebbiano)", "d": "Ugni Blanc is the French name for Trebbiano Toscano and is France’s most widely planted white grape, almost entirely dedicated to distillation for Cognac and Armagnac. Its naturally high acidity and neutral flavor profile make it ideal for producing the lean, tart base wines that concentrate beautifully during distillation. As a table wine, it is generally unremarkable —thin, acidic, and bland. In Provence, it appears as a minor component in white and rosé blends, contributing freshness without distinctive character."}, "Verdejo": {"r": "White grape · Spain (Rueda)", "d": "Verdejo is the signature grape of Rueda in Castilla y León, producing aromatic, medium-bodied whites with fennel, citrus, bitter almond, and herbal notes. Nearly lost during the 20th century when the region focused on oxidized, fortified-style wines, it was revived in the 1970s through modern cold-fermentation techniques. Now Spain’s most popular white wine, Rueda Verdejo combines herbaceous freshness with a rich, textural mid-palate and a distinctively bitter finish. Old-vine examples from pre-phylloxera plantings show remarkable concentration and mineral complexity."}, "Verdelho": {"r": "White grape · Portugal (Madeira, Douro, Azores); also Australia", "d": "Verdelho is best known as one of the four noble grapes of Madeira, where it produces medium-dry styles of extraordinary longevity and complexity. On the Portuguese mainland and in the Azores, it makes fresh, aromatic dry whites. Transported to Australia in the 19th century, it has become a successful varietal in the Hunter Valley, Margaret River, and McLaren Vale, producing tropical, medium-bodied wines with citrus and stone fruit character. Not to be confused with Verdêlo, the similar-sounding Portuguese variety."}, "Verdicchio": {"r": "White grape · Italy (Marche)", "d": "Verdicchio is the Marche’s most important white grape, particularly in the Verdicchio dei Castelli di Jesi and Verdicchio di Matelica appellations. It produces medium-bodied wines with citrus, green apple, almond, and a saline, mineral finish. Long sold in amphora-shaped bottles that signaled mass-market mediocrity, quality-focused producers have rehabilitated its reputation with age-worthy wines of genuine complexity. The best Riserva examples develop honey, lanolin, and nutty notes, rivaling fine Chablis for mineral-driven white wine excellence."}, "Vermentino": {"r": "White grape · Italy (Sardinia, Liguria, Tuscany); France (Corsica, Provence)", "d": "Vermentino thrives across the western Mediterranean, from Sardinia (where it reaches its fullest expression in Gallura) to Liguria, Corsica (as Rolle), and Provence. It produces crisp, saline whites with citrus, green apple, almond, and herbal character, often with a pleasantly bitter finish. Maritime terroirs suit it best, and the saline minerality of coastal Vermentino makes it a natural pairing for seafood. In Provence and Languedoc, as Rolle, it has become the dominant white variety, valued for its aromatic freshness and textural generosity."}, "Vidiano": {"r": "White grape · Greece (Crete)", "d": "Vidiano is a rare Cretan variety that has emerged as one of Greece’s most promising whites, rescued from obscurity by a handful of quality-minded producers on the island. It produces medium-bodied, textural wines with stone fruit, tropical fruit, and honey notes, combining richness with moderate acidity. Some producers age it in oak, revealing a Chardonnay-like complexity. Still extremely rare—grown almost exclusively on Crete—Vidiano represents the ongoing rediscovery of Greece’s vast and largely untapped indigenous grape heritage."}, "Viognier": {"r": "White grape · France (Northern Rhône/Cond’rieu); worldwide", "d": "Viognier is the sole grape of Condrieu in the Northern Rhône, producing opulent, low-acid wines with intoxicating aromas of apricot, peach, orange blossom, and musk. Nearly extinct by the 1960s—only 14 hectares remained in Condrieu—it has since spread worldwide, from California and Australia to South Africa and southern France. Its rich, oily texture and exotic aromatics are seductive but fleeting; most Viognier is best enjoyed within a few years. In Côte-Rôtie, a small percentage is co-fermented with Syrah, contributing aromatic lift and color stability."}, "Welschriesling": {"r": "White grape · Austria, Hungary, Croatia, Slovenia", "d": "Welschriesling (no relation to Riesling) is Central Europe’s most widely planted white grape, producing light, fresh wines with apple, citrus, and floral aromas. In Austria’s Burgenland, it is important for sweet wines—particularly botrytized selections from Neusiedlersee. Elsewhere, it produces pleasant but generally simple dry whites. Known as Olaszrizling in Hungary, Laški Rizling in Slovenia, and Graševina in Croatia (where it is the most planted white), it is a reliable everyday variety across the region, though rarely exciting in its dry form."}};
+
+const DIM_LABELS=["Color Depth","Aromatic Int.","Floral","Fruit Ripeness","Herbal/Earthy","Spice/Oak","Acidity","Tannin","Body","Alcohol","Flavor Int.","Finish","Complexity"];
+
+const COMM_META={
+  0:{label:"Full-bodied Mediterranean Reds",short:"C0 · Mediterranean Reds",color:"#A8243B",bg:"rgba(168,36,59,0.08)"},
+  1:{label:"Light / Aromatic Cross-boundary",short:"C1 · Light & Aromatic",color:"#2E7D5B",bg:"rgba(46,125,91,0.08)"},
+  2:{label:"Mid-weight Structured Reds",short:"C2 · Structured Reds",color:"#C26A2F",bg:"rgba(194,106,47,0.08)"},
+  3:{label:"Rich Textural Whites",short:"C3 · Rich Whites",color:"#B8860B",bg:"rgba(184,134,11,0.08)"},
+  4:{label:"Mineral / Crisp Whites",short:"C4 · Mineral Whites",color:"#3A7CA5",bg:"rgba(58,124,165,0.08)"},
+  5:{label:"Lean Neutral & Aromatic Whites",short:"C5 · Aromatic & Neutral",color:"#7B5EA7",bg:"rgba(123,94,167,0.08)"},
+};
+
+// ============================================================================
+// BUILD GRAPH
+// ============================================================================
+function cosineSim(a,b){let d=0,na=0,nb=0;for(let i=0;i<a.length;i++){d+=a[i]*b[i];na+=a[i]*a[i];nb+=b[i]*b[i];}return d/(Math.sqrt(na)*Math.sqrt(nb)+1e-9);}
+
+const grapes=Object.keys(PROFILES), K=5;
+const simMat={};
+for(const g of grapes){simMat[g]={};for(const h of grapes)if(g!==h)simMat[g][h]=cosineSim(PROFILES[g],PROFILES[h]);}
+
+const edgeMap={};
+for(const g of grapes){
+  const top=Object.entries(simMat[g]).sort((a,b)=>b[1]-a[1]).slice(0,K);
+  for(const [nb,w] of top){const k=[g,nb].sort().join("|||");if(!edgeMap[k]||w>edgeMap[k].weight)edgeMap[k]={source:g,target:nb,weight:w};}
+}
+
+const nodes=grapes.map(g=>({id:g,type:GRAPE_TYPE[g],community:COMMUNITIES[g],tr:TASTERANK[g]||0,profile:PROFILES[g],rank:0}));
+nodes.sort((a,b)=>b.tr-a.tr);
+nodes.forEach((n,i)=>n.rank=i+1);
+const nodeMap={};nodes.forEach(n=>nodeMap[n.id]=n);
+const edges=Object.values(edgeMap);
+
+function getNeighbors(id){const s=new Set();edges.forEach(e=>{const si=e.source?.id||e.source,ti=e.target?.id||e.target;if(si===id)s.add(ti);if(ti===id)s.add(si);});return s;}
+
+// ============================================================================
+// STATE
+// ============================================================================
+let selectedNode=null, highlightCluster=null;
+
+function resetAll(){selectedNode=null;highlightCluster=null;updateVisuals();renderDetail();updateResetBar();fitToView(600);}
+
+// ============================================================================
+// RENDER CLUSTERS
+// ============================================================================
+const clusterList=document.getElementById('cluster-list');
+Object.entries(COMM_META).forEach(([id,m])=>{
+  const count=nodes.filter(n=>n.community===+id).length;
+  const el=document.createElement('div');
+  el.className='cluster-item';el.dataset.cid=id;
+  el.style.setProperty('--cc',m.color);el.style.setProperty('--cbg',m.bg);
+  el.innerHTML=`<span class="cluster-dot" style="background:${m.color}"></span><span class="cluster-label">${m.short}</span><span class="cluster-count">${count}</span>`;
+  el.addEventListener('click',()=>{
+    const cid=+id;
+    if(highlightCluster===cid){highlightCluster=null;}else{highlightCluster=cid;selectedNode=null;}
+    updateClusterUI();updateVisuals();renderDetail();updateResetBar();
+  });
+  clusterList.appendChild(el);
+});
+
+function updateClusterUI(){
+  document.querySelectorAll('.cluster-item').forEach(el=>{
+    el.classList.toggle('active',highlightCluster===+el.dataset.cid);
+  });
+}
+
+// ============================================================================
+// RESET BAR
+// ============================================================================
+const resetBar=document.getElementById('reset-bar');
+const filterLabel=document.getElementById('filter-label');
+document.getElementById('reset-btn').addEventListener('click',resetAll);
+
+function updateResetBar(){
+  if(selectedNode){
+    filterLabel.textContent=`Viewing: ${selectedNode.id} (#${selectedNode.rank})`;
+    resetBar.classList.add('active');
+  } else if(highlightCluster!==null){
+    filterLabel.textContent=`Community: ${COMM_META[highlightCluster].short}`;
+    resetBar.classList.add('active');
+  } else {
+    resetBar.classList.remove('active');
+  }
+}
+
+// ============================================================================
+// SEARCH
+// ============================================================================
+const searchInput=document.getElementById('search-input');
+const searchResults=document.getElementById('search-results');
+searchInput.addEventListener('input',()=>{
+  const q=searchInput.value.toLowerCase();
+  if(q.length<2){searchResults.style.display='none';return;}
+  const matches=nodes.filter(n=>n.id.toLowerCase().includes(q)).slice(0,8);
+  if(!matches.length){searchResults.style.display='none';return;}
+  searchResults.innerHTML='';searchResults.style.display='block';
+  matches.forEach(n=>{
+    const el=document.createElement('div');el.className='search-item';
+    el.innerHTML=`<span style="width:8px;height:8px;border-radius:50%;background:${COMM_META[n.community].color};flex-shrink:0"></span><span style="flex:1">${n.id}</span><span style="color:#aaa;font-size:10px">#${n.rank}</span>`;
+    el.addEventListener('click',()=>{selectNode(n);searchInput.value='';searchResults.style.display='none';});
+    searchResults.appendChild(el);
+  });
+});
+
+// ESC key
+document.addEventListener('keydown',e=>{if(e.key==='Escape')resetAll();});
+
+// ============================================================================
+// D3 GRAPH
+// ============================================================================
+const container=document.getElementById('canvas');
+const width=container.clientWidth, height=container.clientHeight;
+const svg=d3.select('#graph-svg').attr('width',width).attr('height',height);
+const g=svg.append('g');
+
+const zoom=d3.zoom().scaleExtent([0.2,8]).on('zoom',ev=>g.attr('transform',ev.transform));
+svg.call(zoom);
+
+const maxTR=d3.max(nodes,d=>d.tr),minTR=d3.min(nodes,d=>d.tr);
+const rScale=d3.scaleSqrt().domain([minTR,maxTR]).range([4,30]);
+
+const simulation=d3.forceSimulation(nodes)
+  .force('link',d3.forceLink(edges).id(d=>d.id).distance(d=>130-d.weight*70).strength(d=>d.weight*0.25))
+  .force('charge',d3.forceManyBody().strength(-100))
+  .force('center',d3.forceCenter(width/2,height/2))
+  .force('collision',d3.forceCollide().radius(d=>rScale(d.tr)+4));
+
+const link=g.append('g').selectAll('line').data(edges).join('line')
+  .attr('stroke','#888').attr('stroke-opacity',0.18).attr('stroke-width',d=>0.4+d.weight*2);
+
+const nodeG=g.append('g').selectAll('g').data(nodes).join('g').style('cursor','pointer')
+  .call(d3.drag()
+    .on('start',(ev,d)=>{if(!ev.active)simulation.alphaTarget(0.3).restart();d.fx=d.x;d.fy=d.y;})
+    .on('drag',(ev,d)=>{d.fx=ev.x;d.fy=ev.y;})
+    .on('end',(ev,d)=>{if(!ev.active)simulation.alphaTarget(0);d.fx=null;d.fy=null;})
+  );
+
+nodeG.append('circle').attr('r',d=>rScale(d.tr))
+  .attr('fill',d=>COMM_META[d.community]?.color||'#888')
+  .attr('stroke','#fff').attr('stroke-width',1.5).attr('opacity',0.88);
+
+nodeG.filter(d=>d.rank<=30).append('text').text(d=>d.id)
+  .attr('text-anchor','middle').attr('dy',d=>-rScale(d.tr)-5)
+  .attr('font-size',d=>d.rank<=8?12:d.rank<=18?10:8.5)
+  .attr('font-weight',d=>d.rank<=10?700:500)
+  .attr('fill','#2a2a2a').attr('font-family',"'DM Sans', sans-serif").attr('pointer-events','none');
+
+simulation.on('tick',()=>{
+  link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y).attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+  nodeG.attr('transform',d=>`translate(${d.x},${d.y})`);
+});
+
+// Click handlers
+nodeG.on('click',(ev,d)=>{ev.stopPropagation();selectNode(selectedNode?.id===d.id?null:d);});
+svg.on('click',()=>resetAll());
+
+// Hover tooltip
+const tooltip=document.getElementById('tooltip');
+nodeG.on('mouseenter',(ev,d)=>{
+  if(selectedNode)return;
+  tooltip.classList.add('visible');
+  tooltip.innerHTML=`<div style="display:flex;align-items:center;gap:6px;margin-bottom:3px"><span style="width:10px;height:10px;border-radius:50%;background:${COMM_META[d.community].color}"></span><span class="tt-name">${d.id}</span></div><div class="tt-info">Rank #${d.rank} · TasteRank ${d.tr.toFixed(4)}<br>${d.type[0].toUpperCase()+d.type.slice(1)} · ${COMM_META[d.community].short}</div>`;
+}).on('mouseleave',()=>{tooltip.classList.remove('visible');});
+
+// Fit the graph into the viewport. Called once after the simulation stabilizes,
+// and again on reset so "✕ Reset" and Esc return the user to the original frame.
+function fitToView(duration=750){
+  const b=g.node().getBBox();
+  if(!b || !isFinite(b.width) || !isFinite(b.height) || b.width===0) return;
+  const dx=b.width,dy=b.height,x=b.x+dx/2,y=b.y+dy/2;
+  const s=0.85/Math.max(dx/width,dy/height);
+  svg.transition().duration(duration).call(zoom.transform,d3.zoomIdentity.translate(width/2-s*x,height/2-s*y).scale(s));
+}
+
+// Initial fit after stabilization
+setTimeout(()=>fitToView(750),2500);
+
+// ============================================================================
+// SELECT / UPDATE VISUALS
+// ============================================================================
+function selectNode(n){selectedNode=n;highlightCluster=null;updateClusterUI();updateVisuals();renderDetail();updateResetBar();}
+
+function updateVisuals(){
+  const active=selectedNode;
+  const nbs=active?getNeighbors(active.id):new Set();
+
+  nodeG.select('circle').transition().duration(200)
+    .attr('opacity',d=>{
+      if(highlightCluster!==null&&d.community!==highlightCluster)return 0.06;
+      if(active){if(d.id===active.id)return 1;if(nbs.has(d.id))return 0.92;return 0.07;}
+      return 0.88;
+    })
+    .attr('stroke',d=>{
+      if(active&&d.id===active.id)return '#000';
+      if(active&&nbs.has(d.id))return '#333';
+      return '#fff';
+    })
+    .attr('stroke-width',d=>{
+      if(active&&d.id===active.id)return 3.5;
+      if(active&&nbs.has(d.id))return 2;
+      return 1.5;
+    });
+
+  // Static labels
+  nodeG.selectAll('text:not(.dyn)').transition().duration(200)
+    .attr('opacity',d=>{
+      if(highlightCluster!==null&&d.community!==highlightCluster)return 0.04;
+      if(active){if(d.id===active.id||nbs.has(d.id))return 1;return 0.04;}
+      return 1;
+    });
+
+  // Dynamic labels
+  nodeG.each(function(d){
+    const sel=d3.select(this);
+    const show=active?(d.id===active.id||nbs.has(d.id)):(highlightCluster!==null?d.community===highlightCluster:false);
+    if(show&&d.rank>30&&!sel.select('.dyn').node()){
+      sel.append('text').attr('class','dyn').text(d.id)
+        .attr('text-anchor','middle').attr('dy',-rScale(d.tr)-5)
+        .attr('font-size',9).attr('font-weight',500).attr('fill','#2a2a2a')
+        .attr('font-family',"'DM Sans', sans-serif").attr('pointer-events','none')
+        .attr('opacity',0).transition().duration(250).attr('opacity',1);
+    }
+    if(!show)sel.selectAll('.dyn').transition().duration(150).attr('opacity',0).remove();
+  });
+
+  link.transition().duration(200)
+    .attr('stroke-opacity',d=>{
+      const si=d.source.id,ti=d.target.id;
+      if(highlightCluster!==null){
+        const sc=nodeMap[si]?.community,tc=nodeMap[ti]?.community;
+        if(sc===highlightCluster&&tc===highlightCluster)return 0.5;
+        if(sc===highlightCluster||tc===highlightCluster)return 0.08;
+        return 0.01;
+      }
+      if(active){if(si===active.id||ti===active.id)return 0.75;return 0.015;}
+      return 0.18;
+    })
+    .attr('stroke-width',d=>{
+      const si=d.source.id,ti=d.target.id;
+      if(active&&(si===active.id||ti===active.id))return 1.5+d.weight*3;
+      return 0.4+d.weight*2;
+    })
+    .attr('stroke',d=>{
+      const si=d.source.id,ti=d.target.id;
+      if(active&&(si===active.id||ti===active.id))return COMM_META[active.community]?.color||'#888';
+      if(highlightCluster!==null){
+        const sc=nodeMap[si]?.community,tc=nodeMap[ti]?.community;
+        if(sc===highlightCluster&&tc===highlightCluster)return COMM_META[highlightCluster].color;
+      }
+      return '#888';
+    });
+}
+
+// ============================================================================
+// DETAIL PANEL
+// ============================================================================
+function renderDetail(){
+  const det=document.getElementById('detail');
+  const appEl=document.getElementById('app');
+
+  // Toggle the Communities list off when a variety is selected (frees space for the narrative)
+  if(selectedNode){ appEl.classList.add('variety-selected'); }
+  else { appEl.classList.remove('variety-selected'); }
+
+  if(selectedNode){
+    const n=selectedNode;
+    const accent=COMM_META[n.community].color;
+    const info=GRAPE_DESC[n.id];
+
+    const nbs=edges.filter(e=>(e.source.id||e.source)===n.id||(e.target.id||e.target)===n.id)
+      .map(e=>{const oid=(e.source.id||e.source)===n.id?(e.target.id||e.target):(e.source.id||e.source);return{...nodeMap[oid],sim:e.weight};})
+      .sort((a,b)=>b.sim-a.sim);
+
+    // Scope the community accent color to this render via a CSS custom property
+    let html=`<div style="--accent:${accent}">
+      <div class="variety-head">
+        <span class="variety-dot" style="background:${accent}"></span>
+        <h2>${n.id}</h2>
+      </div>`;
+
+    if(info && info.r){
+      html+=`<div class="variety-region">${info.r}</div>`;
+    }
+
+    html+=`<div class="variety-meta">
+        <span>Rank <strong>#${n.rank}</strong></span>
+        <span>TasteRank <strong>${n.tr.toFixed(4)}</strong></span>
+        <span class="vm-community">${COMM_META[n.community].short}</span>
+      </div>`;
+
+    if(info && info.d){
+      html+=`<div class="variety-prose">${info.d}</div>`;
+    }
+
+    html+=`<div class="soft-rule"><span class="glyph">◦ ◦ ◦</span></div>`;
+
+    html+=`<div class="section-label">Sensory Profile</div><div style="margin-bottom:14px">`;
+    DIM_LABELS.forEach((l,i)=>{
+      html+=`<div class="profile-row"><span class="profile-label">${l}</span><div class="profile-bar-bg"><div class="profile-bar" style="width:${n.profile[i]/5*100}%;background:${accent}"></div></div><span class="profile-val">${n.profile[i]}</span></div>`;
+    });
+    html+=`</div>`;
+
+    html+=`<div class="section-label">Sensory Neighbors (${nbs.length})</div><div class="nbs-wrap">`;
+    nbs.forEach(nb=>{
+      html+=`<span class="nb-chip" data-nid="${nb.id}"><span class="nb-dot" style="background:${COMM_META[nb.community].color}"></span>${nb.id}<span class="nb-sim">${nb.sim.toFixed(2)}</span></span>`;
+    });
+    html+=`</div></div>`;
+
+    det.innerHTML=html;
+    det.querySelectorAll('.nb-chip[data-nid]').forEach(el=>{
+      el.addEventListener('click',ev=>{ev.stopPropagation();selectNode(nodeMap[el.dataset.nid]);});
+    });
+    // Scroll to top when a new variety is loaded
+    det.scrollTop=0;
+
+  } else if(highlightCluster!==null){
+    const cn=nodes.filter(n=>n.community===highlightCluster).sort((a,b)=>a.rank-b.rank);
+    const m=COMM_META[highlightCluster];
+    let html=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+      <span style="width:12px;height:12px;border-radius:3px;background:${m.color}"></span>
+      <h2 style="font-size:14px;font-family:'DM Sans';font-weight:600">${m.label}</h2></div>
+      <p style="font-size:11px;color:#888;margin-bottom:10px">${cn.length} varieties</p>`;
+    cn.forEach(n=>{
+      html+=`<div class="list-item" data-nid="${n.id}"><span class="list-dot" style="background:${m.color}"></span><span class="list-name">${n.id}</span><span class="list-meta" style="text-transform:capitalize">${n.type}</span><span class="list-rank">#${n.rank}</span></div>`;
+    });
+    det.innerHTML=html;
+    det.querySelectorAll('.list-item[data-nid]').forEach(el=>{
+      el.addEventListener('click',ev=>{ev.stopPropagation();selectNode(nodeMap[el.dataset.nid]);highlightCluster=null;updateClusterUI();updateResetBar();});
+    });
+
+  } else {
+    let html=`<div class="about-block">
+      <div class="about-eyebrow">About</div>
+      <h3>A similarity network of 101 grape varieties.</h3>
+      <p>Each variety is profiled across thirteen sensory dimensions — color, aroma, fruit, acidity, tannin, body, and so on — drawn from established tasting methodology. Cosine similarity between these profiles forms the edges of the network, and the nodes sized and ranked by <em>eigenvector centrality</em>: a grape scores higher when it resembles other grapes that are themselves central.</p>
+      <p>Six communities emerge from the data, grouping varieties by sensory logic rather than geography. Click a node to read its profile. Click a community to isolate it.</p>
+    </div>`;
+    html+=`<div class="hint-box" style="margin-top:0;margin-bottom:14px"><strong>Interactions</strong><br>Click a node to read its profile and description.<br>Click a community to isolate it.<br>Press <kbd>Esc</kbd> or click ✕ Reset to return to full view.<br>Scroll to zoom · drag to pan · drag nodes to rearrange.</div>`;
+    html+=`<div class="section-label">All Varieties by TasteRank</div>`;
+    nodes.slice().sort((a,b)=>a.rank-b.rank).forEach(n=>{
+      html+=`<div class="list-item" data-nid="${n.id}"><span class="rank-num">#${n.rank}</span><span class="list-dot" style="background:${COMM_META[n.community].color}"></span><span class="list-name">${n.id}</span><span class="list-meta">${n.tr.toFixed(3)}</span></div>`;
+    });
+    det.innerHTML=html;
+    det.querySelectorAll('.list-item[data-nid]').forEach(el=>{
+      el.addEventListener('click',ev=>{ev.stopPropagation();selectNode(nodeMap[el.dataset.nid]);});
+    });
+  }
+}
+
+renderDetail();
+</script>
+</body>
+</html>

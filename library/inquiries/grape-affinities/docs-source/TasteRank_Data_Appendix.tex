@@ -1,0 +1,91 @@
+\documentclass[11pt]{article}
+\usepackage{vinotheca}
+\usepackage{pdflscape}
+
+\begin{document}
+
+\vinothecaTitle{TasteRank Explorer}{Data Appendix}{Source Data, Tables, and Reference Materials}
+\vinothecaAuthor{Jure Skarabot}{May 2026}
+\vinothecaCompanions{Summary \textperiodcentered{} Technical Appendix \textperiodcentered{} Methods Primer \textperiodcentered{} Data Appendix \textperiodcentered{} Grape Reference}
+
+\section*{Table of Contents}
+\begin{itemize}[leftmargin=2em,itemsep=0.1em,topsep=0.1em]
+\item D.1 Sensory Dimension Key
+\item D.2 Community Summary
+\item D.3 Complete Variety Data (Ranks 1--101)
+\end{itemize}
+
+\section*{D.1 Sensory Dimension Key}
+The following abbreviations are used in the data tables. All scores are integers on a 0--5 scale representing canonical varietal typicity across thirteen sensory dimensions drawn from established wine-tasting methodology (UC Davis, Peynaud, and related structured tasting frameworks).
+
+\begin{center}
+\begin{tabular}{@{}lll@{}}
+\toprule
+Abbr.\ & Dimension & Description \\
+\midrule
+Col & Color Depth         & Intensity of pigmentation (pale to opaque) \\
+Aro & Aromatic Intensity  & Strength of nose from low to pronounced \\
+Flo & Floral              & Degree of floral aromatic contribution \\
+Frt & Fruit Ripeness      & Ripe / dried fruit vs.\ underripe / green fruit \\
+Hrb & Herbal / Earthy     & Green herb, earth, mineral notes \\
+Spk & Spice / Oak         & Oak-derived and spice character \\
+Acd & Acidity             & Perceived acidity from low to high \\
+Tan & Tannin              & Tannin level (reds); 0 for most whites \\
+Bod & Body                & Weight and texture on palate \\
+Alc & Alcohol             & Perceived alcohol warmth \\
+Fla & Flavor Intensity    & Palate flavour concentration \\
+Fin & Finish              & Length and persistence of aftertaste \\
+Cpx & Complexity          & Layeredness and evolution of character \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section*{D.2 Community Summary}
+Six communities were detected by the Clauset--Newman--Moore greedy modularity optimisation algorithm. The table below summarises each community's character, size, colour composition, and hub varieties.
+
+\begin{center}
+\begin{tabular}{@{}clrlp{6.5cm}@{}}
+\toprule
+ID & Character & Size & R / W & Hub Varieties \\
+\midrule
+C0 & Full-bodied Mediterranean Reds   & 31 & 31 / 0 & Sagrantino, Nero d'Avola, Lagrein, Negroamaro, Plavac Mali \\
+C1 & Light / Aromatic Cross-boundary  & 21 & 4 / 17 & Assyrtiko, Falanghina, Albari\~no, Riesling, Kadarka \\
+C2 & Mid-weight Structured Reds       & 18 & 18 / 0 & Limniona, St.\ Laurent, Zweigelt, Blaufr\"ankisch, Sangiovese \\
+C3 & Rich Textural Whites             & 13 & 0 / 13 & Marsanne, Fiano, Godello, Pinot Gris, Chardonnay \\
+C4 & Mineral / Crisp Whites           & 10 & 0 / 10 & Greco, Friulano, Verdicchio, Verdejo, Vermentino \\
+C5 & Lean Neutral \& Aromatic Whites  &  8 & 0 / 8  & Gew\"urztraminer, Petit Manseng, Muscat Blanc, Malvasia \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{landscape}
+\section*{D.3 Complete Variety Data (Ranks 1--101)}
+All 101 grape varieties sorted by TasteRank. Columns show rank, variety name, type (Red / White), community assignment, TasteRank score, and the thirteen sensory profile dimensions.
+
+\renewcommand{\arraystretch}{1.05}
+\small
+\begin{longtable}{@{}r l c c r *{13}{c}@{}}
+\toprule
+\# & Variety & Type & Com & TR & Col & Aro & Flo & Frt & Hrb & Spk & Acd & Tan & Bod & Alc & Fla & Fin & Cpx \\
+\midrule
+\endfirsthead
+\toprule
+\# & Variety & Type & Com & TR & Col & Aro & Flo & Frt & Hrb & Spk & Acd & Tan & Bod & Alc & Fla & Fin & Cpx \\
+\midrule
+\endhead
+\bottomrule
+\endlastfoot
+\input{data_rows.tex}
+\end{longtable}
+\end{landscape}
+
+\section*{References}
+
+\begin{itemize}[leftmargin=2em,itemsep=0.2em]
+\item d'Agata, I. (2014). \emph{Native Wine Grapes of Italy}. University of California Press.
+\item Galet, P. (2000). \emph{Dictionnaire encyclop\'edique des c\'epages}. Hachette, Paris.
+\item Peynaud, \'E. (1980). \emph{Le Go\^ut du Vin}. Dunod, Paris.
+\item Robinson, J., Harding, J. \& Vouillamoz, J. (2012). \emph{Wine Grapes: A Complete Guide to 1{,}368 Vine Varieties}. Ecco / HarperCollins.
+\end{itemize}
+
+\end{document}

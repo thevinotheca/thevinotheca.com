@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Vineyard Atlas — World's Greatest Vineyards</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --wine:         #7B2D26;
+  --wine-dark:    #5A1F1A;
+  --wine-light:   #A04038;
+  --paper:        #FAF6F1;
+  --paper-raised: #FFFDF8;
+  --paper-deep:   #ece4d6;
+  --ink:          #1a1a1a;
+  --ink-soft:     #5a5048;
+  --ink-muted:    #8a7a6e;
+  --border:       #e8e2db;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:100%;height:100%;overflow:hidden;font-family:'EB Garamond',Georgia,serif;background:var(--paper)}
+
+/* Layout: masthead spans full width on top; rail and map sit side-by-side below.
+   Mirrors Maker Atlas's structure (auto/1fr rows × panel/1fr columns). */
+#app{display:grid;grid-template-columns:340px 1fr;grid-template-rows:auto 1fr;width:100%;height:100%}
+
+#masthead{grid-column:1 / -1;display:flex;align-items:flex-end;justify-content:space-between;padding:18px 28px;background:var(--paper);border-bottom:1px solid var(--border);z-index:1100}
+.masthead-titleblock{display:flex;flex-direction:column;gap:4px}
+.masthead-eyebrow{font-size:10px;letter-spacing:0.18em;text-transform:uppercase;color:var(--ink-muted);font-weight:500;margin:0}
+#masthead h1{font-family:'Cormorant Garamond','EB Garamond',serif;font-size:26px;font-weight:500;color:var(--wine);letter-spacing:0.01em;line-height:1;margin:0}
+  #masthead h1 em{font-style:italic;font-weight:400}
+#masthead-meta{display:flex;align-items:center;gap:14px;font-size:11px;letter-spacing:0.05em;text-transform:uppercase}
+#masthead-meta a{color:#888;text-decoration:none;border-bottom:1px solid transparent;padding-bottom:1px;transition:color .15s,border-color .15s}
+#masthead-meta a:hover{color:var(--wine);border-bottom-color:var(--wine)}
+#masthead-meta .divider{color:#ccc}
+
+#panel{background:var(--paper-raised);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow:hidden;z-index:1000}
+#panel-sub{padding:14px 18px 12px;border-bottom:1px solid var(--border);font-size:11.5px;color:#888;line-height:1.5;font-style:italic}
+
+.dl-btn{display:flex;align-items:center;justify-content:center;gap:6px;width:100%;padding:7px 10px;border:1px solid #d4c4be;border-radius:6px;background:var(--paper);font-size:11px;font-family:'EB Garamond',serif;color:var(--wine);cursor:pointer;text-decoration:none;font-weight:600;transition:all .15s;line-height:1.2}
+.dl-btn:hover{background:var(--wine);color:#fff;border-color:var(--wine)}
+.dl-btn svg{width:13px;height:13px;flex-shrink:0}
+.dl-btn:hover svg path{stroke:#fff}
+
+#search-box{padding:14px 18px 10px;position:relative}
+#search-input{width:100%;padding:9px 12px;border:1px solid #ddd;border-radius:7px;font-size:13px;font-family:'EB Garamond',serif;outline:none;background:var(--paper);transition:border-color .15s}
+#search-input:focus{border-color:var(--wine)}
+#search-results{margin-top:4px;border:1px solid #eee;border-radius:7px;background:var(--paper-raised);max-height:250px;overflow:auto;display:none;position:absolute;left:18px;right:18px;z-index:1100}
+.sr-item{padding:7px 12px;cursor:pointer;font-size:12px;border-bottom:1px solid #f5f5f5;display:flex;align-items:center;gap:8px}
+.sr-item:hover{background:var(--paper)}
+.sr-item:last-child{border-bottom:none}
+
+#reset-bar{display:none;padding:8px 18px;background:#fdf6f0;border-bottom:1px solid #f0e0d0;align-items:center;gap:8px}
+#reset-bar.active{display:flex}
+#filter-label{flex:1;font-size:11.5px;color:var(--wine);font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#reset-btn{padding:4px 12px;border:1px solid #d4a89a;border-radius:5px;background:var(--paper-raised);font-size:11px;font-family:'EB Garamond',serif;color:var(--wine);cursor:pointer;font-weight:600;transition:all .15s}
+#reset-btn:hover{background:var(--wine);color:#fff}
+
+.dropdown-wrap{padding:10px 18px}
+.dropdown-wrap + .dropdown-wrap{padding-top:0}
+.dropdown-label{display:block;font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+.atlas-dropdown{width:100%;padding:8px 28px 8px 12px;border:1px solid #ddd;border-radius:7px;font-size:13px;font-family:'EB Garamond',serif;color:#333;background:var(--paper);outline:none;transition:border-color .15s;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'><path d='M1 1l4 4 4-4' stroke='%237B2D26' fill='none' stroke-width='1.5'/></svg>");background-repeat:no-repeat;background-position:right 10px center}
+.atlas-dropdown:focus{border-color:var(--wine)}
+
+/* Color legend — preserved minimal version of the old categories list */
+#color-legend{padding:10px 18px 12px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+#color-legend .legend-label{font-size:10px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+#color-legend .legend-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px 8px}
+#color-legend .legend-item{display:flex;align-items:center;gap:6px;font-size:10.5px;color:#666;line-height:1.3;cursor:pointer;padding:2px 0}
+#color-legend .legend-item:hover{color:var(--wine)}
+#color-legend .legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+#color-legend .legend-item.active{color:var(--wine);font-weight:600}
+
+#detail{flex:1;overflow-y:auto;overflow-x:hidden;border-top:1px solid var(--border);padding:14px 18px}
+.detail-name{font-family:'Cormorant Garamond',serif;font-size:17px;color:var(--ink);margin-bottom:4px}
+.detail-region{font-size:12px;color:#888;margin-bottom:8px}
+.detail-row{display:flex;gap:6px;margin-bottom:4px;font-size:11.5px;line-height:1.4}
+.detail-label{width:70px;color:#999;flex-shrink:0;font-weight:600}
+.detail-val{color:#333;flex:1}
+.site-item{padding:6px 10px;margin-bottom:2px;border-radius:5px;cursor:pointer;display:flex;align-items:center;gap:8px;font-size:11.5px}
+.site-item:hover{background:var(--paper)}
+.site-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.site-name{flex:1;color:#333}
+.site-region{font-size:9.5px;color:#aaa}
+
+.hint-box{margin-top:14px;padding:12px;background:var(--paper);border-radius:8px;font-size:10.5px;color:#888;line-height:1.6}
+.hint-box strong{color:#666}
+
+#map-container{flex:1;position:relative}
+#map{width:100%;height:100%}
+
+.custom-marker{border-radius:50%;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,0.3);transition:transform .2s}
+.custom-marker:hover{transform:scale(1.3)}
+.custom-marker.dimmed{opacity:0;transform:scale(0.5);pointer-events:none}
+.custom-marker.highlighted{border-color:#000;box-shadow:0 0 0 3px rgba(123,45,38,0.4);transform:scale(1.4);z-index:9999!important}
+
+.leaflet-popup-content-wrapper{border-radius:10px;font-family:'EB Garamond',serif}
+.leaflet-popup-content{margin:12px 16px;line-height:1.5}
+.popup-title{font-family:'Cormorant Garamond',serif;font-size:15px;color:var(--wine);margin-bottom:4px}
+.popup-region{font-size:11px;color:#888;margin-bottom:6px}
+.popup-row{font-size:11.5px;color:#444;margin-bottom:2px}
+.popup-row strong{color:#222}
+
+#atlas-footer{flex-shrink:0;border-top:1px solid var(--border);padding:14px 18px 14px;background:var(--paper-raised);font-family:'EB Garamond',Georgia,serif;font-size:11px;line-height:1.55;color:#888}
+.atlas-footer-motto{text-align:center;font-family:'Cormorant Garamond',serif;font-size:13px;color:var(--wine);letter-spacing:0.02em;margin:0 0 10px;font-style:italic}
+.atlas-footer-motto .fleuron{color:#a86259;font-style:normal;margin:0 6px;font-size:12px}
+.atlas-footer-links{display:flex;flex-wrap:wrap;gap:3px 12px;justify-content:center;margin:0 0 10px}
+.atlas-footer-links a{color:#888;text-decoration:none;border-bottom:1px solid transparent;transition:color .15s,border-color .15s;font-size:11px}
+.atlas-footer-links a:hover{color:var(--wine);border-bottom-color:var(--wine)}
+.atlas-footer-disclaimer{font-style:italic;font-size:10.5px;color:#999;text-align:center;line-height:1.5;margin:0 0 8px}
+.atlas-footer-copyright{text-align:center;font-style:italic;font-size:10.5px;color:#aaa;letter-spacing:0.04em;margin:0}
+</style>
+</head>
+<body>
+<div id="app">
+
+<header id="masthead">
+  <div class="masthead-titleblock">
+    <p class="masthead-eyebrow">An Atlas of Vinotheca</p>
+    <h1>The Vineyard <em>Atlas</em></h1>
+  </div>
+  <div id="masthead-meta">
+    <a href="https://jskarabot18.github.io/vinotheca/">Vinotheca</a>
+    <span class="divider">·</span>
+    <a href="The_Vineyard_Atlas.pdf#page=1&view=Fit&toolbar=1&navpanes=0" target="_blank" rel="noopener">Download Vineyard Atlas PDF</a>
+  </div>
+</header>
+
+<div id="panel">
+  <div id="panel-sub">World's greatest vineyards, organised by grape variety. <em>272 vineyard sites across 22 grape categories, spanning the world's principal terroirs.</em></div>
+
+  <div id="search-box">
+    <input type="text" id="search-input" placeholder="Search vineyard or region..." autocomplete="off"/>
+    <div id="search-results"></div>
+  </div>
+
+  <div id="reset-bar"><span id="filter-label"></span><button id="reset-btn">✕ Reset</button></div>
+
+  <div class="dropdown-wrap">
+    <label class="dropdown-label" for="cat-dropdown">Filter by grape</label>
+    <select id="cat-dropdown" class="atlas-dropdown">
+      <option value="">All grape categories</option>
+    </select>
+  </div>
+
+  <div class="dropdown-wrap">
+    <label class="dropdown-label" for="region-dropdown">Filter by region</label>
+    <select id="region-dropdown" class="atlas-dropdown">
+      <option value="">All regions</option>
+    </select>
+  </div>
+
+  <div id="color-legend">
+    <div class="legend-label">Pin colours</div>
+    <div class="legend-grid" id="legend-grid"></div>
+  </div>
+
+  <div id="detail"></div>
+  <footer id="atlas-footer">
+    <p class="atlas-footer-motto">
+      <span class="fleuron">❧</span><em>in vino, cognitio</em><span class="fleuron">❧</span>
+    </p>
+    <p class="atlas-footer-links">
+      <a href="https://github.com/jskarabot18/grand-cru-atlas">GitHub</a>
+      <a href="https://github.com/jskarabot18/grand-cru-atlas/blob/main/LICENSE">License · CC BY-NC 4.0</a>
+      <a href="https://jskarabot18.github.io/vinotheca/">Vinotheca</a>
+      <a href="mailto:hello@codexvini.com">Correspondence</a>
+    </p>
+    <p class="atlas-footer-copyright">© Jure Skarabot · MMXXVI</p>
+  </footer>
+</div>
+<div id="map-container"><div id="map"></div></div>
+</div>
+
+<script>
+// ============================================================================
+// VINEYARD DATA — ~200 sites across 16 categories
+// ============================================================================
+const CATEGORIES = {
+  "Riesling":{color:"#3A7CA5",bg:"rgba(58,124,165,0.08)"},
+  "Chardonnay":{color:"#B8860B",bg:"rgba(184,134,11,0.08)"},
+  "Pinot Noir":{color:"#A8243B",bg:"rgba(168,36,59,0.08)"},
+  "Bordeaux Blends":{color:"#5B1A2D",bg:"rgba(91,26,45,0.08)"},
+  "Nebbiolo":{color:"#8B3A3A",bg:"rgba(139,58,58,0.08)"},
+  "Sangiovese":{color:"#C26A2F",bg:"rgba(194,106,47,0.08)"},
+  "Malbec":{color:"#6B2D6B",bg:"rgba(107,45,107,0.08)"},
+  "Syrah / Shiraz":{color:"#2D2D6B",bg:"rgba(45,45,107,0.08)"},
+  "Cabernet Franc":{color:"#4A6B2D",bg:"rgba(74,107,45,0.08)"},
+  "Rhône Blends":{color:"#8B4513",bg:"rgba(139,69,19,0.08)"},
+  "Cabernet Sauvignon":{color:"#1A3C5B",bg:"rgba(26,60,91,0.08)"},
+  "Grenache":{color:"#D4442A",bg:"rgba(212,68,42,0.08)"},
+  "Tempranillo":{color:"#8B6914",bg:"rgba(139,105,20,0.08)"},
+  "Chenin Blanc":{color:"#2E7D5B",bg:"rgba(46,125,91,0.08)"},
+  "Grüner Veltliner":{color:"#5B8C3A",bg:"rgba(91,140,58,0.08)"},
+  "Gamay":{color:"#7B5EA7",bg:"rgba(123,94,167,0.08)"},
+};
+
+const SITES = [
+  // === RIESLING ===
+  {n:"Erdener Prälat",r:"Mosel, Germany",cat:"Riesling",lat:49.978,lng:7.044,t:"Blue Devonian slate, steep south-facing",p:"Dr. Loosen, Christoffel"},
+  {n:"Wehlener Sonnenuhr",r:"Mosel, Germany",cat:"Riesling",lat:49.950,lng:7.025,t:"Blue slate sundial vineyard, 60% slope",p:"J.J. Prüm, S.A. Prüm"},
+  {n:"Bernkasteler Doctor",r:"Mosel, Germany",cat:"Riesling",lat:49.915,lng:7.075,t:"Slate/gravel, microclimate heat trap",p:"Thanisch, Wegeler"},
+  {n:"Scharzhofberger",r:"Saar, Germany",cat:"Riesling",lat:49.688,lng:6.576,t:"Grey Devonian slate, cool Saar valley",p:"Egon Müller, Van Volxem"},
+  {n:"Brauneberger Juffer-Sonnenuhr",r:"Mosel, Germany",cat:"Riesling",lat:49.908,lng:6.982,t:"Blue/brown slate, south-facing amphitheatre",p:"Fritz Haag, Willi Haag"},
+  {n:"Ürziger Würzgarten",r:"Mosel, Germany",cat:"Riesling",lat:49.984,lng:7.046,t:"Red sandstone/volcanic, unique spice",p:"Christoffel, Dr. Loosen"},
+  {n:"Forster Kirchenstück",r:"Pfalz, Germany",cat:"Riesling",lat:49.428,lng:8.185,t:"Basalt/sandstone, warmest Pfalz site",p:"Von Buhl, Bürklin-Wolf"},
+  {n:"Forster Ungeheuer",r:"Pfalz, Germany",cat:"Riesling",lat:49.432,lng:8.180,t:"Sandstone/basalt, powerful structured",p:"Bürklin-Wolf, Von Buhl"},
+  {n:"Deidesheimer Hohenmorgen",r:"Pfalz, Germany",cat:"Riesling",lat:49.412,lng:8.186,t:"Heavy loam/limestone, rich Riesling",p:"Bürklin-Wolf, Von Bassermann-Jordan"},
+  {n:"Nackenheimer Rothenberg",r:"Rheinhessen, Germany",cat:"Riesling",lat:49.895,lng:8.326,t:"Red Permian slate, steep Rhine terrace",p:"Gunderloch, Kühling-Gillot"},
+  {n:"Westhofen Morstein",r:"Rheinhessen, Germany",cat:"Riesling",lat:49.701,lng:8.251,t:"Limestone, full-bodied Riesling",p:"Keller, Wittmann"},
+  {n:"Kiedrich Gräfenberg",r:"Rheingau, Germany",cat:"Riesling",lat:50.048,lng:8.078,t:"Phyllite slate, Cistercian heritage",p:"Robert Weil, Spreitzer"},
+  {n:"Rüdesheimer Berg Schlossberg",r:"Rheingau, Germany",cat:"Riesling",lat:49.983,lng:7.905,t:"Quartzite/slate, steepest Rhine slope",p:"Leitz, Georg Breuer"},
+  {n:"Schloss Johannisberg",r:"Rheingau, Germany",cat:"Riesling",lat:50.014,lng:7.977,t:"Deep loess, birthplace of Spätlese",p:"Schloss Johannisberg"},
+  {n:"Rangen de Thann",r:"Alsace, France",cat:"Riesling",lat:47.813,lng:7.101,t:"Volcanic, steepest in Alsace, smoky",p:"Zind-Humbrecht, Schoffit"},
+  {n:"Schlossberg (Kaysersberg)",r:"Alsace, France",cat:"Riesling",lat:48.142,lng:7.260,t:"Granite, first Alsace Grand Cru",p:"Weinbach, Albert Mann"},
+  {n:"Brand",r:"Alsace, France",cat:"Riesling",lat:48.098,lng:7.279,t:"Granite/gneiss, warm microclimate",p:"Zind-Humbrecht, Josmeyer"},
+  {n:"Ried Heiligenstein",r:"Kamptal, Austria",cat:"Riesling",lat:48.475,lng:15.680,t:"Desert sandstone, warm, volcanic origin",p:"Bründlmayer, Hirsch"},
+  {n:"Ried Kellerberg",r:"Wachau, Austria",cat:"Riesling",lat:48.368,lng:15.447,t:"Primary rock gneiss, terraced",p:"F.X. Pichler, Knoll"},
+  {n:"Ried Achleiten",r:"Wachau, Austria",cat:"Riesling",lat:48.375,lng:15.450,t:"Gneiss/amphibolite, south-facing",p:"Hirtzberger, Prager"},
+  {n:"Clare Valley",r:"South Australia",cat:"Riesling",lat:-33.835,lng:138.608,t:"Red earth over limestone, high altitude",p:"Grosset, Jim Barry"},
+  {n:"Eden Valley",r:"South Australia",cat:"Riesling",lat:-34.640,lng:139.058,t:"Ancient schist/quartz, cool elevated",p:"Henschke, Pewsey Vale"},
+
+  // === CHARDONNAY ===
+  {n:"Le Montrachet",r:"Côte de Beaune, Burgundy",cat:"Chardonnay",lat:46.828,lng:4.793,t:"Mid-slope limestone, thin topsoil",p:"DRC, Leflaive, Ramonet"},
+  {n:"Chevalier-Montrachet",r:"Côte de Beaune, Burgundy",cat:"Chardonnay",lat:46.830,lng:4.791,t:"Upper slope, stonier, more mineral",p:"Leflaive, d'Auvenay"},
+  {n:"Bâtard-Montrachet",r:"Côte de Beaune, Burgundy",cat:"Chardonnay",lat:46.826,lng:4.794,t:"Lower slope, deeper clay, richer",p:"Leflaive, Ramonet"},
+  {n:"Corton-Charlemagne",r:"Côte de Beaune, Burgundy",cat:"Chardonnay",lat:47.067,lng:4.855,t:"Kimmeridgian limestone, high elevation",p:"Bonneau du Martray, Coche-Dury"},
+  {n:"Les Clos",r:"Chablis, Burgundy",cat:"Chardonnay",lat:47.816,lng:3.810,t:"Kimmeridgian marl, steepest Grand Cru",p:"Raveneau, Dauvissat"},
+  {n:"Valmur",r:"Chablis, Burgundy",cat:"Chardonnay",lat:47.819,lng:3.815,t:"Kimmeridgian limestone, sheltered",p:"Raveneau, William Fèvre"},
+  {n:"Blanchot",r:"Chablis, Burgundy",cat:"Chardonnay",lat:47.815,lng:3.820,t:"East-facing, elegant, floral",p:"Vocoret, Laroche"},
+  {n:"Bienvenues-Bâtard-Montrachet",r:"Côte de Beaune, Burgundy",cat:"Chardonnay",lat:46.827,lng:4.795,t:"Adjacent to Bâtard, small, precise",p:"Leflaive, Ramonet"},
+  {n:"Criots-Bâtard-Montrachet",r:"Chassagne-Montrachet, Burgundy",cat:"Chardonnay",lat:46.824,lng:4.796,t:"Smallest white GC, south end",p:"Blain-Gagnard, d'Auvenay"},
+  {n:"Meursault Perrières",r:"Côte de Beaune, Burgundy",cat:"Chardonnay",lat:46.837,lng:4.785,t:"Stony limestone, unofficial Grand Cru",p:"Coche-Dury, Comtes Lafon"},
+
+  // === PINOT NOIR ===
+  {n:"Romanée-Conti",r:"Vosne-Romanée, Burgundy",cat:"Pinot Noir",lat:47.163,lng:4.949,t:"Mid-slope limestone/clay, 1.81ha monopole",p:"DRC"},
+  {n:"La Tâche",r:"Vosne-Romanée, Burgundy",cat:"Pinot Noir",lat:47.160,lng:4.950,t:"Deeper clay, broader, spicier",p:"DRC (monopole)"},
+  {n:"Richebourg",r:"Vosne-Romanée, Burgundy",cat:"Pinot Noir",lat:47.165,lng:4.948,t:"Rich clay/limestone, opulent",p:"DRC, Leroy"},
+  {n:"Chambertin",r:"Gevrey-Chambertin, Burgundy",cat:"Pinot Noir",lat:47.220,lng:4.967,t:"Bajocian limestone, powerful",p:"Rousseau, Leroy"},
+  {n:"Chambertin-Clos de Bèze",r:"Gevrey-Chambertin, Burgundy",cat:"Pinot Noir",lat:47.223,lng:4.967,t:"Limestone/marl, elegant power",p:"Rousseau, Faiveley"},
+  {n:"Musigny",r:"Chambolle-Musigny, Burgundy",cat:"Pinot Noir",lat:47.185,lng:4.953,t:"Thin soil over rock, ethereal",p:"de Vogüé, Leroy"},
+  {n:"Bonnes-Mares",r:"Chambolle-Musigny, Burgundy",cat:"Pinot Noir",lat:47.192,lng:4.959,t:"Clay-rich upper, stony lower",p:"Roumier, de Vogüé"},
+  {n:"Clos de la Roche",r:"Morey-Saint-Denis, Burgundy",cat:"Pinot Noir",lat:47.200,lng:4.958,t:"Limestone rubble, broad-shouldered",p:"Dujac, Ponsot"},
+  {n:"Clos de Tart",r:"Morey-Saint-Denis, Burgundy",cat:"Pinot Noir",lat:47.198,lng:4.957,t:"Monopole since 1141, clay/limestone",p:"Clos de Tart"},
+  {n:"Clos de Vougeot",r:"Vougeot, Burgundy",cat:"Pinot Noir",lat:47.177,lng:4.950,t:"50ha, variable terroir, Cistercian",p:"Leroy, Méo-Camuzet"},
+  {n:"Romanée-Saint-Vivant",r:"Vosne-Romanée, Burgundy",cat:"Pinot Noir",lat:47.162,lng:4.951,t:"Eastern exposure, lighter soil",p:"DRC, Leroy"},
+  {n:"Échézeaux",r:"Flagey-Échézeaux, Burgundy",cat:"Pinot Noir",lat:47.173,lng:4.950,t:"Diverse parcels, 37ha, varied",p:"DRC, Emmanuel Rouget"},
+  {n:"La Romanée",r:"Vosne-Romanée, Burgundy",cat:"Pinot Noir",lat:47.164,lng:4.948,t:"Smallest AOC in France, 0.85ha",p:"Liger-Belair (monopole)"},
+  {n:"Grands-Échézeaux",r:"Flagey-Échézeaux, Burgundy",cat:"Pinot Noir",lat:47.175,lng:4.949,t:"Adjacent to Clos de Vougeot, richer",p:"DRC, Gros"},
+
+  // === BORDEAUX BLENDS ===
+  {n:"Pauillac (Lafite)",r:"Haut-Médoc, Bordeaux",cat:"Bordeaux Blends",lat:45.225,lng:-0.690,t:"Deep gravel, Cab Sauv dominant",p:"Lafite Rothschild"},
+  {n:"Pauillac (Latour)",r:"Haut-Médoc, Bordeaux",cat:"Bordeaux Blends",lat:45.183,lng:-0.717,t:"Deep gravel over clay, iron-rich",p:"Latour"},
+  {n:"Pauillac (Mouton)",r:"Haut-Médoc, Bordeaux",cat:"Bordeaux Blends",lat:45.209,lng:-0.700,t:"Günzian gravel, high plateau",p:"Mouton Rothschild"},
+  {n:"Margaux",r:"Haut-Médoc, Bordeaux",cat:"Bordeaux Blends",lat:45.044,lng:-0.678,t:"Fine gravel, elegant perfumed style",p:"Ch. Margaux, Palmer"},
+  {n:"Saint-Julien",r:"Haut-Médoc, Bordeaux",cat:"Bordeaux Blends",lat:45.156,lng:-0.733,t:"Gravel banks, classically balanced",p:"Léoville-Las-Cases, Ducru-Beaucaillou"},
+  {n:"Pessac-Léognan",r:"Graves, Bordeaux",cat:"Bordeaux Blends",lat:44.726,lng:-0.625,t:"Ancient gravel over limestone",p:"Haut-Brion, La Mission Haut-Brion"},
+  {n:"Pomerol",r:"Right Bank, Bordeaux",cat:"Bordeaux Blends",lat:44.934,lng:-0.193,t:"Clay/gravel/iron, Merlot dominant",p:"Pétrus, Le Pin, Lafleur"},
+  {n:"Saint-Émilion",r:"Right Bank, Bordeaux",cat:"Bordeaux Blends",lat:44.893,lng:-0.153,t:"Limestone plateau/slopes, diverse",p:"Ausone, Angélus, Cheval Blanc"},
+
+  // === NEBBIOLO ===
+  {n:"Barolo — Cannubi",r:"Barolo, Piedmont",cat:"Nebbiolo",lat:44.612,lng:7.934,t:"Tortonian marl, central amphitheatre",p:"Bartolo Mascarello, Damilano"},
+  {n:"Barolo — Brunate",r:"La Morra / Barolo, Piedmont",cat:"Nebbiolo",lat:44.620,lng:7.926,t:"Blue/grey marl, south-facing",p:"Ceretto, Roberto Voerzio"},
+  {n:"Barolo — Monfortino (Cascina Francia)",r:"Serralunga d'Alba, Piedmont",cat:"Nebbiolo",lat:44.585,lng:7.978,t:"Helvetian sandstone/marl, austere",p:"Giacomo Conterno"},
+  {n:"Barolo — Monprivato",r:"Castiglione Falletto, Piedmont",cat:"Nebbiolo",lat:44.603,lng:7.953,t:"Sant'Agata marl, monopole-like",p:"Giuseppe Mascarello"},
+  {n:"Barolo — Vigna Rionda",r:"Serralunga d'Alba, Piedmont",cat:"Nebbiolo",lat:44.590,lng:7.973,t:"Iron-rich clay, massive structure",p:"Oddero, Massolino"},
+  {n:"Barolo — Rocche dell'Annunziata",r:"La Morra, Piedmont",cat:"Nebbiolo",lat:44.627,lng:7.918,t:"Blue marl, elegant La Morra style",p:"Roberto Voerzio, Renato Corino"},
+  {n:"Barbaresco — Asili",r:"Barbaresco, Piedmont",cat:"Nebbiolo",lat:44.720,lng:8.082,t:"Calcareous marl, fine-boned",p:"Bruno Giacosa, Produttori del Barbaresco"},
+  {n:"Barbaresco — Rabajà",r:"Barbaresco, Piedmont",cat:"Nebbiolo",lat:44.717,lng:8.078,t:"South-facing marl/sand amphitheatre",p:"Bruno Giacosa, Produttori del Barbaresco"},
+  {n:"Barbaresco — Sorì San Lorenzo",r:"Barbaresco, Piedmont",cat:"Nebbiolo",lat:44.723,lng:8.086,t:"South-facing, warm, concentrated",p:"Gaja"},
+  {n:"Barbaresco — Sorì Tildin",r:"Barbaresco, Piedmont",cat:"Nebbiolo",lat:44.722,lng:8.084,t:"Compact marl, rich texture",p:"Gaja"},
+  {n:"Gattinara",r:"Alto Piemonte",cat:"Nebbiolo",lat:45.616,lng:8.368,t:"Volcanic porphyry, cool, mineral",p:"Travaglini, Nervi-Conterno"},
+  {n:"Carema",r:"Alto Piemonte",cat:"Nebbiolo",lat:45.587,lng:7.806,t:"Glacial moraine, pergola-trained",p:"Ferrando, Produttori di Carema"},
+
+  // === SANGIOVESE ===
+  {n:"Brunello — Montalcino (North)",r:"Montalcino, Tuscany",cat:"Sangiovese",lat:43.070,lng:11.488,t:"Galestro/alberese, cooler elegance",p:"Biondi-Santi, Il Poggione"},
+  {n:"Brunello — Montalcino (South)",r:"Montalcino, Tuscany",cat:"Sangiovese",lat:43.030,lng:11.500,t:"Clay/sand, warmer, richer fruit",p:"Casanova di Neri, Ciacci Piccolomini"},
+  {n:"Chianti Classico — Panzano (Conca d'Oro)",r:"Chianti Classico, Tuscany",cat:"Sangiovese",lat:43.517,lng:11.186,t:"Limestone/galestro amphitheatre",p:"Fontodi, Il Caggio"},
+  {n:"Chianti Classico — Castelnuovo Berardenga",r:"Chianti Classico, Tuscany",cat:"Sangiovese",lat:43.347,lng:11.510,t:"Southern warmth, clay/sand",p:"Fèlsina, San Felice"},
+  {n:"Chianti Classico — Radda",r:"Chianti Classico, Tuscany",cat:"Sangiovese",lat:43.490,lng:11.370,t:"High altitude, galestro, tensile",p:"Montevertine, Istine"},
+  {n:"Chianti Classico — Gaiole",r:"Chianti Classico, Tuscany",cat:"Sangiovese",lat:43.466,lng:11.431,t:"Iron-rich galestro, structured",p:"Castello di Ama, Badia a Coltibuono"},
+  {n:"Vino Nobile — Montepulciano",r:"Montepulciano, Tuscany",cat:"Sangiovese",lat:43.103,lng:11.788,t:"Clay/sand, Prugnolo Gentile clone",p:"Avignonesi, Boscarelli"},
+  {n:"Suvereto",r:"Maremma, Tuscany",cat:"Sangiovese",lat:43.078,lng:10.676,t:"Mediterranean coast, alluvial",p:"Tua Rita, Petra"},
+
+  // === MALBEC ===
+  {n:"Luján de Cuyo — Agrelo",r:"Mendoza, Argentina",cat:"Malbec",lat:-33.115,lng:-68.565,t:"Alluvial gravel/sand, 950m elevation",p:"Catena Zapata, Viña Cobos"},
+  {n:"Valle de Uco — Gualtallary",r:"Mendoza, Argentina",cat:"Malbec",lat:-33.420,lng:-69.250,t:"Limestone/calcareous at 1,400m",p:"Zuccardi, Catena Zapata"},
+  {n:"Valle de Uco — Altamira",r:"Mendoza, Argentina",cat:"Malbec",lat:-33.670,lng:-69.130,t:"Alluvial fan, calcareous, 1,100m",p:"Altos Las Hormigas, Michelini"},
+  {n:"Cahors — Les Côtes",r:"Cahors, France",cat:"Malbec",lat:44.450,lng:1.435,t:"Limestone plateau, iron-rich clay",p:"Clos Triguedina, Château Lagrezette"},
+  {n:"Valle de Uco — Tupungato",r:"Mendoza, Argentina",cat:"Malbec",lat:-33.360,lng:-69.150,t:"High altitude glacial, 1,200m",p:"Salentein, Pulenta Estate"},
+
+  // === SYRAH / SHIRAZ ===
+  {n:"Hermitage",r:"Northern Rhône, France",cat:"Syrah / Shiraz",lat:45.080,lng:4.839,t:"Granite/gneiss, south-facing hill",p:"Chave, Chapoutier, Jaboulet"},
+  {n:"Côte-Rôtie — Côte Brune",r:"Northern Rhône, France",cat:"Syrah / Shiraz",lat:45.471,lng:4.813,t:"Iron-rich mica schist, dark soils",p:"Guigal (La Turque, La Mouline)"},
+  {n:"Côte-Rôtie — Côte Blonde",r:"Northern Rhône, France",cat:"Syrah / Shiraz",lat:45.468,lng:4.815,t:"Lighter gneiss/mica, elegant",p:"Guigal (La Mouline), Rostaing"},
+  {n:"Cornas",r:"Northern Rhône, France",cat:"Syrah / Shiraz",lat:44.960,lng:4.850,t:"Decomposed granite, hot amphitheatre",p:"Clape, Thierry Allemand"},
+  {n:"Saint-Joseph — Tournon",r:"Northern Rhône, France",cat:"Syrah / Shiraz",lat:45.068,lng:4.827,t:"Granite terraces, accessible",p:"Chave (Offerus), Gonon"},
+  {n:"Barossa Valley — Old Vine",r:"South Australia",cat:"Syrah / Shiraz",lat:-34.556,lng:138.935,t:"Ancient pre-phylloxera vines, sandy loam",p:"Henschke (Hill of Grace), Penfolds (Grange)"},
+  {n:"McLaren Vale",r:"South Australia",cat:"Syrah / Shiraz",lat:-35.221,lng:138.547,t:"Maritime influence, sand/clay/ironstone",p:"Yangarra, d'Arenberg"},
+  {n:"Hawke's Bay — Gimblett Gravels",r:"New Zealand",cat:"Syrah / Shiraz",lat:-39.635,lng:176.850,t:"River gravels, warm mesoclimate",p:"Craggy Range, Trinity Hill"},
+  {n:"Crozes-Hermitage — Les Chassis",r:"Northern Rhône, France",cat:"Syrah / Shiraz",lat:45.059,lng:4.845,t:"Alluvial gravel, accessible Hermitage style",p:"Graillot, Combier"},
+  {n:"Stellenbosch — Helderberg",r:"South Africa",cat:"Syrah / Shiraz",lat:-34.060,lng:18.852,t:"Decomposed granite, maritime",p:"Mullineux, Boekenhoutskloof"},
+
+  // === CABERNET FRANC ===
+  {n:"Chinon — Clos de l'Écho",r:"Loire Valley, France",cat:"Cabernet Franc",lat:47.169,lng:0.239,t:"Tuffeau limestone, south-facing",p:"Couly-Dutheil"},
+  {n:"Chinon — Les Picasses",r:"Loire Valley, France",cat:"Cabernet Franc",lat:47.176,lng:0.242,t:"Gravel/silex plateau",p:"Olga Raffault"},
+  {n:"Bourgueil — Les Perrières",r:"Loire Valley, France",cat:"Cabernet Franc",lat:47.278,lng:0.168,t:"Tuffeau/gravel, iron-rich",p:"Catherine & Pierre Breton"},
+  {n:"Saumur-Champigny",r:"Loire Valley, France",cat:"Cabernet Franc",lat:47.222,lng:-0.077,t:"Tuffeau/limestone, chalky",p:"Clos Rougeard, Thierry Germain"},
+  {n:"Saint-Émilion (Franc-dominant)",r:"Bordeaux, France",cat:"Cabernet Franc",lat:44.896,lng:-0.155,t:"Limestone plateau/clay",p:"Cheval Blanc, Angélus"},
+  {n:"Friuli — Collio",r:"Friuli, Italy",cat:"Cabernet Franc",lat:45.960,lng:13.540,t:"Ponca flysch, maritime-alpine",p:"Miani, Gravner"},
+  {n:"Finger Lakes",r:"New York, USA",cat:"Cabernet Franc",lat:42.620,lng:-76.920,t:"Shale/limestone, lake-moderated",p:"Hermann J. Wiemer, Ravines"},
+  {n:"Bolgheri",r:"Tuscany, Italy",cat:"Cabernet Franc",lat:43.226,lng:10.617,t:"Maritime alluvial, Mediterranean",p:"Ornellaia, Le Macchiole"},
+
+  // === RHÔNE BLENDS ===
+  {n:"Châteauneuf-du-Pape — La Crau",r:"Southern Rhône, France",cat:"Rhône Blends",lat:44.060,lng:4.830,t:"Large galets roulés, GSM blend",p:"Clos des Papes, Vieux Télégraphe"},
+  {n:"Châteauneuf-du-Pape — Rayas",r:"Southern Rhône, France",cat:"Rhône Blends",lat:44.065,lng:4.845,t:"Sandy soils (anomalous), pure Grenache",p:"Château Rayas"},
+  {n:"Gigondas — Les Dentelles",r:"Southern Rhône, France",cat:"Rhône Blends",lat:44.166,lng:5.013,t:"Limestone/clay below Dentelles de Montmirail",p:"Domaine Santa Duc, Saint-Cosme"},
+  {n:"Vacqueyras",r:"Southern Rhône, France",cat:"Rhône Blends",lat:44.141,lng:4.983,t:"Galets roulés/clay, robust",p:"Sang des Cailloux, Montirius"},
+  {n:"Cairanne",r:"Southern Rhône, France",cat:"Rhône Blends",lat:44.233,lng:4.946,t:"Clay-limestone, elevated, structured",p:"Marcel Richaud, Alary"},
+  {n:"Rasteau",r:"Southern Rhône, France",cat:"Rhône Blends",lat:44.227,lng:5.010,t:"Blue clay/galets, warm amphitheatre",p:"Gourt de Mautens, Domaine des Escaravailles"},
+  {n:"Lirac",r:"Southern Rhône, France",cat:"Rhône Blends",lat:44.028,lng:4.693,t:"Galets/sand, Right Bank CDP neighbor",p:"Mordorée, Lafond"},
+  {n:"Bandol",r:"Provence, France",cat:"Rhône Blends",lat:43.183,lng:5.752,t:"Limestone terraces, maritime Mourvèdre",p:"Domaine Tempier, Pibarnon"},
+
+  // === CABERNET SAUVIGNON ===
+  {n:"Oakville — To Kalon",r:"Napa Valley, California",cat:"Cabernet Sauvignon",lat:38.440,lng:-122.398,t:"Alluvial gravel/clay, benchland",p:"Robert Mondavi, Opus One"},
+  {n:"Rutherford",r:"Napa Valley, California",cat:"Cabernet Sauvignon",lat:38.467,lng:-122.420,t:"Alluvial fans, famous 'Rutherford dust'",p:"Caymus, Inglenook"},
+  {n:"Stags Leap District",r:"Napa Valley, California",cat:"Cabernet Sauvignon",lat:38.402,lng:-122.345,t:"Volcanic/alluvial, elegant style",p:"Stag's Leap Wine Cellars, Shafer"},
+  {n:"Howell Mountain",r:"Napa Valley, California",cat:"Cabernet Sauvignon",lat:38.550,lng:-122.400,t:"Volcanic red soil above fog line",p:"Dunn Vineyards, La Jota"},
+  {n:"Mount Veeder",r:"Napa Valley, California",cat:"Cabernet Sauvignon",lat:38.400,lng:-122.450,t:"Volcanic mountain, rugged, intense",p:"Hess Collection, Mount Veeder Winery"},
+  {n:"Coonawarra — Terra Rossa",r:"South Australia",cat:"Cabernet Sauvignon",lat:-37.290,lng:140.825,t:"Red iron-oxide over limestone",p:"Wynns, Balnaves, Penley Estate"},
+  {n:"Margaret River",r:"Western Australia",cat:"Cabernet Sauvignon",lat:-33.946,lng:115.077,t:"Laterite gravel, maritime",p:"Cullen, Vasse Felix, Moss Wood"},
+  {n:"Maipo Alto",r:"Central Valley, Chile",cat:"Cabernet Sauvignon",lat:-33.600,lng:-70.450,t:"Andes alluvial, high elevation",p:"Almaviva, Concha y Toro (Don Melchor)"},
+  {n:"Eisele Vineyard",r:"Calistoga, Napa Valley",cat:"Cabernet Sauvignon",lat:38.590,lng:-122.568,t:"Volcanic alluvial fan, north Napa",p:"Eisele Vineyard (formerly Araujo)"},
+  {n:"Monte Bello Ridge",r:"Santa Cruz Mountains, California",cat:"Cabernet Sauvignon",lat:37.320,lng:-122.145,t:"Limestone at 800m, Montebello Ridge",p:"Ridge Vineyards"},
+
+  // === GRENACHE ===
+  {n:"Châteauneuf-du-Pape (Old Vine)",r:"Southern Rhône, France",cat:"Grenache",lat:44.055,lng:4.832,t:"Galets roulés, old-vine Grenache",p:"Rayas, Henri Bonneau"},
+  {n:"Priorat — Gratallops",r:"Catalonia, Spain",cat:"Grenache",lat:41.203,lng:0.820,t:"Llicorella schist, steep terraces",p:"Álvaro Palacios (L'Ermita)"},
+  {n:"Priorat — Porrera",r:"Catalonia, Spain",cat:"Grenache",lat:41.188,lng:0.866,t:"Black llicorella, high altitude",p:"Cims de Porrera"},
+  {n:"Sierra de Gredos",r:"Central Spain",cat:"Grenache",lat:40.260,lng:-4.990,t:"Granite, 900m+ altitude, old bush vine",p:"Comando G, Daniel Landi"},
+  {n:"Campo de Borja",r:"Aragon, Spain",cat:"Grenache",lat:41.850,lng:-1.550,t:"Limestone/clay, continental",p:"Borsao, Alto Moncayo"},
+  {n:"Barossa Valley (Old Vine Grenache)",r:"South Australia",cat:"Grenache",lat:-34.560,lng:138.940,t:"Sandy loam, pre-phylloxera vines",p:"Torbreck, Cirillo"},
+  {n:"Sardinia — Mamoiada",r:"Sardinia, Italy",cat:"Grenache",lat:40.220,lng:9.290,t:"Granite mountain, Cannonau, 600m+",p:"Giuseppe Sedilesu"},
+  {n:"Roussillon — Maury",r:"France",cat:"Grenache",lat:42.807,lng:2.573,t:"Black schist, Grenache Noir VDN",p:"Mas Amiel, Domaine de la Préceptorie"},
+  {n:"McLaren Vale (Grenache)",r:"South Australia",cat:"Grenache",lat:-35.223,lng:138.545,t:"Sand/clay, maritime warmth",p:"Yangarra, Bekkers"},
+
+  // === TEMPRANILLO ===
+  {n:"Rioja Alta",r:"Rioja, Spain",cat:"Tempranillo",lat:42.573,lng:-2.753,t:"Clay-limestone, continental",p:"López de Heredia, La Rioja Alta"},
+  {n:"Rioja Alavesa",r:"Rioja, Spain",cat:"Tempranillo",lat:42.594,lng:-2.572,t:"Chalky clay, Basque influence",p:"Artadi, Remelluri"},
+  {n:"Ribera del Duero — Pesquera",r:"Castilla y León, Spain",cat:"Tempranillo",lat:41.661,lng:-4.024,t:"Chalky clay at 800m+, extreme continental",p:"Vega Sicilia, Pingus, Pesquera"},
+  {n:"Toro",r:"Castilla y León, Spain",cat:"Tempranillo",lat:41.522,lng:-5.389,t:"Sandy alluvial, Tinta de Toro clone",p:"Numanthia, Pintia"},
+  {n:"Bierzo (Mencía)",r:"Castilla y León, Spain",cat:"Tempranillo",lat:42.595,lng:-6.600,t:"Slate/granite, Atlantic-influenced",p:"Raúl Pérez, Descendientes de Palacios"},
+  {n:"Cigales",r:"Castilla y León, Spain",cat:"Tempranillo",lat:41.750,lng:-4.645,t:"Sand/gravel over limestone",p:"César Príncipe"},
+  {n:"Penedès",r:"Catalonia, Spain",cat:"Tempranillo",lat:41.383,lng:1.700,t:"Limestone/clay, Mediterranean",p:"Torres (Mas La Plana)"},
+  {n:"La Mancha (Old Vine)",r:"Central Spain",cat:"Tempranillo",lat:39.470,lng:-3.000,t:"Chalk/clay plateau, extreme heat",p:"Verum, Finca Antigua"},
+  {n:"Alentejo",r:"Portugal",cat:"Tempranillo",lat:38.575,lng:-7.912,t:"Schist/granite, Aragonez clone",p:"Herdade do Esporão, Mouchão"},
+
+  // === CHENIN BLANC ===
+  {n:"Savennières — Coulée de Serrant",r:"Loire Valley, France",cat:"Chenin Blanc",lat:47.377,lng:-0.691,t:"Volcanic schist, biodynamic monopole",p:"Nicolas Joly"},
+  {n:"Savennières — Roche aux Moines",r:"Loire Valley, France",cat:"Chenin Blanc",lat:47.375,lng:-0.689,t:"Schist/volcanic, south-facing",p:"Domaine aux Moines"},
+  {n:"Vouvray — Clos du Bourg",r:"Loire Valley, France",cat:"Chenin Blanc",lat:47.413,lng:0.794,t:"Tuffeau limestone, cave-aged",p:"Domaine Huet"},
+  {n:"Vouvray — Le Haut-Lieu",r:"Loire Valley, France",cat:"Chenin Blanc",lat:47.415,lng:0.796,t:"Clay-flint over tuffeau",p:"Domaine Huet"},
+  {n:"Quarts de Chaume",r:"Loire Valley, France",cat:"Chenin Blanc",lat:47.335,lng:-0.551,t:"Schist, botrytis-friendly microclimate",p:"Domaine des Baumard, Château Pierre-Bise"},
+  {n:"Bonnezeaux",r:"Loire Valley, France",cat:"Chenin Blanc",lat:47.318,lng:-0.519,t:"Carboniferous schist, south-facing",p:"Château de Fesles, Thibaud Boudignon"},
+  {n:"Montlouis-sur-Loire",r:"Loire Valley, France",cat:"Chenin Blanc",lat:47.387,lng:0.836,t:"Flint/clay over tuffeau, Left Bank mirror of Vouvray",p:"François Chidaine, Jacky Blot"},
+  {n:"Saumur Blanc",r:"Loire Valley, France",cat:"Chenin Blanc",lat:47.257,lng:-0.076,t:"Tuffeau limestone, mineral Chenin",p:"Clos Rougeard, Guiberteau"},
+  {n:"Swartland",r:"South Africa",cat:"Chenin Blanc",lat:-33.415,lng:18.725,t:"Decomposed granite, Mediterranean climate",p:"Mullineux, Badenhorst, Sadie Family"},
+  {n:"Stellenbosch (Chenin)",r:"South Africa",cat:"Chenin Blanc",lat:-33.940,lng:18.860,t:"Granite/shale, old bush vine",p:"Ken Forrester, DeMorgenzon"},
+  {n:"Jasnières",r:"Loire Valley, France",cat:"Chenin Blanc",lat:47.710,lng:0.509,t:"Silex/clay, micro-AOC, taut dry Chenin",p:"Domaine de Bellivière"},
+
+  // === GRÜNER VELTLINER ===
+  {n:"Ried Kellerberg",r:"Wachau, Austria",cat:"Grüner Veltliner",lat:48.368,lng:15.448,t:"Primary rock gneiss, terraced, Smaragd",p:"F.X. Pichler, Knoll"},
+  {n:"Ried Achleiten",r:"Wachau, Austria",cat:"Grüner Veltliner",lat:48.375,lng:15.451,t:"Gneiss/amphibolite, south-facing",p:"Hirtzberger, Prager"},
+  {n:"Ried Singerriedel",r:"Wachau, Austria",cat:"Grüner Veltliner",lat:48.368,lng:15.465,t:"Gneiss/mica, vertiginous slope",p:"Hirtzberger"},
+  {n:"Ried Loibenberg",r:"Wachau, Austria",cat:"Grüner Veltliner",lat:48.388,lng:15.530,t:"Gneiss/loess, broad terraces",p:"Knoll, Alzinger"},
+  {n:"Ried Schütt",r:"Wachau, Austria",cat:"Grüner Veltliner",lat:48.389,lng:15.541,t:"Alluvial gravel, warm, opulent GV",p:"Knoll, Domäne Wachau"},
+  {n:"Ried Lamm",r:"Kamptal, Austria",cat:"Grüner Veltliner",lat:48.471,lng:15.730,t:"Loess over gneiss, complex GV",p:"Bründlmayer, Schloss Gobelsburg"},
+  {n:"Ried Heiligenstein (GV)",r:"Kamptal, Austria",cat:"Grüner Veltliner",lat:48.476,lng:15.681,t:"Desert sandstone, warm, atypical terroir",p:"Bründlmayer, Hirsch"},
+  {n:"Ried Rosenberg",r:"Wagram, Austria",cat:"Grüner Veltliner",lat:48.420,lng:15.820,t:"Loess, warm plateau, textural GV",p:"Bernhard Ott"},
+  {n:"Ried Zöbing — Renner",r:"Kamptal, Austria",cat:"Grüner Veltliner",lat:48.480,lng:15.688,t:"Amphibolite/gneiss, structured",p:"Jurtschitsch, Loimer"},
+  {n:"Ried Berg Vogelsang",r:"Kremstal, Austria",cat:"Grüner Veltliner",lat:48.410,lng:15.600,t:"Loess/primary rock, diverse",p:"Stadt Krems, Nigl"},
+  {n:"Weinviertel — Alte Reben",r:"Weinviertel, Austria",cat:"Grüner Veltliner",lat:48.700,lng:16.250,t:"Loess plains, classic peppery GV",p:"Pfaffl, Zull"},
+  {n:"Traisental",r:"Lower Austria",cat:"Grüner Veltliner",lat:48.280,lng:15.610,t:"Conglomerate/loess, lean mineral",p:"Markus Huber, Ludwig Neumayer"},
+
+  // === GAMAY ===
+  {n:"Morgon — Côte du Py",r:"Beaujolais, France",cat:"Gamay",lat:46.140,lng:4.672,t:"Blue-grey volcanic schist, structured",p:"Jean Foillard, Marcel Lapierre"},
+  {n:"Moulin-à-Vent",r:"Beaujolais, France",cat:"Gamay",lat:46.180,lng:4.700,t:"Pink granite/manganese, age-worthy",p:"Domaine Diochon, Richard Rottiers"},
+  {n:"Fleurie",r:"Beaujolais, France",cat:"Gamay",lat:46.192,lng:4.693,t:"Pink granite, floral, silky",p:"Domaine Chignard, Clos de la Roilette"},
+  {n:"Côte de Brouilly",r:"Beaujolais, France",cat:"Gamay",lat:46.137,lng:4.656,t:"Blue diorite volcanic, steep slopes",p:"Château Thivin"},
+  {n:"Chiroubles",r:"Beaujolais, France",cat:"Gamay",lat:46.183,lng:4.660,t:"Highest Beaujolais cru, granite, pure fruit",p:"Domaine Cheysson, Georges Descombes"},
+  {n:"Chénas",r:"Beaujolais, France",cat:"Gamay",lat:46.195,lng:4.710,t:"Pink granite, transitional to Moulin-à-Vent",p:"Domaine des Vieilles Caves"},
+  {n:"Juliénas",r:"Beaujolais, France",cat:"Gamay",lat:46.232,lng:4.718,t:"Granite/schist, northern Beaujolais",p:"Domaine des Vignes du Mayné"},
+  {n:"Saint-Amour",r:"Beaujolais, France",cat:"Gamay",lat:46.248,lng:4.732,t:"Clay over granite, northern limit",p:"Domaine des Duc"},
+  {n:"Régnié",r:"Beaujolais, France",cat:"Gamay",lat:46.156,lng:4.648,t:"Pink granite, sandy, light-bodied",p:"Domaine de la Gerarde"},
+  {n:"Brouilly",r:"Beaujolais, France",cat:"Gamay",lat:46.122,lng:4.655,t:"Blue diorite at base, broader style",p:"Château de la Chaize"},
+  {n:"Morgon — Corcelette",r:"Beaujolais, France",cat:"Gamay",lat:46.135,lng:4.668,t:"Clay/granite lieu-dit, aromatic",p:"Mee Godard, Jean-Marc Burgaud"},
+];
+
+// ============================================================================
+// APP STATE
+// ============================================================================
+let selectedCat = null;
+let selectedRegion = null;
+let selectedSite = null;
+
+// ============================================================================
+// MAP
+// ============================================================================
+const map = L.map('map',{zoomControl:true}).setView([48,10],4);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+  attribution:'&copy; <a href="https://carto.com/">CARTO</a>',
+  maxZoom:19
+}).addTo(map);
+
+const markers = {};
+const markerLayer = L.layerGroup().addTo(map);
+
+SITES.forEach((s,i) => {
+  const c = CATEGORIES[s.cat]?.color || '#888';
+  const size = 12;
+  const icon = L.divIcon({
+    className:'',
+    html:`<div class="custom-marker" data-idx="${i}" style="width:${size}px;height:${size}px;background:${c}"></div>`,
+    iconSize:[size,size],iconAnchor:[size/2,size/2]
+  });
+  const m = L.marker([s.lat,s.lng],{icon}).addTo(markerLayer);
+  m.on('click',()=>selectSite(i));
+  m.on('mouseover',()=>{
+    m.bindPopup(`<div class="popup-title">${s.n}</div><div class="popup-region">${s.r}</div><div class="popup-row"><strong>Category:</strong> ${s.cat}</div><div class="popup-row"><strong>Terroir:</strong> ${s.t}</div><div class="popup-row"><strong>Producers:</strong> ${s.p}</div>`).openPopup();
+  });
+  markers[i] = m;
+});
+
+// ============================================================================
+// COLOR LEGEND  — small inline legend so colored map pins remain readable
+// ============================================================================
+const legendGrid = document.getElementById('legend-grid');
+Object.entries(CATEGORIES).forEach(([name, meta]) => {
+  const el = document.createElement('div');
+  el.className = 'legend-item';
+  el.dataset.cat = name;
+  el.innerHTML = `<span class="legend-dot" style="background:${meta.color}"></span><span>${name}</span>`;
+  el.addEventListener('click', () => {
+    selectedCat = (selectedCat === name) ? null : name;
+    selectedSite = null;
+    updateAll();
+  });
+  legendGrid.appendChild(el);
+});
+
+// ============================================================================
+// FILTER DROPDOWNS — Grape and Region
+// ============================================================================
+const ALL_REGIONS = [...new Set(SITES.map(s => s.r))].sort();
+
+const catDropdown = document.getElementById('cat-dropdown');
+Object.keys(CATEGORIES).forEach(name => {
+  const opt = document.createElement('option');
+  opt.value = name;
+  opt.textContent = name;
+  catDropdown.appendChild(opt);
+});
+catDropdown.addEventListener('change', () => {
+  const v = catDropdown.value;
+  selectedCat = v || null;
+  selectedSite = null;
+  updateAll();
+});
+
+const regionDropdown = document.getElementById('region-dropdown');
+ALL_REGIONS.forEach(r => {
+  const opt = document.createElement('option');
+  opt.value = r;
+  opt.textContent = r;
+  regionDropdown.appendChild(opt);
+});
+regionDropdown.addEventListener('change', () => {
+  const v = regionDropdown.value;
+  selectedRegion = v || null;
+  selectedSite = null;
+  updateAll();
+});
+
+// ============================================================================
+// SEARCH
+// ============================================================================
+const searchInput=document.getElementById('search-input');
+const searchResults=document.getElementById('search-results');
+searchInput.addEventListener('input',()=>{
+  const q=searchInput.value.toLowerCase();
+  if(q.length<2){searchResults.style.display='none';return;}
+  const matches=SITES.map((s,i)=>({...s,idx:i})).filter(s=>s.n.toLowerCase().includes(q)||s.r.toLowerCase().includes(q)||s.p.toLowerCase().includes(q)).slice(0,10);
+  if(!matches.length){searchResults.style.display='none';return;}
+  searchResults.innerHTML='';searchResults.style.display='block';
+  matches.forEach(s=>{
+    const el=document.createElement('div');el.className='sr-item';
+    el.innerHTML=`<span style="width:8px;height:8px;border-radius:50%;background:${CATEGORIES[s.cat]?.color};flex-shrink:0"></span><span style="flex:1">${s.n}</span><span style="font-size:10px;color:#aaa">${s.cat}</span>`;
+    el.addEventListener('click',()=>{selectSite(s.idx);searchInput.value='';searchResults.style.display='none';});
+    searchResults.appendChild(el);
+  });
+});
+
+// ============================================================================
+// RESET
+// ============================================================================
+const resetBar=document.getElementById('reset-bar');
+const filterLabel=document.getElementById('filter-label');
+document.getElementById('reset-btn').addEventListener('click',resetAll);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')resetAll();});
+
+function resetAll(){
+  selectedCat=null;
+  selectedRegion=null;
+  selectedSite=null;
+  // Also clear search input + results panel
+  if (typeof searchInput !== 'undefined') { searchInput.value = ''; }
+  if (typeof searchResults !== 'undefined') { searchResults.style.display = 'none'; }
+  updateAll();
+  map.setView([48,10],4);
+}
+
+// ============================================================================
+// SELECT SITE
+// ============================================================================
+function selectSite(idx){
+  selectedSite=idx;
+  selectedCat=null;
+  selectedRegion=null;
+  updateAll();
+  const s=SITES[idx];
+  map.flyTo([s.lat,s.lng],10,{duration:0.8});
+}
+
+// ============================================================================
+// UPDATE ALL
+// ============================================================================
+// Sites that pass the current filters (intersection of cat + region).
+// A site with no filter active passes trivially.
+function siteMatchesFilters(s){
+  if (selectedCat    && s.cat !== selectedCat) return false;
+  if (selectedRegion && s.r   !== selectedRegion) return false;
+  return true;
+}
+
+function updateAll(){
+  // Sync legend item highlight (the small color-dot legend)
+  document.querySelectorAll('.legend-item').forEach(el=>{
+    el.classList.toggle('active', selectedCat===el.dataset.cat);
+  });
+
+  // Sync the dropdowns to current state
+  const catDD = document.getElementById('cat-dropdown');
+  const regDD = document.getElementById('region-dropdown');
+  if (catDD) catDD.value = selectedCat    || '';
+  if (regDD) regDD.value = selectedRegion || '';
+
+  // Reset bar — show a label describing the active filter state
+  const labels = [];
+  if (selectedSite !== null) {
+    labels.push(`Viewing: ${SITES[selectedSite].n}`);
+  } else {
+    if (selectedCat)    labels.push(`Grape: ${selectedCat}`);
+    if (selectedRegion) labels.push(`Region: ${selectedRegion}`);
+  }
+  if (labels.length) {
+    filterLabel.textContent = labels.join(' · ');
+    resetBar.classList.add('active');
+  } else {
+    resetBar.classList.remove('active');
+  }
+
+  // Markers — dim sites that don't match active filters
+  SITES.forEach((s,i)=>{
+    const el=markers[i].getElement();
+    if(!el)return;
+    const dot=el.querySelector('.custom-marker');
+    if(!dot)return;
+    dot.classList.remove('dimmed','highlighted');
+    if(selectedSite!==null){
+      if(i===selectedSite) dot.classList.add('highlighted');
+      else if(SITES[i].cat===SITES[selectedSite].cat) {}
+      else dot.classList.add('dimmed');
+    } else if (selectedCat || selectedRegion) {
+      if (!siteMatchesFilters(s)) dot.classList.add('dimmed');
+    }
+  });
+
+  // Fit bounds when a filter is active and no specific site is selected.
+  // Combines cat + region: zooms to the intersection of whatever's active.
+  if ((selectedCat || selectedRegion) && selectedSite===null) {
+    const matching = SITES.filter(siteMatchesFilters);
+    if (matching.length > 0) {
+      const bounds = L.latLngBounds(matching.map(s=>[s.lat,s.lng]));
+      map.flyToBounds(bounds.pad(0.2), {duration:0.8});
+    }
+  }
+
+  renderDetail();
+}
+
+// ============================================================================
+// DETAIL PANEL
+// ============================================================================
+function renderDetail(){
+  const det=document.getElementById('detail');
+  // Reset scroll on every render so a new selection always starts at the top
+  det.scrollTop = 0;
+
+  if(selectedSite!==null){
+    const s=SITES[selectedSite];
+    const sameCat=SITES.map((ss,i)=>({...ss,idx:i})).filter(ss=>ss.cat===s.cat && ss.idx!==selectedSite);
+    let html=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+      <span style="width:14px;height:14px;border-radius:50%;background:${CATEGORIES[s.cat]?.color}"></span>
+      <div class="detail-name">${s.n}</div></div>
+      <div class="detail-region">${s.r}</div>
+      <div class="detail-row"><span class="detail-label">Category</span><span class="detail-val">${s.cat}</span></div>
+      <div class="detail-row"><span class="detail-label">Terroir</span><span class="detail-val">${s.t}</span></div>
+      <div class="detail-row"><span class="detail-label">Producers</span><span class="detail-val">${s.p}</span></div>`;
+    if(sameCat.length>0){
+      html+=`<div class="section-label" style="margin-top:14px">Other ${s.cat} Sites (${sameCat.length})</div>`;
+      sameCat.forEach(ss=>{
+        html+=`<div class="site-item" data-idx="${ss.idx}"><span class="site-dot" style="background:${CATEGORIES[ss.cat]?.color}"></span><span class="site-name">${ss.n}</span><span class="site-region">${ss.r}</span></div>`;
+      });
+    }
+    det.innerHTML=html;
+    det.querySelectorAll('.site-item[data-idx]').forEach(el=>{
+      el.addEventListener('click',()=>selectSite(+el.dataset.idx));
+    });
+
+  }else if(selectedCat){
+    const catSites=SITES.map((s,i)=>({...s,idx:i})).filter(s=>s.cat===selectedCat);
+    const m=CATEGORIES[selectedCat];
+    let html=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+      <span style="width:12px;height:12px;border-radius:3px;background:${m.color}"></span>
+      <div class="detail-name" style="font-size:15px">${selectedCat}</div></div>
+      <p style="font-size:11px;color:#888;margin-bottom:10px">${catSites.length} vineyard sites</p>`;
+    catSites.forEach(s=>{
+      html+=`<div class="site-item" data-idx="${s.idx}"><span class="site-dot" style="background:${m.color}"></span><span class="site-name">${s.n}</span><span class="site-region">${s.r}</span></div>`;
+    });
+    det.innerHTML=html;
+    det.querySelectorAll('.site-item[data-idx]').forEach(el=>{
+      el.addEventListener('click',()=>selectSite(+el.dataset.idx));
+    });
+
+  }else{
+    const total=SITES.length;
+    const cats=Object.keys(CATEGORIES).length;
+    let html=`<div class="section-label">Atlas Overview</div>
+      <p style="font-size:12px;color:#555;margin-bottom:8px;line-height:1.5"><strong style="color:var(--wine)">${total}</strong> vineyard sites across <strong style="color:var(--wine)">${cats}</strong> grape categories, spanning the world's greatest terroirs from the blue slate of the Mosel to the volcanic schist of Etna.</p>
+      <div class="section-label" style="margin-top:14px">By Category</div>`;
+    Object.entries(CATEGORIES).forEach(([name,m])=>{
+      const count=SITES.filter(s=>s.cat===name).length;
+      html+=`<div class="site-item" data-cat="${name}"><span class="site-dot" style="background:${m.color}"></span><span class="site-name">${name}</span><span class="site-region">${count} sites</span></div>`;
+    });
+    html+=`<div class="hint-box"><strong>Interactions</strong><br>Click a category to filter the map.<br>Click a pin for vineyard details.<br>Search by vineyard, region, or producer.<br>Press <kbd>Esc</kbd> or ✕ Reset to return.<br>Scroll to zoom · drag to pan.</div>`;
+    det.innerHTML=html;
+    det.querySelectorAll('.site-item[data-cat]').forEach(el=>{
+      el.addEventListener('click',()=>{selectedCat=el.dataset.cat;selectedSite=null;updateAll();});
+    });
+  }
+}
+
+renderDetail();
+</script>
+</body>
+</html>

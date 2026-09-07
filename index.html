@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vinotheca — A Library of Wine Works</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IM+Fell+English+SC&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1f1a16;
+    --ink-soft: #3a332c;
+    --ink-faint: #6b6158;
+    --paper: #FAF6F1;
+    --paper-deep: #ede5d5;
+    --paper-raised: #FFFDF8;
+    --rule: #c8b998;
+    --wine: #7B2D26;
+    --wine-dark: #5A1F1A;
+    --wine-light: #A04038;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'EB Garamond', Georgia, serif;
+    font-size: 19px;
+    line-height: 1.65;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at top, rgba(255,255,255,0.4), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(106,36,48,0.03), transparent 60%);
+  }
+
+  /* Subtle paper grain */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.35;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.12 0 0 0 0 0.10 0 0 0 0 0.08 0 0 0 0.08 0'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  main {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 80px 40px 120px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ---- Masthead ---- */
+
+  header.masthead {
+    text-align: center;
+    padding-bottom: 60px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 80px;
+  }
+
+  .masthead-eyebrow {
+    font-family: 'IM Fell English SC', 'Cormorant Garamond', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 30px;
+  }
+
+  h1.title {
+    font-family: 'Cormorant Garamond', 'EB Garamond', serif;
+    font-weight: 500;
+    font-size: 96px;
+    letter-spacing: 0.04em;
+    line-height: 1;
+    color: var(--ink);
+    margin-bottom: 20px;
+  }
+
+  .tagline {
+    font-style: italic;
+    font-size: 20px;
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+    font-weight: 400;
+  }
+
+  .fleuron {
+    color: var(--wine);
+    font-size: 22px;
+    margin: 0 auto 32px;
+    opacity: 0.8;
+  }
+
+  .masthead-motto {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin: 0 auto 32px;
+    color: var(--wine);
+  }
+
+  .masthead-motto .fleuron-inline {
+    font-size: 18px;
+    opacity: 0.7;
+  }
+
+  .masthead-motto .motto-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    letter-spacing: 0.08em;
+    font-weight: 400;
+    opacity: 0.9;
+  }
+
+  .masthead-motto .motto-text em {
+    font-style: italic;
+  }
+
+  .byline {
+    font-size: 15px;
+    color: var(--ink-faint);
+    letter-spacing: 0.05em;
+  }
+
+  .byline a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .byline a:hover { color: var(--wine); border-color: var(--wine); }
+
+  /* ---- Epigraph ---- */
+
+  .epigraph {
+    margin: 0 auto 90px;
+    max-width: 600px;
+    padding: 0 20px;
+    text-align: center;
+  }
+
+  .epigraph-opener {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 36px;
+  }
+
+  .stanza {
+    margin-bottom: 28px;
+  }
+
+  .stanza-original {
+    font-style: italic;
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1.7;
+    margin-bottom: 14px;
+  }
+
+  .stanza-translation {
+    color: var(--ink-soft);
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  .stanza-translation .short {
+    display: block;
+  }
+
+  .asterism {
+    color: var(--rule);
+    letter-spacing: 0.4em;
+    margin: 28px 0;
+    font-size: 14px;
+  }
+
+  .attribution {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--ink-faint);
+    font-size: 15px;
+    margin-top: 36px;
+    line-height: 1.5;
+  }
+
+  .attribution .translator {
+    display: block;
+    margin-top: 4px;
+    font-size: 13px;
+    letter-spacing: 0.02em;
+  }
+
+  /* ---- Introduction prose ---- */
+
+  .introduction {
+    margin-bottom: 90px;
+  }
+
+  .introduction p {
+    margin-bottom: 22px;
+  }
+
+  .introduction p em {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .introduction p a {
+    color: var(--wine);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 1px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .introduction p a:hover {
+    color: var(--wine-light);
+    border-bottom-color: var(--wine);
+  }
+
+  .introduction p a em {
+    color: var(--wine);
+    font-weight: 500;
+  }
+
+  /* ---- Section headings ---- */
+
+  h2.section {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 36px;
+    color: var(--ink);
+    text-align: center;
+    margin-bottom: 12px;
+    letter-spacing: 0.01em;
+  }
+
+  .section-subtitle {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .section-divider {
+    text-align: center;
+    margin: 70px 0 70px;
+    color: var(--rule);
+    font-size: 16px;
+    letter-spacing: 0.3em;
+  }
+
+  /* ---- Instrument entries ---- */
+
+  .instrument {
+    margin-bottom: 64px;
+    position: relative;
+  }
+
+  .instrument:last-child {
+    margin-bottom: 0;
+  }
+
+  .instrument-numeral {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: var(--wine);
+    margin-bottom: 16px;
+  }
+
+  h3.instrument-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 34px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    letter-spacing: 0.005em;
+  }
+
+  h3.instrument-title a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, color 0.3s;
+  }
+
+  h3.instrument-title a:hover {
+    color: var(--wine);
+    border-bottom-color: var(--wine);
+  }
+
+  h3.instrument-title em {
+    font-style: italic;
+    color: var(--wine);
+  }
+
+  h3.instrument-title .arrow {
+    font-size: 22px;
+    color: var(--ink-faint);
+    margin-left: 4px;
+    vertical-align: 1px;
+  }
+
+  .instrument-kicker {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 19px;
+    margin-bottom: 20px;
+  }
+
+  .instrument-body {
+    color: var(--ink-soft);
+    margin-bottom: 22px;
+  }
+
+  .instrument-meta {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .instrument-link {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 18px;
+    color: var(--wine);
+    text-decoration: none;
+    border-bottom: 1px solid var(--wine-light);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .instrument-link:hover {
+    color: var(--wine-light);
+    border-bottom-color: var(--wine);
+  }
+
+  /* ---- "Under development" badge ---- */
+
+  .status-badge {
+    display: inline-block;
+    font-family: 'IM Fell English SC', serif;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--paper);
+    background: var(--wine);
+    text-transform: uppercase;
+    padding: 4px 10px;
+    margin-left: 8px;
+    vertical-align: 6px;
+    border-radius: 1px;
+  }
+
+  .instrument.in-progress h3.instrument-title a,
+  .instrument.in-progress h3.instrument-title {
+    cursor: default;
+  }
+
+  .in-progress-note {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--ink-faint);
+    margin-top: 18px;
+  }
+
+  /* ---- Work entries (paired Tool + Study, one entry per Work) ---- */
+
+  .work {
+    margin-bottom: 72px;
+    position: relative;
+  }
+
+  .work:last-child {
+    margin-bottom: 0;
+  }
+
+  .work-numeral {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 13px;
+    letter-spacing: 0.3em;
+    color: var(--wine);
+    margin-bottom: 16px;
+  }
+
+  h3.work-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 34px;
+    margin-bottom: 10px;
+    line-height: 1.2;
+    letter-spacing: 0.005em;
+    color: var(--ink);
+  }
+
+  h3.work-title em {
+    font-style: italic;
+    color: var(--wine);
+  }
+
+  .work-kicker {
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 19px;
+    margin-bottom: 20px;
+  }
+
+  .work-body {
+    color: var(--ink-soft);
+    margin-bottom: 32px;
+  }
+
+  .work-faces {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 28px;
+    border-top: 1px solid var(--rule);
+    padding-top: 28px;
+  }
+
+  .work-face {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .face-label {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  h4.face-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.25;
+    letter-spacing: 0.005em;
+    margin-bottom: 8px;
+  }
+
+  h4.face-title a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.3s, color 0.3s;
+  }
+
+  h4.face-title a:hover {
+    color: var(--wine);
+    border-bottom-color: var(--wine);
+  }
+
+  h4.face-title em {
+    font-style: italic;
+    color: var(--wine);
+  }
+
+  h4.face-title .arrow {
+    font-size: 15px;
+    color: var(--ink-faint);
+    margin-left: 3px;
+    vertical-align: 1px;
+  }
+
+  .face-meta {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .face-link {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 16px;
+    color: var(--wine);
+    text-decoration: none;
+    border-bottom: 1px solid var(--wine-light);
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+    align-self: flex-start;
+    margin-top: auto;
+  }
+
+  .face-link:hover {
+    color: var(--wine-light);
+    border-bottom-color: var(--wine);
+  }
+
+  .work-face.forthcoming h4.face-title,
+  .work-face.tbd h4.face-title {
+    color: var(--ink-faint);
+  }
+
+  .face-status {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 14px;
+    color: var(--ink-faint);
+    margin-top: auto;
+  }
+
+  .face-status .status-badge {
+    font-size: 9px;
+    padding: 3px 8px;
+    margin-left: 0;
+    margin-right: 0;
+    vertical-align: 2px;
+  }
+
+  .in-progress-note .status-badge {
+    margin-left: 0;
+  }
+
+  /* ---- Section intro paragraph (all three sections) ---- */
+
+  .section-intro {
+    text-align: center;
+    max-width: 560px;
+    margin: 0 auto 60px;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 18px;
+    line-height: 1.6;
+  }
+
+  /* ---- Part markers (Common / Personal split) ---- */
+
+  .part-marker {
+    text-align: center;
+    margin: 40px 0 70px;
+  }
+
+  .part-marker .part-roman {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 12px;
+    letter-spacing: 0.35em;
+    color: var(--wine);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .part-marker h2.part-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 42px;
+    color: var(--ink);
+    line-height: 1.1;
+    margin-bottom: 14px;
+    letter-spacing: 0.005em;
+  }
+
+  .part-marker .part-description {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 17px;
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+
+  .part-marker .part-ornament {
+    color: var(--wine);
+    font-size: 20px;
+    opacity: 0.7;
+    margin-bottom: 22px;
+  }
+
+  /* Stronger divider before Part II */
+  .part-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    margin: 100px 0 40px;
+    color: var(--rule);
+  }
+
+  .part-divider .line {
+    flex: 1;
+    max-width: 140px;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  .part-divider .mark {
+    color: var(--wine);
+    font-size: 20px;
+    opacity: 0.75;
+  }
+
+  /* ---- Sub-section headings (Maps / Tools / Studies within Part One) ---- */
+
+  .subsection-header {
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .subsection-header h3.subsection-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 500;
+    font-size: 30px;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+    margin-bottom: 8px;
+  }
+
+  .subsection-header .subsection-subtitle {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 11px;
+    letter-spacing: 0.28em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+
+  .subsection-header .subsection-gloss {
+    display: block;
+    margin-top: 14px;
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    font-size: 15px;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink-faint);
+    max-width: 440px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.55;
+  }
+
+  .subsection {
+    margin-bottom: 30px;
+  }
+
+  /* Lighter divider between sub-sections within Part One */
+  .subsection-divider {
+    text-align: center;
+    margin: 56px 0 56px;
+    color: var(--rule);
+    font-size: 14px;
+    letter-spacing: 0.4em;
+    opacity: 0.7;
+  }
+
+  /* ---- Placeholder (forthcoming) instrument cards ---- */
+
+  .instrument.forthcoming h3.instrument-title {
+    cursor: default;
+  }
+
+  .status-badge.forthcoming {
+    background: transparent;
+    color: var(--wine);
+    border: 1px solid var(--wine);
+    font-weight: 400;
+  }
+
+  /* ---- Footer ---- */
+
+  footer {
+    margin-top: 120px;
+    padding-top: 50px;
+    border-top: 1px solid var(--rule);
+    text-align: center;
+    color: var(--ink-faint);
+    font-size: 14px;
+  }
+
+  .motto-footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+    color: var(--wine);
+  }
+
+  .motto-footer .fleuron-inline {
+    font-size: 20px;
+    opacity: 0.8;
+  }
+
+  .motto-footer .motto-text-footer {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    letter-spacing: 0.06em;
+    font-weight: 400;
+  }
+
+  .motto-footer .motto-text-footer em {
+    font-style: italic;
+  }
+
+  .footer-links {
+    margin-bottom: 24px;
+  }
+
+  .footer-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    margin: 0 14px;
+    font-size: 14px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .footer-links a:hover {
+    color: var(--wine);
+    border-bottom-color: var(--wine);
+  }
+
+  .copyright {
+    font-family: 'IM Fell English SC', serif;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    color: var(--ink-faint);
+  }
+
+  /* ---- Responsive ---- */
+
+  /* Phone */
+  @media (max-width: 640px) {
+    main { padding: 60px 24px 80px; }
+    h1.title { font-size: 64px; }
+    h2.section { font-size: 30px; }
+    h3.instrument-title { font-size: 26px; }
+    h3.work-title { font-size: 26px; }
+    .work-faces { grid-template-columns: 1fr; gap: 32px; }
+    .stanza-original { font-size: 17px; }
+    .stanza-translation { font-size: 16px; }
+    body { font-size: 18px; }
+    .part-marker h2.part-title { font-size: 32px; }
+    .part-marker { margin: 30px 0 54px; }
+    .subsection-header h3.subsection-title { font-size: 24px; }
+    .part-divider { margin: 72px 0 30px; }
+    .part-divider .line { max-width: 70px; }
+    .subsection-divider { margin: 44px 0 44px; }
+  }
+
+  /* Tablet (iPad portrait and landscape) */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    main {
+      max-width: 680px;
+      padding: 64px 48px 100px;
+    }
+    h1.title { font-size: 80px; }
+    .tagline { font-size: 19px; }
+    h2.section { font-size: 33px; }
+    h3.instrument-title { font-size: 30px; }
+    h3.work-title { font-size: 30px; }
+    .instrument-kicker { font-size: 18px; }
+    .stanza-original { font-size: 17px; }
+    .stanza-translation { font-size: 16px; }
+    .epigraph { max-width: 540px; margin-bottom: 80px; }
+    .introduction { margin-bottom: 80px; }
+    body { font-size: 18px; line-height: 1.6; }
+    header.masthead {
+      padding-bottom: 52px;
+      margin-bottom: 68px;
+    }
+    .instrument {
+      margin-bottom: 56px;
+      padding-bottom: 48px;
+    }
+    .section-divider { margin: 60px 0 60px; }
+    .part-marker h2.part-title { font-size: 36px; }
+    .subsection-header h3.subsection-title { font-size: 26px; }
+    footer { margin-top: 100px; }
+  }
+
+  /* ---- Fade-in on load ---- */
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  header.masthead,
+  .epigraph,
+  .introduction,
+  .part-one,
+  .part-two,
+  .part-three {
+    animation: fadeUp 0.9s ease-out both;
+  }
+
+  .epigraph { animation-delay: 0.1s; }
+  .introduction { animation-delay: 0.2s; }
+  .part-one { animation-delay: 0.3s; }
+  .part-two { animation-delay: 0.4s; }
+  .part-three { animation-delay: 0.5s; }
+
+</style>
+</head>
+<body>
+<main>
+
+  <!-- ========== Masthead ========== -->
+  <header class="masthead">
+    <div class="masthead-eyebrow">A Library of Wine Works</div>
+    <h1 class="title">Vinotheca</h1>
+    <div class="tagline">Atlases, tools, and studies; a chronicle of wines tasted, and winemakers met; and a book of the people met over wine.</div>
+    <div class="masthead-motto">
+      <span class="fleuron-inline">❧</span>
+      <span class="motto-text"><em>in vino, cognitio</em></span>
+      <span class="fleuron-inline">❧</span>
+    </div>
+    <div class="byline">
+      <a href="mailto:hello@codexvini.com">Jure Skarabot</a>
+    </div>
+  </header>
+
+  <!-- ========== Epigraph (Prešeren) ========== -->
+  <section class="epigraph">
+    <div class="epigraph-opener">Epigraph</div>
+
+    <div class="stanza">
+      <div class="stanza-original">
+        Spet trte so rodile,<br>
+        prijat'lji, vince nam sladko,<br>
+        ki nam oživlja žile,<br>
+        srce razjasni in oko,<br>
+        <span class="short">ki utopi</span>
+        <span class="short">vse skrbi,</span>
+        v potrtih prsih up budi.
+      </div>
+      <div class="stanza-translation">
+        The vintage, friends, is over,<br>
+        And here sweet wine makes, once again,<br>
+        Sad eyes and hearts recover,<br>
+        Puts fire into every vein.<br>
+        <span class="short">Drowns dull care</span>
+        <span class="short">Everywhere</span>
+        And summons hope out of despair.
+      </div>
+    </div>
+
+    <div class="asterism">⁂</div>
+
+    <div class="stanza">
+      <div class="stanza-original">
+        Nazadnje še, prijat'lji,<br>
+        kozarce zase vzdignimo,<br>
+        ki smo zato se zbrat'li,<br>
+        ker dobro v srcu mislimo;<br>
+        <span class="short">dókaj dni</span>
+        <span class="short">naj živí</span>
+        vsak, kar nas dobrih je ljudi!
+      </div>
+      <div class="stanza-translation">
+        At last to our reunion —<br>
+        To us the toast! Let it resound,<br>
+        Since in this gay communion<br>
+        By thoughts of brotherhood we're bound.<br>
+        <span class="short">May joyful cheer</span>
+        <span class="short">Ne'er disappear</span>
+        From all good hearts now gathered here.
+      </div>
+    </div>
+
+    <div class="attribution">
+      — France Prešeren, <em>Zdravljica / A Toast</em> (1844)
+      <span class="translator">English translation by Janko Lavrin, 1954</span>
+    </div>
+  </section>
+
+  <!-- ========== Introduction ========== -->
+  <section class="introduction">
+    <p>Wine rewards close attention. A bottle is a piece of geography, a piece of history, and a personal opinion about taste — and the more ways you can look at it, the more it gives back.</p>
+
+    <p>The wine world is full of scores and full of prose, but surprisingly short of works that help you see patterns and find connections. The works collected here try to fill that gap. Each one answers a specific question a wine-curious person asks: where are the great sites for the grape I love; which lesser-known varieties are likely to win me over next; why do some regions on opposite sides of the world feel like cousins; which shared traits of character link winemakers across continents?</p>
+
+    <p><a href="#library"><em>The Library</em></a> is the public work — <a href="#maps">Maps</a> that locate the wine world, <a href="#inquiries">Inquiries</a> that pair an instrument with the study behind it, and <a href="#correspondence">Correspondence</a>, which answers a word or a feeling with a small offering in return. The two books that follow are private. <a href="#codex"><em>The Chronicle</em></a> keeps one person's experience as it accumulates: of wines tasted, and of winemakers met. <a href="#friends"><em>The Book of Friends</em></a>, forthcoming, keeps a third record, in a hand not the owner's: of the people met over wine. A map where a map helps, a chart where a chart helps, and language where neither will do.</p>
+  </section>
+
+  <!-- ========== PART ONE — The Common Library ========== -->
+  <section class="part-one" id="library">
+
+    <div class="part-marker">
+      <div class="part-roman">Part I</div>
+      <div class="part-ornament">❧</div>
+      <h2 class="part-title">The Library</h2>
+      <div class="part-description">
+        Atlases, inquiries, and resonances that describe the wine world as it is.
+      </div>
+    </div>
+
+    <!-- ===== Sub-section: Maps ===== -->
+    <div class="subsection maps-subsection" id="maps">
+      <div class="subsection-header">
+        <h3 class="subsection-title">Maps</h3>
+        <div class="subsection-subtitle">The wine world, located</div>
+        <span class="subsection-gloss">
+          Two atlases. One maps where the great sites are, arranged by grape; one maps the estates that make the world's recognized wines.
+        </span>
+      </div>
+
+      <!-- i. Maker Atlas -->
+      <div class="instrument">
+        <div class="instrument-numeral">i.</div>
+        <h3 class="instrument-title">
+          <a href="https://jskarabot18.github.io/estate-atlas/">The Maker <em>Atlas</em> <span class="arrow">↗</span></a>
+        </h3>
+        <div class="instrument-kicker">The estates behind the world's recognised wines, placed on the map.</div>
+        <p class="instrument-body">A global atlas of wine estates across the principal producing regions. Balanced for geographic and grape coverage, and presented as a world map with a companion volume. A curated reference, not a ranking — the sister volume to the Vineyard Atlas, organised by place rather than by grape.</p>
+        <div class="instrument-meta">Atlas · Wine Estates · Global</div>
+        <a href="https://jskarabot18.github.io/estate-atlas/" class="instrument-link">Open the atlas →</a>
+      </div>
+
+      <!-- ii. Vineyard Atlas -->
+      <div class="instrument">
+        <div class="instrument-numeral">ii.</div>
+        <h3 class="instrument-title">
+          <a href="https://jskarabot18.github.io/grand-cru-atlas/">The Vineyard <em>Atlas</em> <span class="arrow">↗</span></a>
+        </h3>
+        <div class="instrument-kicker">The world's greatest vineyards, arranged by grape.</div>
+        <p class="instrument-body">Monte Bello for Cabernet. Cannubi for Nebbiolo. Clos Saint-Urbain for Gewürztraminer. An illustrated atlas of the sites that set the standard — grouped not by country or appellation but by the grape they happen to make most beautifully. Browse by variety, download the full volume, or simply wander.</p>
+        <div class="instrument-meta">Atlas · Vineyards · Global</div>
+        <a href="https://jskarabot18.github.io/grand-cru-atlas/" class="instrument-link">Open the atlas →</a>
+      </div>
+    </div>
+
+    <div class="subsection-divider">· · ·</div>
+
+    <!-- ===== Sub-section: Works ===== -->
+    <div class="subsection works-subsection" id="inquiries">
+      <div class="subsection-header">
+        <h3 class="subsection-title">Inquiries</h3>
+        <div class="subsection-subtitle">Paired tools and studies</div>
+        <span class="subsection-gloss">
+          Three inquiries, each with two faces: an interactive instrument you can use, and the intellectual study behind it. The body of wine — its sensory grammar, read across grape varieties. The soul of wine — its cultural identity, read across regions. The hand of wine — its character, read across the people who make it.
+          <br><br>
+          The two faces of an Inquiry are the same question turned over twice. The Tool lets you move through the structure; the Study makes the argument that the structure is real. Each Inquiry shares its supporting documents across both faces.
+        </span>
+      </div>
+
+      <!-- iii. Body of Wine — grapes -->
+      <div class="work">
+        <div class="work-numeral">iii.</div>
+        <h3 class="work-title">The <em>Body</em> of Wine</h3>
+        <div class="work-kicker">The sensory grammar of wine, read across the grape varieties of the world.</div>
+        <p class="work-body">If Nebbiolo is a fixed point on your map, what else should you be exploring? If you love the floral aromatics, which lesser-known grapes carry the same signature? The Tool plots wine varieties as a network — each grape a node, each connection a shared sensory signature — and lets you wander the natural neighbourhoods that emerge: the floral aromatics, the dark structural reds, the mineral whites, and three others. The Study reads the resulting structure: which grapes sit at its gravitational centre, which sit at its edge, and which families cross the boundaries the trade has drawn. Built on the <em>TasteRank</em> algorithm, a careful measure of how each variety's sensory character compares to every other.</p>
+
+        <div class="work-faces">
+          <div class="work-face tool">
+            <div class="face-label">Tool</div>
+            <h4 class="face-title">
+              <a href="https://jskarabot18.github.io/tasterank-explorer/">Grape <em>Affinities</em> <span class="arrow">↗</span></a>
+            </h4>
+            <div class="face-meta">101 varieties · 341 connections · 6 families</div>
+            <a href="https://jskarabot18.github.io/tasterank-explorer/" class="face-link">Open the affinities →</a>
+          </div>
+
+          <div class="work-face study">
+            <div class="face-label">Study</div>
+            <h4 class="face-title">
+              <a href="https://jskarabot18.github.io/body-of-wine/">The <em>Body</em> of Wine <span class="arrow">↗</span></a>
+            </h4>
+            <div class="face-meta">101 varieties · 13 sensory dimensions · 6 families</div>
+            <a href="https://jskarabot18.github.io/body-of-wine/" class="face-link">Open the study →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- iv. Soul of Wine — regions -->
+      <div class="work">
+        <div class="work-numeral">iv.</div>
+        <h3 class="work-title">The <em>Soul</em> of Wine</h3>
+        <div class="work-kicker">The cultural identity of wine, read across fifty-nine regions of the world.</div>
+        <p class="work-body">Alsace and Santa Barbara grow some of the same grapes on cool slopes near cool water, yet they could not feel more different: one rooted in centuries of inheritance and tradition, the other young, inventive, still writing its own story. The Tool offers fifty-nine wine regions across two independent classification systems — identity and terroir — side by side; hover any region to see its kin in both systems light up at once. The Study makes the argument behind the surface: that the two systems do not agree, that the map is not the soul, and that the disagreement is where the good wine stories live.</p>
+
+        <div class="work-faces">
+          <div class="work-face tool">
+            <div class="face-label">Tool</div>
+            <h4 class="face-title">
+              <a href="https://jskarabot18.github.io/region-affinities/">Region <em>Affinities</em> <span class="arrow">↗</span></a>
+            </h4>
+            <div class="face-meta">59 regions · 6 identities · 7 terroir families</div>
+            <a href="https://jskarabot18.github.io/region-affinities/" class="face-link">Open the affinities →</a>
+          </div>
+
+          <div class="work-face study">
+            <div class="face-label">Study</div>
+            <h4 class="face-title">
+              <a href="https://jskarabot18.github.io/soul-of-wine/">The <em>Soul</em> of Wine <span class="arrow">↗</span></a>
+            </h4>
+            <div class="face-meta">59 regions · 16 countries · 6 identities</div>
+            <a href="https://jskarabot18.github.io/soul-of-wine/" class="face-link">Open the study →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- v. Hand of Wine — winemakers -->
+      <div class="work">
+        <div class="work-numeral">v.</div>
+        <h3 class="work-title">The <em>Hand</em> of Wine</h3>
+        <div class="work-kicker">The character of wine, read across the people who make it.</div>
+        <p class="work-body">Some winemakers who have never met, work with different grapes, and live on different continents share a worldview — a way of talking about craft, terroir, tradition, and risk that marks them as quiet kin. The Tool lets a visitor pick a figure and see who stands close to them in character, with the textual evidence that puts them near each other. The Study reads the words winemakers and careful observers use, and surfaces the small communities of shared character that run beneath the map of regions and grapes.</p>
+
+        <div class="work-faces">
+          <div class="work-face tool forthcoming">
+            <div class="face-label">Tool</div>
+            <h4 class="face-title">
+              Winemaker <em>Affinities</em>
+            </h4>
+            <div class="face-meta">Kinship queries · Textual evidence</div>
+            <div class="face-status">
+              <span class="status-badge forthcoming">Forthcoming</span>
+            </div>
+          </div>
+
+          <div class="work-face study forthcoming">
+            <div class="face-label">Study</div>
+            <h4 class="face-title">
+              The <em>Hand</em> of Wine
+            </h4>
+            <div class="face-meta">Textual kinship · Shared character · Companion essay</div>
+            <div class="face-status">
+              <span class="status-badge forthcoming">Forthcoming</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="subsection-divider">· · ·</div>
+
+    <!-- ===== Sub-section: Correspondence ===== -->
+    <div class="subsection correspondence-subsection" id="correspondence">
+      <div class="subsection-header">
+        <h3 class="subsection-title">Correspondence</h3>
+        <div class="subsection-subtitle">Bring a word, receive an offering</div>
+        <span class="subsection-gloss">
+          Three oracles, in the classical sense — instruments of self-recognition where you bring a word, a phrase, a feeling, and receive a small, considered response against which your own situation becomes legible. The framework underneath makes the recognition non-arbitrary; the compression of the response is what makes the recognition possible.
+          <br><br>
+          Correspondence tools are not search engines and not recommenders. They give back fewer answers than you might expect, and they pause to let you decide whether the answer fits.
+        </span>
+      </div>
+
+      <!-- vi. Grape Resonances -->
+      <div class="instrument">
+        <div class="instrument-numeral">vi.</div>
+        <h3 class="instrument-title">
+          <a href="https://jskarabot18.github.io/grape-resonances/">Grape <em>Resonances</em> <span class="arrow">↗</span></a>
+        </h3>
+        <div class="instrument-kicker">A way into the soul of wine through the language of feeling, answered in grapes.</div>
+        <p class="instrument-body">Grape Resonances asks what a feeling would taste like. Type a word, a phrase, a situation — <em>brotherhood, falling deeply in love, deciding whether to move across the country</em> — and receive one to four grapes whose character carries the same weather. It listens through the temperaments of fifty-nine wine regions, reaching the grape by way of the places that shaped it, and it answers sparingly — a few grapes offered with care, not a long list to wade through.</p>
+        <div class="instrument-meta">grapes · Feeling made flavour · A considered few</div>
+        <a href="https://jskarabot18.github.io/grape-resonances/" class="instrument-link">Open the resonances →</a>
+      </div>
+
+      <!-- vii. Region Resonances -->
+      <div class="instrument">
+        <div class="instrument-numeral">vii.</div>
+        <h3 class="instrument-title">
+          <a href="https://jskarabot18.github.io/region-resonances/">Region <em>Resonances</em> <span class="arrow">↗</span></a>
+        </h3>
+        <div class="instrument-kicker">A way into the soul of fifty-nine regions through the language of feeling.</div>
+        <p class="instrument-body">If a region's identity is a single word — Burgundy as devotion, Tokaj as melancholy, Santorini as survival — then the question turns naturally inward: what is your word, and where does it live? Bring a feeling — say, "old soul" or "stubborn quiet" — and Region Resonances answers with the regions whose own character already carries it. The felt companion to Region Affinities: where Affinities draws the map, Resonances finds the kin.</p>
+        <div class="instrument-meta">regions · identities · Kindred by feeling</div>
+        <a href="https://jskarabot18.github.io/region-resonances/" class="instrument-link">Open the resonances →</a>
+      </div>
+
+      <!-- viii. Winemaker Resonances -->
+      <div class="instrument forthcoming">
+        <div class="instrument-numeral">viii.</div>
+        <h3 class="instrument-title">
+          Winemaker <em>Resonances</em>
+        </h3>
+        <div class="instrument-kicker">A way into the character of wine through the language of feeling, answered in the people who make it.</div>
+        <p class="instrument-body">Where Region Resonances answers a feeling with places, Winemaker Resonances answers it with people. Bring a state rather than a question — <em>I am feeling exploratory; I am homesick; I am about to make a difficult decision; I want to be reminded what care looks like</em> — and receive one to three winemakers whose disposition answers it, with their wines as the thing you can then go and drink. A winemaker is a person, and so carries character directly: this leaf listens to the makers themselves rather than reaching them through the temperament of a region. The response stays small by design — three names at most, and the reasons left short.</p>
+        <div class="instrument-meta">winemakers · Feeling made character · One to three names</div>
+        <div class="in-progress-note">
+          <span class="status-badge forthcoming">Forthcoming</span>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========== Divider between Part One and Part Two ========== -->
+  <div class="part-divider">
+    <span class="line"></span>
+    <span class="mark">❧</span>
+    <span class="line"></span>
+  </div>
+
+  <!-- ========== PART TWO — The Personal Codex ========== -->
+  <section class="part-two" id="codex">
+
+    <div class="part-marker">
+      <div class="part-roman">Part II</div>
+      <h2 class="part-title">The Chronicle</h2>
+      <div class="part-description">
+        The instruments and studies above look at wine in general. The codices are different in kind: they look at one person's experience of wine, as it accumulates — the wines tasted, and the makers met.
+      </div>
+    </div>
+
+    <!-- ix. Codex Vini -->
+    <div class="instrument">
+      <div class="instrument-numeral">ix.</div>
+      <h3 class="instrument-title">
+        <a href="https://jskarabot18.github.io/codex-vini/">Codex <em>Vini</em> <span class="arrow">↗</span></a>
+      </h3>
+      <div class="instrument-kicker">A personal wine book — every bottle, every tasting.</div>
+      <p class="instrument-body">A working end of the library. A living record of every wine tasted, with filters for country, grape, color, and rating. The atlases of vineyards and estates, the affinities of grapes and winemakers, the studies of souls and hands — and the book of what was shared in company, among good hearts gathered.</p>
+      <div class="instrument-meta">Personal · Living · Filterable</div>
+      <a href="https://jskarabot18.github.io/codex-vini/" class="instrument-link">Open the codex →</a>
+    </div>
+
+    <!-- x. Codex Vinitorum -->
+    <div class="instrument">
+      <div class="instrument-numeral">x.</div>
+      <h3 class="instrument-title">
+        <a href="https://jskarabot18.github.io/codex-vinitorum/">Codex <em>Vinitorum</em> <span class="arrow">↗</span></a>
+      </h3>
+      <div class="instrument-kicker">A personal book of winemakers — every meeting, every memory.</div>
+      <p class="instrument-body">The other working end of the library. A living record of winemakers encountered in person, with their lineage, their estates, and three quiet signals. A sister volume to Codex Vini: where that book records what was tasted, this one records who was met.</p>
+      <div class="instrument-meta">Personal · Living · Filterable</div>
+      <a href="https://jskarabot18.github.io/codex-vinitorum/" class="instrument-link">Open the codex →</a>
+    </div>
+
+  </section>
+
+  <!-- ========== Divider between Part Two and Part Three ========== -->
+  <div class="part-divider">
+    <span class="line"></span>
+    <span class="mark">❧</span>
+    <span class="line"></span>
+  </div>
+
+  <!-- ========== PART THREE — The Book of Friends ========== -->
+  <section class="part-three" id="friends">
+
+    <div class="part-marker">
+      <div class="part-roman">Part III</div>
+      <h2 class="part-title">The Book of Friends</h2>
+      <div class="part-description">
+        The chronicle records what was tasted and who was met. This book is different in kind again: the entries in it are not in the owner's hand. The book is offered, the other party writes, and what is written stands. Where the chronicle looks back, this one looks forward.
+      </div>
+    </div>
+
+    <!-- xi. Album Amicorum -->
+    <div class="instrument forthcoming">
+      <div class="instrument-numeral">xi.</div>
+      <h3 class="instrument-title">
+        Album <em>Amicorum</em>
+      </h3>
+      <div class="instrument-kicker">A book carried to be written in by others — of people met over wine, and of what each of them cares for.</div>
+      <p class="instrument-body">A traveller carried a blank book, and at each meeting the other party inscribed it — a motto, a dedication, the place and the date — in a hand not the owner's, and so beyond later revision. What accumulated was not a list of acquaintances but a sequence of fixed occasions, each attested by the person who was there. This book keeps that, and sets aside the one part of it that has not aged: the old albums reserved their finest leaves for the eminent, and here there is no order of precedence.</p>
+      <p class="instrument-body">The objective is practical. Each entry records an acquaintance met in person, the place and date of the meeting, and the subject they spoke about with interest. Entries are kept by that subject rather than by name, so that an occasion in prospect — a dinner, a tasting, an introduction — can be matched to the people it suits.</p>
+      <div class="instrument-meta">Private · Kept by interest · Inscribed in another hand</div>
+      <div class="in-progress-note">
+        <span class="status-badge forthcoming">Forthcoming</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ========== Footer ========== -->
+  <footer>
+    <div class="motto-footer">
+      <span class="fleuron-inline">❧</span>
+      <span class="motto-text-footer"><em>in vino, cognitio</em></span>
+      <span class="fleuron-inline">❧</span>
+    </div>
+    <div class="footer-links">
+      <a href="https://github.com/jskarabot18/vinotheca">GitHub</a>
+      <a href="https://github.com/jskarabot18/vinotheca/blob/main/LICENSE">License · CC BY-NC 4.0</a>
+      <a href="mailto:hello@codexvini.com">Correspondence</a>
+      </div>
+    <div class="copyright">© Jure Skarabot · MMXXVI</div>
+  </footer>
+
+</main>
+</body>
+</html>

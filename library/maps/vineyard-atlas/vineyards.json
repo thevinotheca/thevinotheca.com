@@ -1,0 +1,2318 @@
+{
+  "atlas": {
+    "title": "The Vineyard Atlas",
+    "subtitle": "A Compendium of the World's Greatest Vineyards",
+    "organising_principle": "Organised by Grape Variety and Blend",
+    "edition": "1st edition (2026)",
+    "version": "1.0.0",
+    "license": "CC BY-NC 4.0",
+    "current_count": 272,
+    "current_chapters": 22,
+    "last_updated": "2026-04"
+  },
+  "introduction": "This document maps the world's most revered vineyard sites to the grape varieties that have made them famous. For each variety or blend, the most notable vineyards are listed alongside their terroir, the key producers who farm them, and a brief description of what makes each site unique. The focus is on vineyards whose names carry the weight of generations — sites where geology, microclimate, and human stewardship have converged to produce wines of transcendent quality.\n\nThe selection spans the traditional heartlands of European viticulture and the most compelling New World sites that have earned comparable stature. Within each section, vineyards are grouped by region and ordered roughly by prestige and historical significance. Where a vineyard is a monopole (farmed by a single estate), this is noted.\n\nThe atlas covers twenty-two grape varieties and blend categories across approximately 300 sites. Alongside the single-variety chapters, one cross-variety category is included — Volcanic Terroirs — because volcanic soils are unusual enough in the wine world, and sufficiently distinctive in what they contribute to a wine, that the terroir itself is worth treating as a category rather than scattering the sites across their respective grape chapters.",
+  "chapters": [
+    {
+      "number": 1,
+      "roman": "I",
+      "title": "Riesling",
+      "intro": "No grape variety is more transparent to its site than Riesling. The roll-call of named Riesling vineyards — from the vertiginous slate slopes of the Mosel to the Permian sandstone of Kamptal — constitutes perhaps the most precisely documented terroir hierarchy outside Burgundy. The VDP's Grosse Lage classification and Alsace's Grand Cru system provide formal frameworks, but the true measure is in the glass: Riesling from a great site tastes like no other place on earth.",
+      "groups": [
+        {
+          "name": "Germany & Alsace",
+          "sites": [
+            {
+              "id": "i-riesling-de-mosel-wehlener-sonnenuhr",
+              "vineyard_site": "Wehlener Sonnenuhr",
+              "region_terroir": "Mosel — blue Devonian slate, south-facing, 60%+ gradient",
+              "key_producers": ["J.J. Prüm", "S.A. Prüm", "Dr. Loosen"],
+              "signature_character": "Ethereal delicacy, laser precision, floral lift over wet slate; iconic for Spätlese and Auslese"
+            },
+            {
+              "id": "i-riesling-de-saar-scharzhofberg",
+              "vineyard_site": "Scharzhofberg",
+              "region_terroir": "Saar — grey/red weathered slate, wind-exposed, 190–310m elevation",
+              "key_producers": ["Egon Müller", "Van Volxem", "Geltz-Zilliken"],
+              "signature_character": "Crystalline purity, steely acidity, extraordinary longevity; TBAs command auction records"
+            },
+            {
+              "id": "i-riesling-de-mosel-bernkasteler-doctor",
+              "vineyard_site": "Bernkasteler Doctor",
+              "region_terroir": "Mosel — steep slate above Bernkastel, micro-sheltered",
+              "key_producers": ["Schloss Lieser (Thomas Haag)", "Thanisch", "Lauerburg"],
+              "signature_character": "Concentration and warmth unusual for the Mosel; historic prestige rivalling top Burgundy prices"
+            },
+            {
+              "id": "i-riesling-de-mosel-erdener-praelat",
+              "vineyard_site": "Erdener Prälat",
+              "region_terroir": "Mosel — red slate, tiny south-facing amphitheatre",
+              "key_producers": ["Dr. Loosen (monopole-like)"],
+              "signature_character": "Opulent, almost exotic richness; the Mosel's most concentrated single site"
+            },
+            {
+              "id": "i-riesling-de-mosel-uerziger-wuerzgarten",
+              "vineyard_site": "Ürziger Würzgarten",
+              "region_terroir": "Mosel — red volcanic slate, iron-rich",
+              "key_producers": ["Dr. Loosen", "Markus Molitor", "Mönchhof"],
+              "signature_character": "Spicy, exotic character (the name means 'spice garden'); unique among Mosel sites"
+            },
+            {
+              "id": "i-riesling-de-mosel-brauneberger-juffer-sonnenuhr",
+              "vineyard_site": "Brauneberger Juffer Sonnenuhr",
+              "region_terroir": "Mosel — fine Devonian slate, south-facing, up to 80% grade",
+              "key_producers": ["Fritz Haag", "Schloss Lieser", "Max Ferd. Richter"],
+              "signature_character": "Power and elegance in balance; on international wine lists for over a century"
+            },
+            {
+              "id": "i-riesling-de-mosel-piesporter-goldtroepfchen",
+              "vineyard_site": "Piesporter Goldtröpfchen",
+              "region_terroir": "Mosel — slate amphitheatre facing south",
+              "key_producers": ["Reinhold Haart", "St. Urbans-Hof", "Julian Haart"],
+              "signature_character": "Rich, golden-fruited; the Mosel's most generous and approachable Grand Cru"
+            },
+            {
+              "id": "i-riesling-de-ruwer-maximin-gruenhaeuser-abtsberg",
+              "vineyard_site": "Maximin Grünhäuser Abtsberg",
+              "region_terroir": "Ruwer — blue slate, sheltered tributary valley",
+              "key_producers": ["Von Schubert (monopole)"],
+              "signature_character": "Weightless intensity, extraordinary aromatic complexity; whispered rather than declared"
+            },
+            {
+              "id": "i-riesling-de-nahe-niederhaeuser-hermannshoehle",
+              "vineyard_site": "Niederhäuser Hermannshöhle",
+              "region_terroir": "Nahe — volcanic porphyry/slate, south-facing steep slope",
+              "key_producers": ["Dönnhoff"],
+              "signature_character": "Mineral depth, aristocratic structure; arguably the Nahe's single greatest site"
+            },
+            {
+              "id": "i-riesling-de-nahe-halenberg",
+              "vineyard_site": "Halenberg",
+              "region_terroir": "Nahe — volcanic soils, steep",
+              "key_producers": ["Emrich-Schönleber"],
+              "signature_character": "Monumental power and wet-stone minerality; staggering concentration in top vintages"
+            },
+            {
+              "id": "i-riesling-de-nahe-felseneck",
+              "vineyard_site": "Felseneck",
+              "region_terroir": "Nahe — grey slate, steep",
+              "key_producers": ["Schäfer-Fröhlich"],
+              "signature_character": "Radically flinty, grapefruit-driven; a site unknown until Tim Fröhlich revealed its potential"
+            },
+            {
+              "id": "i-riesling-de-rheingau-kiedricher-graefenberg",
+              "vineyard_site": "Kiedricher Gräfenberg",
+              "region_terroir": "Rheingau — Phyllite slate, gentle south-facing slope",
+              "key_producers": ["Robert Weil"],
+              "signature_character": "Aristocratic elegance; the Rheingau's finest GG and a benchmark for the region's style"
+            },
+            {
+              "id": "i-riesling-de-rheingau-hochheimer-hoelle",
+              "vineyard_site": "Hochheimer Hölle",
+              "region_terroir": "Rheingau — loess/clay over limestone, south-facing",
+              "key_producers": ["Künstler"],
+              "signature_character": "Unusual power and density for the Rheingau; rich, ripe, built for decades"
+            },
+            {
+              "id": "i-riesling-de-rheingau-ruedesheimer-berg-schlossberg",
+              "vineyard_site": "Rüdesheimer Berg Schlossberg",
+              "region_terroir": "Rheingau — steep quartzite/slate above the Rhine",
+              "key_producers": ["Georg Breuer", "Leitz"],
+              "signature_character": "Stony, muscular; the most structured and age-worthy Rheingau wines"
+            },
+            {
+              "id": "i-riesling-de-rheinhessen-westhofener-morstein",
+              "vineyard_site": "Westhofener Morstein",
+              "region_terroir": "Rheinhessen — clay over limestone (Burgundy-like)",
+              "key_producers": ["Keller", "Wittmann"],
+              "signature_character": "Textural complexity recalling white Burgundy; layered, saline finish of extraordinary length"
+            },
+            {
+              "id": "i-riesling-de-rheinhessen-westhofener-bruennenhaeuschen",
+              "vineyard_site": "Westhofener Brünnenhäuschen",
+              "region_terroir": "Rheinhessen — limestone/marl",
+              "key_producers": ["Keller (Abts E)"],
+              "signature_character": "Keller's rarest bottling now commands prices rivalling Egon Müller"
+            },
+            {
+              "id": "i-riesling-de-pfalz-kastanienbusch",
+              "vineyard_site": "Kastanienbusch",
+              "region_terroir": "Pfalz — red sandstone/limestone, Birkweiler",
+              "key_producers": ["Rebholz", "Dr. Wehrheim"],
+              "signature_character": "Enormous power with a wet-stone finish; filigreed or muscular depending on the hand"
+            },
+            {
+              "id": "i-riesling-de-pfalz-forster-kirchenstueck",
+              "vineyard_site": "Forster Kirchenstück",
+              "region_terroir": "Pfalz — basalt/sandstone/loam, sheltered",
+              "key_producers": ["Bürklin-Wolf", "von Buhl"],
+              "signature_character": "Historically the Pfalz's most prized parcel; opulent, exotic, full-bodied"
+            },
+            {
+              "id": "i-riesling-de-pfalz-forster-ungeheuer",
+              "vineyard_site": "Forster Ungeheuer",
+              "region_terroir": "Pfalz — basalt-scattered sandstone",
+              "key_producers": ["Bürklin-Wolf", "Mosbacher"],
+              "signature_character": "Deep, powerful, with a distinctive smoky-stony undertone"
+            },
+            {
+              "id": "i-riesling-fr-alsace-clos-sainte-hune",
+              "vineyard_site": "Clos Sainte Hune (Rosacker)",
+              "region_terroir": "Alsace — Muschelkalk limestone, Hunawihr",
+              "key_producers": ["Trimbach (monopole)"],
+              "signature_character": "Austere, bone-dry, mineral; one of the world's greatest dry whites at any price"
+            },
+            {
+              "id": "i-riesling-fr-alsace-rangen-de-thann",
+              "vineyard_site": "Rangen de Thann",
+              "region_terroir": "Alsace — volcanic tuff, extremely steep south-facing, southernmost GC",
+              "key_producers": ["Zind-Humbrecht", "Schoffit"],
+              "signature_character": "Volcanic intensity, smoky, almost Etna-like; the most extreme Grand Cru in Alsace"
+            },
+            {
+              "id": "i-riesling-fr-alsace-schlossberg",
+              "vineyard_site": "Schlossberg",
+              "region_terroir": "Alsace — granite, steep terraces, Kaysersberg",
+              "key_producers": ["Weinbach", "Albert Mann"],
+              "signature_character": "The first classified GC (1975); pure, linear, granite-driven minerality"
+            },
+            {
+              "id": "i-riesling-fr-alsace-schoenenbourg",
+              "vineyard_site": "Schoenenbourg",
+              "region_terroir": "Alsace — marl/gypsum, Riquewihr",
+              "key_producers": ["Hugel", "Dopff"],
+              "signature_character": "Famously rich and long-lived, the most opulent of the top Alsace Grands Crus"
+            }
+          ]
+        },
+        {
+          "name": "Austria",
+          "sites": [
+            {
+              "id": "i-riesling-at-kamptal-heiligenstein",
+              "vineyard_site": "Ried Heiligenstein",
+              "region_terroir": "Kamptal — Permian desert sandstone, warm micro-site",
+              "key_producers": ["Hirsch", "Schloss Gobelsburg", "Bründlmayer"],
+              "signature_character": "Exotic spice, unique mineral profile from ancient sandstone; a singular Austrian terroir"
+            },
+            {
+              "id": "i-riesling-at-wachau-schuett",
+              "vineyard_site": "Ried Schütt",
+              "region_terroir": "Wachau — primary rock/gneiss, terraced, south-facing",
+              "key_producers": ["Emmerich Knoll"],
+              "signature_character": "Crystalline power, enormous concentration; Knoll's crown jewel"
+            },
+            {
+              "id": "i-riesling-at-wachau-kellerberg",
+              "vineyard_site": "Ried Kellerberg",
+              "region_terroir": "Wachau — primary rock terraces, steep, Dürnstein",
+              "key_producers": ["F.X. Pichler"],
+              "signature_character": "Monumental structure and longevity; the Wachau's most celebrated dry Riesling site"
+            },
+            {
+              "id": "i-riesling-at-wachau-achleiten",
+              "vineyard_site": "Ried Achleiten",
+              "region_terroir": "Wachau — primary rock/gneiss, warm south-facing, Weissenkirchen",
+              "key_producers": ["Prager", "Rudi Pichler"],
+              "signature_character": "Savoury, herbal edge with enormous depth; among the warmest and most powerful Wachau sites"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "roman": "II",
+      "title": "Chardonnay",
+      "intro": "Chardonnay's greatness is anchored in the Côte de Beaune, where the limestone slopes of Puligny-Montrachet, Chassagne-Montrachet, Meursault, and Corton have defined the grape's highest expression for centuries. The Grands Crus here are the white wine equivalent of Romanée-Conti and Chambertin. Beyond Burgundy, a handful of sites in California, Argentina, Australia, and South Africa have earned recognition for producing Chardonnay of comparable ambition and terroir transparency.",
+      "groups": [
+        {
+          "name": "Burgundy",
+          "sites": [
+            {
+              "id": "ii-chardonnay-fr-cote-beaune-le-montrachet",
+              "vineyard_site": "Le Montrachet",
+              "region_terroir": "Côte de Beaune — mid-slope limestone/marl, Puligny/Chassagne",
+              "key_producers": ["DRC", "Leflaive", "Ramonet", "Comtes Lafon"],
+              "signature_character": "The single greatest white wine vineyard on earth: power, complexity, and longevity in one"
+            },
+            {
+              "id": "ii-chardonnay-fr-cote-beaune-chevalier-montrachet",
+              "vineyard_site": "Chevalier-Montrachet",
+              "region_terroir": "Côte de Beaune — higher slope, thinner soil, more limestone",
+              "key_producers": ["Leflaive", "Bouchard Père", "Michel Niellon"],
+              "signature_character": "More mineral and tensile than Montrachet; pure, vertical, electrifying acidity"
+            },
+            {
+              "id": "ii-chardonnay-fr-cote-beaune-batard-montrachet",
+              "vineyard_site": "Bâtard-Montrachet",
+              "region_terroir": "Côte de Beaune — lower slope, deeper clay/marl",
+              "key_producers": ["Leflaive", "Ramonet", "Paul Pernot"],
+              "signature_character": "Richer, more generous than its upslope neighbours; opulent texture, exotic fruit"
+            },
+            {
+              "id": "ii-chardonnay-fr-cote-beaune-corton-charlemagne",
+              "vineyard_site": "Corton-Charlemagne",
+              "region_terroir": "Côte de Beaune — upper slope, limestone/marl, Aloxe-Corton",
+              "key_producers": ["Coche-Dury", "Bonneau du Martray", "Roulot"],
+              "signature_character": "Austere power; needs a decade to unfurl its smoky, mineral, white-flower complexity"
+            },
+            {
+              "id": "ii-chardonnay-fr-cote-beaune-meursault-perrieres",
+              "vineyard_site": "Meursault Perrières (1er Cru)",
+              "region_terroir": "Côte de Beaune — stony limestone, Meursault",
+              "key_producers": ["Coche-Dury", "Comtes Lafon", "Roulot"],
+              "signature_character": "Widely considered Meursault's finest climat; tighter and more mineral than Génevrières"
+            },
+            {
+              "id": "ii-chardonnay-fr-cote-beaune-puligny-pucelles",
+              "vineyard_site": "Puligny-Montrachet Les Pucelles (1er Cru)",
+              "region_terroir": "Côte de Beaune — mid-slope limestone, adjacent to Bienvenues-Bâtard",
+              "key_producers": ["Leflaive", "Sauzet"],
+              "signature_character": "Silky elegance, citrus blossom purity; the premier cru closest to Grand Cru quality"
+            },
+            {
+              "id": "ii-chardonnay-fr-chablis-les-clos",
+              "vineyard_site": "Chablis Les Clos (Grand Cru)",
+              "region_terroir": "Chablis — Kimmeridgian marl/limestone, south-facing",
+              "key_producers": ["Raveneau", "Dauvissat", "William Fèvre"],
+              "signature_character": "The most powerful and age-worthy Chablis; steel, oyster shell, extraordinary tension"
+            },
+            {
+              "id": "ii-chardonnay-fr-chablis-vaudesir",
+              "vineyard_site": "Chablis Vaudésir (Grand Cru)",
+              "region_terroir": "Chablis — Kimmeridgian limestone, sheltered amphitheatre",
+              "key_producers": ["Long-Dépaquit", "Dauvissat"],
+              "signature_character": "The most elegant Chablis Grand Cru; floral, nuanced, with less muscle than Les Clos"
+            }
+          ]
+        },
+        {
+          "name": "New World",
+          "sites": [
+            {
+              "id": "ii-chardonnay-us-sonoma-marcassin-vineyard",
+              "vineyard_site": "Marcassin Vineyard",
+              "region_terroir": "Sonoma Coast — extreme coastal ridge, fog-influenced",
+              "key_producers": ["Marcassin (Helen Turley)"],
+              "signature_character": "Mythic California Chardonnay; power and richness balanced by coastal tension"
+            },
+            {
+              "id": "ii-chardonnay-us-rrv-ritchie-vineyard",
+              "vineyard_site": "Ritchie Vineyard",
+              "region_terroir": "Russian River Valley — Goldridge sandy loam",
+              "key_producers": ["Kistler", "Paul Hobbs", "Rochioli"],
+              "signature_character": "A source vineyard shared by elite producers; tropical richness with mineral undertow"
+            },
+            {
+              "id": "ii-chardonnay-us-sonoma-durell-vineyard",
+              "vineyard_site": "Durell Vineyard",
+              "region_terroir": "Sonoma — volcanic/clay soils, Carneros-influenced",
+              "key_producers": ["Kistler", "Kutch", "Hanzell"],
+              "signature_character": "Rich, layered, with a distinctive earthy savouriness from volcanic soils"
+            },
+            {
+              "id": "ii-chardonnay-us-carneros-hudson-vineyard",
+              "vineyard_site": "Hudson Vineyard",
+              "region_terroir": "Carneros — shallow clay over volcanic bedrock",
+              "key_producers": ["Kistler", "Kongsgaard"],
+              "signature_character": "Intense, concentrated; one of Carneros' oldest and most respected plantings"
+            },
+            {
+              "id": "ii-chardonnay-us-santa-maria-bien-nacido",
+              "vineyard_site": "Bien Nacido Vineyard",
+              "region_terroir": "Santa Maria Valley — cool maritime, sandy/clay loam",
+              "key_producers": ["Au Bon Climat", "Qupé", "Foxen"],
+              "signature_character": "Benchmark cool-climate California Chardonnay; bright acidity, citrus, and mineral precision"
+            },
+            {
+              "id": "ii-chardonnay-ar-uco-adrianna-vineyard",
+              "vineyard_site": "Adrianna Vineyard",
+              "region_terroir": "Gualtallary, Uco Valley — calcareous alluvial, 1,450m altitude",
+              "key_producers": ["Catena Zapata (White Bones, White Stones)"],
+              "signature_character": "Redefining New World Chardonnay: Burgundian precision at extreme altitude with saline minerality"
+            },
+            {
+              "id": "ii-chardonnay-au-adelaide-piccadilly-valley",
+              "vineyard_site": "Piccadilly Valley",
+              "region_terroir": "Adelaide Hills — cool, high altitude, loam over sandstone",
+              "key_producers": ["Petaluma", "Tapanappa", "Shaw + Smith"],
+              "signature_character": "Australia's most Burgundian Chardonnay zone; elegant, restrained, citrus-driven"
+            },
+            {
+              "id": "ii-chardonnay-za-walker-bay-upper-hemel-en-aarde",
+              "vineyard_site": "Upper Hemel-en-Aarde",
+              "region_terroir": "Walker Bay — clay/shale, maritime-cooled",
+              "key_producers": ["Ataraxia", "Hamilton Russell", "Alheit"],
+              "signature_character": "South Africa's finest Chardonnay terroir: chalky minerality, ocean-influenced freshness"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "roman": "III",
+      "title": "Pinot Noir",
+      "intro": "Pinot Noir's spiritual home is the Côte de Nuits, where a 20-kilometre strip of limestone slope contains the most expensive and celebrated red wine vineyards on earth. The Grands Crus of Vosne-Romanée, Chambolle-Musigny, and Gevrey-Chambertin are the apex of the variety, but Oregon's Willamette Valley, New Zealand's Central Otago, and pockets of the Sonoma Coast and South Africa's Walker Bay have demonstrated that Pinot Noir can express site with comparable transparency beyond Burgundy.",
+      "groups": [
+        {
+          "name": "Burgundy",
+          "sites": [
+            {
+              "id": "iii-pinotnoir-fr-vosne-romanee-conti",
+              "vineyard_site": "Romanée-Conti",
+              "region_terroir": "Vosne-Romanée — mid-slope marl/limestone, perfect east exposure",
+              "key_producers": ["DRC (monopole)"],
+              "signature_character": "The most expensive vineyard on earth; transcendent perfume, endless complexity, near-immortal"
+            },
+            {
+              "id": "iii-pinotnoir-fr-vosne-la-tache",
+              "vineyard_site": "La Tâche",
+              "region_terroir": "Vosne-Romanée — steep upper slope, more iron-rich clay",
+              "key_producers": ["DRC (monopole)"],
+              "signature_character": "More structured and powerful than RC; dark-fruited, spiced, with extraordinary depth"
+            },
+            {
+              "id": "iii-pinotnoir-fr-chambolle-musigny",
+              "vineyard_site": "Musigny",
+              "region_terroir": "Chambolle-Musigny — thin topsoil, Bajocian limestone",
+              "key_producers": ["De Vogüé", "Leroy", "Roumier"],
+              "signature_character": "Ethereal silk and iron fist; the most feminine Grand Cru with phenomenal aromatic lift"
+            },
+            {
+              "id": "iii-pinotnoir-fr-gevrey-chambertin",
+              "vineyard_site": "Chambertin",
+              "region_terroir": "Gevrey-Chambertin — marl/limestone, east-facing mid-slope",
+              "key_producers": ["Rousseau", "Leroy", "Trapet"],
+              "signature_character": "Majesty and structure; Napoleon's favourite wine, the most regal Burgundy"
+            },
+            {
+              "id": "iii-pinotnoir-fr-morey-clos-de-la-roche",
+              "vineyard_site": "Clos de la Roche",
+              "region_terroir": "Morey-Saint-Denis — limestone/clay, complex multi-parcel GC",
+              "key_producers": ["Ponsot (Vieilles Vignes)", "Dujac", "Lignier"],
+              "signature_character": "Wild, mineral power; deeper and more brooding than neighbouring Clos Saint-Denis"
+            },
+            {
+              "id": "iii-pinotnoir-fr-gevrey-clos-saint-jacques",
+              "vineyard_site": "Clos Saint-Jacques (1er Cru)",
+              "region_terroir": "Gevrey-Chambertin — sheltered amphitheatre, limestone",
+              "key_producers": ["Rousseau", "Fourrier", "Esmonin"],
+              "signature_character": "Widely considered Grand Cru quality; the greatest 1er Cru in all Burgundy"
+            },
+            {
+              "id": "iii-pinotnoir-fr-chambolle-les-amoureuses",
+              "vineyard_site": "Les Amoureuses (1er Cru)",
+              "region_terroir": "Chambolle-Musigny — thin soil, upper slope adjacent to Musigny",
+              "key_producers": ["De Vogüé", "Roumier", "Groffier"],
+              "signature_character": "Prices and quality rival Grand Cru; silky, perfumed, achingly beautiful"
+            },
+            {
+              "id": "iii-pinotnoir-fr-vosne-richebourg",
+              "vineyard_site": "Richebourg",
+              "region_terroir": "Vosne-Romanée — deep clay/marl, mid to lower slope",
+              "key_producers": ["DRC", "Leroy", "Gros", "Méo-Camuzet"],
+              "signature_character": "Opulent, generous, exotic; the most sensual of the Vosne Grands Crus"
+            }
+          ]
+        },
+        {
+          "name": "New World & Germany",
+          "sites": [
+            {
+              "id": "iii-pinotnoir-us-willamette-dundee-hills",
+              "vineyard_site": "Dundee Hills (Jory soil sites)",
+              "region_terroir": "Willamette Valley — volcanic Jory red clay over basalt",
+              "key_producers": ["Domaine Drouhin", "Eyrie", "Domaine Serene"],
+              "signature_character": "Oregon's first and most iconic Pinot Noir zone; red fruit, earth, supple structure"
+            },
+            {
+              "id": "iii-pinotnoir-us-willamette-eola-amity",
+              "vineyard_site": "Eola-Amity Hills",
+              "region_terroir": "Willamette Valley — volcanic/marine sedimentary, Van Duzer wind corridor",
+              "key_producers": ["Cristom", "Evening Land", "Bethel Heights"],
+              "signature_character": "Wind-cooled, firmer acidity; Oregon's most Burgundian sub-AVA"
+            },
+            {
+              "id": "iii-pinotnoir-us-willamette-ribbon-ridge",
+              "vineyard_site": "Ribbon Ridge",
+              "region_terroir": "Willamette Valley — marine sedimentary, sheltered",
+              "key_producers": ["Beaux Frères", "Patricia Green", "Brick House"],
+              "signature_character": "Compact, finely-grained; wines of unusual silkiness and precision"
+            },
+            {
+              "id": "iii-pinotnoir-nz-central-otago-block-5-bannockburn",
+              "vineyard_site": "Block 5, Bannockburn",
+              "region_terroir": "Central Otago — schist/loess, north-facing terrace",
+              "key_producers": ["Felton Road (Block 5)"],
+              "signature_character": "New Zealand's most famous single Pinot block; dark fruit, minerality, Central Otago intensity"
+            },
+            {
+              "id": "iii-pinotnoir-us-sonoma-hirsch-vineyard",
+              "vineyard_site": "Hirsch Vineyard",
+              "region_terroir": "Sonoma Coast — extreme coastal ridge, fractured sandstone/shale",
+              "key_producers": ["Hirsch", "Littorai", "Williams Selyem"],
+              "signature_character": "True-coast Pinot Noir; savoury, herbal, with bracing acidity and wild-berry character"
+            },
+            {
+              "id": "iii-pinotnoir-us-slh-pisoni-vineyard",
+              "vineyard_site": "Pisoni Vineyard",
+              "region_terroir": "Santa Lucia Highlands — granite/limestone, high-altitude terraces",
+              "key_producers": ["Pisoni", "Roar", "Peter Michael"],
+              "signature_character": "Intense, dark-fruited, muscular; California's most powerful Pinot Noir site"
+            },
+            {
+              "id": "iii-pinotnoir-de-rheingau-assmannshaeuser-hoellenberg",
+              "vineyard_site": "Assmannshäuser Höllenberg",
+              "region_terroir": "Rheingau — slate, steep south-facing",
+              "key_producers": ["August Kesseler", "Staatsweingut Assmannshausen"],
+              "signature_character": "Germany's most famous Spätburgunder site; ethereal, translucent red fruit over mineral"
+            },
+            {
+              "id": "iii-pinotnoir-za-walker-bay-hemel-en-aarde-ridge",
+              "vineyard_site": "Hemel-en-Aarde Ridge",
+              "region_terroir": "Walker Bay — clay/shale, maritime-cooled valley",
+              "key_producers": ["Hamilton Russell", "Bouchard Finlayson", "Creation"],
+              "signature_character": "Africa's premier Pinot Noir terroir: bright cherry, fine tannin, ocean freshness"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "roman": "IV",
+      "title": "Bordeaux Red Blends",
+      "intro": "Bordeaux's greatness is inseparable from its terroir hierarchy. The Left Bank's deep gravel mounds, sculpted by glacial rivers, provide ideal drainage for Cabernet Sauvignon, while the Right Bank's limestone plateaux and clay soils favour Merlot and Cabernet Franc. The 1855 Classification, the Saint-Émilion rankings, and Pomerol's unofficial hierarchy all attempt to codify what the gravel, clay, and limestone already dictate. The sites listed here represent the geological foundations beneath the most celebrated châteaux.",
+      "groups": [
+        {
+          "name": "Left Bank (Cabernet Sauvignon Dominant)",
+          "sites": [
+            {
+              "id": "iv-bordeauxblend-fr-haut-medoc-pauillac-plateau",
+              "vineyard_site": "Plateau de Pauillac",
+              "region_terroir": "Haut-Médoc — deep gravel/sand over clay/limestone",
+              "key_producers": ["Latour", "Lafite Rothschild", "Mouton Rothschild"],
+              "signature_character": "The holy trinity of Pauillac: Cabernet Sauvignon at its most noble, structured, and long-lived"
+            },
+            {
+              "id": "iv-bordeauxblend-fr-graves-pessac-leognan-terraces",
+              "vineyard_site": "Pessac-Léognan graves terraces",
+              "region_terroir": "Graves — deep Quaternary gravel over limestone/clay",
+              "key_producers": ["Haut-Brion", "La Mission Haut-Brion", "Les Carmes Haut-Brion"],
+              "signature_character": "Warmer microclimate than Médoc; smoky, mineral, tobacco-tinged elegance"
+            },
+            {
+              "id": "iv-bordeauxblend-fr-haut-medoc-saint-julien-plateau",
+              "vineyard_site": "Saint-Julien central plateau",
+              "region_terroir": "Haut-Médoc — Günzian gravel mounds, deep drainage",
+              "key_producers": ["Léoville Las Cases", "Ducru-Beaucaillou", "Léoville Barton"],
+              "signature_character": "Classical Bordeaux harmony; structure and finesse in perfect balance"
+            },
+            {
+              "id": "iv-bordeauxblend-fr-haut-medoc-margaux-plateau",
+              "vineyard_site": "Margaux plateau",
+              "region_terroir": "Haut-Médoc — fine gravel/sand, gentle slopes",
+              "key_producers": ["Château Margaux", "Palmer", "Rauzan-Ségla"],
+              "signature_character": "The most perfumed and silky Left Bank wines; floral, violet-scented, lace-textured"
+            },
+            {
+              "id": "iv-bordeauxblend-fr-haut-medoc-saint-estephe",
+              "vineyard_site": "Saint-Estèphe clay-gravel heights",
+              "region_terroir": "Haut-Médoc — clay-rich gravel, cooler microclimate",
+              "key_producers": ["Cos d'Estournel", "Montrose", "Calon-Ségur"],
+              "signature_character": "Firmer, more tannic; structured and earthy wines that reward long cellaring"
+            }
+          ]
+        },
+        {
+          "name": "Right Bank (Merlot & Cabernet Franc Dominant)",
+          "sites": [
+            {
+              "id": "iv-bordeauxblend-fr-saint-emilion-plateau-calcaire",
+              "vineyard_site": "Saint-Émilion plateau calcaire",
+              "region_terroir": "Saint-Émilion — limestone plateau with thin clay topsoil",
+              "key_producers": ["Angélus", "Figeac", "Pavie", "Canon"],
+              "signature_character": "Merlot/Cabernet Franc on limestone; rich yet lifted, mineral, increasingly prized"
+            },
+            {
+              "id": "iv-bordeauxblend-fr-pomerol-central-plateau",
+              "vineyard_site": "Pomerol central plateau",
+              "region_terroir": "Pomerol — iron-rich clay (crasse de fer) over gravel",
+              "key_producers": ["Pétrus", "Le Pin", "Lafleur", "L'Église-Clinet"],
+              "signature_character": "Tiny estates on unique blue clay; voluptuous, exotic Merlot of extraordinary concentration"
+            },
+            {
+              "id": "iv-bordeauxblend-fr-saint-emilion-cotes",
+              "vineyard_site": "Saint-Émilion côtes",
+              "region_terroir": "Saint-Émilion — limestone slopes, south/southeast exposure",
+              "key_producers": ["Ausone", "Bélair-Monange", "Canon"],
+              "signature_character": "Slope-grown Cabernet Franc shines here; tension, minerality, and ethereal perfume"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "roman": "V",
+      "title": "Nebbiolo",
+      "intro": "Nebbiolo is perhaps the most site-specific of all red grapes. Its greatest expressions come from the Langhe hills of Piemonte, where the Barolo and Barbaresco zones are divided into named crus (Menzioni Geografiche Aggiuntive) whose terroir differences are as pronounced as those between Burgundy's Grands Crus. The distinction between Tortonian (younger, sandier) and Helvetian (older, more compact) marls in Barolo creates two fundamentally different styles of wine, and knowing which commune and cru a Barolo comes from is essential to understanding the wine in the glass.",
+      "groups": [
+        {
+          "name": "Barolo",
+          "sites": [
+            {
+              "id": "v-nebbiolo-it-barolo-cannubi",
+              "vineyard_site": "Cannubi",
+              "region_terroir": "Barolo — south-facing, mixed marl/sand/clay, central Barolo commune",
+              "key_producers": ["Damilano", "Marchesi di Barolo", "Chiara Boschis"],
+              "signature_character": "The most historically celebrated Barolo cru; harmonious, perfumed, approachable yet complex"
+            },
+            {
+              "id": "v-nebbiolo-it-serralunga-monfortino",
+              "vineyard_site": "Monfortino (Cascina Francia)",
+              "region_terroir": "Serralunga d'Alba — compact Helvetian marl, east-facing",
+              "key_producers": ["Giacomo Conterno (monopole)"],
+              "signature_character": "Perhaps Italy's single greatest wine; massive structure, decades of ageing, iron-fisted power"
+            },
+            {
+              "id": "v-nebbiolo-it-roddi-bricco-ambrogio",
+              "vineyard_site": "Bricco Ambrogio",
+              "region_terroir": "Roddi — Tortonian marl, high elevation, south-facing",
+              "key_producers": ["Bruna Grimaldi"],
+              "signature_character": "Elegant expression from a lesser-known commune; fragrant, fine-grained, increasingly celebrated"
+            },
+            {
+              "id": "v-nebbiolo-it-castiglione-falletto-bric-del-fiasc",
+              "vineyard_site": "Bric dël Fiasc",
+              "region_terroir": "Castiglione Falletto — Tortonian marl, south-facing amphitheatre",
+              "key_producers": ["Paolo Scavino"],
+              "signature_character": "Structured and complex; balances Serralunga power with Castiglione finesse"
+            },
+            {
+              "id": "v-nebbiolo-it-serralunga-gavarini-chiniera",
+              "vineyard_site": "Gavarini Vigna Chiniera",
+              "region_terroir": "Serralunga d'Alba — compact marl, steep south-facing",
+              "key_producers": ["Elio Grasso"],
+              "signature_character": "Modern yet deeply rooted; concentrated, mineral, with extraordinary depth"
+            },
+            {
+              "id": "v-nebbiolo-it-la-morra-rocche-dell-annunziata",
+              "vineyard_site": "Rocche dell'Annunziata",
+              "region_terroir": "La Morra — calcareous marl, south-southwest exposure",
+              "key_producers": ["Corino", "Roberto Voerzio", "Renato Ratti"],
+              "signature_character": "Elegant La Morra at its finest; floral, silky, with early approachability masking structure"
+            },
+            {
+              "id": "v-nebbiolo-it-la-morra-barolo-brunate",
+              "vineyard_site": "Brunate",
+              "region_terroir": "La Morra/Barolo — south-facing, transitional soils (sand/clay/marl)",
+              "key_producers": ["Ceretto", "Roberto Voerzio", "Marcarini"],
+              "signature_character": "Straddles two communes; combines La Morra perfume with Barolo structure"
+            },
+            {
+              "id": "v-nebbiolo-it-serralunga-vigna-rionda",
+              "vineyard_site": "Vigna Rionda",
+              "region_terroir": "Serralunga d'Alba — iron-rich Lequio marl, steep southwest-facing",
+              "key_producers": ["Massolino", "Oddero"],
+              "signature_character": "The most powerful Serralunga site; tannic, brooding, needs decades to reveal its depths"
+            }
+          ]
+        },
+        {
+          "name": "Barbaresco & Alto Piemonte",
+          "sites": [
+            {
+              "id": "v-nebbiolo-it-barbaresco-paje",
+              "vineyard_site": "Pajé",
+              "region_terroir": "Barbaresco — calcareous marl, east-facing, high elevation",
+              "key_producers": ["Roagna", "Produttori del Barbaresco"],
+              "signature_character": "Barbaresco's most age-worthy cru; austere, profound, almost Barolo-like intensity"
+            },
+            {
+              "id": "v-nebbiolo-it-barbaresco-asili",
+              "vineyard_site": "Asili",
+              "region_terroir": "Barbaresco — calcareous/sandy marl, south-facing amphitheatre",
+              "key_producers": ["Bruno Giacosa", "Produttori del Barbaresco", "Ca' del Baio"],
+              "signature_character": "The quintessential Barbaresco; elegant, perfumed, with exquisite balance"
+            },
+            {
+              "id": "v-nebbiolo-it-barbaresco-rabaja",
+              "vineyard_site": "Rabajà",
+              "region_terroir": "Barbaresco — calcareous marl, southwest-facing",
+              "key_producers": ["Bruno Giacosa", "Produttori del Barbaresco"],
+              "signature_character": "Power and concentration unusual for Barbaresco; deep, structured, rich"
+            },
+            {
+              "id": "v-nebbiolo-it-gattinara-vigna-molsino",
+              "vineyard_site": "Vigna Molsino",
+              "region_terroir": "Gattinara — volcanic porphyry/granite, Alto Piemonte",
+              "key_producers": ["Nervi-Conterno"],
+              "signature_character": "Northern Piemonte's finest Nebbiolo; leaner, more austere, with alpine minerality"
+            },
+            {
+              "id": "v-nebbiolo-it-roero-valmaggiore",
+              "vineyard_site": "Valmaggiore",
+              "region_terroir": "Roero — marine sand over clay",
+              "key_producers": ["Matteo Correggia", "Malvirà"],
+              "signature_character": "Sand-driven Nebbiolo; translucent, aromatic, early-drinking but with real depth"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 6,
+      "roman": "VI",
+      "title": "Sangiovese",
+      "intro": "Sangiovese is Tuscany's soul, and its greatest sites are divided between two distinct worlds: the austere, long-lived Brunello di Montalcino and the more diverse, increasingly ambitious Chianti Classico. The Gran Selezione category in Chianti Classico has formalised the idea of single-vineyard Sangiovese, while Montalcino's producers have long argued about the superiority of northern versus southern exposures. The Super Tuscan movement, which blended Sangiovese with international varieties or bottled 100% varietal wines outside DOCG rules, has produced some of Italy's most celebrated wines.",
+      "groups": [
+        {
+          "name": "Brunello di Montalcino & Chianti Classico",
+          "sites": [
+            {
+              "id": "vi-sangiovese-it-montalcino-montosoli",
+              "vineyard_site": "Montosoli",
+              "region_terroir": "Montalcino north — galestro/alberese, 350m, north-facing",
+              "key_producers": ["Biondi-Santi (Il Greppo)", "Altesino"],
+              "signature_character": "Montalcino's most celebrated single vineyard; austere, mineral, built for decades"
+            },
+            {
+              "id": "vi-sangiovese-it-montalcino-castelnuovo-dell-abate",
+              "vineyard_site": "Castelnuovo dell'Abate (southern slopes)",
+              "region_terroir": "Montalcino south — clay/galestro, warmer, lower altitude",
+              "key_producers": ["Poggio di Sotto", "Col d'Orcia", "Pian dell'Orle"],
+              "signature_character": "Richer, more generous Brunello; ripe fruit, Mediterranean warmth, earlier accessibility"
+            },
+            {
+              "id": "vi-sangiovese-it-gaiole-vigneto-bellavista",
+              "vineyard_site": "Vigneto Bellavista",
+              "region_terroir": "Gaiole in Chianti — galestro/limestone, 400m, south-facing",
+              "key_producers": ["Castello di Ama"],
+              "signature_character": "Ethereal elegance; Chianti Classico at its most refined and age-worthy"
+            },
+            {
+              "id": "vi-sangiovese-it-panzano-rancia",
+              "vineyard_site": "Rancia",
+              "region_terroir": "Panzano in Chianti — galestro/alberese, Conca d'Oro amphitheatre",
+              "key_producers": ["Felsina"],
+              "signature_character": "Dense, structured Sangiovese from the 'golden bowl'; one of the greatest cru bottlings"
+            },
+            {
+              "id": "vi-sangiovese-it-panzano-vigna-del-sorbo",
+              "vineyard_site": "Vigna del Sorbo",
+              "region_terroir": "Panzano in Chianti — galestro, 350–400m elevation",
+              "key_producers": ["Fontodi"],
+              "signature_character": "Powerful yet balanced; benchmark Gran Selezione from an outstanding producer"
+            },
+            {
+              "id": "vi-sangiovese-it-castellina-coltassala",
+              "vineyard_site": "Coltassala",
+              "region_terroir": "Castellina in Chianti — limestone/clay, 350m",
+              "key_producers": ["Castello di Volpaia"],
+              "signature_character": "Mineral, savoury Chianti Classico with real structure and ageing potential"
+            },
+            {
+              "id": "vi-sangiovese-it-chianti-tignanello",
+              "vineyard_site": "Tignanello (estate vineyard)",
+              "region_terroir": "Chianti Classico — alberese/galestro, 350–400m",
+              "key_producers": ["Antinori"],
+              "signature_character": "The wine that launched the Super Tuscan revolution: Sangiovese with Cabernet in a Tuscan frame"
+            },
+            {
+              "id": "vi-sangiovese-it-panzano-flaccianello",
+              "vineyard_site": "Flaccianello della Pieve (estate)",
+              "region_terroir": "Panzano in Chianti — galestro/alberese",
+              "key_producers": ["Fontodi"],
+              "signature_character": "100% Sangiovese masterwork; dark, concentrated, among Italy's finest expressions of the grape"
+            },
+            {
+              "id": "vi-sangiovese-it-montalcino-il-greppo",
+              "vineyard_site": "Il Greppo (Biondi-Santi estate)",
+              "region_terroir": "Montalcino northeast — galestro/marl, 500m, north-facing",
+              "key_producers": ["Biondi-Santi"],
+              "signature_character": "The birthplace of Brunello; austere, aristocratic wines that age for half a century"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 7,
+      "roman": "VII",
+      "title": "Malbec",
+      "intro": "Malbec's transformation from a blending component in Cahors and Bordeaux to a world-class varietal wine is one of the great stories of modern viticulture. Argentina's Mendoza province, and particularly the high-altitude Uco Valley, has revealed that Malbec is capable of terroir expression as nuanced as any European grape — provided it is grown at elevation, on the right soils, with the right ambition. The emerging sub-regional hierarchy of the Uco Valley (Gualtallary, Altamira, Los Chacayes) is one of the most exciting developments in contemporary wine.",
+      "groups": [
+        {
+          "name": "Argentina & France",
+          "sites": [
+            {
+              "id": "vii-malbec-ar-uco-gualtallary",
+              "vineyard_site": "Gualtallary",
+              "region_terroir": "Uco Valley — calcareous alluvial, 1,400–1,500m altitude",
+              "key_producers": ["Catena Zapata", "Zuccardi", "Andeluna"],
+              "signature_character": "Extreme altitude delivers tension, mineral precision, and floral lift rare in Malbec"
+            },
+            {
+              "id": "vii-malbec-ar-uco-altamira",
+              "vineyard_site": "Altamira",
+              "region_terroir": "Uco Valley — alluvial/limestone, 1,050–1,100m",
+              "key_producers": ["Achaval-Ferrer", "Altos Las Hormigas", "Terrazas"],
+              "signature_character": "River-stone soils; structured, savoury Malbec with fine tannins and real ageing potential"
+            },
+            {
+              "id": "vii-malbec-ar-uco-los-chacayes",
+              "vineyard_site": "Los Chacayes",
+              "region_terroir": "Uco Valley — gravelly alluvial fan, 1,100–1,300m",
+              "key_producers": ["Piedra Negra", "Domaine Bousquet", "Passionate Wines"],
+              "signature_character": "Cooler microclimate; elegant, restrained, with a distinctly mineral, almost Bordelais character"
+            },
+            {
+              "id": "vii-malbec-ar-uco-vista-flores",
+              "vineyard_site": "Vista Flores",
+              "region_terroir": "Uco Valley — sandy/gravelly alluvial, 950–1,100m",
+              "key_producers": ["Salentein", "Diamandes", "Sophenia"],
+              "signature_character": "A transitional zone; richer than Gualtallary but with good freshness and structure"
+            },
+            {
+              "id": "vii-malbec-ar-lujan-agrelo",
+              "vineyard_site": "Agrelo",
+              "region_terroir": "Luján de Cuyo — alluvial gravel/sand, 950m",
+              "key_producers": ["Luigi Bosca", "Norton", "Catena (Lunlunta)"],
+              "signature_character": "Traditional Mendoza Malbec heartland; generous, dark-fruited, plush, approachable"
+            },
+            {
+              "id": "vii-malbec-ar-lujan-las-compuertas",
+              "vineyard_site": "Las Compuertas",
+              "region_terroir": "Luján de Cuyo — old alluvial terraces, 980m, some of Mendoza's oldest vines",
+              "key_producers": ["Pulenta Estate", "Terrazas", "Kaiken"],
+              "signature_character": "Historic first-planting sites; concentrated old-vine Malbec with depth and complexity"
+            },
+            {
+              "id": "vii-malbec-ar-uco-la-consulta",
+              "vineyard_site": "La Consulta",
+              "region_terroir": "Uco Valley — alluvial/sand, 950–1,100m",
+              "key_producers": ["Durigutti", "Passionate Wines", "Matervini"],
+              "signature_character": "Warm days, cool nights; balances concentration and freshness with a distinctive spice character"
+            },
+            {
+              "id": "vii-malbec-fr-cahors-le-clos",
+              "vineyard_site": "Cahors (Le Clos)",
+              "region_terroir": "Cahors, France — limestone plateau (causse), iron-rich clay",
+              "key_producers": ["Clos Triguedina", "Ch. Lagrézétte", "Ch. du Cèdre"],
+              "signature_character": "Malbec's ancestral home; darker, more tannic, with earthy iron-and-truffle complexity"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "roman": "VIII",
+      "title": "Syrah / Shiraz",
+      "intro": "Syrah's duality — cool-climate elegance versus warm-climate power — makes it one of the most versatile and exciting grapes in the world. Its ancestral home is the Northern Rhône, where the granite and schist hillsides of Côte-Rôtie, Hermitage, and Cornas produce wines of profound complexity. Australia's Barossa Valley old vines and South Africa's Swartland represent the grape's other great poles, while Washington State's volcanic terroirs have emerged as a compelling New World frontier.",
+      "groups": [
+        {
+          "name": "Northern Rhône & Beyond",
+          "sites": [
+            {
+              "id": "viii-syrah-fr-cote-rotie-la-la-la",
+              "vineyard_site": "La Turque / La Mouline / La Landonne",
+              "region_terroir": "Côte-Rôtie — schist and granite/gneiss, vertiginous slopes",
+              "key_producers": ["Guigal (La La La's)"],
+              "signature_character": "The most famous trio in Rhône wine: La Mouline = silk, La Landonne = power, La Turque = both"
+            },
+            {
+              "id": "viii-syrah-fr-cote-rotie-brune-blonde",
+              "vineyard_site": "Côte Brune / Côte Blonde",
+              "region_terroir": "Côte-Rôtie — dark schist/iron (Brune) vs lighter gneiss/mica (Blonde)",
+              "key_producers": ["Ogier (La Belle Hélène)", "Jamet", "Rostaing"],
+              "signature_character": "The original hillsides; Brune gives structure and darkness, Blonde gives perfume and lift"
+            },
+            {
+              "id": "viii-syrah-fr-hermitage-bessards-meal-ermite",
+              "vineyard_site": "L'Hermitage (Le Méal, Les Bessards, L'Érmite)",
+              "region_terroir": "Hermitage — granite (Bessards), loess (Méal), granite terrace (Ermite)",
+              "key_producers": ["Chave", "Chapoutier", "Jaboulet"],
+              "signature_character": "Hermitage's holy parcels; Bessards = tannic granite power, Méal = generous warmth, Ermite = ethereal"
+            },
+            {
+              "id": "viii-syrah-fr-cornas",
+              "vineyard_site": "Cornas (Les Chaillots, La Geynale)",
+              "region_terroir": "Cornas — decomposed granite, south-facing amphitheatre",
+              "key_producers": ["Thierry Allemand", "Auguste Clape", "Lionnet"],
+              "signature_character": "The most raw and primal Northern Rhône; dark, dense, untamed, thrilling with age"
+            },
+            {
+              "id": "viii-syrah-fr-chateauneuf-galets",
+              "vineyard_site": "Châteauneuf-du-Pape plateau galets",
+              "region_terroir": "Châteauneuf — galets roulés (large, rounded stones) over red clay",
+              "key_producers": ["Rayas", "Clos des Papes", "Beaucastel"],
+              "signature_character": "Iconic heat-retaining stones; grenache-dominant but Syrah adds spine and dark fruit"
+            },
+            {
+              "id": "viii-syrah-us-walla-walla-the-rocks",
+              "vineyard_site": "The Rocks District",
+              "region_terroir": "Walla Walla Valley — fractured basalt cobblestones, wind-scoured",
+              "key_producers": ["K Vintners (Royal City)", "Cayuse", "Reynvaan"],
+              "signature_character": "Volcanic cobblestones produce intensely mineral, savoury, powerful cool-climate Syrah"
+            },
+            {
+              "id": "viii-syrah-au-barossa-old-vine",
+              "vineyard_site": "Barossa Valley old vine sites",
+              "region_terroir": "Barossa — deep sandy/clay loam over ironstone, warm continental",
+              "key_producers": ["Penfolds", "Henschke (Hill of Grace)", "Torbreck"],
+              "signature_character": "Pre-phylloxera vines up to 170 years old; opulent, spicy, concentrated Shiraz of immense depth"
+            },
+            {
+              "id": "viii-syrah-au-eden-valley",
+              "vineyard_site": "Eden Valley (high altitude)",
+              "region_terroir": "Eden Valley — sandy loam over schist, 400–500m elevation",
+              "key_producers": ["Henschke", "Yalumba (Octavius old vines)", "Pewsey Vale"],
+              "signature_character": "Cooler, more peppery and restrained than Barossa floor; elegant Shiraz with real tension"
+            },
+            {
+              "id": "viii-syrah-au-mclaren-vale",
+              "vineyard_site": "McLaren Vale",
+              "region_terroir": "McLaren Vale — diverse: sand, clay, ironstone, limestone",
+              "key_producers": ["d'Arenberg", "Clarendon Hills", "Yangarra"],
+              "signature_character": "Maritime influence gives freshness to rich, dark Shiraz; chocolate, earth, and olive tapenade"
+            },
+            {
+              "id": "viii-syrah-za-swartland-granite",
+              "vineyard_site": "Swartland granite terroirs",
+              "region_terroir": "Swartland — decomposed granite hillsides, dryland farmed",
+              "key_producers": ["Mullineux", "Porseleinberg", "Sadie Family (Columella)"],
+              "signature_character": "South Africa's most exciting Syrah terroir; savoury, peppery, with granite-driven minerality"
+            },
+            {
+              "id": "viii-syrah-us-red-mountain",
+              "vineyard_site": "Red Mountain AVA",
+              "region_terroir": "Washington State — windblown loess/sand over basalt, arid, warm",
+              "key_producers": ["Quilceda Creek", "Col Sélare", "Hedges"],
+              "signature_character": "The warmest Washington AVA; powerful, dark-fruited, with firm tannic structure"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "roman": "IX",
+      "title": "Cabernet Franc",
+      "intro": "Cabernet Franc is Bordeaux's secret weapon and the Loire Valley's noblest red grape. In the tuffeau limestone caves and slopes of Chinon, Bourgueil, and Saumur-Champigny, it produces wines of extraordinary purity — lighter in colour than Cabernet Sauvignon but often more aromatically complex, with signature notes of violets, graphite, crushed herbs, and wet stone. On the Right Bank of Bordeaux, it plays a crucial role alongside Merlot at estates like Cheval Blanc and Lafleur. Increasingly, ambitious New World producers in Argentina, Friuli, and even the Finger Lakes are demonstrating that Cab Franc can express terroir with Pinot Noir-like transparency.",
+      "groups": [
+        {
+          "name": "Loire Valley, Bordeaux Right Bank & New World",
+          "sites": [
+            {
+              "id": "ix-cabernetfranc-fr-saumur-clos-rougeard",
+              "vineyard_site": "Clos Rougeard (Le Bourg / Les Poyeux)",
+              "region_terroir": "Saumur-Champigny — tuffeau limestone, south-facing, Loire Valley",
+              "key_producers": ["Clos Rougeard (Foucault family)"],
+              "signature_character": "The most legendary Loire Cab Franc estate; Le Bourg is Burgundian in complexity, silky, mineral, and immortal"
+            },
+            {
+              "id": "ix-cabernetfranc-fr-chinon-l-huisserie",
+              "vineyard_site": "L'Huisserie",
+              "region_terroir": "Chinon — limestone/clay slopes, south-facing, above the Vienne",
+              "key_producers": ["Philippe Alliet"],
+              "signature_character": "One of Chinon's finest lieux-dits; structured, savoury, with herb-tinged dark fruit and chalky minerality"
+            },
+            {
+              "id": "ix-cabernetfranc-fr-chinon-clos-de-la-dioterie",
+              "vineyard_site": "Clos de la Dioterie",
+              "region_terroir": "Chinon — old-vine tuffeau limestone slopes",
+              "key_producers": ["Charles Joguet"],
+              "signature_character": "Joguet's monopole of pre-phylloxera vines; profound, age-worthy, benchmark old-vine Chinon"
+            },
+            {
+              "id": "ix-cabernetfranc-fr-chinon-les-picasses",
+              "vineyard_site": "Les Picasses",
+              "region_terroir": "Chinon — clay-limestone côteaux, south-facing",
+              "key_producers": ["Olga Raffault", "Charles Joguet"],
+              "signature_character": "Dense and structured; one of the most tannic and long-lived Chinon terroirs"
+            },
+            {
+              "id": "ix-cabernetfranc-fr-bourgueil-clos-de-la-roche",
+              "vineyard_site": "Clos de la Roche (Bourgueil)",
+              "region_terroir": "Bourgueil — tuffeau limestone/clay over tufa caves",
+              "key_producers": ["Yannick Amirault", "Pierre Breton"],
+              "signature_character": "Bourgueil's most celebrated site; darker, firmer than Chinon, with iron and graphite notes"
+            },
+            {
+              "id": "ix-cabernetfranc-fr-saumur-breze",
+              "vineyard_site": "Brézé",
+              "region_terroir": "Saumur — deep tuffeau limestone, cooler microclimate",
+              "key_producers": ["Château de Brézé", "Arnaud Lambert"],
+              "signature_character": "Emerging as one of the Loire's most exciting terroirs; chalky purity and precision"
+            },
+            {
+              "id": "ix-cabernetfranc-fr-saint-emilion-limestone-plateau",
+              "vineyard_site": "Saint-Émilion limestone plateau (Cab Franc sites)",
+              "region_terroir": "Saint-Émilion — limestone/clay, thin topsoil",
+              "key_producers": ["Cheval Blanc", "Figeac", "Angélus"],
+              "signature_character": "Cab Franc reaches its Bordelais apex here; floral, spiced, violet-perfumed, with silky texture"
+            },
+            {
+              "id": "ix-cabernetfranc-fr-pomerol-clay",
+              "vineyard_site": "Pomerol clay terroirs (Cab Franc parcels)",
+              "region_terroir": "Pomerol — iron-rich clay over gravel",
+              "key_producers": ["Lafleur", "Vieux Château Certan", "La Conseillante"],
+              "signature_character": "Cab Franc as co-lead with Merlot; adds aromatic lift, freshness, and mineral complexity"
+            },
+            {
+              "id": "ix-cabernetfranc-ar-uco-gualtallary-cabfranc",
+              "vineyard_site": "Gualtallary (Cab Franc plantings)",
+              "region_terroir": "Uco Valley, Argentina — calcareous alluvial, 1,400m+",
+              "key_producers": ["Gran Enemigo (Vigil)", "Zuccardi"],
+              "signature_character": "High-altitude Cab Franc of startling precision; floral, herbal, with Andean mineral tension"
+            },
+            {
+              "id": "ix-cabernetfranc-it-friuli-colli-orientali",
+              "vineyard_site": "Friuli Colli Orientali",
+              "region_terroir": "Friuli — Ponca (layered marl/sandstone), hilly, northeast Italy",
+              "key_producers": ["Moschioni", "Miani", "Le Due Terre"],
+              "signature_character": "Italy's most serious Cab Franc terroir; savoury, herbal, with distinctive ponca-driven minerality"
+            },
+            {
+              "id": "ix-cabernetfranc-us-finger-lakes",
+              "vineyard_site": "Finger Lakes (steep shale slopes)",
+              "region_terroir": "Finger Lakes, New York — Devonian shale/slate, lake-moderated",
+              "key_producers": ["Hermann J. Wiemer", "Ravines", "Heart & Hands"],
+              "signature_character": "Emerging cool-climate Cab Franc; bright acidity, herbal lift, surprisingly age-worthy"
+            },
+            {
+              "id": "ix-cabernetfranc-us-red-mountain",
+              "vineyard_site": "Red Mountain (Cab Franc blocks)",
+              "region_terroir": "Washington State — loess/basalt, arid, warm",
+              "key_producers": ["Quilceda Creek", "Andrew Will", "Fidélitas"],
+              "signature_character": "Powerful New World Cab Franc; dark fruit, firm structure, basalt-driven mineral depth"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 10,
+      "roman": "X",
+      "title": "Rhône Red Blends (GSM)",
+      "intro": "The Grenache-Syrah-Mourvèdre blend — universally known as GSM — is the Southern Rhône's defining expression, anchored by the galets roulés of Châteauneuf-du-Pape and the limestone slopes of Gigondas. Grenache provides warmth, generosity, and red-fruited sweetness; Syrah adds colour, structure, and dark-fruited complexity; Mourvèdre contributes tannin, earthiness, and ageing potential. Beyond France, the blend has found natural homes in Priorat's llicorella schist, Australia's old-vine Barossa and McLaren Vale, South Africa's Swartland, and California's Paso Robles.",
+      "groups": [
+        {
+          "name": "Southern Rhône",
+          "sites": [
+            {
+              "id": "x-rhoneblend-fr-cdp-la-crau",
+              "vineyard_site": "Châteauneuf-du-Pape – La Crau plateau",
+              "region_terroir": "Southern Rhône — galets roulés over red clay/sand, high plateau",
+              "key_producers": ["Vieux Télégraphe (monopole of La Crau)", "Henri Bonneau"],
+              "signature_character": "The most famous single lieu-dit in Châteauneuf; deep, powerful, galets-driven warmth and concentration"
+            },
+            {
+              "id": "x-rhoneblend-fr-cdp-rayas-sand",
+              "vineyard_site": "Châteauneuf-du-Pape – Rayas (sandy terroir)",
+              "region_terroir": "Southern Rhône — pure sand over clay, sheltered, cool micro-site",
+              "key_producers": ["Château Rayas (monopole)"],
+              "signature_character": "The great contrarian; pure Grenache from sand producing ethereal, Burgundian transparency"
+            },
+            {
+              "id": "x-rhoneblend-fr-cdp-galets-classic",
+              "vineyard_site": "Châteauneuf-du-Pape – plateau galets (classic)",
+              "region_terroir": "Southern Rhône — galets roulés over Miocene red clay",
+              "key_producers": ["Clos des Papes", "Beaucastel", "Colombis (Ferrando)"],
+              "signature_character": "The iconic terroir of the appellation; heat-retaining stones drive concentration and spice"
+            },
+            {
+              "id": "x-rhoneblend-fr-gigondas-dentelles",
+              "vineyard_site": "Gigondas – Dentelles de Montmirail slopes",
+              "region_terroir": "Southern Rhône — limestone scree from Dentelles, clay/sand lower",
+              "key_producers": ["Santa Duc", "Château de Saint-Cosme", "Domaine Les Pallières"],
+              "signature_character": "Gigondas at its finest; Grenache-dominant, with Dentelles limestone adding lift and freshness"
+            },
+            {
+              "id": "x-rhoneblend-fr-vacqueyras-garrigues",
+              "vineyard_site": "Vacqueyras – garrigues terraces",
+              "region_terroir": "Southern Rhône — gravel/clay terraces with garrigue-covered slopes",
+              "key_producers": ["Château des Tours", "Le Sang des Cailloux", "Montirius"],
+              "signature_character": "Rustic power; warmer and more earthy than Gigondas, with wild herb and dark fruit intensity"
+            },
+            {
+              "id": "x-rhoneblend-fr-rasteau-clay-limestone",
+              "vineyard_site": "Rasteau – clay-limestone slopes",
+              "region_terroir": "Southern Rhône — blue clay/marl over limestone, north-facing slopes",
+              "key_producers": ["Domaine Gourt de Mautens", "Trapadis"],
+              "signature_character": "Dense, dark, powerful; Grenache thrives on clay, producing wines of surprising structure"
+            }
+          ]
+        },
+        {
+          "name": "New World GSM",
+          "sites": [
+            {
+              "id": "x-rhoneblend-es-priorat-gratallops",
+              "vineyard_site": "Priorat – Gratallops (llicorella terraces)",
+              "region_terroir": "Priorat, Spain — llicorella (slate/schist), steep terraced hillsides",
+              "key_producers": ["Álvaro Palacios (L'Ermita, Finca Dofí)", "Clos Mogador"],
+              "signature_character": "Spain's most prestigious Grenache terroir: extreme slopes, mineral intensity, dark-fruited power"
+            },
+            {
+              "id": "x-rhoneblend-es-priorat-porrera",
+              "vineyard_site": "Priorat – Porrera old vines",
+              "region_terroir": "Priorat — llicorella, some of the oldest Garnacha/Cariñena vines",
+              "key_producers": ["Cims de Porrera", "Mas d'en Gil"],
+              "signature_character": "Ancient vines on schist; concentrated, savoury, with remarkable depth from low-yielding old plants"
+            },
+            {
+              "id": "x-rhoneblend-au-barossa-gsm",
+              "vineyard_site": "Barossa Valley old-vine GSM sites",
+              "region_terroir": "Barossa — sandy loam/clay over ironstone, warm continental",
+              "key_producers": ["Torbreck (Run Rig, The Struie)", "Turkey Flat", "Yalumba"],
+              "signature_character": "Australia's greatest GSM tradition; ancient Grenache and Mourvèdre vines give depth and complexity"
+            },
+            {
+              "id": "x-rhoneblend-au-mclaren-vale-gsm",
+              "vineyard_site": "McLaren Vale GSM terroirs",
+              "region_terroir": "McLaren Vale — sand/clay/ironstone, maritime-moderated",
+              "key_producers": ["d'Arenberg (The Dead Arm)", "Yangarra", "Chapel Hill"],
+              "signature_character": "Rich, generous GSM; maritime influence adds freshness to warm-climate Grenache and Shiraz"
+            },
+            {
+              "id": "x-rhoneblend-za-swartland-bush-vines",
+              "vineyard_site": "Swartland dryland bush vines",
+              "region_terroir": "Swartland, South Africa — decomposed granite, unirrigated",
+              "key_producers": ["Mullineux", "Sadie Family", "Badenhorst"],
+              "signature_character": "Rhône varieties on granite; peppery, wild-herbed, with distinctive South African garrigue character"
+            },
+            {
+              "id": "x-rhoneblend-us-paso-robles",
+              "vineyard_site": "Paso Robles (Willow Creek, Adelaida)",
+              "region_terroir": "Paso Robles, California — calcareous/siliceous, mountainous",
+              "key_producers": ["Tablas Creek", "Saxum", "Epoch"],
+              "signature_character": "California's Rhône heartland; Tablas Creek (Beaucastel partnership) anchors the region's credibility"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 11,
+      "roman": "XI",
+      "title": "Cabernet Sauvignon (Varietal)",
+      "intro": "Beyond its role in Bordeaux blends, Cabernet Sauvignon stands alone as a varietal wine of immense power and longevity, particularly in California's Napa Valley, Chile's Alto Maipo, Australia's Coonawarra and Margaret River, and Washington State. Napa's sub-appellations — each with distinct soils and microclimates — have created a terroir hierarchy as finely graded as any in the Old World. The mountain districts (Howell Mountain, Spring Mountain, Mount Veeder) versus the valley floor benchlands (Oakville, Rutherford, Stags Leap) offer fundamentally different expressions of the same grape.",
+      "groups": [
+        {
+          "name": "Napa Valley, Chile, Australia & Washington",
+          "sites": [
+            {
+              "id": "xi-cabsauv-us-napa-oakville-benchland",
+              "vineyard_site": "Oakville benchland",
+              "region_terroir": "Napa Valley — alluvial gravels, warm days, cool bay influence",
+              "key_producers": ["Opus One", "Robert Mondavi (To Kalon)", "Harlan", "Screaming Eagle"],
+              "signature_character": "California's most storied Cabernet terroir; To Kalon is the single most famous American vineyard"
+            },
+            {
+              "id": "xi-cabsauv-us-napa-rutherford-bench",
+              "vineyard_site": "Rutherford Bench",
+              "region_terroir": "Napa Valley — alluvial fan gravels, well-drained",
+              "key_producers": ["Caymus", "Inglenook", "Staglin", "Quintessa"],
+              "signature_character": "The source of 'Rutherford dust' – a distinctive earthy, herbal quality unique to these sites"
+            },
+            {
+              "id": "xi-cabsauv-us-napa-howell-mountain",
+              "vineyard_site": "Howell Mountain",
+              "region_terroir": "Napa Valley — volcanic ash/tufa, 425–670m elevation, above fog line",
+              "key_producers": ["Dunn", "FUTO", "O'Shaughnessy", "La Jota"],
+              "signature_character": "Mountain Cabernet: intense colour, firm tannins, iron-like minerality, formidable ageing potential"
+            },
+            {
+              "id": "xi-cabsauv-us-napa-spring-mountain",
+              "vineyard_site": "Spring Mountain",
+              "region_terroir": "Napa Valley — volcanic/sedimentary, steep, above fog",
+              "key_producers": ["Smith-Madrone", "Pride", "Barnett"],
+              "signature_character": "Similar mountain intensity to Howell; slightly more elegance and floral lift"
+            },
+            {
+              "id": "xi-cabsauv-us-napa-mount-veeder",
+              "vineyard_site": "Mount Veeder",
+              "region_terroir": "Napa Valley — fractured sandstone/shale, 120–720m",
+              "key_producers": ["Hess Collection", "Mayacamas"],
+              "signature_character": "The most austere Napa mountain district; lean, tannic, mineral, demands patience"
+            },
+            {
+              "id": "xi-cabsauv-us-napa-stags-leap",
+              "vineyard_site": "Stags Leap District",
+              "region_terroir": "Napa Valley — alluvial/volcanic, sheltered palisade cliffs",
+              "key_producers": ["Stag's Leap Wine Cellars", "Shafer", "Clos du Val"],
+              "signature_character": "Softer, more refined Napa Cabernet; iron fist in velvet glove; site of the 1976 Judgment of Paris"
+            },
+            {
+              "id": "xi-cabsauv-cl-maipo-puente-alto",
+              "vineyard_site": "Alto Maipo (Puente Alto)",
+              "region_terroir": "Maipo Valley — alluvial gravel/stone, Andean-influenced, 650m",
+              "key_producers": ["Concha y Toro (Don Melchor)", "Viñedo Chadwick", "Almaviva"],
+              "signature_character": "South America's most prestigious Cabernet terroir; Bordelais structure with Andean mineral intensity"
+            },
+            {
+              "id": "xi-cabsauv-us-columbia-red-mountain",
+              "vineyard_site": "Red Mountain",
+              "region_terroir": "Columbia Valley — loess/sand over basalt, hot, arid, wind-exposed",
+              "key_producers": ["Quilceda Creek", "Col Sélare", "Hedges"],
+              "signature_character": "Exceptionally dark, concentrated Cabernet; heat gives ripeness, basalt gives mineral backbone"
+            },
+            {
+              "id": "xi-cabsauv-au-coonawarra",
+              "vineyard_site": "Coonawarra terra rossa",
+              "region_terroir": "Coonawarra — thin red clay (terra rossa) over limestone",
+              "key_producers": ["Wynns", "Hollick", "Parker Estate"],
+              "signature_character": "Australia's most celebrated Cabernet zone; eucalyptus-tinged, structured, distinctly cool-climate"
+            },
+            {
+              "id": "xi-cabsauv-au-margaret-river",
+              "vineyard_site": "Margaret River",
+              "region_terroir": "Margaret River — laterite/gravel over granite, maritime-moderated",
+              "key_producers": ["Cullen", "Vasse Felix", "Moss Wood"],
+              "signature_character": "Australia's most Bordelais region; structured, elegant Cabernet blends with real restraint"
+            },
+            {
+              "id": "xi-cabsauv-us-napa-eisele-vineyard",
+              "vineyard_site": "Eisele Vineyard",
+              "region_terroir": "Napa Valley (Calistoga) — volcanic/alluvial, warm, sheltered",
+              "key_producers": ["Eisele Vineyard Estate (formerly Araujo)"],
+              "signature_character": "One of Napa's greatest single vineyards; also a source of extraordinary Syrah"
+            },
+            {
+              "id": "xi-cabsauv-us-santa-cruz-monte-bello",
+              "vineyard_site": "Monte Bello Ridge",
+              "region_terroir": "Santa Cruz Mountains — limestone/greenstone, 750m elevation",
+              "key_producers": ["Ridge Vineyards (Monte Bello)"],
+              "signature_character": "Perhaps California's most Bordelais terroir; limestone at elevation producing wines of 50-year ageing potential"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 12,
+      "roman": "XII",
+      "title": "Grenache / Garnacha",
+      "intro": "Grenache is the Mediterranean's great grape — generous, warm-hearted, and capable of extraordinary complexity when grown on the right soils at the right yields. While it appears as a blending partner in the GSM section of this Atlas, Grenache also stands brilliantly alone: as the ethereal, sand-grown pure varietal of Château Rayas, the slate-driven Garnacha of Priorat, the ancient Cannonau of Sardinia's mountains, the granite-grown revelation of Sierra de Gredos, and the pre-phylloxera old-vine treasures of the Barossa. No grape covers a wider spectrum from rustic power to Burgundian transparency.",
+      "groups": [
+        {
+          "name": "Southern Rhône, Spain, Sardinia & Australia",
+          "sites": [
+            {
+              "id": "xii-grenache-fr-cdp-rayas",
+              "vineyard_site": "Château Rayas (sandy terroir)",
+              "region_terroir": "Châteauneuf-du-Pape — pure sand over clay, sheltered, cool micro-site",
+              "key_producers": ["Château Rayas (monopole)"],
+              "signature_character": "The most Burgundian Grenache on earth; pure sand produces ethereal transparency and haunting fragrance"
+            },
+            {
+              "id": "xii-grenache-fr-cdp-old-vine-galets",
+              "vineyard_site": "Châteauneuf – old-vine plateau galets",
+              "region_terroir": "Châteauneuf — galets roulés over red clay, 80–100+ year vines",
+              "key_producers": ["Henri Bonneau (Réserve des Célestins)", "Clos des Papes"],
+              "signature_character": "Ancient vines on iconic stones; the deepest, most concentrated expression of Southern Rhône Grenache"
+            },
+            {
+              "id": "xii-grenache-fr-gigondas-dentelles",
+              "vineyard_site": "Gigondas – Dentelles heights",
+              "region_terroir": "Gigondas — limestone scree from Dentelles de Montmirail, 300–400m",
+              "key_producers": ["Santa Duc", "Saint-Cosme", "Les Pallières"],
+              "signature_character": "High-altitude Grenache with limestone lift; more tensile and mineral than the valley floor"
+            },
+            {
+              "id": "xii-grenache-es-priorat-gratallops",
+              "vineyard_site": "Gratallops (Priorat)",
+              "region_terroir": "Priorat — llicorella (slate/schist), steep terraces, 200–600m",
+              "key_producers": ["Álvaro Palacios (L'Ermita, Finca Dofí)", "Clos Mogador", "Clos Erasmus"],
+              "signature_character": "Spain's most prestigious Garnacha; extreme slopes, mineral intensity, dark power from ancient schist"
+            },
+            {
+              "id": "xii-grenache-es-priorat-porrera",
+              "vineyard_site": "Porrera old vines (Priorat)",
+              "region_terroir": "Priorat — llicorella, centenarian Garnacha/Cariñena vines",
+              "key_producers": ["Cims de Porrera", "Mas d'en Gil", "Vall Llach"],
+              "signature_character": "Some of Priorat's oldest plantings; concentrated, savoury, profoundly deep, low-yielding vines"
+            },
+            {
+              "id": "xii-grenache-es-campo-de-borja",
+              "vineyard_site": "Campo de Borja old vines",
+              "region_terroir": "Aragon — limestone/clay, high plateau, 500–700m, continental",
+              "key_producers": ["Alto Moncayo", "Bodegas Frontonio (El Jardín de las Iguales)"],
+              "signature_character": "High-altitude old-vine Garnacha; extraordinary value, dark-fruited, with surprising mineral precision"
+            },
+            {
+              "id": "xii-grenache-es-gredos-cebreros",
+              "vineyard_site": "Cebreros / Sierra de Gredos",
+              "region_terroir": "Central Spain — granite sand, 800–1,200m altitude, extreme continental",
+              "key_producers": ["Comando G (La Bruja de Rozas, Rumbo al Norte)", "Daniel Landi"],
+              "signature_character": "Spain's most exciting rediscovery; translucent, Burgundian Garnacha from granite at extreme altitude"
+            },
+            {
+              "id": "xii-grenache-it-sardinia-mamoiada",
+              "vineyard_site": "Mamoiada / Barbagia old vines",
+              "region_terroir": "Sardinia — granite/schist, mountainous interior, 500–700m",
+              "key_producers": ["Giuseppe Ferrara (Ferrara Vini)", "Ferrandes", "Catinari"],
+              "signature_character": "Wild, ancient Cannonau from Sardinia's mountains; herbal, savoury, untamed, with garrigue intensity"
+            },
+            {
+              "id": "xii-grenache-fr-maury",
+              "vineyard_site": "Maury (schist terroirs)",
+              "region_terroir": "Roussillon — black schist, steep hillsides, extreme heat",
+              "key_producers": ["Mas Amiel", "Domaine de la Préceptorie", "Domaine des Soulanes"],
+              "signature_character": "Grenache on schist in extreme heat; powerful dry reds alongside legendary Vins Doux Naturels"
+            },
+            {
+              "id": "xii-grenache-au-barossa-old-vine",
+              "vineyard_site": "Barossa Valley old-vine Grenache",
+              "region_terroir": "Barossa — sandy loam over clay/ironstone, pre-phylloxera vines",
+              "key_producers": ["Turkey Flat", "Torbreck", "Yangarra", "Cirillo"],
+              "signature_character": "Some of the world's oldest Grenache vines (140+ years); generous, spiced, extraordinarily complex"
+            },
+            {
+              "id": "xii-grenache-au-mclaren-vale-bush-vine",
+              "vineyard_site": "McLaren Vale bush vine Grenache",
+              "region_terroir": "McLaren Vale — sand/clay, maritime-moderated",
+              "key_producers": ["d'Arenberg", "Bekkers", "S.C. Pannell"],
+              "signature_character": "Maritime-influenced old-vine Grenache; fragrant, medium-bodied, with red-fruited charm and savour"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 13,
+      "roman": "XIII",
+      "title": "Tempranillo",
+      "intro": "Tempranillo is Spain's noble grape, the backbone of Rioja and Ribera del Duero, and the foundation of the country's greatest red wines. In Rioja, it produces wines of elegant structure and remarkable longevity, shaped by decades of oak ageing in a tradition unlike any other wine region. In Ribera del Duero, grown as Tinto Fino at 800 metres on limestone plateaux, it becomes darker, more powerful, and more tannic. In Toro, on ungrafted pre-phylloxera vines in deep sand, it reaches its most primal and concentrated expression. The inclusion of Bierzo's Mencía — a close genetic relative — acknowledges one of Spain's most exciting terroir-driven rediscoveries.",
+      "groups": [
+        {
+          "name": "Rioja, Ribera del Duero, Toro & Bierzo",
+          "sites": [
+            {
+              "id": "xiii-tempranillo-es-rioja-alta-san-vicente",
+              "vineyard_site": "Rioja Alta – San Vicente / Labastida slopes",
+              "region_terroir": "Rioja Alta — calcareous clay, 500–600m, south-facing",
+              "key_producers": ["Sierra Cantabria", "Remelluri", "Bodegas Roda"],
+              "signature_character": "The heartland of classical Rioja: elegance, red fruit, oak-spice integration, and remarkable longevity"
+            },
+            {
+              "id": "xiii-tempranillo-es-rioja-alta-villalba",
+              "vineyard_site": "Rioja Alta – Villalba / Cenicero terraces",
+              "region_terroir": "Rioja Alta — alluvial/calcareous, river terraces",
+              "key_producers": ["La Rioja Alta", "Muga", "López de Heredia"],
+              "signature_character": "Traditional Rioja at its most refined; extended oak ageing, savoury, ethereal with decades of age"
+            },
+            {
+              "id": "xiii-tempranillo-es-rioja-alavesa-laguardia",
+              "vineyard_site": "Rioja Alavesa – Laguardia slopes",
+              "region_terroir": "Rioja Alavesa — calcareous clay, sheltered by Sierra Cantabria",
+              "key_producers": ["Contador (Benjamin Romeo)", "Artádi (Viña El Pisón)", "CVNE (Contino)"],
+              "signature_character": "Warmer, richer than Alta; single-vineyard Tempranillo of extraordinary concentration"
+            },
+            {
+              "id": "xiii-tempranillo-es-rioja-alavesa-samaniego",
+              "vineyard_site": "Rioja Alavesa – Samaniego",
+              "region_terroir": "Rioja Alavesa — limestone/clay, cooler micro-climate",
+              "key_producers": ["Bodegas y Viñedos Artuke", "Abel Mendoza"],
+              "signature_character": "Cooler Alavesa; fresher, more mineral Tempranillo with Atlantic influence"
+            },
+            {
+              "id": "xiii-tempranillo-es-ribera-pesquera-roa",
+              "vineyard_site": "Ribera del Duero – Pesquera / Roa plateau",
+              "region_terroir": "Ribera del Duero — limestone/clay, 800–850m, extreme continental",
+              "key_producers": ["Vega Sicilia (Único)", "Alejandro Fernández (Pesquera)", "Flor de Pingus"],
+              "signature_character": "Spain's most prestigious red wine zone; powerful Tinto Fino (Tempranillo) with enormous structure"
+            },
+            {
+              "id": "xiii-tempranillo-es-ribera-anguix-moradillo",
+              "vineyard_site": "Ribera del Duero – Anguix / Moradillo old vines",
+              "region_terroir": "Ribera del Duero — sand/chalk, river valley, centenarian vines",
+              "key_producers": ["Dominio de Pingus", "Clos Mogador project"],
+              "signature_character": "Old-vine plots yielding concentrated, complex wines; Pingus put Ribera on the world stage"
+            },
+            {
+              "id": "xiii-tempranillo-es-ribera-penafiel",
+              "vineyard_site": "Ribera del Duero – Peñafiel terraces",
+              "region_terroir": "Ribera del Duero — chalky slopes, 750–900m, south-facing",
+              "key_producers": ["Protos", "Emilio Moro", "Pago de los Capellanes"],
+              "signature_character": "Classic Ribera structure; firm tannins, dark fruit, mineral backbone from chalky soils"
+            },
+            {
+              "id": "xiii-tempranillo-es-toro-sand",
+              "vineyard_site": "Toro – old-vine sandy terraces",
+              "region_terroir": "Toro — deep sand over clay, 650–750m, extreme continental",
+              "key_producers": ["Numanthia (Termes, Termanthia)", "Teso La Monja", "Pintia (Vega Sicilia)"],
+              "signature_character": "Pre-phylloxera Tinta de Toro on ungrafted vines; massive, concentrated, wild, untamed"
+            },
+            {
+              "id": "xiii-tempranillo-es-bierzo-mencia",
+              "vineyard_site": "Bierzo (Mencía, related to Tempranillo family)",
+              "region_terroir": "Bierzo — slate/quartz, steep hillsides, Atlantic/Continental transition",
+              "key_producers": ["Descendientes de J. Palacios (Corullón, Las Lamas)", "Raúl Pérez"],
+              "signature_character": "Not pure Tempranillo but Mencía; translucent, mineral, Burgundian — Spain's most exciting rediscovery"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 14,
+      "roman": "XIV",
+      "title": "Chenin Blanc",
+      "intro": "Chenin Blanc is one of the world's most versatile and age-worthy white grapes, capable of producing everything from austere, bone-dry Savennieres to lusciously sweet Quarts de Chaume, from sparkling Crémant de Loire to South Africa's finest old-vine whites. Its spiritual home is the Loire Valley, where tuffeau limestone caves and schist slopes have nurtured it for centuries. South Africa's Chenin renaissance — built on old bush vines planted decades ago for brandy production — has revealed a second great terroir for the grape, with Swartland, Stellenbosch, and the remote Citrusdal Mountain producing wines of startling quality and individuality.",
+      "groups": [
+        {
+          "name": "Loire Valley & South Africa",
+          "sites": [
+            {
+              "id": "xiv-cheninblanc-fr-savennieres-coulee-de-serrant",
+              "vineyard_site": "Savennières – Coulée de Serrant",
+              "region_terroir": "Savennieres — schist/volcanic, steep south-facing above the Loire",
+              "key_producers": ["Nicolas Joly (monopole)"],
+              "signature_character": "The most famous biodynamic vineyard in France; powerful, austere dry Chenin of extraordinary complexity"
+            },
+            {
+              "id": "xiv-cheninblanc-fr-savennieres-roche-aux-moines",
+              "vineyard_site": "Savennières – Roche aux Moines",
+              "region_terroir": "Savennieres — schist/sandstone, south-facing slopes",
+              "key_producers": ["Nicolas Joly", "Domaine aux Moines"],
+              "signature_character": "Sister site to Coulée de Serrant; slightly more approachable but equally mineral and age-worthy"
+            },
+            {
+              "id": "xiv-cheninblanc-fr-vouvray-haut-lieu-le-mont",
+              "vineyard_site": "Vouvray – Le Haut-Lieu / Le Mont",
+              "region_terroir": "Vouvray — tuffeau limestone/clay, south-facing above the Loire",
+              "key_producers": ["Domaine Huet (Le Haut-Lieu, Le Mont, Clos du Bourg)"],
+              "signature_character": "The benchmark for Vouvray; Huet's three monopoles produce the full spectrum from sec to moelleux"
+            },
+            {
+              "id": "xiv-cheninblanc-fr-vouvray-clos-du-bourg",
+              "vineyard_site": "Vouvray – Clos du Bourg",
+              "region_terroir": "Vouvray — silex/tuffeau, sheltered, south-facing",
+              "key_producers": ["Domaine Huet (monopole)"],
+              "signature_character": "Huet's most structured vineyard; concentrated, mineral, extraordinary longevity in all styles"
+            },
+            {
+              "id": "xiv-cheninblanc-fr-montlouis-choisilles",
+              "vineyard_site": "Montlouis-sur-Loire – Les Choisilles",
+              "region_terroir": "Montlouis — tuffeau/silex, south-facing, Loire-side",
+              "key_producers": ["François Chidaine", "Jacky Blot (Domaine de la Taille aux Loups)"],
+              "signature_character": "Montlouis's finest terroir; more mineral and tensile than Vouvray, increasingly recognised"
+            },
+            {
+              "id": "xiv-cheninblanc-fr-quarts-de-chaume",
+              "vineyard_site": "Quarts de Chaume",
+              "region_terroir": "Layon — schist/volcanic, steep south-facing amphitheatre, botrytis-prone",
+              "key_producers": ["Domaine des Baumard", "Château Pierre-Bise"],
+              "signature_character": "France's greatest sweet Chenin; noble rot concentration with razor acidity and decades of life"
+            },
+            {
+              "id": "xiv-cheninblanc-fr-bonnezeaux",
+              "vineyard_site": "Bonnezeaux",
+              "region_terroir": "Layon — schist/volcanic, south-facing slopes, botrytis",
+              "key_producers": ["Château de Fesles", "Domaine des Petits Quarts"],
+              "signature_character": "Rich, honeyed, powerful; the more generous counterpart to Quarts de Chaume"
+            },
+            {
+              "id": "xiv-cheninblanc-fr-jasnieres",
+              "vineyard_site": "Jasnières",
+              "region_terroir": "Loir Valley — tuffeau/silex/clay, north of Tours, marginal climate",
+              "key_producers": ["Domaine de Belélivière", "Domaine de la Charrière"],
+              "signature_character": "The most northerly and austere Loire Chenin; laser-like acidity, steel, extraordinary tension"
+            },
+            {
+              "id": "xiv-cheninblanc-za-swartland-old-vine",
+              "vineyard_site": "Swartland old-vine Chenin Blanc",
+              "region_terroir": "Swartland — decomposed granite, unirrigated bush vines, 30–60+ years",
+              "key_producers": ["Mullineux", "Sadie Family (Palladius)", "Badenhorst"],
+              "signature_character": "South Africa's Chenin renaissance: old bush vines on granite produce wines rivalling the Loire's best"
+            },
+            {
+              "id": "xiv-cheninblanc-za-stellenbosch-mountain",
+              "vineyard_site": "Stellenbosch Mountain Chenin",
+              "region_terroir": "Stellenbosch — decomposed granite/sandstone, mountain slopes",
+              "key_producers": ["Ken Forrester (FMC)", "DeMorgenzon"],
+              "signature_character": "Higher-altitude Chenin with more structure and concentration than Swartland; rich, textured, age-worthy"
+            },
+            {
+              "id": "xiv-cheninblanc-za-franschhoek",
+              "vineyard_site": "Franschhoek old vines",
+              "region_terroir": "Franschhoek — alluvial/granite, sheltered valley",
+              "key_producers": ["Alheit Vineyards (Cartology, Fire by Night)", "Boschendal"],
+              "signature_character": "Alheit has revealed single-vineyard Chenin of remarkable site-specificity across the Cape"
+            },
+            {
+              "id": "xiv-cheninblanc-za-citrusdal-mountain",
+              "vineyard_site": "Citrusdal Mountain",
+              "region_terroir": "Olifants River — sandstone/shale, high altitude, extreme dry-farmed",
+              "key_producers": ["Alheit Vineyards (Magnetic North)", "David & Nadia"],
+              "signature_character": "Remote, wild, high-altitude Chenin; South Africa's most extreme terroir-driven white wines"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 15,
+      "roman": "XV",
+      "title": "Grüner Veltliner",
+      "intro": "Grüner Veltliner is Austria's signature grape and its most widely planted variety, ranging from simple, peppery tavern wines to profoundly complex, age-worthy single-vineyard bottlings that rival the finest white Burgundy. The Wachau's terraced primary-rock slopes produce the most powerful and concentrated expressions, while the Kamptal's loess and primary rock terroirs deliver racy, mineral-driven wines of extraordinary precision. The Wagram's deep loess and the Weinviertel's limestone soils offer yet further terroir diversity within a single variety. At its best, Grüner Veltliner combines white pepper spice, herbal complexity, and a savoury mineral depth that is entirely its own.",
+      "groups": [
+        {
+          "name": "Wachau, Kamptal, Kremstal & Beyond",
+          "sites": [
+            {
+              "id": "xv-gruner-at-wachau-schuett",
+              "vineyard_site": "Ried Schütt",
+              "region_terroir": "Wachau — primary rock/gneiss, terraced, south-facing, Dürnstein",
+              "key_producers": ["Emmerich Knoll"],
+              "signature_character": "One of the Wachau's top sites for both Riesling and GV; crystalline power from ancient rock"
+            },
+            {
+              "id": "xv-gruner-at-wachau-kellerberg",
+              "vineyard_site": "Ried Kellerberg",
+              "region_terroir": "Wachau — primary rock terraces, steep, Dürnstein",
+              "key_producers": ["F.X. Pichler"],
+              "signature_character": "Monumental GV alongside world-class Riesling; the Wachau's most celebrated terroir"
+            },
+            {
+              "id": "xv-gruner-at-wachau-achleiten",
+              "vineyard_site": "Ried Achleiten",
+              "region_terroir": "Wachau — primary rock/gneiss, warm south-facing, Weissenkirchen",
+              "key_producers": ["Prager", "Rudi Pichler", "Alzinger"],
+              "signature_character": "Savoury, herbal, powerful; one of the warmest and most expressive Wachau sites"
+            },
+            {
+              "id": "xv-gruner-at-wachau-loibenberg",
+              "vineyard_site": "Ried Loibenberg",
+              "region_terroir": "Wachau — primary rock/loess, terraced, south-facing, Loiben",
+              "key_producers": ["Emmerich Knoll", "Leo Alzinger"],
+              "signature_character": "Rich, generous, with distinctive spice; one of the most recognisable Wachau terroirs"
+            },
+            {
+              "id": "xv-gruner-at-wachau-singerriedel",
+              "vineyard_site": "Ried Singerriedel",
+              "region_terroir": "Wachau — primary rock, extremely steep, south-facing, Spitz",
+              "key_producers": ["Franz Hirtzberger (monopole)"],
+              "signature_character": "Hirtzberger's crown jewel; the steepest terraces in the Wachau, producing GV of immense concentration"
+            },
+            {
+              "id": "xv-gruner-at-wachau-honivogl",
+              "vineyard_site": "Ried Honivogl",
+              "region_terroir": "Wachau — gneiss/amphibolite, terraced, Spitz",
+              "key_producers": ["Franz Hirtzberger"],
+              "signature_character": "Adjacent to Singerriedel; slightly more generous and approachable but equally site-expressive"
+            },
+            {
+              "id": "xv-gruner-at-kamptal-heiligenstein-gv",
+              "vineyard_site": "Ried Heiligenstein (GV)",
+              "region_terroir": "Kamptal — Permian desert sandstone, warm micro-site, 250–400m",
+              "key_producers": ["Hirsch", "Schloss Gobelsburg", "Bründlmayer"],
+              "signature_character": "Primarily famous for Riesling, but also produces GV of exotic spice and mineral complexity"
+            },
+            {
+              "id": "xv-gruner-at-kamptal-lamm",
+              "vineyard_site": "Ried Lamm",
+              "region_terroir": "Kamptal — loess over primary rock, south-facing, Kammern",
+              "key_producers": ["Bründlmayer"],
+              "signature_character": "Bründlmayer's top GV site; powerful, textured, with a distinctive savoury-spice profile"
+            },
+            {
+              "id": "xv-gruner-at-kamptal-grub",
+              "vineyard_site": "Ried Grub",
+              "region_terroir": "Kamptal — loess/primary rock, 350m, south-facing",
+              "key_producers": ["Schloss Gobelsburg", "Hirsch"],
+              "signature_character": "Classic Kamptal terroir; racy, peppery, with white pepper and herb-garden character"
+            },
+            {
+              "id": "xv-gruner-at-kremstal-pellingen",
+              "vineyard_site": "Ried Pellingen",
+              "region_terroir": "Kremstal — primary rock/gneiss, terraced, south-facing",
+              "key_producers": ["Nigl"],
+              "signature_character": "Martin Nigl's flagship site; precise, mineral, with a citrus-and-herb purity"
+            },
+            {
+              "id": "xv-gruner-at-weinviertel-maechtiger",
+              "vineyard_site": "Ried Mächtiger",
+              "region_terroir": "Weinviertel — loess/limestone, rolling hills",
+              "key_producers": ["Setzer", "Pfaffl"],
+              "signature_character": "The Weinviertel's most serious terroir; shows that Austria's largest region can produce GV of real depth"
+            },
+            {
+              "id": "xv-gruner-at-wagram-rosenberg",
+              "vineyard_site": "Ried Rosenberg",
+              "region_terroir": "Wagram — loess terraces, south-facing",
+              "key_producers": ["Bernhard Ott"],
+              "signature_character": "Ott's flagship; the Wagram's finest GV site, with characteristic loess-driven creaminess and spice"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 16,
+      "roman": "XVI",
+      "title": "Gamay",
+      "intro": "Gamay's ten Beaujolais crus constitute one of the most precisely defined and geologically diverse terroir hierarchies in France. Each cru sits on a distinct combination of granite, schist, volcanic rock, or sand, producing Gamay of markedly different character — from the ethereal florality of Fleurie to the structured, age-worthy power of Moulin-à-Vent, from the volcanic mineral intensity of Côte de Brouilly to the wild, primal energy of Morgon's Côte du Py. The Cru Beaujolais renaissance, led by natural wine pioneers like Marcel Lapierre and Jean Foillard, has restored these wines to their rightful place among France's great terroir expressions. Beyond Beaujolais, Gamay d'Auvergne on volcanic soils represents an exciting frontier.",
+      "groups": [
+        {
+          "name": "Beaujolais Crus & Beyond",
+          "sites": [
+            {
+              "id": "xvi-gamay-fr-morgon-cote-du-py",
+              "vineyard_site": "Morgon – Côte du Py",
+              "region_terroir": "Morgon — decomposed volcanic schist ('rotten rock'), south-facing hill",
+              "key_producers": ["Marcel Lapierre", "Jean Foillard", "Domaine Jean-Marc Burgaud"],
+              "signature_character": "The most famous Beaujolais lieu-dit; volcanic soils give structure and ageability unusual for Gamay"
+            },
+            {
+              "id": "xvi-gamay-fr-moulin-a-vent",
+              "vineyard_site": "Moulin-à-Vent – Les Thorins / Champ de Cour",
+              "region_terroir": "Moulin-à-Vent — pink granite/manganese, south-facing slopes",
+              "key_producers": ["Château du Moulin-à-Vent", "Thibault Liger-Belair", "Labruyère"],
+              "signature_character": "The most Burgundian Beaujolais cru; tannic, structured, ages like fine Pinot Noir"
+            },
+            {
+              "id": "xvi-gamay-fr-fleurie",
+              "vineyard_site": "Fleurie – La Madone / Poncié",
+              "region_terroir": "Fleurie — pink granite, east-facing slopes",
+              "key_producers": ["Clos de la Roilette", "Julien Sunier", "Domaine de la Grand'Cour"],
+              "signature_character": "The most floral and elegant cru; silky, perfumed, quintessentially Beaujolais"
+            },
+            {
+              "id": "xvi-gamay-fr-cote-de-brouilly",
+              "vineyard_site": "Côte de Brouilly",
+              "region_terroir": "Côte de Brouilly — blue diorite (volcanic), steep slopes of Mont Brouilly",
+              "key_producers": ["Château Thivin", "Laurent Martray"],
+              "signature_character": "Volcanic blue stone gives mineral intensity; the most terroir-expressive of the southern crus"
+            },
+            {
+              "id": "xvi-gamay-fr-chenas",
+              "vineyard_site": "Chénas – Les Caves / Quarts",
+              "region_terroir": "Chénas — granite/schist, sheltered valley between Moulin-à-Vent and Juliénas",
+              "key_producers": ["Domaine des Vieilles Caves", "Daniel Bouland"],
+              "signature_character": "The smallest and least-known cru; serious, earthy, structured — an insider's favourite"
+            },
+            {
+              "id": "xvi-gamay-fr-julienas",
+              "vineyard_site": "Juliénas – Les Capitans",
+              "region_terroir": "Juliénas — granite/schist/volcanic, north of Moulin-à-Vent",
+              "key_producers": ["Domaine des Vignes du Maynes", "Château de Juliénas"],
+              "signature_character": "Firm, dark-fruited, with more structure than its reputation suggests; excellent ageability"
+            },
+            {
+              "id": "xvi-gamay-fr-saint-amour",
+              "vineyard_site": "Saint-Amour",
+              "region_terroir": "Saint-Amour — granite/clay, northernmost cru",
+              "key_producers": ["Domaine des Ducs", "Château de Saint-Amour"],
+              "signature_character": "Charming, lighter-bodied, floral; the most immediately seductive cru"
+            },
+            {
+              "id": "xvi-gamay-fr-regnie",
+              "vineyard_site": "Régnié",
+              "region_terroir": "Régnié — pink granite/sand, gentle slopes",
+              "key_producers": ["Domaine de la Gérarde", "Ch. de la Pierre"],
+              "signature_character": "Sandy soils produce light, fragrant, fruit-forward Gamay; the cru of pure drinkability"
+            },
+            {
+              "id": "xvi-gamay-fr-chiroubles",
+              "vineyard_site": "Chiroubles",
+              "region_terroir": "Chiroubles — granite, highest altitude cru (250–450m)",
+              "key_producers": ["Domaine de la Combe au Loup", "Mée Godard"],
+              "signature_character": "The highest and coolest cru; violet-scented, delicate, with vibrant acidity from altitude"
+            },
+            {
+              "id": "xvi-gamay-fr-brouilly",
+              "vineyard_site": "Brouilly",
+              "region_terroir": "Brouilly — granite/sand, gentle slopes around Mont Brouilly",
+              "key_producers": ["Jean-Claude Lapalu", "Château de la Chaize"],
+              "signature_character": "The largest cru; generous, round, fruit-driven — the accessible gateway to cru Beaujolais"
+            },
+            {
+              "id": "xvi-gamay-fr-morgon-corcelette",
+              "vineyard_site": "Morgon Corcelette",
+              "region_terroir": "Morgon — volcanic schist, specific lieu-dit within Morgon",
+              "key_producers": ["Mée Godard", "Lapierre"],
+              "signature_character": "A rising sub-cru within Morgon; mineral, structured, increasingly bottled as a single vineyard"
+            },
+            {
+              "id": "xvi-gamay-fr-auvergne",
+              "vineyard_site": "Auvergne (Gamay d'Auvergne)",
+              "region_terroir": "Auvergne — volcanic basalt/pumice, 400–500m altitude",
+              "key_producers": ["Domaine Miolanne", "Pierre Beauger", "Yvan Bernard"],
+              "signature_character": "France's volcanic Gamay frontier; raw, mineral, smoky — Gamay on lava with real terroir identity"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "number": 17,
+      "roman": "XVII",
+      "title": "Sauvignon Blanc",
+      "intro": "Sauvignon Blanc's reputation suffers, unfairly, from its own ubiquity. The grape that at industrial scale gives Marlborough its pungent, passionfruit-driven house style is also the grape that, on the Kimmeridgian marl of Chavignol or the flint of Saint-Andelain, produces some of the most precise, mineral-driven, and age-worthy white wines in France. What unites the great sites is a particular kind of terroir legibility: Sauvignon Blanc, more than almost any other white grape, carries its soil directly into the glass. Limestone gives cut and citrus; flint gives smoke and tension; chalk gives weightlessness. In Sancerre and Pouilly-Fumé, the Loire's upper reaches, the hierarchy of named slopes is unofficial — no Grand Cru system exists here — but is nonetheless as well-understood by growers as any classified system in France. Beyond the Loire, Bordeaux's gravel terraces in Pessac-Léognan, the calcareous marl of Austria's Südsteiermark, and the hillside plantings of Marlborough's Southern Valleys constitute the grape's other major poles of quality.",
+      "groups": [
+        {
+          "name": "Loire Valley — Sancerre & Pouilly-Fumé",
+          "sites": [
+            {
+              "id": "xvii-sauvblanc-fr-sancerre-monts-damnes",
+              "vineyard_site": "Les Monts Damnés",
+              "region_terroir": "Chavignol, Sancerre — Kimmeridgian marl (terres blanches), near-vertical south/southwest-facing slope, 45° gradient",
+              "key_producers": ["François Cotat", "Henri Bourgeois", "Vacheron", "Thomas-Labaille"],
+              "signature_character": "Sancerre's unofficial grand cru; depth, power, and ageing potential rare for the appellation, with a signature blend of citrus, smoke, and oyster-shell minerality"
+            },
+            {
+              "id": "xvii-sauvblanc-fr-sancerre-cul-de-beaujeu",
+              "vineyard_site": "Le Cul de Beaujeu",
+              "region_terroir": "Chavignol, Sancerre — Kimmeridgian marl, north/northwest-facing, cooler than Monts Damnés",
+              "key_producers": ["François Cotat", "Thomas-Labaille"],
+              "signature_character": "The cooler counterpart to Monts Damnés; more taut, with cool white fruit, stony persistence, and a slower-developing complexity"
+            },
+            {
+              "id": "xvii-sauvblanc-fr-sancerre-la-grande-cote",
+              "vineyard_site": "La Grande Côte",
+              "region_terroir": "Chavignol, Sancerre — Kimmeridgian marl/limestone, south-facing, the longest continuous slope in Chavignol",
+              "key_producers": ["François Cotat", "Pascal Cotat"],
+              "signature_character": "Richer and more generous than Monts Damnés; silken texture with lingering savoury depth"
+            },
+            {
+              "id": "xvii-sauvblanc-fr-sancerre-chene-marchand",
+              "vineyard_site": "Le Chêne Marchand",
+              "region_terroir": "Bué, Sancerre — caillottes (small Oxfordian limestone pebbles), south/southeast-facing",
+              "key_producers": ["Vacheron", "Vincent Pinard", "Paul Prieur"],
+              "signature_character": "The most mineral-driven Sancerre site; caillottes give electric cut, lime zest, and crystalline tension"
+            },
+            {
+              "id": "xvii-sauvblanc-fr-sancerre-les-romains",
+              "vineyard_site": "Les Romains",
+              "region_terroir": "Bué, Sancerre — caillottes over Kimmeridgian marl, south-facing",
+              "key_producers": ["Vincent Pinard", "Pascal Jolivet"],
+              "signature_character": "A Bué neighbour of Chêne Marchand; slightly rounder but with comparable mineral drive"
+            },
+            {
+              "id": "xvii-sauvblanc-fr-pouilly-fume-silex",
+              "vineyard_site": "Silex",
+              "region_terroir": "Saint-Andelain, Pouilly-Fumé — flint (silex) over clay, gently sloping plateau",
+              "key_producers": ["Didier Dagueneau", "Serge Dagueneau"],
+              "signature_character": "The archetypal flinty Pouilly-Fumé; gun-smoke aromatics, wet-stone cut, and extraordinary longevity on the right vintages"
+            },
+            {
+              "id": "xvii-sauvblanc-fr-pouilly-fume-les-loges-pur-sang",
+              "vineyard_site": "Les Loges / Pur Sang",
+              "region_terroir": "Saint-Andelain / Les Loges, Pouilly-Fumé — mixed Kimmeridgian marl and flint, south-facing",
+              "key_producers": ["Didier Dagueneau (Pur Sang)", "Alexandre Bain"],
+              "signature_character": "A more textural Pouilly-Fumé than Silex; marries flint's smoke with marl's breadth"
+            },
+            {
+              "id": "xvii-sauvblanc-fr-pouilly-fume-les-bascoins",
+              "vineyard_site": "Les Bascoins (Buisson Renard)",
+              "region_terroir": "Saint-Andelain, Pouilly-Fumé — flint/clay, sheltered",
+              "key_producers": ["Didier Dagueneau (Buisson Renard)"],
+              "signature_character": "Tight, spiced, nervous; Dagueneau's most introverted cuvée and among the most terroir-specific in the appellation"
+            }
+          ]
+        },
+        {
+          "name": "Bordeaux — Pessac-Léognan blanc",
+          "sites": [
+            {
+              "id": "xvii-sauvblanc-fr-pessac-haut-brion-blanc",
+              "vineyard_site": "Château Haut-Brion Blanc",
+              "region_terroir": "Pessac-Léognan — deep Günzian gravel over clay, warm urban microclimate",
+              "key_producers": ["Domaine Clarence Dillon (Haut-Brion, La Mission Haut-Brion)"],
+              "signature_character": "The benchmark for barrel-fermented Sauvignon/Sémillon blends; waxy, smoky, with Yquem-like cellaring potential"
+            },
+            {
+              "id": "xvii-sauvblanc-fr-leognan-domaine-de-chevalier",
+              "vineyard_site": "Domaine de Chevalier",
+              "region_terroir": "Léognan — gravel over clay, sheltered in the Landes pine forest",
+              "key_producers": ["Domaine de Chevalier"],
+              "signature_character": "The most elegant of the great Pessac-Léognan whites; linear, chalky, with pronounced citrus lift and thirty-year ageing"
+            },
+            {
+              "id": "xvii-sauvblanc-fr-martillac-smith-haut-lafitte",
+              "vineyard_site": "Smith Haut Lafitte (white parcels)",
+              "region_terroir": "Martillac — Günzian gravel over clay",
+              "key_producers": ["Smith Haut Lafitte"],
+              "signature_character": "Modern, polished, with generous fruit over gravel-driven structure"
+            }
+          ]
+        },
+        {
+          "name": "Austria — Südsteiermark",
+          "sites": [
+            {
+              "id": "xvii-sauvblanc-at-suedsteiermark-zieregg",
+              "vineyard_site": "Ried Zieregg",
+              "region_terroir": "Leutschach, Südsteiermark — opok (calcareous marl) over sandstone, steep south-facing, 400m+ elevation",
+              "key_producers": ["Weingut Tement"],
+              "signature_character": "Austria's single greatest Sauvignon Blanc site; dense, chalky, savoury, with Burgundian depth and remarkable longevity"
+            },
+            {
+              "id": "xvii-sauvblanc-at-suedsteiermark-grassnitzberg",
+              "vineyard_site": "Ried Grassnitzberg",
+              "region_terroir": "Gamlitz, Südsteiermark — calcareous marl/sandstone, south-facing",
+              "key_producers": ["Sattlerhof", "Tement"],
+              "signature_character": "Concentrated, exotic, with pronounced yellow-stone-fruit character over mineral tension"
+            },
+            {
+              "id": "xvii-sauvblanc-at-suedsteiermark-sulz",
+              "vineyard_site": "Ried Sulz",
+              "region_terroir": "Gamlitz, Südsteiermark — sandstone/marl, cooler microclimate",
+              "key_producers": ["Sattlerhof", "Erwin Sabathi"],
+              "signature_character": "The cooler counterpart to Grassnitzberg; more nervous, with elderflower and chalky finish"
+            }
+          ]
+        },
+        {
+          "name": "New World",
+          "sites": [
+            {
+              "id": "xvii-sauvblanc-nz-marlborough-southern-valleys",
+              "vineyard_site": "Southern Valleys",
+              "region_terroir": "Marlborough, New Zealand — clay-rich hillsides, Awatere-influenced cool temperatures",
+              "key_producers": ["Dog Point", "Greywacke", "Cloudy Bay (Te Koko parcels)", "Seresin"],
+              "signature_character": "The antidote to valley-floor Marlborough; hillside clay produces structured, textural Sauvignon with real ageing potential"
+            },
+            {
+              "id": "xvii-sauvblanc-nz-marlborough-awatere",
+              "vineyard_site": "Awatere Valley",
+              "region_terroir": "Marlborough, New Zealand — stonier soils, cooler, windier than the Wairau",
+              "key_producers": ["Villa Maria (Taylors Pass)", "Yealands", "Vavasour"],
+              "signature_character": "Tighter, more saline, and more herbaceous than Wairau Valley Sauvignon; the most \"European\" Marlborough style"
+            },
+            {
+              "id": "xvii-sauvblanc-cl-casablanca",
+              "vineyard_site": "Casablanca Valley hillsides",
+              "region_terroir": "Casablanca, Chile — granitic/clay slopes, coastal fog influence",
+              "key_producers": ["Casas del Bosque", "Matetic (EQ)", "Kingston Family"],
+              "signature_character": "Chile's most serious Sauvignon terroir; cold-night acidity and herbal lift over granite-driven structure"
+            }
+          ]
+        }
+      ],
+      "footnote": "Marlborough's valley floor — where the overwhelming majority of New Zealand Sauvignon Blanc is grown — is deliberately omitted here. The hillside plantings of the Southern Valleys and Awatere represent the region's site-driven top tier rather than its commercial base."
+    },
+    {
+      "number": 18,
+      "roman": "XVIII",
+      "title": "Alsace Grands Crus — Gewürztraminer & Pinot Gris",
+      "intro": "Alsace is an anomaly: a French region whose terroir hierarchy is formally classified (51 Grands Crus since 1975), yet whose wines carry the grape name on the label in the German manner rather than the site name in the French manner. For Riesling, which appears in Chapter I, the Grand Cru system maps cleanly onto recognised quality. For the two other noble Alsace grapes — Gewürztraminer and Pinot Gris — the hierarchy is less fully exploited by growers but no less real. Gewürztraminer, with its lychee-and-rose aromatic profile, can turn blowsy on the wrong site and magisterial on the right one; Hengst's calcareous conglomerate and Goldert's oolitic limestone are two of the very few terroirs in the world where the grape achieves real structure and restraint. Pinot Gris, so often forgettable in its Italian Grigio guise, here produces wines of extraordinary weight and spice — particularly on the marl-and-gypsum of Clos Jebsal or the volcanic tuff of Rangen. Several of the sites listed below appear in the Riesling chapter as well; the Alsace Grands Crus reward all three noble grapes, though rarely equally.",
+      "groups": [
+        {
+          "name": "Volcanic & Mountain Terroirs",
+          "sites": [
+            {
+              "id": "xviii-alsacegc-fr-thann-rangen-clos-saint-urbain",
+              "vineyard_site": "Rangen de Thann — Clos Saint-Urbain",
+              "region_terroir": "Thann, Alsace — volcanic tuff, steepest Alsace GC, south-facing, extreme slope",
+              "key_producers": ["Zind-Humbrecht (monopole)", "Schoffit"],
+              "signature_character": "The most singular terroir in Alsace; volcanic intensity gives Gewürztraminer and Pinot Gris smoky, mineral, almost Etna-like depth"
+            },
+            {
+              "id": "xviii-alsacegc-fr-andlau-kastelberg",
+              "vineyard_site": "Kastelberg",
+              "region_terroir": "Andlau, Alsace — blue Steige schist, steepest slope in the Bas-Rhin",
+              "key_producers": ["Marc Kreydenweiss (Riesling-dominant, Pinot Gris notable)"],
+              "signature_character": "Schist gives a flinty, austere edge to Pinot Gris; tight, mineral, ageable"
+            }
+          ]
+        },
+        {
+          "name": "Calcareous & Limestone Terroirs",
+          "sites": [
+            {
+              "id": "xviii-alsacegc-fr-wintzenheim-hengst",
+              "vineyard_site": "Hengst",
+              "region_terroir": "Wintzenheim, Alsace — calcareous conglomerate/marl, south-southeast facing",
+              "key_producers": ["Josmeyer", "Albert Mann", "Barmès-Buecher", "Zind-Humbrecht"],
+              "signature_character": "Arguably the greatest Gewürztraminer terroir in Alsace; structured, powerful, with extraordinary longevity and savoury depth"
+            },
+            {
+              "id": "xviii-alsacegc-fr-gueberschwihr-goldert",
+              "vineyard_site": "Goldert",
+              "region_terroir": "Gueberschwihr, Alsace — oolitic Jurassic limestone, south-facing",
+              "key_producers": ["Zind-Humbrecht", "Ernest Burn"],
+              "signature_character": "The classic Gewürztraminer site; the name (\"golden gate\") describes exactly the colour and aromatic generosity the terroir delivers"
+            },
+            {
+              "id": "xviii-alsacegc-fr-kientzheim-furstentum",
+              "vineyard_site": "Furstentum",
+              "region_terroir": "Kientzheim / Sigolsheim, Alsace — limestone/marl over schist, steep south-facing",
+              "key_producers": ["Weinbach", "Albert Mann", "Paul Blanck"],
+              "signature_character": "Warm, concentrated site; produces opulent Gewürztraminer and powerful late-harvest Pinot Gris"
+            }
+          ]
+        },
+        {
+          "name": "Marl, Clay & Sandstone Terroirs",
+          "sites": [
+            {
+              "id": "xviii-alsacegc-fr-riquewihr-sporen",
+              "vineyard_site": "Sporen",
+              "region_terroir": "Riquewihr, Alsace — heavy marl/clay, south-facing",
+              "key_producers": ["Hugel", "Dopff au Moulin"],
+              "signature_character": "The most opulent Alsace Grand Cru for Gewürztraminer; rich, spicy, late-ripening, ideal for Vendanges Tardives"
+            },
+            {
+              "id": "xviii-alsacegc-fr-guebwiller-kessler",
+              "vineyard_site": "Kessler",
+              "region_terroir": "Guebwiller, Alsace — red sandstone, warm microclimate, south-facing",
+              "key_producers": ["Dirler-Cadé", "Domaines Schlumberger"],
+              "signature_character": "Sandstone retains heat; Gewürztraminer here is rich and perfumed with distinctive mineral backbone"
+            },
+            {
+              "id": "xviii-alsacegc-fr-turckheim-clos-jebsal",
+              "vineyard_site": "Clos Jebsal",
+              "region_terroir": "Turckheim, Alsace — grey marl and gypsum, south-facing, Zind-Humbrecht monopole",
+              "key_producers": ["Zind-Humbrecht (monopole)"],
+              "signature_character": "The reference Pinot Gris terroir; marl-and-gypsum produces wines of enormous weight, spice, and botrytis affinity"
+            },
+            {
+              "id": "xviii-alsacegc-fr-wintzenheim-rotenberg",
+              "vineyard_site": "Rotenberg",
+              "region_terroir": "Wintzenheim, Alsace — iron-rich red clay/marl over limestone",
+              "key_producers": ["Albert Mann", "Barmès-Buecher"],
+              "signature_character": "A Pinot Gris specialist site; iron in the soil gives the wines a distinctive smoky, savoury note"
+            }
+          ]
+        }
+      ],
+      "footnote": "Rangen de Thann and Kastelberg appear in the Riesling chapter; the Clos Saint-Urbain monopole is called out separately here because its Gewürztraminer and Pinot Gris are as celebrated as its Riesling. Several Alsace Grands Crus not listed here (Schlossberg, Brand, Kitterlé) are primarily Riesling sites."
+    },
+    {
+      "number": 19,
+      "roman": "XIX",
+      "title": "Champagne Grands Crus",
+      "intro": "Champagne's 1985 échelle des crus classification rates each of the region's 319 villages on a 100-point scale; 17 villages score 100 and are designated Grand Cru. The classification is villages-not-vineyards, a single appellation-wide generalisation rather than a parcel-by-parcel hierarchy of the Burgundian kind — but within the Grand Cru villages themselves, a parcel-level terroir culture has flourished, particularly since the rise of grower-Champagne in the 1990s. The chalk subsoil, present throughout the region, takes different forms across the three main sub-districts: the deep Craie de Belemnites under the Côte des Blancs produces the region's finest Chardonnay; the colder, often shallower chalk of the Montagne de Reims favours Pinot Noir; and the Vallée de la Marne's clay-and-chalk mix is the historic home of Pinot Meunier. The named single-vineyard clos — Krug's Clos du Mesnil, Philipponnat's Clos des Goisses — sit atop this hierarchy, producing Champagnes that rival white Burgundy's Grands Crus for structure and longevity.",
+      "groups": [
+        {
+          "name": "Côte des Blancs — Chardonnay Grand Cru Villages",
+          "sites": [
+            {
+              "id": "xix-champagne-fr-cdb-le-mesnil-sur-oger",
+              "vineyard_site": "Le Mesnil-sur-Oger",
+              "region_terroir": "Côte des Blancs — pure Craie de Belemnites chalk, east-facing slope",
+              "key_producers": ["Salon", "Krug (Clos du Mesnil)", "Pierre Péters", "Guy Charlemagne"],
+              "signature_character": "The Montrachet of Champagne; bone-dry, saline, laser-precise Chardonnay capable of decades in cellar"
+            },
+            {
+              "id": "xix-champagne-fr-cdb-cramant",
+              "vineyard_site": "Cramant",
+              "region_terroir": "Côte des Blancs — deep chalk, east-facing gentle slope",
+              "key_producers": ["Diebolt-Vallois", "Mumm (Grand Cru)", "De Sousa"],
+              "signature_character": "The broadest, creamiest Côte des Blancs village; generous stone fruit over chalky foundation"
+            },
+            {
+              "id": "xix-champagne-fr-cdb-avize",
+              "vineyard_site": "Avize",
+              "region_terroir": "Côte des Blancs — chalk, east-facing, slightly warmer than Cramant",
+              "key_producers": ["Anselme Selosse", "Agrapart", "Jacquesson (Avize Champ Caïn)"],
+              "signature_character": "The engine room of grower Champagne; Selosse's base of operations and the site with the most intense chalky drive"
+            },
+            {
+              "id": "xix-champagne-fr-cdb-oger",
+              "vineyard_site": "Oger",
+              "region_terroir": "Côte des Blancs — chalk, east-facing, between Avize and Le Mesnil",
+              "key_producers": ["J.L. Vergnon", "Larmandier-Bernier", "Milan"],
+              "signature_character": "Often overshadowed by neighbours but produces Chardonnay of remarkable elegance and floral complexity"
+            },
+            {
+              "id": "xix-champagne-fr-cdb-chouilly",
+              "vineyard_site": "Chouilly",
+              "region_terroir": "Côte des Blancs (north) — chalk, gentler slopes, warmer",
+              "key_producers": ["Legras", "Vazart-Coquart", "Pierre Gimonnet"],
+              "signature_character": "Northern Côte des Blancs warmth; rounder, more immediately charming Chardonnay"
+            }
+          ]
+        },
+        {
+          "name": "Montagne de Reims — Pinot Noir Grand Cru Villages",
+          "sites": [
+            {
+              "id": "xix-champagne-fr-mdr-ay",
+              "vineyard_site": "Aÿ",
+              "region_terroir": "Montagne de Reims / Grande Vallée — chalk with clay, steep south-facing",
+              "key_producers": ["Bollinger (Vieilles Vignes Françaises)", "Deutz", "Henriot", "Gatinois"],
+              "signature_character": "Champagne's most storied Pinot Noir village; structured, powerful, with ungrafted vines at Bollinger that produce one of the region's rarest wines"
+            },
+            {
+              "id": "xix-champagne-fr-mdr-bouzy",
+              "vineyard_site": "Bouzy",
+              "region_terroir": "Montagne de Reims (south face) — chalk with clay, south-facing",
+              "key_producers": ["Paul Bara", "Egly-Ouriet", "Georges Vesselle"],
+              "signature_character": "The most muscular Pinot Noir Champagne village; dense, spicy, fruit-driven"
+            },
+            {
+              "id": "xix-champagne-fr-mdr-ambonnay",
+              "vineyard_site": "Ambonnay",
+              "region_terroir": "Montagne de Reims (south face) — chalk, south-southeast-facing",
+              "key_producers": ["Egly-Ouriet", "Marie-Noëlle Ledru", "Krug (Clos d'Ambonnay)"],
+              "signature_character": "Neighbour of Bouzy with marginally more finesse; home to Krug's rarest single-vineyard cuvée"
+            },
+            {
+              "id": "xix-champagne-fr-mdr-verzenay",
+              "vineyard_site": "Verzenay",
+              "region_terroir": "Montagne de Reims (north face) — chalk, cold north-facing slope",
+              "key_producers": ["Louis Roederer (Cristal sources)", "Alfred Gratien", "Michel Arnould"],
+              "signature_character": "The cold, chalky north face; tight, acidic, mineral Pinot Noir; a foundational component of Cristal and many top grande marque tête de cuvées"
+            },
+            {
+              "id": "xix-champagne-fr-mdr-verzy",
+              "vineyard_site": "Verzy",
+              "region_terroir": "Montagne de Reims (north face) — chalk, cold north-facing",
+              "key_producers": ["Maurice Vesselle", "Juillet-Lallement", "Étienne Lefèvre"],
+              "signature_character": "Verzenay's quieter neighbour; structured, slow-developing Pinot Noir"
+            },
+            {
+              "id": "xix-champagne-fr-mdr-mailly-champagne",
+              "vineyard_site": "Mailly-Champagne",
+              "region_terroir": "Montagne de Reims (north face) — chalk, north-facing",
+              "key_producers": ["Mailly Grand Cru (cooperative)", "Paul Bara"],
+              "signature_character": "Home to one of Champagne's most respected cooperatives; structured, precise Pinot Noir"
+            }
+          ]
+        },
+        {
+          "name": "Named Clos & Single-Vineyard Sites",
+          "sites": [
+            {
+              "id": "xix-champagne-fr-clos-du-mesnil",
+              "vineyard_site": "Clos du Mesnil",
+              "region_terroir": "Le Mesnil-sur-Oger — walled 1.87ha Chardonnay clos, chalk, Krug monopole",
+              "key_producers": ["Krug"],
+              "signature_character": "The Romanée-Conti of Champagne; a single walled parcel producing one of the most expensive and compelling wines in the world"
+            },
+            {
+              "id": "xix-champagne-fr-clos-d-ambonnay",
+              "vineyard_site": "Clos d'Ambonnay",
+              "region_terroir": "Ambonnay — walled 0.68ha Pinot Noir clos, chalk, Krug monopole",
+              "key_producers": ["Krug"],
+              "signature_character": "Krug's other monopole; Pinot Noir-only, impossibly rare, release prices approach those of DRC"
+            },
+            {
+              "id": "xix-champagne-fr-clos-des-goisses",
+              "vineyard_site": "Clos des Goisses",
+              "region_terroir": "Mareuil-sur-Aÿ — steep 5.5ha south-facing chalk slope, Philipponnat monopole",
+              "key_producers": ["Philipponnat"],
+              "signature_character": "The steepest single vineyard in Champagne; ripens earlier than any other and produces the region's most powerful, long-lived vintage cuvée"
+            },
+            {
+              "id": "xix-champagne-fr-clos-saint-hilaire",
+              "vineyard_site": "Clos Saint-Hilaire",
+              "region_terroir": "Mareuil-sur-Aÿ — 1ha Pinot Noir clos, chalk/clay, Billecart-Salmon monopole",
+              "key_producers": ["Billecart-Salmon"],
+              "signature_character": "A late addition to the monopole tradition (first release 1998); Pinot Noir of remarkable depth and fineness"
+            }
+          ]
+        }
+      ],
+      "footnote": "The 17 Grand Cru villages are all represented in the Champagne appellation's 100-point échelle, but only the most wine-critical are listed here. Villages like Beaumont-sur-Vesle, Louvois, Puisieulx, Sillery, Tours-sur-Marne (left bank), and Chouilly produce Grand Cru wine but rarely drive individual-vineyard attention."
+    },
+    {
+      "number": 20,
+      "roman": "XX",
+      "title": "Volcanic Terroirs",
+      "intro": "Volcanic soils are unusual enough in the wine world that they deserve cross-variety consideration. Etna's Nerello Mascalese, Santorini's Assyrtiko, Tenerife's Listán Negro, and Pico's Verdelho are all grape-specific — but the common factor is the soil, not the grape. Volcanic terroirs tend to produce wines of distinctive character: high acidity, smoky or ashy aromatics, fine-grained tannins in reds, and a kind of saline-mineral drive that is hard to replicate elsewhere. The better volcanic sites also tend to preserve old vines; phylloxera struggles in sandy volcanic substrates, and many of the world's remaining pre-phylloxera ungrafted plantings survive on volcanic islands. Etna's contrada system — a Burgundy-style parcellation of named sites on the mountain's slopes — has been the most important recent development, formalising a terroir hierarchy that growers had long recognised informally.",
+      "groups": [
+        {
+          "name": "Etna — Contrade (Nerello Mascalese)",
+          "sites": [
+            {
+              "id": "xx-volcanic-it-etna-guardiola",
+              "vineyard_site": "Contrada Guardiola",
+              "region_terroir": "Etna Nord (Passopisciaro) — black volcanic ash and lapilli, 800–1,000m elevation",
+              "key_producers": ["Passopisciaro", "Graci", "Girolamo Russo"],
+              "signature_character": "The highest commercial Etna contrada; cold nights, crystalline acidity, and an ethereal perfume recalling Pinot Noir"
+            },
+            {
+              "id": "xx-volcanic-it-etna-calderara-sottana",
+              "vineyard_site": "Contrada Calderara Sottana",
+              "region_terroir": "Etna Nord (Randazzo) — ancient lava flows, iron-rich volcanic sand, 700m",
+              "key_producers": ["Benanti", "Tenuta delle Terre Nere"],
+              "signature_character": "Richer, more textural than Guardiola; warm southern slopes of northern Etna, producing structured Nerello Mascalese"
+            },
+            {
+              "id": "xx-volcanic-it-etna-feudo-di-mezzo",
+              "vineyard_site": "Contrada Feudo di Mezzo",
+              "region_terroir": "Etna Nord (Passopisciaro) — mixed volcanic sand and ash, 650–750m",
+              "key_producers": ["Passopisciaro", "Tenuta delle Terre Nere"],
+              "signature_character": "A broad contrada with varied soils; the mid-slope engine room of Etna Nord"
+            },
+            {
+              "id": "xx-volcanic-it-etna-rampante",
+              "vineyard_site": "Contrada Rampante",
+              "region_terroir": "Etna Nord (Passopisciaro) — young lava and ash, 900m+",
+              "key_producers": ["Passopisciaro"],
+              "signature_character": "One of the highest named sites; laser-like, crystalline, tensile Nerello"
+            },
+            {
+              "id": "xx-volcanic-it-etna-porcaria",
+              "vineyard_site": "Contrada Porcaria",
+              "region_terroir": "Etna Nord (Solicchiata) — older lava flows, dense volcanic clay, 750m",
+              "key_producers": ["Giuseppe Russo", "I Vigneri", "Graci"],
+              "signature_character": "Dense, mineral, age-worthy; the deepest soils on Etna's northern slope"
+            },
+            {
+              "id": "xx-volcanic-it-etna-barbabecchi",
+              "vineyard_site": "Contrada Barbabecchi",
+              "region_terroir": "Etna Nord (Solicchiata) — black volcanic sand, pre-phylloxera vines, 900m+",
+              "key_producers": ["Graci", "I Vigneri (Salvo Foti)"],
+              "signature_character": "Among the last surviving pre-phylloxera Nerello vineyards; the link to Etna's pre-modern past"
+            }
+          ]
+        },
+        {
+          "name": "Santorini — Assyrtiko on Volcanic Ash",
+          "sites": [
+            {
+              "id": "xx-volcanic-gr-santorini-old-vine",
+              "vineyard_site": "Santorini old-vine kouloura plots",
+              "region_terroir": "Santorini, Greece — pumice/volcanic ash (aspa), ungrafted pre-phylloxera vines, basket-trained",
+              "key_producers": ["Domaine Sigalas", "Estate Argyros", "Gaia Wines", "Hatzidakis"],
+              "signature_character": "The most extreme white-wine terroir in the Mediterranean; wines of saline, smoky, high-acid intensity with a signature cave-aged minerality"
+            }
+          ]
+        },
+        {
+          "name": "Canary Islands — Listán Negro, Listán Blanco & Malvasía",
+          "sites": [
+            {
+              "id": "xx-volcanic-es-tenerife-valle-orotava",
+              "vineyard_site": "Tenerife — Valle de la Orotava",
+              "region_terroir": "Tenerife, Canary Islands — volcanic ash/pumice, ungrafted vines on braided cordón trenzado",
+              "key_producers": ["Suertes del Marqués", "Envínate (Taganan)", "Borja Pérez"],
+              "signature_character": "Wild, rustic, yet ethereal reds and whites; the braided vine training is unique in the wine world"
+            },
+            {
+              "id": "xx-volcanic-es-tenerife-ycoden",
+              "vineyard_site": "Tenerife — Ycoden-Daute-Isora",
+              "region_terroir": "Tenerife (northwest) — young volcanic soils, coastal-influenced",
+              "key_producers": ["Envínate (Benje)", "Viñátigo"],
+              "signature_character": "Cooler, wind-moderated slopes producing Listán Negro of striking freshness and herbal complexity"
+            },
+            {
+              "id": "xx-volcanic-es-lanzarote",
+              "vineyard_site": "Lanzarote",
+              "region_terroir": "Lanzarote — black volcanic ash pits (zocos), single vines in volcanic hollows",
+              "key_producers": ["Bodegas Los Bermejos", "El Grifo"],
+              "signature_character": "Among the most visually extraordinary vineyards in the world; dry-farmed Malvasía on pure volcanic ash"
+            }
+          ]
+        },
+        {
+          "name": "Azores & Portugal — Verdelho & Arinto",
+          "sites": [
+            {
+              "id": "xx-volcanic-pt-pico-lajido",
+              "vineyard_site": "Pico — Lajido walled vineyards",
+              "region_terroir": "Pico Island, Azores — black basalt currais walls, UNESCO World Heritage",
+              "key_producers": ["Azores Wine Company", "Insula Vinhos"],
+              "signature_character": "A landscape of low stone walls sheltering vines from Atlantic winds; producing saline, smoky Verdelho unlike any other"
+            }
+          ]
+        },
+        {
+          "name": "France — Auvergne & Ardèche",
+          "sites": [
+            {
+              "id": "xx-volcanic-fr-auvergne-clermont-boudes",
+              "vineyard_site": "Auvergne — Côtes de Clermont & Boudes",
+              "region_terroir": "Auvergne, France — basalt, pumice, volcanic conglomerate, 400–500m",
+              "key_producers": ["Pierre Beauger", "Vincent Marie", "Patrick Bouju"],
+              "signature_character": "France's great volcanic frontier; Gamay d'Auvergne on lava with raw, smoky, mineral intensity"
+            }
+          ]
+        }
+      ],
+      "footnote": "Several volcanic sites appear in other chapters: Rangen de Thann (Alsace, volcanic tuff) is in the Riesling and Alsace Grands Crus chapters; Soave Classico's volcanic slopes and Côte-Rôtie's mica schist have volcanic origins but are treated regionally. The sites here are included because volcanic origin is their primary terroir identity."
+    },
+    {
+      "number": 21,
+      "roman": "XXI",
+      "title": "Corvina & Veneto Reds — Valpolicella & Amarone",
+      "intro": "Amarone della Valpolicella is one of the few genuinely original Italian wine styles — a passito red made from air-dried Corvina, Rondinella, and occasionally Molinara, with a concentration, alcohol, and sweetness profile that has no close parallel elsewhere. The wine's modern form dates only to the 1950s, but the appassimento drying technique is ancient, and the named hillsides of the Valpolicella Classica — the original five valleys of Fumane, Marano, Negrar, San Pietro in Cariano, and Sant'Ambrogio — constitute a terroir hierarchy formalised only in 2019 with the MGA (Menzioni Geografiche Aggiuntive) system. The geological mix of marine limestone, basalt from ancient volcanism, and alluvial clays produces wines of remarkable complexity. The best modern Amarone (Quintarelli, Dal Forno, Giuseppe Quintarelli's disciples) rivals Bordeaux's first growths for longevity and rewards the same kind of patient cellaring.",
+      "groups": [
+        {
+          "name": "Valpolicella Classica — Fumane & Marano Valleys",
+          "sites": [
+            {
+              "id": "xxi-corvina-it-fumane-la-poja",
+              "vineyard_site": "La Poja",
+              "region_terroir": "Fumane, Valpolicella Classica — limestone hilltop monopole, 320m",
+              "key_producers": ["Allegrini (monopole)"],
+              "signature_character": "A rare 100% Corvina bottling on an isolated hilltop; among the most structured and age-worthy Veneto reds"
+            },
+            {
+              "id": "xxi-corvina-it-fumane-monte-sant-urbano",
+              "vineyard_site": "Monte Sant'Urbano",
+              "region_terroir": "Fumane, Valpolicella Classica — limestone/basalt, south-facing slopes",
+              "key_producers": ["Speri (monopole)"],
+              "signature_character": "Speri's flagship Amarone cru; classical Valpolicella Classica style with unusual refinement"
+            },
+            {
+              "id": "xxi-corvina-it-negrar-campolongo-di-torbe",
+              "vineyard_site": "Campolongo di Torbe",
+              "region_terroir": "Negrar, Valpolicella Classica — chalky marl, south-facing historic cru",
+              "key_producers": ["Masi (monopole-like)", "Novaia"],
+              "signature_character": "One of the oldest recognised Valpolicella crus; traditionally the source of the longest-lived Amarone"
+            },
+            {
+              "id": "xxi-corvina-it-negrar-vigneto-mazzano",
+              "vineyard_site": "Vigneto Mazzano",
+              "region_terroir": "Negrar, Valpolicella Classica — limestone, high altitude, small-berried Corvina",
+              "key_producers": ["Masi"],
+              "signature_character": "Masi's single-vineyard Amarone; small berries concentrate acidity, producing unusually tensile appassimento wine"
+            },
+            {
+              "id": "xxi-corvina-it-marano-monte-ca-bianca",
+              "vineyard_site": "Monte Ca' Bianca",
+              "region_terroir": "Marano, Valpolicella Classica — volcanic basalt over limestone, 450m",
+              "key_producers": ["Lorenzo Begali", "Novaia"],
+              "signature_character": "Volcanic influence adds smoky, mineral drive rare in Valpolicella"
+            }
+          ]
+        },
+        {
+          "name": "Eastern Valpolicella — Illasi & Mezzane Valleys",
+          "sites": [
+            {
+              "id": "xxi-corvina-it-illasi-vigneto-monte-lodoletta",
+              "vineyard_site": "Vigneto di Monte Lodoletta",
+              "region_terroir": "Cellore d'Illasi, Valpolicella — volcanic basalt/alluvial, high-density plantings",
+              "key_producers": ["Dal Forno Romano"],
+              "signature_character": "The most influential modern Valpolicella cru; Dal Forno's obsessive viticulture (12,000+ vines per hectare) redefined Amarone's ambitions"
+            },
+            {
+              "id": "xxi-corvina-it-illasi-quintarelli",
+              "vineyard_site": "Val d'Illasi — Quintarelli estate",
+              "region_terroir": "Negrar (border with Illasi) — limestone/clay, 400m",
+              "key_producers": ["Giuseppe Quintarelli"],
+              "signature_character": "The most mythologised Amarone estate; traditional methods, multi-decade ageing, legendary rarity"
+            },
+            {
+              "id": "xxi-corvina-it-mezzane-high-slopes",
+              "vineyard_site": "Mezzane Valley high slopes",
+              "region_terroir": "Mezzane di Sotto — limestone with volcanic inclusions",
+              "key_producers": ["Corte Sant'Alda"],
+              "signature_character": "The cooler, more mineral end of Valpolicella; age-worthy Amarone with unusual freshness"
+            }
+          ]
+        },
+        {
+          "name": "Recioto & Dessert-Style Veneto",
+          "sites": [
+            {
+              "id": "xxi-corvina-it-recioto-classica-slopes",
+              "vineyard_site": "Recioto della Valpolicella — Classica slopes",
+              "region_terroir": "Fumane / Negrar / Marano — same slopes as Amarone, selected higher-sugar bunches",
+              "key_producers": ["Masi (Mezzanella)", "Quintarelli", "Allegrini"],
+              "signature_character": "The ancient sweet ancestor of Amarone; passito method taken further, producing intensely sweet but age-worthy wines"
+            }
+          ]
+        }
+      ],
+      "footnote": "Soave Classico (Garganega on volcanic basalt) is a parallel Veneto terroir tradition not covered here; it belongs with the volcanic chapter or a future white-wine expansion. Bardolino and Valpolicella's eastern lowland zones produce lighter, more modestly-ambitious wines and are not included."
+    },
+    {
+      "number": 22,
+      "roman": "XXII",
+      "title": "Varietal Merlot — Beyond Pomerol & Saint-Émilion",
+      "intro": "Merlot as a standalone variety — rather than as a supporting player in a Bordeaux blend — has had an uneven global career. The grape's natural generosity and early-drinking appeal made it commercially successful and then, in the 2000s, deeply unfashionable. But a small number of producers have used Merlot's exceptional compatibility with clay soils to make 100% varietal wines of real seriousness. Tuscan producers, starting with Ornellaia's Masseto in the mid-1980s, demonstrated that Merlot on the blue clay of Bolgheri could produce wines rivalling the finest Right Bank Bordeaux. Castello di Ama's l'Apparita in Chianti Classico proved the same on galestro at altitude. In California, Duckhorn's Three Palms and a handful of benchland Napa sites have made the case for New World varietal Merlot. What these sites share is clay — ideally iron-rich, structured clay, the soil that defines Pomerol — and the growing consensus that Merlot is among the most site-transparent, not least-transparent, of the Bordeaux varieties.",
+      "groups": [
+        {
+          "name": "Tuscany — Bolgheri & Chianti Classico",
+          "sites": [
+            {
+              "id": "xxii-merlot-it-bolgheri-masseto",
+              "vineyard_site": "Masseto",
+              "region_terroir": "Bolgheri, Tuscany — blue clay hilltop, the 'Italian Pétrus', 120m",
+              "key_producers": ["Tenuta dell'Ornellaia (monopole)"],
+              "signature_character": "The world's most celebrated non-Bordeaux varietal Merlot; dense, structured, profoundly long-lived"
+            },
+            {
+              "id": "xxii-merlot-it-gaiole-l-apparita",
+              "vineyard_site": "L'Apparita",
+              "region_terroir": "Gaiole in Chianti, Tuscany — galestro/alberese at 450m, isolated parcel",
+              "key_producers": ["Castello di Ama"],
+              "signature_character": "Single-vineyard Merlot at altitude; elegance and aromatic complexity rare for the variety at warm latitudes"
+            },
+            {
+              "id": "xxii-merlot-it-bolgheri-messorio",
+              "vineyard_site": "Messorio",
+              "region_terroir": "Bolgheri, Tuscany — alluvial clay with limestone, south-facing",
+              "key_producers": ["Le Macchiole"],
+              "signature_character": "A more muscular Bolgheri Merlot than Masseto; dark, concentrated, with iron-rich clay signature"
+            },
+            {
+              "id": "xxii-merlot-it-suvereto-redigaffi",
+              "vineyard_site": "Redigaffi",
+              "region_terroir": "Suvereto, Maremma, Tuscany — clay over schist, coastal-influenced",
+              "key_producers": ["Tua Rita"],
+              "signature_character": "Among the first Tuscan varietal Merlots to earn 100-point scores; ripe, generous, dense"
+            },
+            {
+              "id": "xxii-merlot-it-sarteano-trinoro",
+              "vineyard_site": "Tenuta di Trinoro — Merlot parcels",
+              "region_terroir": "Sarteano, Val d'Orcia, Tuscany — galestro at 500m, warm days/cold nights",
+              "key_producers": ["Tenuta di Trinoro (Andrea Franchetti)"],
+              "signature_character": "High-altitude, low-yielding Merlot in an unusually cool Tuscan microclimate; intense, structured, mineral"
+            }
+          ]
+        },
+        {
+          "name": "Napa Valley — Benchland & Alluvial Sites",
+          "sites": [
+            {
+              "id": "xxii-merlot-us-napa-three-palms",
+              "vineyard_site": "Three Palms Vineyard",
+              "region_terroir": "Calistoga, Napa Valley — alluvial gravel and cobblestone fan, warm northern Napa",
+              "key_producers": ["Duckhorn", "Schweiger"],
+              "signature_character": "The most famous varietal Merlot vineyard in California; the warmth and stone-rich drainage give structure unusual for Napa Merlot"
+            },
+            {
+              "id": "xxii-merlot-us-napa-shafer-hillside-select",
+              "vineyard_site": "Shafer Hillside Select Merlot blocks",
+              "region_terroir": "Stags Leap District, Napa — volcanic/alluvial, sheltered Palisades",
+              "key_producers": ["Shafer Vineyards"],
+              "signature_character": "Merlot as a component of Hillside Select and the estate's standalone bottling; benchmark Stags Leap silkiness"
+            },
+            {
+              "id": "xxii-merlot-us-napa-pahlmeyer",
+              "vineyard_site": "Pahlmeyer Merlot estate",
+              "region_terroir": "Atlas Peak / Coombsville area, Napa — volcanic/alluvial",
+              "key_producers": ["Pahlmeyer"],
+              "signature_character": "Rich, ripe, powerful Napa Merlot in the early-1990s Helen Turley style"
+            }
+          ]
+        },
+        {
+          "name": "Washington State & Beyond",
+          "sites": [
+            {
+              "id": "xxii-merlot-us-horse-heaven-canoe-ridge",
+              "vineyard_site": "Horse Heaven Hills — Canoe Ridge",
+              "region_terroir": "Columbia Valley, Washington — loess over basalt, windy ridge above the Columbia River",
+              "key_producers": ["Quilceda Creek (Galitzine)", "Long Shadows (Pedestal)"],
+              "signature_character": "Among the most serious varietal Merlot produced outside Europe; basalt adds a mineral edge absent from Napa equivalents"
+            },
+            {
+              "id": "xxii-merlot-za-stellenbosch-helderberg",
+              "vineyard_site": "Stellenbosch — Helderberg Merlot",
+              "region_terroir": "Stellenbosch, South Africa — decomposed granite over clay, maritime",
+              "key_producers": ["Thelema", "Ernie Els", "Waterford"],
+              "signature_character": "South Africa's most convincing varietal Merlot region; structured, Bordelais-style wines"
+            }
+          ]
+        }
+      ],
+      "footnote": "The Merlot of Pomerol (Pétrus, Le Pin, Lafleur) and Saint-Émilion is covered under Bordeaux Blends in Chapter IV; these are technically varietal or near-varietal Merlot but are conventionally treated within their Bordeaux context. The sites above are those that make Merlot the named grape on the label."
+    }
+  ],
+  "notes": "This compendium covers twenty-two grape varieties and blend categories, encompassing approximately 300 vineyard sites across more than 25 countries. Together, they represent the most widely celebrated terroir hierarchies in world wine.\n\nEditorial criteria. Sites qualify for inclusion based on established critical consensus — the presence in published hierarchies (VDP Grosse Lage, Alsace Grand Cru, Champagne échelle des crus, Côte d'Or climats, Saint-Émilion classification), sustained high scores from major critics, and reputation among the producers and buyers who specialise in each region. The Atlas is not a complete inventory of every distinguished vineyard; it aims to cover the sites that carry the most weight in informed conversation about each grape.\n\nFurther additions under consideration. Topics being weighed for inclusion in future revisions: Mourvèdre (Bandol, Jumilla, old-vine Barossa); Viognier (Condrieu, Eden Valley, Virginia); Sémillon (Hunter Valley, Sauternes, Pessac-Léognan blanc blends); and a dedicated chapter on sweet wines of noble rot (Sauternes, Tokaji, Beerenauslese).\n\nVineyard sites, producer associations, and terroir descriptions are based on established consensus as of early 2026. Classifications evolve; treat this document as a living reference."
+}
