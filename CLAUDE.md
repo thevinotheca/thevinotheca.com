@@ -8,7 +8,7 @@ This repository holds the published content of the public site at thevinotheca.c
 
 2. **Existing leaf HTML is not rewritten.** The migration pass is limited to: adding a missing viewport meta tag, consolidating duplicated CSS, removing vestigial files, and rewriting links to the new addresses. Anything beyond that is a separate decision and is not taken inside a migration task.
 
-3. **Git.** The agent stages files and writes commits. The operator pushes. No branch is created or switched; all work is on `main`. A commit takes its identity from this directory's git configuration; `--author` and `GIT_AUTHOR_*` are never passed. A commit message states what changed in plain terms.
+3. **Git.** The agent stages files and writes commits. The operator pushes. No branch is created or switched; all work is on `main`. A commit takes its identity from this directory's git configuration; `--author` and `GIT_AUTHOR_*` are never passed, and a commit message carries no trailer — no Co-Authored-By, no session link. A commit message states what changed in plain terms.
 
 4. **Commands are kept to the minimal form that works.** An elaborated command is a deviation to correct, not an improvement.
 
