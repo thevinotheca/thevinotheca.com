@@ -1,5 +1,19 @@
 [
   {
+  "id": "chateau-carbonnieux-chateau-carbonnieux-blanc-2023",
+  "producer": "Chateau Carbonnieux",
+  "wine": "Chateau Carbonnieux Blanc",
+  "vintage": "2023",
+  "country": "France",
+  "region": "Bordeaux",
+  "grape": "Bordeaux Blend",
+  "color": "white",
+  "rating": 9.4,
+  "date_tasted": "2026-09-07",
+  "lat": 44.837,
+  "lng": -0.579
+},
+  {
   "id": "chateau-montrose-la-dame-de-montrose-2015",
   "producer": "Chateau Montrose",
   "wine": "La Dame de Montrose",
