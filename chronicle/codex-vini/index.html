@@ -1025,7 +1025,7 @@ function applyFilters(){
 let map, clusterGroup, markers = {};
 function renderMap(){
   map = L.map('map', { zoomControl: true, worldCopyJump: true }).setView(EUROPE_VIEW.center, EUROPE_VIEW.zoom);
-  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png?key=cb1_3ht4_1_da31ec5ffb0f8d25a53567d6', {
     attribution:'&copy; <a href="https://carto.com/">CARTO</a>', maxZoom:18,
   }).addTo(map);
   clusterGroup = L.markerClusterGroup({
