@@ -1,5 +1,19 @@
 [
   {
+    "id": "trimbach-riesling-grand-cru-schlossberg-2021",
+    "producer": "Trimbach",
+    "wine": "Riesling Grand Cru Schlossberg",
+    "vintage": "2021",
+    "country": "France",
+    "region": "Alsace",
+    "grape": "Riesling",
+    "color": "white",
+    "rating": 9.6,
+    "date_tasted": "2026-09-12",
+    "lat": 48.218,
+    "lng": 7.357
+  },
+  {
     "id": "chateau-carbonnieux-chateau-carbonnieux-blanc-2023",
     "producer": "Chateau Carbonnieux",
     "wine": "Chateau Carbonnieux Blanc",
