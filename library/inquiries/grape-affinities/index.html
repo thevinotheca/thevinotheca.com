@@ -280,12 +280,16 @@
     html, body { overflow: visible; height: auto; }
     #app { grid-template-columns: 1fr; grid-template-rows: auto auto auto; height: auto; }
     #masthead { order: 0; }
-    #canvas { order: 1; height: 70vh; min-height: 420px; }
+    #canvas { order: 1; height: 55vh; min-height: 360px; }
     #panel { order: 2; border-right: none; border-top: 1px solid var(--border); overflow: visible; }
     #detail { overflow-y: visible; }
     /* Vertical swipes scroll the page; pinch still zooms the graph */
     #canvas svg { touch-action: pan-y; }
-    /* The hint names a key and a wheel neither of which a phone has */
+  }
+
+  /* The hint names a key and a wheel that no touch device has, at any width —
+     a phone in landscape is wider than the breakpoint but still has neither. */
+  @media (hover: none) and (pointer: coarse) {
     #kbd-hint { display: none; }
   }
 </style>
