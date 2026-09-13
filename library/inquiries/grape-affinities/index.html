@@ -285,6 +285,16 @@
     #detail { overflow-y: visible; }
     /* Vertical swipes scroll the page; pinch still zooms the graph */
     #canvas svg { touch-action: pan-y; }
+
+    /* The masthead is a two-column bar at desktop width and collides at this
+       one: the wordmark runs into the meta links and both wrap. Stack them. */
+    #masthead { flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 18px; }
+    .masthead-eyebrow { letter-spacing: 0.12em; }
+    #masthead h1 { font-size: 26px; }
+    #masthead-meta { gap: 10px; font-size: 10.5px; }
+    /* The dropdown hangs off the right edge at desktop width; the meta row is
+       now left-aligned, so it opens left instead. */
+    .docs-menu { right: auto; left: 0; }
   }
 
   /* The hint names a key and a wheel that no touch device has, at any width —
