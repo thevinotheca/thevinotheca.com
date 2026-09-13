@@ -1,5 +1,5 @@
 [
- {
+  {
     "id": "pedro-parra",
     "name": "Pedro Parra",
     "estate": "Pedro Parra y Familia",
@@ -15,20 +15,20 @@
     "stayed_with_me": false
   },
   {
-  "id": "federico-gambetta",
-  "name": "Federico Gambetta",
-  "estate": "Altos Las Hormigas",
-  "country": "Argentina",
-  "region": "Mendoza",
-  "event": "Flatiron Wines",
-  "date_met": "2026-05-28",
-  "bio": "Federico Gambetta is the technical director and head winemaker of Altos Las Hormigas, a leading Argentine winery in Mendoza. From a Mendoza family with a strong winemaking tradition, he studied agronomy and trained as an agricultural engineer at the Universidad Nacional de Cuyo, gaining experience in France's Rhône Valley, Napa Valley, and Tuscany. Before joining Altos Las Hormigas, he worked at Catena Zapata and oversaw winemaking at Bodega CARO. Appointed winemaker in 2020, he champions a terroir-driven, organic, and increasingly biodynamic approach to single-vineyard Malbec across Luján de Cuyo and the Uco Valley.",
-  "lat": -33.5,
-  "lng": -68.85,
-  "felt_close_to": false,
-  "memorable_encounter": false,
-  "stayed_with_me": false
-},  
+    "id": "federico-gambetta",
+    "name": "Federico Gambetta",
+    "estate": "Altos Las Hormigas",
+    "country": "Argentina",
+    "region": "Mendoza",
+    "event": "Flatiron Wines",
+    "date_met": "2026-05-28",
+    "bio": "Federico Gambetta is the technical director and head winemaker of Altos Las Hormigas, a leading Argentine winery in Mendoza. From a Mendoza family with a strong winemaking tradition, he studied agronomy and trained as an agricultural engineer at the Universidad Nacional de Cuyo, gaining experience in France's Rhône Valley, Napa Valley, and Tuscany. Before joining Altos Las Hormigas, he worked at Catena Zapata and oversaw winemaking at Bodega CARO. Appointed winemaker in 2020, he champions a terroir-driven, organic, and increasingly biodynamic approach to single-vineyard Malbec across Luján de Cuyo and the Uco Valley.",
+    "lat": -33.5,
+    "lng": -68.85,
+    "felt_close_to": false,
+    "memorable_encounter": false,
+    "stayed_with_me": false
+  },
   {
     "id": "adrianna-catena",
     "name": "Adrianna Catena",
