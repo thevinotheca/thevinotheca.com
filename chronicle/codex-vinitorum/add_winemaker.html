@@ -84,7 +84,7 @@
 
   <div class="intro">
     <p>Fill in the fields below to generate a new entry for <code>winemakers.json</code>. The country, region, and event fields autocomplete from existing values but accept anything new. Coordinates default to the region's centroid; you can override them.</p>
-    <p>New regions must be added to <code>regions.json</code> before the form generates lat/lng. If the region you enter is not in the lookup, the form will give you a <code>regions.json</code> snippet alongside the winemaker entry.</p>
+    <p>New regions must be added with the <code>region</code> command before the entry is landed. If the region you enter is not in the lookup, the form will give you the coordinates to pass to that command alongside the winemaker entry.</p>
   </div>
 
   <form id="add-form">
@@ -144,14 +144,14 @@
 
   <div class="output" id="output" style="display:none;">
     <h3>Entry for <code>winemakers.json</code></h3>
-    <div class="help">Paste this at the start of the array in <code>winemakers.json</code>, immediately after the opening <code>[</code>.</div>
+    <div class="help">Press <strong>Copy to clipboard</strong>, then run <code>python3 ~/dev/thevinotheca-tools/add_entry.py winemaker</code> in Terminal. The script validates the entry, writes it to <code>winemakers.json</code>, and commits and pushes — the site redeploys automatically.</div>
     <textarea id="output-json" readonly></textarea>
     <div class="actions">
       <button type="button" class="btn" id="copy-json">Copy to clipboard</button>
     </div>
     <div id="region-snippet" style="display:none; margin-top: 20px;">
       <h3>Snippet for <code>regions.json</code></h3>
-      <div class="help">This region is new. Paste this into <code>regions.json</code>, then add the winemaker entry above.</div>
+      <div class="help">This region is new. Add it first with <code>python3 ~/dev/thevinotheca-tools/add_entry.py region "NAME" LAT LNG --codex vinitorum</code>, using the values below, then land the entry above.</div>
       <textarea id="region-output" readonly></textarea>
     </div>
   </div>
@@ -202,7 +202,7 @@ function fillCoordsFromRegion() {
     document.getElementById("f-lat").value = existingRegions[region].lat;
     document.getElementById("f-lng").value = existingRegions[region].lng;
   } else {
-    alert(`Region "${region}" is not in regions.json. Add it manually below or override coords directly.`);
+    alert(`Region "${region}" is not in regions.json. Add it with the region command shown below, or override the coords directly.`);
   }
 }
 

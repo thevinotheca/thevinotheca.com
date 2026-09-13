@@ -191,11 +191,11 @@ button.ghost:hover{background:var(--bordeaux-tint)}
   <div>
     <div class="output-panel">
       <h2>Generated <em>entry</em></h2>
-      <div class="section-sub">paste this into wines.json</div>
+      <div class="section-sub">copy this, then run the script</div>
 
       <div id="status" class="status"></div>
 
-      <div id="output-block" class="output-block empty">Fill in the form and press <strong>Generate JSON</strong>.</div>
+      <div id="output-block" class="output-block empty">Fill in the form and press <strong>Generate JSON</strong>, then copy and land it with the script.</div>
 
       <div style="display:flex;gap:10px;flex-wrap:wrap">
         <button class="primary" id="btn-copy" style="display:none">Copy to clipboard</button>
@@ -204,11 +204,10 @@ button.ghost:hover{background:var(--bordeaux-tint)}
 
       <div class="instructions" id="instructions" style="display:none">
         <strong>Next steps:</strong><br>
-        1. Copy the JSON above<br>
-        2. Open <code>wines.json</code> in the repo<br>
-        3. Paste the entry at the start of the array (inside the opening <code>[</code>)<br>
-        4. Add a comma after the pasted block if others follow<br>
-        5. Commit and push — GitHub Pages will redeploy automatically
+        1. Press <strong>Copy to clipboard</strong><br>
+        2. In Terminal, run <code>python3 ~/dev/thevinotheca-tools/add_entry.py wine</code><br>
+        3. The script validates the entry and writes it to <code>wines.json</code><br>
+        4. It commits and pushes for you — the site redeploys automatically
       </div>
     </div>
 
@@ -216,8 +215,8 @@ button.ghost:hover{background:var(--bordeaux-tint)}
       <h3>Tips</h3>
       <p><strong>Producer name:</strong> use the form on the label (e.g. "Château Margaux" not "Margaux"). The ID is auto-generated as a URL-safe slug of producer + wine + vintage.</p>
       <p><strong>Vintage:</strong> four-digit year, or <code>NV</code> for non-vintage (mostly Champagne).</p>
-      <p><strong>Adding a new region?</strong> You must first add the region to <code>regions.json</code> with its lat/lng centroid (the region's geographic heart — usually the main town or vineyard concentration). The form will block submission until that's done, since without coordinates the pin has nowhere to go.</p>
-      <p><strong>Adding a new grape?</strong> Just type it. The form will generate two JSON snippets — one for <code>wines.json</code> and one for <code>grapes.json</code> under <code>additional_varieties</code>. You must pick a colour manually for new grapes since auto-detection only works on known ones.</p>
+      <p><strong>Adding a new region?</strong> Add it first from Terminal with <code>python3 ~/dev/thevinotheca-tools/add_entry.py region "NAME" LAT LNG --codex vini</code>, giving its lat/lng centroid (the region's geographic heart — usually the main town or vineyard concentration). The form will block submission until that's done, since without coordinates the pin has nowhere to go.</p>
+      <p><strong>Adding a new grape?</strong> Just type it. The form will generate a <code>grapes.json</code> fragment below the wine entry, and the script lands both in one run — no separate step. You must pick a colour manually for new grapes since auto-detection only works on known ones.</p>
     </div>
   </div>
 
@@ -431,7 +430,7 @@ document.getElementById('btn-generate').addEventListener('click', () => {
 
   // Region hygiene gate — MUST exist in regions.json
   if (!REGIONS[region]){
-    showStatus('err', `Region "${region}" is not in regions.json. Add it there with lat/lng first, then try again.`);
+    showStatus('err', `Region "${region}" is not in regions.json. Add it first with: add_entry.py region "${region}" LAT LNG --codex vini`);
     return;
   }
 
@@ -503,19 +502,18 @@ document.getElementById('btn-generate').addEventListener('click', () => {
   if (isNewGrape){
     inst.innerHTML = `
       <strong>Next steps:</strong><br>
-      1. Copy the text above<br>
-      2. Paste the <code>wines.json</code> entry at the start of the <code>wines.json</code> array<br>
-      3. Paste the <code>grapes.json</code> entry into the <code>additional_varieties</code> object in <code>grapes.json</code><br>
-      4. Commit both files and push — GitHub Pages will redeploy automatically
+      1. Press <strong>Copy to clipboard</strong> — the <code>grapes.json</code> fragment comes with it<br>
+      2. In Terminal, run <code>python3 ~/dev/thevinotheca-tools/add_entry.py wine</code><br>
+      3. The script writes both <code>wines.json</code> and <code>grapes.json</code><br>
+      4. It commits and pushes for you — the site redeploys automatically
     `;
   } else {
     inst.innerHTML = `
       <strong>Next steps:</strong><br>
-      1. Copy the JSON above<br>
-      2. Open <code>wines.json</code> in the repo<br>
-      3. Paste the entry at the start of the array (inside the opening <code>[</code>)<br>
-      4. Add a comma after the pasted block if others follow<br>
-      5. Commit and push — GitHub Pages will redeploy automatically
+      1. Press <strong>Copy to clipboard</strong><br>
+      2. In Terminal, run <code>python3 ~/dev/thevinotheca-tools/add_entry.py wine</code><br>
+      3. The script validates the entry and writes it to <code>wines.json</code><br>
+      4. It commits and pushes for you — the site redeploys automatically
     `;
   }
 });
@@ -539,7 +537,7 @@ document.getElementById('btn-another').addEventListener('click', () => {
   });
   document.getElementById('f-color').value = '';
   document.getElementById('output-block').className = 'output-block empty';
-  document.getElementById('output-block').textContent = 'Fill in the form and press Generate JSON.';
+  document.getElementById('output-block').textContent = 'Fill in the form and press Generate JSON, then copy and land it with the script.';
   document.getElementById('btn-copy').style.display = 'none';
   document.getElementById('btn-another').style.display = 'none';
   document.getElementById('instructions').style.display = 'none';
@@ -551,7 +549,7 @@ document.getElementById('btn-clear').addEventListener('click', () => {
   document.querySelectorAll('input, select').forEach(el => el.value = '');
   document.getElementById('f-date').valueAsDate = new Date();
   document.getElementById('output-block').className = 'output-block empty';
-  document.getElementById('output-block').textContent = 'Fill in the form and press Generate JSON.';
+  document.getElementById('output-block').textContent = 'Fill in the form and press Generate JSON, then copy and land it with the script.';
   document.getElementById('btn-copy').style.display = 'none';
   document.getElementById('btn-another').style.display = 'none';
   document.getElementById('instructions').style.display = 'none';
