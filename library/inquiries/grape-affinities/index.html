@@ -275,13 +275,18 @@
   .atlas-footer-links a:hover { color: var(--wine); border-bottom-color: var(--wine); }
   .atlas-footer-copyright { text-align: center; font-style: italic; font-size: 10.5px; color: #aaa; letter-spacing: 0.04em; margin: 0; }
 
-  /* Narrow screens — the rail stacks above the graph and the page scrolls */
+  /* Narrow screens — the graph comes first, the rail follows, the page scrolls */
   @media (max-width: 700px) {
     html, body { overflow: visible; height: auto; }
     #app { grid-template-columns: 1fr; grid-template-rows: auto auto auto; height: auto; }
-    #panel { border-right: none; border-bottom: 1px solid var(--border); overflow: visible; }
+    #masthead { order: 0; }
+    #canvas { order: 1; height: 70vh; min-height: 420px; }
+    #panel { order: 2; border-right: none; border-top: 1px solid var(--border); overflow: visible; }
     #detail { overflow-y: visible; }
-    #canvas { height: 70vh; min-height: 420px; }
+    /* Vertical swipes scroll the page; pinch still zooms the graph */
+    #canvas svg { touch-action: pan-y; }
+    /* The hint names a key and a wheel neither of which a phone has */
+    #kbd-hint { display: none; }
   }
 </style>
 </head>
@@ -524,7 +529,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')resetAll();});
 // D3 GRAPH
 // ============================================================================
 const container=document.getElementById('canvas');
-const width=container.clientWidth, height=container.clientHeight;
+let width=container.clientWidth, height=container.clientHeight;
 const svg=d3.select('#graph-svg').attr('width',width).attr('height',height);
 const g=svg.append('g');
 
@@ -589,6 +594,21 @@ function fitToView(duration=750){
 
 // Initial fit after stabilization
 setTimeout(()=>fitToView(750),2500);
+
+// Re-measure and refit when the container changes size — a phone rotated, or a
+// desktop window dragged across the 700px breakpoint. The layout itself is not
+// recomputed; fitToView reframes the existing graph into the new box.
+let resizeTimer=null;
+window.addEventListener('resize',()=>{
+  clearTimeout(resizeTimer);
+  resizeTimer=setTimeout(()=>{
+    const w=container.clientWidth,h=container.clientHeight;
+    if(!w||!h||(w===width&&h===height))return;
+    width=w; height=h;
+    svg.attr('width',width).attr('height',height);
+    fitToView(300);
+  },200);
+});
 
 // ============================================================================
 // SELECT / UPDATE VISUALS
