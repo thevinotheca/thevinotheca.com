@@ -39,33 +39,6 @@ h1.title em{font-style:italic;font-weight:400}
 .meta{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
 .author{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink-soft)}
 
-.add-wine-btn{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:var(--sans);font-size:12.5px;font-weight:600;
-  letter-spacing:0.04em;text-transform:uppercase;
-  padding:9px 16px;
-  background:var(--bordeaux);color:#fff;
-  border:1px solid var(--bordeaux);
-  text-decoration:none;
-  transition:background .15s, transform .15s, box-shadow .15s;
-  box-shadow:0 1px 2px rgba(91,26,45,0.15);
-}
-.add-wine-btn:hover{
-  background:var(--bordeaux-dark);
-  border-color:var(--bordeaux-dark);
-  transform:translateY(-1px);
-  box-shadow:0 2px 6px rgba(91,26,45,0.25);
-}
-.add-wine-btn:focus{
-  outline:1px dotted var(--bordeaux);outline-offset:3px;
-}
-.add-wine-btn svg{
-  width:11px;height:11px;stroke:#fff;stroke-width:2.2;fill:none;
-}
-@media(max-width:700px){
-  .add-wine-btn{padding:8px 14px;font-size:12px}
-}
-
 .docs-row{
   margin-top:24px;
   padding-top:18px;
@@ -289,13 +262,6 @@ footer{
     </div>
     <div class="meta">
       <div class="author">Jure Skarabot · New York</div>
-      <a class="add-wine-btn" href="add_wine.html">
-        <svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <line x1="6" y1="1.5" x2="6" y2="10.5"/>
-          <line x1="1.5" y1="6" x2="10.5" y2="6"/>
-        </svg>
-        Add Wine
-      </a>
     </div>
   </div>
   <div class="docs-row">
