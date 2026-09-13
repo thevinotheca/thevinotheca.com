@@ -113,13 +113,25 @@ html,body{width:100%;height:100%;overflow:hidden;font-family:'EB Garamond',Georg
 .atlas-footer-disclaimer{font-style:italic;font-size:10.5px;color:#999;text-align:center;line-height:1.5;margin:0 0 8px}
 .atlas-footer-copyright{text-align:center;font-style:italic;font-size:10.5px;color:#aaa;letter-spacing:0.04em;margin:0}
 
-/* Narrow screens — the rail stacks above the map and the page scrolls */
+/* Narrow screens — the map sits above the rail and the page scrolls */
 @media (max-width:700px){
   html,body{overflow:visible;height:auto}
   #app{grid-template-columns:1fr;grid-template-rows:auto auto auto;height:auto}
-  #panel{border-right:none;border-bottom:1px solid var(--border);overflow:visible}
+  #masthead{order:0;flex-direction:column;align-items:flex-start;gap:8px;padding:14px 18px}
+  .masthead-eyebrow{letter-spacing:0.12em}
+  #masthead-meta{flex-wrap:wrap;gap:6px 12px}
+  #masthead-meta a{white-space:nowrap}
+  #map-container{order:1;height:55vh;min-height:360px}
+  #panel{order:2;border-right:none;border-top:1px solid var(--border);overflow:visible}
   #detail{overflow-y:visible}
-  #map-container{height:70vh;min-height:420px}
+}
+
+/* The hint line reads differently by pointer type: .pf for a fine
+   pointer (mouse, keyboard), .pc for a coarse one (touch). */
+.pc{display:none}
+@media (hover:none) and (pointer:coarse){
+  .pf{display:none}
+  .pc{display:inline}
 }
 </style>
 </head>
@@ -664,7 +676,7 @@ function renderDetail(){
       const count=SITES.filter(s=>s.cat===name).length;
       html+=`<div class="site-item" data-cat="${name}"><span class="site-dot" style="background:${m.color}"></span><span class="site-name">${name}</span><span class="site-region">${count} sites</span></div>`;
     });
-    html+=`<div class="hint-box"><strong>Interactions</strong><br>Click a category to filter the map.<br>Click a pin for vineyard details.<br>Search by vineyard, region, or producer.<br>Press <kbd>Esc</kbd> or ✕ Reset to return.<br>Scroll to zoom · drag to pan.</div>`;
+    html+=`<div class="hint-box"><strong>Interactions</strong><br>Click a category to filter the map.<br>Click a pin for vineyard details.<br>Search by vineyard, region, or producer.<br><span class="pf">Press <kbd>Esc</kbd> or </span>✕ Reset to return.<br><span class="pf">Scroll to zoom · drag to pan.</span><span class="pc">Pinch to zoom · drag to pan.</span></div>`;
     det.innerHTML=html;
     det.querySelectorAll('.site-item[data-cat]').forEach(el=>{
       el.addEventListener('click',()=>{selectedCat=el.dataset.cat;selectedSite=null;updateAll();});
