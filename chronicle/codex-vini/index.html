@@ -59,7 +59,7 @@ h1.title em{font-style:italic;font-weight:400}
 .docs-pill:focus{outline:1px dotted var(--bordeaux);outline-offset:3px}
 @media(max-width:700px){
   .docs-row{gap:6px}
-  .docs-pill{padding:5px 10px;font-size:11px}
+  .docs-pill{padding:5px 10px;font-size:11px;white-space:nowrap}
   .docs-label{width:100%;margin-bottom:4px}
 }
 
@@ -77,6 +77,7 @@ h1.title em{font-style:italic;font-weight:400}
 .eco-row a:hover{color:var(--bordeaux)}
 @media(max-width:700px){
   .eco-row{gap:14px;font-size:9.5px}
+  .eco-row a{white-space:nowrap}
   .eco-label{width:100%;margin-bottom:2px}
 }
 
@@ -239,14 +240,25 @@ footer{
 @media(max-width:700px){
   #app{padding:0 18px 40px}
   h1.title{font-size:38px}
+  .title-row{flex-direction:column;align-items:flex-start}
+  .subtitle{letter-spacing:0.12em}
   .stats{grid-template-columns:repeat(2,1fr)}
   .stat-value{font-size:30px}
+  #map-container{order:1;height:55vh;min-height:360px}
+  .filter-panel{order:2;max-height:none;overflow:visible}
+  .table-wrap{-webkit-overflow-scrolling:touch}
   th,td{padding:10px 12px}
   td.producer-cell{font-size:13.5px;max-width:140px}
   td.wine-cell{max-width:160px}
   .modal{margin:0}
   .modal-head{padding:18px 22px 14px}
   .modal-body{padding:18px 22px 24px}
+}
+
+.hint-touch{display:none}
+@media (hover: none) and (pointer: coarse){
+  .hint-pointer{display:none}
+  .hint-touch{display:inline}
 }
 </style>
 </head>
@@ -429,7 +441,7 @@ footer{
 
   <div class="chart-card-tall">
     <h3>Average rating by country <span style="font-size:12px;font-weight:400;color:var(--ink-faint);font-style:italic">— shrinkage-adjusted</span></h3>
-    <div class="chart-sub">Bayesian-shrunk mean (m=5) to reduce small-sample bias — hover a bar for the raw score</div>
+    <div class="chart-sub">Bayesian-shrunk mean (m=5) to reduce small-sample bias — <span class="hint-pointer">hover a bar for the raw score</span><span class="hint-touch">tap a bar for the raw score</span></div>
     <div class="chart-wrap"><canvas id="chart-rating-country"></canvas></div>
   </div>
 
@@ -1053,7 +1065,7 @@ function renderTable(){
   document.getElementById('results-count').innerHTML = `<strong>${filtered.length}</strong> of ${WINES.length} wine${WINES.length===1?'':'s'}`;
   const tbody = document.getElementById('wine-tbody');
   if (filtered.length === 0){
-    tbody.innerHTML = `<tr><td colspan="8" class="empty-state"><em>No wines match the current filters.</em><br>Try broadening your search, or press <kbd>Esc</kbd> to reset.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="8" class="empty-state"><em>No wines match the current filters.</em><br>Try broadening your search<span class="hint-pointer">, or press <kbd>Esc</kbd> to reset</span>.</td></tr>`;
     return;
   }
   tbody.innerHTML = filtered.map(w => `
