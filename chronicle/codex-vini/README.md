@@ -2,7 +2,7 @@
 
 *In vino veritas.*
 
-An interactive personal wine atlas — every wine I have tasted, plotted on a map, filterable by country, region, grape, colour, and rating. A sibling to [The Vineyard Atlas](/library/maps/vineyard-atlas/).
+An interactive personal wine atlas — every wine I have tasted, plotted on a map, filterable by country, region, grape, colour, and rating. A sibling to [The Vineyard Atlas](/library/maps/vineyard-atlas/) and part of [Vinotheca](/), published from this repository.
 
 ## Live site
 
@@ -51,23 +51,15 @@ To run locally, use a local server (`python3 -m http.server` from the repo root)
 
 ## Adding a new wine
 
-### Option 1 — In-browser form (recommended)
+Entries are added through the in-browser form. The generated JSON is landed by the helper script rather than pasted into `wines.json` by hand.
 
-1. Open `add_wine.html` (in the live site or via a local server)
+1. Open [`add_wine.html`](/chronicle/codex-vini/add_wine.html)
 2. Fill in producer, wine, vintage, country, region, grape, and rating. The country, region, and grape fields autocomplete from existing values but accept anything new you type
 3. Click **Generate JSON** and **Copy to clipboard**
-4. Open `wines.json` and paste the generated entry at the start of the array (immediately after the opening `[`)
-5. If the form also generated a `grapes.json` snippet (because the grape was new), paste that into the `additional_varieties` object in `grapes.json`
-6. Commit and push — GitHub Pages redeploys automatically
+4. In Terminal, run the `add_entry.py wine` command that the form's **Next steps** panel names for this entry
+5. The script validates the entry and writes it to `wines.json` — and to `grapes.json` in the same run when the grape is new — then commits and pushes. The site deploys on push to `main` via Cloudflare Pages
 
-The form blocks submission for new regions until you've added the region to `regions.json` first (see below). This is intentional: pin coordinates can't be made up at the form, so the region has to exist in the lookup before a wine can use it.
-
-### Option 2 — Direct edit on GitHub
-
-1. Open `wines.json` on github.com
-2. Click the pencil icon to edit
-3. Paste a new entry following the schema below
-4. Commit
+The form blocks submission for new regions until the region exists in `regions.json` (see below). This is intentional: pin coordinates can't be made up at the form, so the region has to exist in the lookup before a wine can use it.
 
 ### Schema
 
@@ -100,9 +92,9 @@ Every wine is a JSON object of this shape:
 
 ## Adding a new region or grape
 
-**New region.** Edit `regions.json` and add an entry with the region name as key and `{"lat": …, "lng": …}` as value, where lat/lng is a sensible centroid for the region (the main town, the heart of the vineyard area). The form requires this to exist before it will accept a wine from that region — otherwise the pin would have nowhere to go.
+**New region.** Add the region from Terminal with the `add_entry.py region "NAME" LAT LNG --codex vini` command, giving a sensible centroid for the region (the main town, the heart of the vineyard area). The form's tips panel gives the command in full. The form requires the region to exist before it will accept a wine from that region — otherwise the pin would have nowhere to go.
 
-**New grape variety.** Just type the grape into the form and it will generate two snippets: one for `wines.json`, one for `grapes.json` under `additional_varieties`. You'll need to pick a colour manually since auto-detection only works on known varieties. If you prefer to edit by hand, add the grape to the relevant section of `grapes.json` first (`tasterank_reds`, `tasterank_whites`, `named_blends`, or `additional_varieties`) and then add the wine.
+**New grape variety.** Just type the grape into the form and it will generate a `grapes.json` fragment below the wine entry; the script lands both in one run, so there is no separate step. You'll need to pick a colour manually since auto-detection only works on known varieties.
 
 ## Taxonomy philosophy
 

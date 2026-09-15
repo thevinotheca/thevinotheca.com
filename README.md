@@ -30,9 +30,9 @@ A collection of wine works built by Jure Skarabot. Atlases, tools, studies, orac
 
 ## About this repository
 
-This repository hosts the landing page that collects and introduces the works of Vinotheca. Each work above lives in its own repository.
+This repository hosts Vinotheca. The works above no longer live in separate repositories — they live in this directory, at the addresses linked above, and are published together as one site.
 
-The page is a single self-contained `index.html` file published via GitHub Pages. No build step, no dependencies.
+The site deploys on push to `main` via Cloudflare Pages. There is no build step and no dependencies: Cloudflare Pages is configured to build nothing, and the pages are plain files. The three Vite leaves — Region Affinities, Region Resonances, Grape Resonances — are the exception to plain files, and they are committed here as built output rather than built on deploy.
 
 ## License
 

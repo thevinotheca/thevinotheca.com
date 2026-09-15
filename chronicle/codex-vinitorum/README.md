@@ -67,24 +67,16 @@ To run locally, use a local server (`python3 -m http.server` from the repo root)
 
 ## Adding a new winemaker
 
-### Option 1 — In-browser form (recommended)
+Entries are added through the in-browser form. The generated JSON is landed by the helper script rather than pasted into `winemakers.json` by hand.
 
-1. Open `add_winemaker.html` (in the live site or via a local server)
+1. Open [`add_winemaker.html`](/chronicle/codex-vinitorum/add_winemaker.html)
 2. Fill in name, estate, country, region, event, date met, and a short factual bio. The country, region, and event fields autocomplete from existing values but accept anything new
 3. Coordinates auto-fill from the region's centroid if the region exists in `regions.json`; otherwise override manually
 4. Optionally mark any of the three affinity signals
 5. Click **Generate JSON** and **Copy to clipboard**
-6. Open `winemakers.json` and paste the entry at the start of the array (immediately after the opening `[`)
-7. If the region is new, the form generates a `regions.json` snippet alongside the entry — paste that into `regions.json` first
-8. Commit and push — GitHub Pages redeploys automatically
-
-
-### Option 2 — Direct edit on GitHub
-
-1. Open `winemakers.json` on github.com
-2. Click the pencil icon to edit
-3. Paste a new entry following the schema below
-4. Commit
+6. If the region is new, add it first from Terminal with the `add_entry.py region "NAME" LAT LNG --codex vinitorum` command — the form shows it alongside the coordinates to pass
+7. In Terminal, run the `add_entry.py winemaker` command that the form names
+8. The script validates the entry, writes it to `winemakers.json`, and commits and pushes. The site deploys on push to `main` via Cloudflare Pages
 
 
 ### Schema
