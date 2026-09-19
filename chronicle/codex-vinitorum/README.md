@@ -43,7 +43,7 @@ Each signal is independently on or off. The three are orthogonal — they do not
 
 The signals are meant to be rare enough to be meaningful. Most encounters will carry none. The discipline matters: an entry without signals is as honest a record as one with three.
 
-The architectural decision is locked in [PROJECT.md §6.5](https://github.com/jskarabot18/vinotheca/blob/main/PROJECT.md) of the parent Vinotheca repo.
+The three signals are the codex's fixed alternative to a numeric rating; that is an architectural decision, not a stylistic one.
 
 
 ## Files
@@ -123,8 +123,6 @@ The bios are working content. They will be refined over time as new information 
 ## Architecture
 
 Codex Vinitorum is a Part II artefact under the Vinotheca architecture — a personal codex, not part of the Library. The architectural rule is locked: the Library (Part I: Maps, Works, Correspondence, Reference) and the Personal Codex (Part II) do not interact. Codex Vinitorum is standalone — its content does not feed any of the Library's leaves. The winemakers recorded here populate the codex because they are who I have met, not because they appear in any analytical corpus.
-
-See the parent [Vinotheca PROJECT.md](https://github.com/jskarabot18/vinotheca/blob/main/PROJECT.md) for the full family architecture, including the §6.5 commitment to the three affinity signals as the locked alternative to numeric rating.
 
 
 ## About
