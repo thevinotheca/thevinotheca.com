@@ -2,7 +2,7 @@
 
 **A library of wine works.**
 
-Live site: [thevinotheca.com](/)
+Live site: [thevinotheca.com](https://thevinotheca.com)
 
 A collection of wine works built by Jure Skarabot. Atlases, tools, studies, oracles, codices — each one approaches wine from a different direction. The library is organised into two parts: works that look at wine in general (Part I), and works that record one person's experience of wine (Part II).
 

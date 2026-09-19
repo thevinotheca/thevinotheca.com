@@ -62,7 +62,7 @@ The three signals are the codex's fixed alternative to a numeric rating; that is
 
 Open the [live site](/chronicle/codex-vinitorum/) in any modern browser. Use the filters in The Book panel to narrow by country, region, event, or signal. Click any row to fly the map to that winemaker and open their popup. Click any of the **Reset** buttons or press `Esc` to clear all filters.
 
-To run locally, use a local server (`python3 -m http.server` from the repo root) and open `http://localhost:8000/`. The page loads `winemakers.json` and `regions.json` via `fetch()`, which most browsers block under the `file://` protocol — opening `index.html` by double-click will render the layout but show no entries.
+To run locally, use a local server (`python3 -m http.server` from the repository root) and open `http://localhost:8000/chronicle/codex-vinitorum/`. The page loads `winemakers.json` and `regions.json` via `fetch()`, which most browsers block under the `file://` protocol — opening `index.html` by double-click will render the layout but show no entries.
 
 
 ## Adding a new winemaker
@@ -140,4 +140,6 @@ This work is licensed under [Creative Commons Attribution-NonCommercial 4.0 Inte
 
 *Jure Skarabot · New York · 2026*
 
+## Part of Vinotheca
 
+One of the works of [Vinotheca](https://thevinotheca.com), a library of wine works, published at https://thevinotheca.com/chronicle/codex-vinitorum/. The works share one repository, one licence and one site.

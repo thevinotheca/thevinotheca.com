@@ -76,7 +76,7 @@ body-of-wine/
 └── LICENSE
 ```
 
-The intellectual content of the study lives here as prose. The data, pipeline, and interactive tool live in [`tasterank-explorer`](https://github.com/jskarabot18/tasterank-explorer), the companion Tool repository. Together they form one Work of Vinotheca, presented on the parent catalogue under the name **The Body of Wine** (Study) and **Grape Affinities** (Tool).
+The intellectual content of the study lives here as prose. The data, pipeline, and interactive tool live in [`tasterank-explorer`](/library/inquiries/grape-affinities/), the companion Tool. Together they form one Work of Vinotheca, presented on the parent catalogue under the name **The Body of Wine** (Study) and **Grape Affinities** (Tool).
 
 ## Coverage
 
@@ -98,3 +98,7 @@ The intellectual content of the study lives here as prose. The data, pipeline, a
 ---
 
 *The shelf is not the body. The body is what wine does in the mouth.*
+
+## Part of Vinotheca
+
+One of the works of [Vinotheca](https://thevinotheca.com), a library of wine works, published at https://thevinotheca.com/library/inquiries/body-of-wine/. The works share one repository, one licence and one site.

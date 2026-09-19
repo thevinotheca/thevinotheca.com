@@ -39,7 +39,6 @@ Each wine is tagged with:
 | `regions.json` | Region → lat/lng lookup |
 | `grape_profiles.json` | One-paragraph reference for each of the 101 TasteRank grape varieties |
 | `region_profiles.json` | Terroir profile (climate, soils, varieties, winemaking, history) for 57 regions, from Soul of Wine |
-| `codex-vini-preview.html` | Standalone preview with embedded data, for opening via `file://` without a server |
 | `README.md` | This file |
 | `LICENSE` | CC BY-NC 4.0 |
 
@@ -47,7 +46,7 @@ Each wine is tagged with:
 
 Open the [live site](/chronicle/codex-vini/) in any modern browser. Use the filters in the left panel to narrow by country, grape, colour, or rating. Click any pin on the map for a full wine card. Click any row in The Book to fly the map to that wine. Click any of the **Reset** buttons or press `Esc` to clear all filters and return the map to its default Europe view.
 
-To run locally, use a local server (`python3 -m http.server` from the repo root) and open `http://localhost:8000/`. The page loads `wines.json`, `grapes.json`, and `regions.json` via `fetch()`, which most browsers block under the `file://` protocol — opening `index.html` by double-click will render the layout but show zero wines. As an alternative, open `codex-vini-preview.html` directly; it has the data embedded and works without a server.
+To run locally, use a local server (`python3 -m http.server` from the repository root) and open `http://localhost:8000/chronicle/codex-vini/`. The page loads `wines.json`, `grapes.json`, and `regions.json` via `fetch()`, which most browsers block under the `file://` protocol — opening `index.html` by double-click will render the layout but show zero wines.
 
 ## Adding a new wine
 
@@ -115,3 +114,7 @@ This work is licensed under [Creative Commons Attribution-NonCommercial 4.0 Inte
 ---
 
 *Jure Skarabot · New York · 2026*
+
+## Part of Vinotheca
+
+One of the works of [Vinotheca](https://thevinotheca.com), a library of wine works, published at https://thevinotheca.com/chronicle/codex-vini/. The works share one repository, one licence and one site.

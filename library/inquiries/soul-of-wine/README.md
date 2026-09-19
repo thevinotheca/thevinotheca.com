@@ -128,3 +128,7 @@ The pipeline reproduces identity clustering (D-scores → k-means), terroir clus
 ---
 
 *The map is not the soul. The soul has to be built.*
+
+## Part of Vinotheca
+
+One of the works of [Vinotheca](https://thevinotheca.com), a library of wine works, published at https://thevinotheca.com/library/inquiries/soul-of-wine/. The works share one repository, one licence and one site.

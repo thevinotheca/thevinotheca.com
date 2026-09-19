@@ -56,3 +56,7 @@ This work is licensed under [Creative Commons Attribution-NonCommercial 4.0 Inte
 ---
 
 *Jure Skarabot · New York*
+
+## Part of Vinotheca
+
+One of the works of [Vinotheca](https://thevinotheca.com), a library of wine works, published at https://thevinotheca.com/library/inquiries/grape-affinities/. The works share one repository, one licence and one site.
