@@ -1,5 +1,19 @@
 [
   {
+    "id": "bodega-chacra-chardonnay-2024",
+    "producer": "Bodega Chacra",
+    "wine": "Chardonnay",
+    "vintage": "2024",
+    "country": "Argentina",
+    "region": "Río Negro",
+    "grape": "Chardonnay",
+    "color": "white",
+    "rating": 9.8,
+    "date_tasted": "2026-09-26",
+    "lat": -39.05,
+    "lng": -67.45
+  },
+  {
     "id": "chateau-haut-brion-chateau-haut-brion-1998",
     "producer": "Château Haut-Brion",
     "wine": "Château Haut-Brion",
