@@ -1,5 +1,20 @@
 [
   {
+    "id": "tim-mondavi",
+    "name": "Tim Mondavi",
+    "estate": "Continuum Estate",
+    "country": "USA",
+    "region": "Napa Valley",
+    "event": "Tribeca Wine Merchants",
+    "date_met": "2026-10-07",
+    "bio": "Joined Robert Mondavi Winery full time in 1974 and led its winegrowing for some thirty years, until the winery was sold in 2004. In 2005 he founded Continuum with his sister Marcia and their father Robert. The family acquired parcels on Pritchard Hill, on the eastern ridge above Napa Valley, in 2008 and combined them as Sage Mountain Vineyard, rocky red volcanic soils between roughly 1,300 and 1,600 feet. The flagship Continuum has been wholly estate-grown since 2012; Novicium is the estate's second wine. Cabernet Franc's share of the blend has risen over the years.",
+    "lat": 38.43,
+    "lng": -122.4,
+    "felt_close_to": false,
+    "memorable_encounter": false,
+    "stayed_with_me": false
+  },
+  {
     "id": "pedro-parra",
     "name": "Pedro Parra",
     "estate": "Pedro Parra y Familia",
