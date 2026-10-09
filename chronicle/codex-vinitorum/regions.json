@@ -27,5 +27,6 @@
   "Napa Valley": { "lat": 38.43, "lng": -122.4 },
   "Washington State": { "lat": 47.75, "lng": -122.16 },
   "Santa Barbara": { "lat": 34.6, "lng": -120.18 },
-  "Paso Robles": { "lat": 35.62, "lng": -120.74 }
+  "Paso Robles": { "lat": 35.62, "lng": -120.74 },
+  "Sonoma Coast": { "lat": 38.52, "lng": -123.18 }
 }
