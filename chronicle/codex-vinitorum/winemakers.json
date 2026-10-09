@@ -1,5 +1,20 @@
 [
   {
+    "id": "jasmine-hirsch",
+    "name": "Jasmine Hirsch",
+    "estate": "Hirsch Vineyards",
+    "country": "USA",
+    "region": "Sonoma Coast",
+    "event": "Flatiron Wines",
+    "date_met": "2026-10-08",
+    "bio": "Daughter of David Hirsch, who bought the ranch above Fort Ross in 1978 and planted the first vines in 1980. She studied Asian and Middle Eastern Studies at Pennsylvania and worked in Prague, Amsterdam, and New York before joining the estate in 2008 in sales and marketing. With Rajat Parr she founded In Pursuit of Balance in 2011; it disbanded in 2016. She became general manager in 2015 and winemaker in 2019, having not made wine before. The estate is 72 planted acres divided into 67 blocks within Fort Ross-Seaview, between roughly 1,100 and 1,500 feet and close to the San Andreas Fault, biodynamic since a conversion completed in 2014. Bohan-Dillon and San Andreas Fault are the estate blends.",
+    "lat": 38.55,
+    "lng": -123.22,
+    "felt_close_to": false,
+    "memorable_encounter": false,
+    "stayed_with_me": true
+  },
+  {
     "id": "tim-mondavi",
     "name": "Tim Mondavi",
     "estate": "Continuum Estate",
