@@ -1,5 +1,19 @@
 [
   {
+    "id": "hirsch-vineyards-reserve-pinot-noir-2023",
+    "producer": "Hirsch Vineyards",
+    "wine": "Reserve Pinot Noir",
+    "vintage": "2023",
+    "country": "USA",
+    "region": "Sonoma",
+    "grape": "Pinot Noir",
+    "color": "red",
+    "rating": 9.7,
+    "date_tasted": "2026-10-09",
+    "lat": 38.5,
+    "lng": -122.8
+  },
+  {
     "id": "bodega-chacra-chardonnay-2024",
     "producer": "Bodega Chacra",
     "wine": "Chardonnay",
