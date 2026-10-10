@@ -14,6 +14,20 @@
     "lng": -122.8
   },
   {
+    "id": "continuum-estate-continuum-2023",
+    "producer": "Continuum Estate",
+    "wine": "Continuum",
+    "vintage": "2023",
+    "country": "USA",
+    "region": "Napa Valley",
+    "grape": "Bordeaux Blend",
+    "color": "red",
+    "rating": 9.9,
+    "date_tasted": "2026-10-07",
+    "lat": 38.5,
+    "lng": -122.42
+  },
+  {
     "id": "bodega-chacra-chardonnay-2024",
     "producer": "Bodega Chacra",
     "wine": "Chardonnay",
