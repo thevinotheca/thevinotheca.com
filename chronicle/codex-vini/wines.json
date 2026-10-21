@@ -1,5 +1,19 @@
 [
   {
+    "id": "vilmart-cie-coeur-de-cuvee-brut-premier-cru-2017",
+    "producer": "Vilmart & Cie",
+    "wine": "Coeur de Cuvée Brut Premier Cru",
+    "vintage": "2017",
+    "country": "France",
+    "region": "Champagne",
+    "grape": "Champagne / Sparkling",
+    "color": "sparkling",
+    "rating": 9.5,
+    "date_tasted": "2026-10-19",
+    "lat": 49.043,
+    "lng": 4.024
+  },
+  {
     "id": "doyard-monts-ferres-blanc-de-blancs-1er-cru-extra-brut-2018",
     "producer": "Doyard",
     "wine": "Monts Ferrés Blanc de Blancs 1er Cru Extra Brut",
