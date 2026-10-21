@@ -1,5 +1,19 @@
 [
   {
+    "id": "von-winning-kirchenstuck-riesling-grosses-gewachs-2024",
+    "producer": "von Winning",
+    "wine": "Kirchenstück Riesling Grosses Gewächs",
+    "vintage": "2024",
+    "country": "Germany",
+    "region": "Pfalz",
+    "grape": "Riesling",
+    "color": "white",
+    "rating": 9.5,
+    "date_tasted": "2026-10-19",
+    "lat": 49.4,
+    "lng": 8.18
+  },
+  {
     "id": "bilancia-la-collina-syrah-2020",
     "producer": "Bilancia",
     "wine": "La Collina Syrah",
