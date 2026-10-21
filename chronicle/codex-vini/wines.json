@@ -1,5 +1,19 @@
 [
   {
+    "id": "chateau-la-fleur-petrus-pomerol-2023",
+    "producer": "Château La Fleur-Pétrus",
+    "wine": "Pomerol",
+    "vintage": "2023",
+    "country": "France",
+    "region": "Bordeaux",
+    "grape": "Bordeaux Blend",
+    "color": "red",
+    "rating": 9.6,
+    "date_tasted": "2026-10-19",
+    "lat": 44.837,
+    "lng": -0.579
+  },
+  {
     "id": "ulysses-cabernet-sauvignon-2021",
     "producer": "Ulysses",
     "wine": "Cabernet Sauvignon",
