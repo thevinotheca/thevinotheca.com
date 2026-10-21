@@ -1,5 +1,19 @@
 [
   {
+    "id": "doyard-monts-ferres-blanc-de-blancs-1er-cru-extra-brut-2018",
+    "producer": "Doyard",
+    "wine": "Monts Ferrés Blanc de Blancs 1er Cru Extra Brut",
+    "vintage": "2018",
+    "country": "France",
+    "region": "Champagne",
+    "grape": "Champagne / Sparkling",
+    "color": "sparkling",
+    "rating": 9.7,
+    "date_tasted": "2026-10-19",
+    "lat": 49.043,
+    "lng": 4.024
+  },
+  {
     "id": "chateau-la-fleur-petrus-pomerol-2023",
     "producer": "Château La Fleur-Pétrus",
     "wine": "Pomerol",
