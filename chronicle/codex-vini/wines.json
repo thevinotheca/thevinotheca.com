@@ -1,5 +1,19 @@
 [
   {
+    "id": "bilancia-la-collina-syrah-2020",
+    "producer": "Bilancia",
+    "wine": "La Collina Syrah",
+    "vintage": "2020",
+    "country": "New Zealand",
+    "region": "Hawke's Bay",
+    "grape": "Syrah",
+    "color": "red",
+    "rating": 9.6,
+    "date_tasted": "2026-10-19",
+    "lat": -39.635,
+    "lng": 176.85
+  },
+  {
     "id": "vilmart-cie-coeur-de-cuvee-brut-premier-cru-2017",
     "producer": "Vilmart & Cie",
     "wine": "Coeur de Cuvée Brut Premier Cru",
