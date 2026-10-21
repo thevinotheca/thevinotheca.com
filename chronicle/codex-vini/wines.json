@@ -1,5 +1,19 @@
 [
   {
+    "id": "turley-fredericks-vineyard-zinfandel-2023",
+    "producer": "Turley",
+    "wine": "Fredericks Vineyard Zinfandel",
+    "vintage": "2023",
+    "country": "USA",
+    "region": "Napa Valley",
+    "grape": "Zinfandel",
+    "color": "red",
+    "rating": 9.5,
+    "date_tasted": "2026-10-19",
+    "lat": 38.5,
+    "lng": -122.42
+  },
+  {
     "id": "mayacamas-vineyards-cabernet-sauvignon-2022",
     "producer": "Mayacamas Vineyards",
     "wine": "Cabernet Sauvignon",
