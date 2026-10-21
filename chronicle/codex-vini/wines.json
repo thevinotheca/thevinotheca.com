@@ -1,5 +1,19 @@
 [
   {
+    "id": "ulysses-cabernet-sauvignon-2021",
+    "producer": "Ulysses",
+    "wine": "Cabernet Sauvignon",
+    "vintage": "2021",
+    "country": "USA",
+    "region": "Napa Valley",
+    "grape": "Cabernet Sauvignon",
+    "color": "red",
+    "rating": 9.8,
+    "date_tasted": "2026-10-19",
+    "lat": 38.5,
+    "lng": -122.42
+  },
+  {
     "id": "chateau-belair-monange-saint-emilion-grand-cru-2022",
     "producer": "Château Bélair-Monange",
     "wine": "Saint-Émilion Grand Cru",
