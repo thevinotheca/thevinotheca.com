@@ -1,5 +1,19 @@
 [
   {
+    "id": "mayacamas-vineyards-cabernet-sauvignon-2022",
+    "producer": "Mayacamas Vineyards",
+    "wine": "Cabernet Sauvignon",
+    "vintage": "2022",
+    "country": "USA",
+    "region": "Napa Valley",
+    "grape": "Cabernet Sauvignon",
+    "color": "red",
+    "rating": 9.7,
+    "date_tasted": "2026-10-19",
+    "lat": 38.5,
+    "lng": -122.42
+  },
+  {
     "id": "von-winning-kirchenstuck-riesling-grosses-gewachs-2024",
     "producer": "von Winning",
     "wine": "Kirchenstück Riesling Grosses Gewächs",
