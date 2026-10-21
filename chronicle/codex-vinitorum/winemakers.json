@@ -1,5 +1,20 @@
 [
   {
+    "id": "christian-moueix",
+    "name": "Christian Moueix",
+    "estate": "Dominus Estate",
+    "country": "USA",
+    "region": "Napa Valley",
+    "event": "Empire State Wines",
+    "date_met": "2026-10-19",
+    "bio": "Son of Jean-Pierre Moueix, who founded the Libourne négociant house Établissements Jean-Pierre Moueix in 1937. He studied agricultural engineering in Paris and enology at UC Davis, returned to Bordeaux in 1973, and has been president of the family firm since 1991. He directed Pétrus for close to four decades and oversees the family's Right Bank châteaux, among them La Fleur-Pétrus, Trotanoy and Hosanna in Pomerol and Bélair-Monange in Saint-Émilion, assembled in 2008. He was among the first in Bordeaux to practise green harvesting. In 1982 he entered a partnership with Robin Lail and Marcia Smith on the Napanook vineyard at Yountville, producing the first Dominus from the 1983 vintage and becoming sole owner in the mid-1990s; Napanook is the estate's second wine, first released in 1996. The Dominus winery, completed in 1997, was the first of several projects with Herzog and de Meuron. The Napa vineyards are dry-farmed and organically certified, and his son Edouard is now involved on both sides.",
+    "lat": 38.4,
+    "lng": -122.37,
+    "felt_close_to": false,
+    "memorable_encounter": true,
+    "stayed_with_me": true
+  },
+  {
     "id": "jasmine-hirsch",
     "name": "Jasmine Hirsch",
     "estate": "Hirsch Vineyards",
