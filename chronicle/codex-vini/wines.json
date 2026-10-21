@@ -1,5 +1,19 @@
 [
   {
+    "id": "chateau-belair-monange-saint-emilion-grand-cru-2022",
+    "producer": "Château Bélair-Monange",
+    "wine": "Saint-Émilion Grand Cru",
+    "vintage": "2022",
+    "country": "France",
+    "region": "Bordeaux",
+    "grape": "Bordeaux Blend",
+    "color": "red",
+    "rating": 9.8,
+    "date_tasted": "2026-10-19",
+    "lat": 44.837,
+    "lng": -0.579
+  },
+  {
     "id": "hirsch-vineyards-reserve-pinot-noir-2023",
     "producer": "Hirsch Vineyards",
     "wine": "Reserve Pinot Noir",
