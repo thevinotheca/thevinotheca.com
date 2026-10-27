@@ -1,5 +1,19 @@
 [
   {
+    "id": "chateau-cheval-blanc-chateau-cheval-blanc-2015",
+    "producer": "Château Cheval Blanc",
+    "wine": "Château Cheval Blanc",
+    "vintage": "2015",
+    "country": "France",
+    "region": "Bordeaux",
+    "grape": "Bordeaux Blend",
+    "color": "red",
+    "rating": 10.0,
+    "date_tasted": "2026-10-26",
+    "lat": 44.837,
+    "lng": -0.579
+  },
+  {
     "id": "cheval-des-andes-cheval-des-andes-2023",
     "producer": "Cheval des Andes",
     "wine": "Cheval des Andes",
