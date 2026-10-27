@@ -1,5 +1,19 @@
 [
   {
+    "id": "cheval-des-andes-cheval-des-andes-2023",
+    "producer": "Cheval des Andes",
+    "wine": "Cheval des Andes",
+    "vintage": "2023",
+    "country": "Argentina",
+    "region": "Mendoza",
+    "grape": "Bordeaux Blend",
+    "color": "red",
+    "rating": 9.8,
+    "date_tasted": "2026-10-26",
+    "lat": -33.3,
+    "lng": -68.8
+  },
+  {
     "id": "turley-fredericks-vineyard-zinfandel-2023",
     "producer": "Turley",
     "wine": "Fredericks Vineyard Zinfandel",
