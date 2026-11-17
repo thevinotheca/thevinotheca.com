@@ -256,6 +256,37 @@ footer{
   .modal-head{padding:18px 22px 14px}
   .modal-body{padding:18px 22px 24px}
 }
+@media(max-width:700px){
+  .table-wrap{overflow-x:visible}
+
+  thead{display:block}
+  thead tr{display:flex;flex-wrap:wrap;gap:1px 3px;padding:6px 10px 7px}
+  th{display:inline-block;width:auto;padding:11px 9px;font-size:10px;letter-spacing:0.08em;
+     line-height:1.2;text-align:left;white-space:nowrap;border-radius:3px}
+  th.rating-col{text-align:left}
+  th.sorted{background:var(--bordeaux-tint)}
+
+  table,tbody,tbody tr{display:block;width:auto}
+  tbody td{display:block;padding:0;border:none;max-width:none;white-space:normal;
+           overflow:visible;text-overflow:clip}
+  tbody tr{position:relative;padding:13px 16px 12px}
+
+  td.producer-cell{font-size:16.5px;line-height:1.2;max-width:none;white-space:normal;
+                   overflow:visible;text-overflow:clip;padding-right:58px}
+  td.wine-cell{font-size:14.5px;line-height:1.3;max-width:none;white-space:normal;
+               overflow:visible;text-overflow:clip;padding-right:58px;margin-top:1px}
+  td.rating-cell{position:absolute;top:12px;right:16px;font-family:var(--serif);
+                 font-size:21px;font-weight:600;color:var(--bordeaux);text-align:right}
+  td.vintage-cell{display:inline;font-size:11px;margin-top:7px}
+  td.region-cell{display:inline;font-size:11.5px;white-space:normal}
+  td.country-cell{display:inline;font-size:11px}
+  td.vintage-cell::after,td.region-cell::after{content:" · ";color:var(--rule);font-style:normal}
+  td.country-cell::after{content:"";display:block;height:6px}
+  td.grape-cell{font-size:11px;padding-right:86px}
+  td.grape-cell .grape-wrap{white-space:normal}
+  td.date-cell{position:absolute;right:16px;bottom:12px;font-size:10.5px;
+               color:var(--ink-faint);font-family:var(--mono)}
+}
 
 .hint-touch{display:none}
 @media (hover: none) and (pointer: coarse){
