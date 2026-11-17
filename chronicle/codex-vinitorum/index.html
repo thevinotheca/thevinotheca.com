@@ -128,6 +128,8 @@
       white-space: normal }
     .book-table tbody tr { position: relative; padding: 13px 16px 12px;
       border-bottom: 1px solid var(--border-soft) }
+    .book-table tbody tr:hover { background: var(--paper-deep) }
+    .book-table tbody tr:hover td { background: transparent }
 
     .book-table tbody td.col-name { font-family: 'Cormorant Garamond', Georgia, serif;
       font-size: 17px; line-height: 1.2; color: var(--ink); padding-right: 62px }
@@ -150,6 +152,10 @@
     .book-table tbody td.col-signal:empty { display: none }
     .book-table tbody td.col-signal .fleuron { color: var(--wine-light); font-size: 13px }
     .book-table tbody td.col-signal .fleuron::after { content: " " attr(data-tooltip) }
+    .book-table tbody td.col-signal .fleuron[data-tooltip]:hover::after {
+      content: " " attr(data-tooltip); position: static; transform: none;
+      background: none; color: inherit; font: inherit; letter-spacing: inherit;
+      padding: 0; margin: 0; border-radius: 0; white-space: normal; z-index: auto }
 
     .signal-legend { display: none }
   }
