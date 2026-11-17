@@ -171,6 +171,24 @@
   @media (max-width: 720px) { #atlas-map { order: 1; height: 55vh; min-height: 360px; } .atlas-controls { order: 2; } }
   .leaflet-popup-content-wrapper { background: var(--paper-raised); border-radius: 3px; padding: 0; }
   .leaflet-popup-content { font-family: 'EB Garamond', Georgia, serif; font-size: 14px; line-height: 1.5; color: var(--ink); margin: 16px 18px !important; max-width: 320px; }
+  @media (max-width: 720px) {
+    .leaflet-popup-content {
+      max-width: 222px;
+      margin: 12px 14px !important;
+      font-size: 13px;
+      line-height: 1.45;
+      max-height: 212px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      background-image:
+        linear-gradient(to top, var(--paper-raised), var(--paper-raised)),
+        linear-gradient(to top, rgba(28, 26, 24, 0.10), rgba(28, 26, 24, 0));
+      background-position: bottom center, bottom center;
+      background-repeat: no-repeat;
+      background-size: 100% 14px, 100% 30px;
+      background-attachment: local, scroll;
+    }
+  }
   .leaflet-popup-tip { background: var(--paper-raised); }
   .popup-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 20px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
   .popup-estate { font-style: italic; color: var(--ink-soft); margin-bottom: 4px; font-size: 15px; }
