@@ -106,6 +106,53 @@
   .empty-row td { padding: 30px; text-align: center; font-style: italic; color: var(--ink-muted); }
   @media (max-width: 720px) { .book-wrap { -webkit-overflow-scrolling: touch; } .book-table td { padding: 10px 12px; } }
   .signal-legend { display: flex; flex-wrap: wrap; align-items: baseline; padding: 10px 2px 0; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 14px; color: var(--ink-muted); letter-spacing: 0.05em; } .signal-legend .legend-fleuron { color: var(--wine-light); font-size: 16px; margin-right: 5px; } .signal-legend .sep { margin: 0 10px; } .signal-legend .legend-item { white-space: nowrap; }
+  @media (max-width: 720px) {
+    .book-wrap { overflow-x: visible }
+
+    .book-table thead { display: block }
+    .book-table thead tr { display: flex; flex-wrap: wrap; gap: 2px 2px;
+      padding: 7px 10px 8px; background: var(--paper-deep);
+      border-bottom: 1px solid var(--border) }
+    .book-table thead th { display: inline-block; width: auto; border: none;
+      background: transparent; padding: 10px 9px; font-size: 12px; font-style: italic;
+      line-height: 1.15; text-align: left; white-space: nowrap; border-radius: 3px;
+      color: var(--ink-muted) }
+    .book-table thead th.col-signal-header { text-align: left; font-size: 12px;
+      padding: 10px 9px }
+    .book-table thead th:has(.sort-indicator:not(:empty)) { color: var(--wine);
+      background: var(--paper-raised) }
+    .book-table thead th .sort-indicator { width: auto; margin-left: 3px; font-size: 8px }
+
+    .book-table, .book-table tbody, .book-table tbody tr { display: block; width: auto }
+    .book-table tbody td { display: block; padding: 0; border: none; max-width: none;
+      white-space: normal }
+    .book-table tbody tr { position: relative; padding: 13px 16px 12px;
+      border-bottom: 1px solid var(--border-soft) }
+
+    .book-table tbody td.col-name { font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 17px; line-height: 1.2; color: var(--ink); padding-right: 62px }
+    .book-table tbody td.col-estate { font-family: 'EB Garamond', Georgia, serif;
+      font-style: italic; font-size: 14.5px; line-height: 1.3; color: var(--ink-soft);
+      padding-right: 62px; margin-top: 1px }
+    .book-table tbody td.col-met { position: absolute; top: 13px; right: 16px;
+      font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px;
+      color: var(--wine); font-weight: 500 }
+    .book-table tbody td.col-region { display: inline; font-size: 11.5px;
+      color: var(--ink-soft); margin-top: 7px }
+    .book-table tbody td.col-country { display: inline; font-size: 11px;
+      color: var(--ink-muted) }
+    .book-table tbody td.col-region::after { content: " · "; color: var(--border) }
+    .book-table tbody td.col-country::after { content: ""; display: block; height: 6px }
+
+    .book-table tbody td.col-signal { display: inline-block; margin-top: 7px;
+      margin-right: 12px; font-family: 'EB Garamond', Georgia, serif; font-size: 12px;
+      color: var(--ink-muted); letter-spacing: 0.02em }
+    .book-table tbody td.col-signal:empty { display: none }
+    .book-table tbody td.col-signal .fleuron { color: var(--wine-light); font-size: 13px }
+    .book-table tbody td.col-signal .fleuron::after { content: " " attr(data-tooltip) }
+
+    .signal-legend { display: none }
+  }
 
   /* Atlas */
   .atlas-wrap { display: grid; grid-template-columns: 280px 1fr; gap: 18px; }
